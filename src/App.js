@@ -3,9 +3,7 @@ import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import Sidebar from "./Components/Sidebar";
 import TopBar from "./Components/Topbar";
 import Dashboard from "./Components/Dashboard/Dashboard";
-import Employees from "./Components/Employees/Employees";
 import AnalyticsReporting from "./Components/AnalyticsReporting/AnalyticsReporting";
-import CreatePost from "./Components/CreatePost/CreatePost";
 import AttendanceTime from "./Components/AttendanceTime/AttendanceTime";
 import BenefitsCompliance from "./Components/BenefitsCompliance/BenefitsCompliance";
 import EmployeeManagement from "./Components/EmployeeManagement/EmployeeManagement";
@@ -23,9 +21,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/employees" element={<Employees />} />
               <Route path="/analytics-reporting" element={<AnalyticsReporting />}/>
-              <Route path="/create-post" element={<CreatePost />} />
               <Route path="/attendance" element={<AttendanceTime />} />
               <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
               <Route path="/employee-management" element={<EmployeeManagement />} />

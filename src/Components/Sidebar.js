@@ -7,9 +7,7 @@ const Sidebar = () => {
   return (
     <div style={sidebarStyles}>
       <div style={itemStyles} onClick={() => navigate("/dashboard")}>📊 Dashboard</div>
-      <div style={itemStyles} onClick={() => navigate("/employees")}>👥 Employees</div>
       <div style={itemStyles} onClick={() => navigate("/employee-management")}>👥 Employee Management</div>
-      <div style={itemStyles} onClick={() => navigate("/create-post")}>✍️ Create Post</div>
       <div style={itemStyles} onClick={() => navigate("/payroll")}>💰 Payroll & Compensation</div>
       <div style={itemStyles} onClick={() => navigate("/attendance")}>⏳ Attendance & Time</div>
       <div style={itemStyles} onClick={() => navigate("/performance")}>📊 Performance Management</div>
@@ -25,16 +23,16 @@ const Sidebar = () => {
 
 const sidebarStyles = {
   width: "250px",
-  height: "calc(100vh - 60px)", // Adjusted for top bar height
+  height: "calc(100vh - 60px)", 
   backgroundColor: "#2c3e50",
   color: "white",
-  padding: "20px",
+  paddingTop: "50px",
+  paddingLeft: '10px',
   position: "fixed",
-  top: "60px",  // Start below the TopBar
+  top: "60px",  
   left: "0",
   overflowY: "auto",
   zIndex: 999,
-  marginTop: '10px',
   paddingRight: '2px',
 };
 
