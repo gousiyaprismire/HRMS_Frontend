@@ -34,6 +34,7 @@ const sidebarStyles = {
   overflowY: "auto",
   zIndex: 999,
   paddingRight: '2px',
+  marginTop: '10px',
 };
 
 const itemStyles = {

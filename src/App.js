@@ -7,6 +7,8 @@ import AnalyticsReporting from "./Components/AnalyticsReporting/AnalyticsReporti
 import AttendanceTime from "./Components/AttendanceTime/AttendanceTime";
 import BenefitsCompliance from "./Components/BenefitsCompliance/BenefitsCompliance";
 import EmployeeManagement from "./Components/EmployeeManagement/EmployeeManagement";
+import PayrollCompensation from "./Components/PayrollCompensation/PayrollCompensation";
+import Recruitment from "./Components/Recruitment/Recruitment";
 
 
 
@@ -25,6 +27,9 @@ const App = () => {
               <Route path="/attendance" element={<AttendanceTime />} />
               <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
               <Route path="/employee-management" element={<EmployeeManagement />} />
+              <Route path="/payroll" element={<PayrollCompensation />} />
+              <Route path="performance" element={<PayrollCompensation />} />
+              <Route path="/recruitment" element={<Recruitment />} />
             </Routes>
           </div>
         </div>
