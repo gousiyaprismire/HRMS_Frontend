@@ -3,7 +3,7 @@ import React from 'react'
 function SecurityDataPrivacy() {
   return (
     <div>
-      <h1>Security Data Privacy</h1>
+      <h1>Security And Data Privacy</h1>
     </div>
   )
 }
