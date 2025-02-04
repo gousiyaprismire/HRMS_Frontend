@@ -1,0 +1,422 @@
+
+* {
+    font-family: 'Roboto';
+    box-sizing: border-box;
+  }
+  
+
+  
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .header {
+    font-size: 28px;
+    font-weight: 500;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .tabs button {
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+  }
+  
+  .tabs button.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .tabs button:hover {
+    background-color: #ddd;
+  }
+  
+
+  input,
+  select {
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  input:focus,
+  select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+ 
+  .job-item,
+  .applicant-item {
+    background-color: #fff;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .job-title,
+  .applicant-name {
+    font-weight: bold;
+  }
+  
+  .job-description,
+  .applicant-job {
+    font-style: Robotc;
+    color: #777;
+  }
+  
+  .status {
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
+  .status.pending {
+    background-color: #ffb84d;
+    color: white;
+  }
+  
+  .status.shortlisted {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .status.rejected {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  
+  .add-job-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-job-form button {
+    padding: 12px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-job-form button:hover {
+    background-color: #218838;
+  }
+  
+  
+  .applicant-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  .applicant-form button {
+    padding: 12px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .applicant-form button:hover {
+    background-color:green;
+  }
+  
+ 
+  .onboarding-form input {
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .onboarding-form button {
+    padding: 12px 20px;
+    background-color: #fff20050;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .onboarding-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  
+  .interview-item {
+    background-color: #fff;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .interview-item span {
+    font-weight: bold;
+  }
+  
+  .interview-form input {
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .interview-form button {
+    padding: 12px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .interview-form button:hover {
+    background-color: #218838;
+  }
+  
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .offer-container {
+    font-family: 'Roboto', sans-serif;
+    margin: 20px;
+  }
+  
+  .offer-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .offer-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .offer-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .offer-item button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .offer-item button:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .offer-item button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .offer-form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .offer-form input {
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+  
+  .offer-form button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .offer-form button:hover {
+    background-color: #218838;
+  }
+  
+  .offer-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .onboarding-container {
+    font-family: 'Roboto', sans-serif;
+    padding: 20px;
+  }
+  
+  .onboarding-container h2 {
+    font-size: 24px;
+    color: #18181a;
+    margin-bottom: 20px;
+  }
+  
+  .new-hire-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .new-hire-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .new-hire-item h3 {
+    margin: 0;
+    font-size: 20px;
+  }
+  
+  .new-hire-item p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  
+  .status-buttons button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .status-buttons button:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .status-buttons button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .status-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+
+.add-job-form select, 
+.add-job-form input {
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.add-job-form button {
+  padding: 12px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.add-job-form button:hover {
+  background-color: #218838;
+}
+
+
+.job-item {
+  background-color: #fff;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.job-title {
+  font-weight: bold;
+}
+
+.job-description {
+  font-style: Roboto;
+  color: #777;
+}
