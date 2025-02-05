@@ -120,6 +120,7 @@
     flex-direction: column;
   }
   
+  
   .add-job-form button {
     padding: 12px 20px;
     background-color: #28a745;
@@ -129,6 +130,9 @@
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
+    cursor: pointer;
+    max-width: 500px; 
+    align-self: center;  
   }
   
   .add-job-form button:hover {
@@ -151,6 +155,8 @@
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
+    max-width: 500px; 
+    align-self: center;
   }
   
   .applicant-form button:hover {

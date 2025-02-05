@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Recruitment.css"; // Import the CSS file
+import "./Recruitment.css"; 
 
 function OfferLetters() {
   const [offers, setOffers] = useState([
