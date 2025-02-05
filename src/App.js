@@ -10,6 +10,7 @@ import EmployeeManagement from "./Components/EmployeeManagement/EmployeeManageme
 import PayrollCompensation from "./Components/PayrollCompensation/PayrollCompensation";
 import Recruitment from "./Components/Recruitment/Recruitment";
 import SecurityDataPrivacy from "./Components/SecurityDataPrivacy/SecurityDataPrivacy";
+import PerformanceManagement from "./Components/PerformanceManagement/PerformanceManagement";
 
 
 
@@ -30,7 +31,7 @@ const App = () => {
               <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
               <Route path="/employee-management" element={<EmployeeManagement />} />
               <Route path="/payroll" element={<PayrollCompensation />} />
-              <Route path="performance" element={<PayrollCompensation />} />
+              <Route path="performance" element={<PerformanceManagement />} />
               <Route path="/recruitment" element={<Recruitment />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
             </Routes>
