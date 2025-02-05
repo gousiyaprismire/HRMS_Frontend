@@ -13,7 +13,7 @@ const Sidebar = () => {
       <div style={itemStyles} onClick={() => navigate("/performance")}>📊 Performance Management</div>
       <div style={itemStyles} onClick={() => navigate("/recruitment")}>📝 Recruitment</div>
       <div style={itemStyles} onClick={() => navigate("/benefits-compliance")}>📜 Benefits & Compliance</div>
-      <div style={itemStyles} onClick={() => navigate("/self-service")}>💻 Self-Service</div>
+      <div style={itemStyles} onClick={() => navigate("/selfservice")}>💻 SelfService</div>
       <div style={itemStyles} onClick={() => navigate("/analytics-reporting")}>📈 Analytics & Reporting</div>
       <div style={itemStyles} onClick={() => navigate("/mobile-accessibility")}>📱 Mobile Accessibility</div>
       <div style={itemStyles} onClick={() => navigate("/security")}>🔒 Security & Data Privacy</div>

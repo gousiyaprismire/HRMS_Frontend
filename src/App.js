@@ -11,6 +11,7 @@ import PayrollCompensation from "./Components/PayrollCompensation/PayrollCompens
 import Recruitment from "./Components/Recruitment/Recruitment";
 import SecurityDataPrivacy from "./Components/SecurityDataPrivacy/SecurityDataPrivacy";
 import PerformanceManagement from "./Components/PerformanceManagement/PerformanceManagement";
+import SelfService from "./Components/SelfService/SelfService";
 
 
 
@@ -34,6 +35,7 @@ const App = () => {
               <Route path="performance" element={<PerformanceManagement />} />
               <Route path="/recruitment" element={<Recruitment />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
+              <Route path="/selfservice" element= {<SelfService />}/>
             </Routes>
           </div>
         </div>
