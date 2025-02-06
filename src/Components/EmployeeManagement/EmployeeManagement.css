@@ -18,34 +18,7 @@
   }
   
   /* ===== Tabs Navigation ===== */
-  .tabs {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
   
-  .tabs button {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .tabs button:hover {
-    background: #0056b3;
-  }
-  
-  .tabs button.active {
-    background: #0056b3;
-    font-weight: bold;
-    transform: scale(1.05);
-  }
   
   /* ===== Tab Content Area ===== */
   .tab-content {
@@ -144,29 +117,85 @@
   
   /* ===== Add Employee Styling ===== */
   .add-employee {
-    text-align: left;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
   
-  .add-employee input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
+  .add-employee h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    width: 200px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    flex: 1;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .form-group textarea {
+    resize: vertical;
+    height: 80px;
   }
   
   .add-employee button {
     width: 100%;
-    background-color: #007bff;
-    color: white;
+    padding: 12px;
+    background: #007bff;
+    color: #fff;
+    font-size: 18px;
     border: none;
-    padding: 10px;
     border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s ease-in-out;
   }
   
   .add-employee button:hover {
-    background-color: #0056b3;
+    background: #0056b3;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .add-employee {
+      max-width: 90%;
+      padding: 15px;
+    }
+  
+    .form-group {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .form-group label {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+  
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+    }
   }
   
   /* ===== Employee Documents Styling ===== */
