@@ -10,7 +10,9 @@ import EmployeeManagement from "./Components/EmployeeManagement/EmployeeManageme
 import PayrollCompensation from "./Components/PayrollCompensation/PayrollCompensation";
 import Recruitment from "./Components/Recruitment/Recruitment";
 import SecurityDataPrivacy from "./Components/SecurityDataPrivacy/SecurityDataPrivacy";
-
+import PerformanceManagement from "./Components/PerformanceManagement/PerformanceManagement";
+import SelfService from "./Components/SelfService/SelfService";
+import EmployeeAttendanceTracking from "./Components/AttendanceTime/EmployeeAttendanceTracking";
 
 
 
@@ -27,12 +29,14 @@ const App = () => {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/analytics-reporting" element={<AnalyticsReporting />}/>
               <Route path="/attendance" element={<AttendanceTime />} />
+              <Route path="/attendance-tracking" element={<EmployeeAttendanceTracking />} />
               <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
               <Route path="/employee-management" element={<EmployeeManagement />} />
               <Route path="/payroll" element={<PayrollCompensation />} />
-              <Route path="performance" element={<PayrollCompensation />} />
+              <Route path="performance" element={<PerformanceManagement />} />
               <Route path="/recruitment" element={<Recruitment />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
+              <Route path="/selfservice" element= {<SelfService />}/>
             </Routes>
           </div>
         </div>
