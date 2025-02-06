@@ -1,9 +1,4 @@
 import React, { useState } from "react";
-import EmployeeAttendance from "./EmployeeAttendanceTracking";
-import LeaveApplication from "./LeaveApplication";
-import LeaveApprovalPanel from "./LeaveApprovalPanel";
-import TimesheetManagement from "./TimesheetManagement";
-import Holiday from "./Holiday";
 import "./AttendanceTime.css";
 
 
