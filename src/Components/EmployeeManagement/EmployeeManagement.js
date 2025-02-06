@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./EmployeeManagement.css";
 import EmployeeList from "./EmployeeList";
-import EmployeeProfile from "./EmployeeProfile";
 import AddEmployee from "./AddEmployee";
 import EmployeeDocuments from "./EmployeeDocuments";
 import { employees as initialEmployees } from "./data"; 
@@ -26,7 +25,6 @@ function EmployeeManagement() {
       {/* Content Area - Displays Based on Active Tab */}
       <div className="tab-content">
         {activeTab === "employee-list" && <EmployeeList employees={employees} onSelectEmployee={setSelectedEmployee} />}
-        {activeTab === "employee-profile" && selectedEmployee && <EmployeeProfile employee={selectedEmployee} />}
         {activeTab === "add-employee" && <AddEmployee onAdd={(newEmp) => setEmployees([...employees, { ...newEmp, id: employees.length + 1 }])} />}
         {activeTab === "employee-documents" && selectedEmployee && <EmployeeDocuments employee={selectedEmployee} />}
       </div>
