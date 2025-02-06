@@ -12,6 +12,7 @@ const EmployeeProfile = ({ employee }) => {
     }
   }, [employee]);
 
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUpdatedEmployee({ ...updatedEmployee, [name]: value });
