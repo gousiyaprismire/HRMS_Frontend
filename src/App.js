@@ -12,7 +12,7 @@ import Recruitment from "./Components/Recruitment/Recruitment";
 import SecurityDataPrivacy from "./Components/SecurityDataPrivacy/SecurityDataPrivacy";
 import PerformanceManagement from "./Components/PerformanceManagement/PerformanceManagement";
 import SelfService from "./Components/SelfService/SelfService";
-
+import EmployeeAttendanceTracking from "./Components/AttendanceTime/EmployeeAttendanceTracking";
 
 
 
@@ -29,6 +29,7 @@ const App = () => {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/analytics-reporting" element={<AnalyticsReporting />}/>
               <Route path="/attendance" element={<AttendanceTime />} />
+              <Route path="/attendance-tracking" element={<EmployeeAttendanceTracking />} />
               <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
               <Route path="/employee-management" element={<EmployeeManagement />} />
               <Route path="/payroll" element={<PayrollCompensation />} />
