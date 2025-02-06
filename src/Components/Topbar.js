@@ -17,7 +17,7 @@ const TopBar = () => {
 
 const topBarStyles = {
   height: "70px",
-  backgroundColor: "#34495e",
+   //backgroundColor: "#34495e",
   color: "white",
   display: "flex",
   justifyContent: "space-between",
@@ -39,8 +39,8 @@ const logoStyles = {
 };
 
 const buttonStyles = {
-  backgroundColor: "#2980b9",
-  color: "white",
+  // backgroundColor: "#2980b9",
+  color: "black",
   border: "none",
   padding: "10px 15px",
   cursor: "pointer",

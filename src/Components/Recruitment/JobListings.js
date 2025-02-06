@@ -1,80 +1,82 @@
 import React, { useState } from "react";
-import "./Recruitment.css";  
+import "./Recruitment.css";
+
 function JobListings() {
   const [jobs, setJobs] = useState([
-    { title: "Software Engineer", description: "React Developer" },
-    { title: "Product Manager", description: "Product Development Lead" }
+    { title: "Software Engineer", applications: 10, status: "Recruitment Done", hired: "0/3" },
+    { title: "Frontend Developer", applications: 7, status: "Recruitment Done", hired: "0/2" },
+    { title: "Backend Developer", applications: 5, status: "Recruitment Done", hired: "0/2" },
+    { title: "Full Stack Developer", applications: 12, status: "Recruitment Done", hired: "0/4" },
+    // { title: "DevOps Engineer", applications: 6, status: "Recruitment Done", hired: "0/1" },
+    // { title: "QA Engineer", applications: 8, status: "Pending", hired: "0/2" }, 
+    // { title: "UI/UX Designer", applications: 9, status: "Pending", hired: "0/1" },
+    // { title: "Mobile App Developer", applications: 4, status: "Pending", hired: "0/2" },
   ]);
 
-  const [newJob, setNewJob] = useState({ title: "", description: "" });
 
-  
-  const jobDescriptions = {
-    "Software Engineer": ["React Developer", "Full Stack Developer", "Backend Developer"],
-    "Product Manager": ["Product Development Lead", "Product Owner", "Business Analyst"],
-    "UX Designer": ["UX/UI Designer", "Interaction Designer", "Product Designer"],
-    "Data Scientist": ["Machine Learning Engineer", "Data Analyst", "Data Engineer"],
-    "QA Engineer": ["Manual Tester", "Automation Engineer", "QA Lead"]
-  };
 
-  
+  const [newJob, setNewJob] = useState({ title: "", applications: 0, status: "Pending", hired: "0/1" });
+
+  const jobTitles = [
+    "Chief Executive Officer",
+    "Chief Technical Officer",
+    "Consultant",
+    "Experienced Developer",
+    "Human Resources Manager",
+    "Marketing and Community Manager",
+    "Trainee",
+    "ERP Techno Functionalist",
+  ];
+
   const handleAddJob = () => {
-    if (newJob.title && newJob.description) {
+    if (newJob.title) {
       setJobs([...jobs, newJob]);
-      setNewJob({ title: "", description: "" });  // Reset the form
+      setNewJob({ title: "", applications: 0, status: "Pending", hired: "0/1" });
     } else {
-      alert("Please fill in both fields");
+      alert("Please select a job title.");
     }
   };
 
   return (
     <div className="job-listings-container">
-      <h2 className="job-listings-header">Job Listings</h2>
-      
-  
-      <ul>
-        {jobs.map((job, index) => (
-          <li key={index} className="job-item">
-            <span className="job-title">{job.title}</span>
-            <span className="job-description">{job.description}</span>
-          </li>
-        ))}
-      </ul>
+      <h2 className="job-listings-header">Job Positions</h2>
+      {/* <button onClick={handleAddJob} className="job-listings-button">
+        Create
+      </button> */}
 
-     
-      <div className="add-job-form">
-       
+      <div className="job-listings-cards">
+        {jobs.map((job, index) => (
+          <div key={index} className="job-card">
+            <h3 className="job-title">{job.title}</h3>
+            <div className="job-info">
+              <button className="job-applications">
+                Applications: {job.applications}
+              </button>
+              <span className="job-status">
+                {job.status}
+              </span>
+              <span className="job-hired">
+                Hired: {job.hired}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="job-select-container">
         <select
           value={newJob.title}
-          onChange={(e) => {
-            setNewJob({ ...newJob, title: e.target.value, description: "" });  
-          }}
+          onChange={(e) => setNewJob({ ...newJob, title: e.target.value })}
+          className="job-select"
         >
           <option value="">Select Job Title</option>
-          <option value="Software Engineer">Software Engineer</option>
-          <option value="Product Manager">Product Manager</option>
-          <option value="UX Designer">UX Designer</option>
-          <option value="Data Scientist">Data Scientist</option>
-          <option value="QA Engineer">QA Engineer</option>
+          {jobTitles.map((title, index) => (
+            <option key={index} value={title}>{title}</option>
+          ))}
         </select>
-
-      
-        {newJob.title && (
-          <select
-            value={newJob.description}
-            onChange={(e) => setNewJob({ ...newJob, description: e.target.value })}
-          >
-            <option value="">Select Job Description</option>
-            {jobDescriptions[newJob.title].map((desc, index) => (
-              <option key={index} value={desc}>
-                {desc}
-              </option>
-            ))}
-          </select>
-        )}
-
-       
-        <button onClick={handleAddJob}>Add Job</button>
+        <button onClick={handleAddJob} className="add-job-button">
+          Add Job
+        </button>
       </div>
     </div>
   );

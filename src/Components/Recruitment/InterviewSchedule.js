@@ -8,7 +8,7 @@ function InterviewSchedule() {
 
   const [newInterview, setNewInterview] = useState({ candidate: "", date: "", time: "" });
 
-  // Handle interview scheduling
+
   const handleScheduleInterview = () => {
     if (newInterview.candidate && newInterview.date && newInterview.time) {
       setInterviews([...interviews, newInterview]);
@@ -19,7 +19,7 @@ function InterviewSchedule() {
   };
 
   return (
-    <div className="container">
+    <div className="interview-container">
       <h2 className="header">Interview Schedule</h2>
       
       {/* Interview List */}
