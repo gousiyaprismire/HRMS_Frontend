@@ -1,21 +1,32 @@
 import React from "react";
 import "./Salarystructure.css";
 
-function SalaryStructure() {
+function SalaryStructure({ onBack }) {
   return (
-    <div className="section-content">
+    <div className="salary-container">
+      <button className="back-button" onClick={onBack}>Back</button>
       <h2>Salary Structure Management</h2>
+
       <form className="salary-form">
-        <label>Base Salary:</label>
-        <input type="text" placeholder="Enter base salary" />
+        <div className="form-group">
+          <label>Base Salary:</label>
+          <input type="number" placeholder="Enter base salary" />
+        </div>
 
-        <label>HRA (House Rent Allowance):</label>
-        <input type="text" placeholder="Enter HRA amount" />
+        <div className="form-group">
+          <label>HRA:</label>
+          <input type="number" placeholder="Enter HRA amount" />
+        </div>
 
-        <label>Deductions:</label>
-        <input type="text" placeholder="Enter deductions" />
+        <div className="form-group">
+          <label>Deductions:</label>
+          <input type="number" placeholder="Enter deduction amount" />
+        </div>
 
-        <button type="submit">Save Salary Structure</button>
+        <div className="button-container">
+          <button type="submit">Save</button>
+          <button type="button" className="cancel-button" onClick={onBack}>Cancel</button>
+        </div>
       </form>
     </div>
   );
