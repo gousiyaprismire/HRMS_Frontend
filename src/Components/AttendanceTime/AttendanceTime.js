@@ -3,9 +3,10 @@ import { Link } from "react-router-dom"; // Import Link for routing
 import "./AttendanceTime.css"; // External CSS file
 
 
+
 function AttendanceTime() {
   return (
-    <div className="dashboard">
+    <div className="attendanceTime-dashboard">
       <h1>Attendance & Time Management</h1>
       <nav>
         <ul>
