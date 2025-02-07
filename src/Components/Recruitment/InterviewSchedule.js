@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Recruitment.css"; // Importing the combined CSS file
+import "./Recruitment.css"; 
 
 function InterviewSchedule() {
   const [interviews, setInterviews] = useState([
@@ -12,7 +12,7 @@ function InterviewSchedule() {
   const handleScheduleInterview = () => {
     if (newInterview.candidate && newInterview.date && newInterview.time) {
       setInterviews([...interviews, newInterview]);
-      setNewInterview({ candidate: "", date: "", time: "" }); // Clear the form fields
+      setNewInterview({ candidate: "", date: "", time: "" }); 
     } else {
       alert("Please fill in all fields");
     }
@@ -22,7 +22,7 @@ function InterviewSchedule() {
     <div className="interview-container">
       <h2 className="header">Interview Schedule</h2>
       
-      {/* Interview List */}
+      
       <div>
         <ul>
           {interviews.map((int, index) => (
@@ -33,7 +33,7 @@ function InterviewSchedule() {
         </ul>
       </div>
 
-      {/* Interview Schedule Form */}
+      
       <div className="interview-form">
         <input
           type="text"

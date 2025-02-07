@@ -6,7 +6,7 @@
 
  
 body {
-   background: linear-gradient(to bottom right, #D88A29, #2e2929, #D88A29);  
+   background: linear-gradient(to left, #D88A29, #2e2929);  
  
   margin: 0;
   padding: 0;
@@ -213,7 +213,7 @@ body {
 .applicants-header {
   font-size: 32px;
   font-weight: 600;
-  text-align: left;
+  text-align: center;
   color: #333;
   margin-bottom: 25px;
 }

@@ -1,19 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import "./Recruitment.css";
 
 function JobListings() {
+  const navigate = useNavigate(); 
   const [jobs, setJobs] = useState([
     { title: "Software Engineer", applications: 10, status: "Recruitment Done", hired: "0/3" },
     { title: "Frontend Developer", applications: 7, status: "Recruitment Done", hired: "0/2" },
     { title: "Backend Developer", applications: 5, status: "Recruitment Done", hired: "0/2" },
     { title: "Full Stack Developer", applications: 12, status: "Recruitment Done", hired: "0/4" },
-    // { title: "DevOps Engineer", applications: 6, status: "Recruitment Done", hired: "0/1" },
-    // { title: "QA Engineer", applications: 8, status: "Pending", hired: "0/2" }, 
-    // { title: "UI/UX Designer", applications: 9, status: "Pending", hired: "0/1" },
-    // { title: "Mobile App Developer", applications: 4, status: "Pending", hired: "0/2" },
   ]);
-
-
 
   const [newJob, setNewJob] = useState({ title: "", applications: 0, status: "Pending", hired: "0/1" });
 
@@ -37,27 +33,27 @@ function JobListings() {
     }
   };
 
+  const handleNavigateToApplicants = (jobTitle) => {
+    navigate(`/applicants?job=${encodeURIComponent(jobTitle)}`);
+  };
+
   return (
     <div className="job-listings-container">
       <h2 className="job-listings-header">Job Positions</h2>
-      {/* <button onClick={handleAddJob} className="job-listings-button">
-        Create
-      </button> */}
 
       <div className="job-listings-cards">
         {jobs.map((job, index) => (
           <div key={index} className="job-card">
             <h3 className="job-title">{job.title}</h3>
             <div className="job-info">
-              <button className="job-applications">
+              <button 
+                className="job-applications" 
+                onClick={() => handleNavigateToApplicants(job.title)}
+              >
                 Applications: {job.applications}
               </button>
-              <span className="job-status">
-                {job.status}
-              </span>
-              <span className="job-hired">
-                Hired: {job.hired}
-              </span>
+              <span className="job-status">{job.status}</span>
+              <span className="job-hired">Hired: {job.hired}</span>
             </div>
           </div>
         ))}
