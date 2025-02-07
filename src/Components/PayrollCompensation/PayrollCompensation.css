@@ -1,118 +1,53 @@
+/* Container for Payroll & Compensation */
 .payroll-container {
-  padding: 20px;
-  background-color: #f4f7fa;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 70%;
-  margin: auto;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+  background: #f8f9fa; /* Light background */
+  min-height: 100vh; /* Full-page height */
   text-align: center;
 }
 
-.payroll-header {
-  font-size: 24px;
+/* Title Styling */
+.payroll-container h1 {
   color: #2c3e50;
-  font-weight: bold;
-  margin-bottom: 30px;
+  font-size: 28px;
+  margin-bottom: 20px;
 }
 
-.payroll-components {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding: 20px;
-}
-
-.payroll-component {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.payroll-component:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.payroll-component h3 {
-  color: #2c3e50;
-  margin-bottom: 10px;
-  font-size: 18px;
-}
-
-.payroll-component p {
-  color: #7f8c8d;
-  font-size: 14px;
-  margin-bottom: 15px;
-}
-
-.payroll-buttons {
+/* Button Container */
+.button-container {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  flex-wrap: wrap;
+  gap: 20px; /* Increased spacing for a better layout */
   margin-top: 20px;
 }
 
-button {
+/* Button Styling */
+.button-container button {
   background-color: #3498db;
   color: white;
   border: none;
-  padding: 12px 20px;
-  font-size: 14px;
+  padding: 12px 18px;
+  font-size: 16px;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background 0.3s ease;
+  border-radius: 8px; /* Smooth corners */
+  transition: all 0.3s ease;
+  min-width: 220px; /* Ensures all buttons have equal width */
 }
 
-button:hover {
+.button-container button:hover {
   background-color: #1abc9c;
 }
 
-.view-button {
-  background-color: #e67e22;
-}
-
-.view-button:hover {
-  background-color: #d35400;
-}
-
-.edit-button {
-  background-color: #9b59b6;
-}
-
-.edit-button:hover {
-  background-color: #8e44ad;
-}
-
-.add-button {
-  background-color: #f39c12;
-}
-
-.add-button:hover {
-  background-color: #e67e22;
-}
-
-.delete-button {
-  background-color: #e74c3c;
-}
-
-.delete-button:hover {
-  background-color: #c0392b;
-}
-
-.component-footer {
-  text-align: center;
+/* Section Content Styling */
+.section-content {
   margin-top: 30px;
-}
-
-.component-footer a {
-  color: #3498db;
-  font-size: 14px;
-  text-decoration: none;
-}
-
-.component-footer a:hover {
-  text-decoration: underline;
+  padding: 25px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  font-size: 18px;
+  color: #333;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
