@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import "./PayrollCompensation.css"; 
 import SalaryStructure from "./Salarystructure"; 
 import MonthName from "./Monthname"; 
-import Payslips from "./Payslip"; 
+import Payslips from "./Payslip";  
+import BonusesIncentives from "./Bonusesincentives"; 
 
 function PayrollCompensation() {
   const [selectedSection, setSelectedSection] = useState(null);
@@ -15,6 +16,8 @@ function PayrollCompensation() {
         return <MonthName onBack={() => setSelectedSection(null)} />;
       case "Payslips": 
         return <Payslips onBack={() => setSelectedSection(null)} />;
+      case "BonusesIncentives": 
+        return <BonusesIncentives onBack={() => setSelectedSection(null)} />;
       default:
         return (
           <>
@@ -26,7 +29,7 @@ function PayrollCompensation() {
               <button onClick={() => setSelectedSection("Payslips")}> 
                 Payslips & Salary Statements
               </button>
-              <button onClick={() => setSelectedSection("bonuses")}>
+              <button onClick={() => setSelectedSection("BonusesIncentives")}> 
                 Bonuses & Incentives
               </button>
               <button onClick={() => setSelectedSection("payrollProcessing")}>
