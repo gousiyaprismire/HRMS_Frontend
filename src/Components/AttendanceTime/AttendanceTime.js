@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom"; // Import Link for routing
 import "./AttendanceTime.css"; // External CSS file
 
-
-
 function AttendanceTime() {
   return (
     <div className="attendanceTime-dashboard">
