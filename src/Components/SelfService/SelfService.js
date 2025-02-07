@@ -49,7 +49,7 @@ const SelfService = () => {
         {activeTab === 'profile' && (
           <div>
             <h2>Profile Update</h2>
-            <ProfileUpdate />  {/* Include ProfileUpdate component here */}
+            <ProfileUpdate />  
           </div>
         )}
         {activeTab === 'leaveAttendance' && (

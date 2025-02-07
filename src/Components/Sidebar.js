@@ -24,7 +24,7 @@ const Sidebar = () => {
 const sidebarStyles = {
   width: "250px",
   height: "calc(100vh - 60px)", 
-  backgroundColor: "#2c3e50",
+  // backgroundColor: "#2c3e50",
   color: "white",
   paddingTop: "50px",
   paddingLeft: '10px',
@@ -34,11 +34,11 @@ const sidebarStyles = {
   overflowY: "auto",
   zIndex: 999,
   paddingRight: '2px',
-  marginTop: '10px',
+  // marginTop: '10px',
 };
 
 const itemStyles = {
-  fontSize: "15px",
+  fontSize: "16px",
   cursor: "pointer",
   
   padding: "8px",
