@@ -1,22 +1,71 @@
 /* ===== Employee Management Container ===== */
+/* EmployeeManagement.css */
+
 .employee-management-container {
-    text-align: center;
-    padding: 20px;
-    background-color: #eef2f7;
-    min-height: 100vh;
-    display: flex;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.employee-management-header {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: #555;
+  transition: color 0.3s, background 0.3s;
+}
+
+.tabs button.active {
+  background: #007bff;
+  color: white;
+  border-radius: 5px;
+}
+
+.tabs button:hover {
+  color: #007bff;
+}
+
+.tab-content {
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .tabs {
     flex-direction: column;
     align-items: center;
   }
-  
-  /* ===== Header Styling ===== */
-  .employee-management-header {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
+  .tabs button {
+    width: 100%;
+    margin-bottom: 5px;
   }
-  
+}
+
   /* ===== Tabs Navigation ===== */
   
   
@@ -116,88 +165,101 @@
   }
   
   /* ===== Add Employee Styling ===== */
+ /* Centered Full-Width Add Employee Form */
+.add-employee {
+  width: 120%; /* Takes most of the screen width */
+  max-width: px; /* Prevents form from being too wide */
+  margin: 20px auto; /* Centers the form horizontally */
+  background: #f9f9f9;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Title */
+.add-employee h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Form Layout */
+.add-form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Label Styling */
+.add-form-group label {
+  width: 200px; /* Keeps labels aligned */
+  font-weight: bold;
+  color: #555;
+  text-align: left;
+  margin-right: 10px;
+}
+
+/* Input, Select & Textarea */
+.add-form-group input,
+.add-form-group select,
+.add-form-group textarea {
+  flex: 1; /* Takes remaining space */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: left;
+  width: 100%; /* Ensures inputs take full available space */
+}
+
+/* Textarea Styling */
+.add-form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Submit Button */
+.add-button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 15px;
+  width: 100%;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
   .add-employee {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 95%; /* Adjusts form width for smaller screens */
   }
-  
-  .add-employee h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
+
+  .add-form-group {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    width: 200px;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .form-group textarea {
-    resize: vertical;
-    height: 80px;
-  }
-  
-  .add-employee button {
+
+  .add-form-group label {
     width: 100%;
-    padding: 12px;
-    background: #007bff;
-    color: #fff;
-    font-size: 18px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
+    margin-bottom: 5px;
   }
-  
-  .add-employee button:hover {
-    background: #0056b3;
+
+  .add-form-group input,
+  .add-form-group select,
+  .add-form-group textarea {
+    width: 100%;
   }
-  
-  /* Responsive Design */
-  @media (max-width: 600px) {
-    .add-employee {
-      max-width: 90%;
-      padding: 15px;
-    }
-  
-    .form-group {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .form-group label {
-      width: 100%;
-      margin-bottom: 5px;
-    }
-  
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-    }
-  }
-  
+}
+
   /* ===== Employee Documents Styling ===== */
   .employee-documents {
     text-align: left;
