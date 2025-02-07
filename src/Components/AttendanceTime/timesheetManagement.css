@@ -1,0 +1,37 @@
+.timesheet-container {
+    padding: 20px;
+    text-align: center;
+    background-color: whitesmoke;
+    min-height: 100vh;
+  }
+  
+  /* Back Button */
+  .timesheet-container button {
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .timesheet-container button:hover {
+    background-color: navy;
+  }
+  
+  /* Form Styling */
+  .timesheet-form {
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+  }
+  
+ 
