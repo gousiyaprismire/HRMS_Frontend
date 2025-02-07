@@ -4,9 +4,8 @@ import "./Salarystructure.css";
 function SalaryStructure({ onBack }) {
   return (
     <div className="salary-container">
-      <button className="back-button" onClick={onBack}>Back</button>
       <h2>Salary Structure Management</h2>
-
+      
       <form className="salary-form">
         <div className="form-group">
           <label>Base Salary:</label>
@@ -28,6 +27,8 @@ function SalaryStructure({ onBack }) {
           <button type="button" className="cancel-button" onClick={onBack}>Cancel</button>
         </div>
       </form>
+
+      <button className="back-button" onClick={onBack}>Back</button>
     </div>
   );
 }

@@ -15,7 +15,6 @@ function MonthName({ onBack }) {
 
   return (
     <div className="month-container">
-      <button className="back-button" onClick={onBack}> Back</button>
       <h2>Month Name</h2>
 
       <div className="filters">
@@ -66,6 +65,10 @@ function MonthName({ onBack }) {
           </tbody>
         </table>
       )}
+
+      <div className="back-button-container">
+        <button className="back-button" onClick={onBack}>Back</button>
+      </div>
     </div>
   );
 }
