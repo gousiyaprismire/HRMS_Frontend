@@ -12,9 +12,8 @@ function Recruitment() {
   return (
     <div className="recruitment-container">
       <h2 className="recruitment-header">Recruitment</h2>
-      
-      
-      <div className="tabs">
+
+      <div className="recruitment-tabs">
         <button
           onClick={() => setActiveTab("jobs")}
           className={activeTab === "jobs" ? "active" : ""}
@@ -47,8 +46,7 @@ function Recruitment() {
         </button>
       </div>
 
-     
-      <div className="tab-content">
+      <div className="recruitment-tab-content">
         {activeTab === "jobs" && <JobListings />}
         {activeTab === "applicants" && <Applicants />}
         {activeTab === "interviews" && <InterviewSchedule />}
