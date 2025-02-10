@@ -16,7 +16,7 @@ const EmployeeList = ({ employees = [], onSelectEmployee }) => {
       {/* Search Bar */}
       <input
         type="text"
-        placeholder="Search employees by name..."
+        placeholder="🔍 Search employees by name..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="search-bar"

@@ -1,205 +1,394 @@
 /* ===== Employee Management Container ===== */
 .employee-management-container {
-    text-align: center;
-    padding: 20px;
-    background-color: #eef2f7;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  /* ===== Header Styling ===== */
-  .employee-management-header {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  /* ===== Tabs Navigation ===== */
-  .tabs {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .tabs button {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .tabs button:hover {
-    background: #0056b3;
-  }
-  
-  .tabs button.active {
-    background: #0056b3;
-    font-weight: bold;
-    transform: scale(1.05);
-  }
-  
-  /* ===== Tab Content Area ===== */
-  .tab-content {
-    background: white;
-    width: 90%;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
-  }
-  
-  /* ===== Employee List Styling ===== */
-  .employee-list {
-    text-align: left;
-  }
-  
-  .employee-list input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 15px;
-  }
-  
-  .employee-list ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .employee-list li {
-    background: #f8f9fa;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  .employee-list li:hover {
-    background: #2c75da;
-  }
-  
-  /* ===== Employee Profile Styling ===== */
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.employee-management-header {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* ===== Tabs Navigation ===== */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  background: #f8f8f8;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: #555;
+  transition: color 0.3s, background 0.3s;
+}
+
+.tabs button.active {
+  background: #007bff;
+  color: white;
+  border-radius: 5px;
+}
+
+.tabs button:hover {
+  color: #007bff;
+}
+
+/* ===== Tab Content Area ===== */
+.tab-content {
+  background: white;
+  width: 90%;
+  max-width: 800px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+/* ===== Employee List Styling ===== */
+.employee-list {
+  text-align: left;
+}
+
+.employee-list input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.employee-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.employee-list li {
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.employee-list li:hover {
+  background: #2c75da;
+  color: white;
+}
+/* ===== Employee Profile Styling ===== */
+.employee-profile {
+  max-width: 600px;
+  margin: 20px auto;
+  background: #f9f9f9;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  font-family: Arial, sans-serif;
+}
+
+/* Profile Title */
+.employee-profile h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Profile Details Layout */
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Individual Profile Row */
+.profile-row {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+  font-size: 18px; /* ✅ Made text bigger */
+}
+
+/* Aligning Profile Labels */
+.profile-row strong {
+  color: #333;
+  flex: 1;
+  font-size: 18px; /* ✅ Increased label font size */
+}
+
+/* Profile Data Styling */
+.profile-row span {
+  flex: 2;
+  color: #555;
+  text-align: left;
+  font-size: 18px; /* ✅ Made text bigger */
+}
+
+/* Editable Input Fields */
+.profile-row input {
+  flex: 2;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 18px; /* ✅ Increased input field text size */
+  width: 100%;
+}
+
+/* Status Styling */
+.active-status {
+  color: green;
+  font-weight: bold;
+}
+
+.inactive-status {
+  color: red;
+  font-weight: bold;
+}
+
+/* Edit & Save Buttons */
+.edit-button, .save-button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.edit-button:hover, .save-button:hover {
+  background-color: #0056b3;
+}
+
+/* No Employee Selected */
+.no-employee {
+  text-align: center;
+  font-size: 18px;
+  color: #999;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* ===== Responsive Profile Styling ===== */
+@media screen and (max-width: 768px) {
   .employee-profile {
-    text-align: left;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-    margin: auto;
+    width: 95%;
   }
-  
-  .employee-profile h2 {
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  
-  .employee-profile p {
-    font-size: 16px;
-    margin: 5px 0;
-  }
-  
-  .employee-profile input {
-    width: 100%;
+
+  .profile-row {
+    flex-direction: column;
+    align-items: flex-start;
     padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  }
+
+  .profile-row strong {
+    font-size: 16px; /* ✅ Adjusted for smaller screens */
+  }
+
+  .profile-row span, .profile-row input {
     font-size: 16px;
   }
-  
-  .employee-profile button {
-    background: #007bff;
-    color: white;
-    padding: 12px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-    transition: 0.3s;
+}
+
+
+
+
+/* ===== Add Employee Styling ===== */
+/* ===== Add Employee Styling ===== */
+.add-employee-container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 20px auto;
+  background: #f9f9f9;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Title */
+.add-employee-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Form Layout */
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  width: 200px;
+  font-weight: bold;
+  color: #555;
+  text-align: left;
+  margin-right: 10px;
+}
+
+/* Input, Select & Textarea */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: left;
+  width: 100%;
+}
+
+/* Textarea Styling */
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Submit Button */
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 15px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .add-employee-container {
+    width: 95%;
   }
-  
-  .employee-profile button:hover {
-    background: #0056b3;
+
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .no-employee {
-    text-align: center;
-    font-size: 18px;
-    color: red;
-    margin-top: 20px;
-  }
-  
-  /* ===== Add Employee Styling ===== */
-  .add-employee {
-    text-align: left;
-  }
-  
-  .add-employee input {
+
+  .form-group label {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .add-employee button {
-    width: 100%;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .add-employee button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* ===== Employee Documents Styling ===== */
-  .employee-documents {
-    text-align: left;
-  }
-  
-  .employee-documents input[type="file"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .employee-documents ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .employee-documents li {
-    background: #f8f9fa;
-    padding: 10px;
     margin-bottom: 5px;
-    border-radius: 5px;
   }
-  
-  /* ===== Responsive Design ===== */
-  @media (max-width: 768px) {
-    .tabs {
-      flex-direction: column;
-    }
-  
-    .tab-content {
-      width: 100%;
-    }
-  }  
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+  }
+}
+
+/* ===== Employee Documents Styling ===== */
+/* ===== Employee Documents Styling ===== */
+.employee-documents {
+  max-width: 600px;
+  margin: auto;
+  background: #f9f9f9;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Title */
+.employee-documents h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Upload Button */
+.upload-label {
+  display: inline-block;
+  background: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.upload-label:hover {
+  background: #0056b3;
+}
+
+/* Document List */
+.document-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.document-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.document-item a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.document-item a:hover {
+  text-decoration: underline;
+}
+
+/* Delete Button */
+.delete-button {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.delete-button:hover {
+  background: #cc0000;
+}
+
+/* No Documents Message */
+.no-documents {
+  font-size: 16px;
+  color: #777;
+  font-style: italic;
+}
