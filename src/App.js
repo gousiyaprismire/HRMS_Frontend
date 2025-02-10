@@ -15,8 +15,8 @@ import SelfService from "./Components/SelfService/SelfService";
 import EmployeeAttendanceTracking from "./Components/AttendanceTime/EmployeeAttendanceTracking";
 import LeaveApplication from "./Components/AttendanceTime/LeaveApplication";
 import LeaveApprovalPanel from "./Components/AttendanceTime/LeaveApprovalPanel";
-import JobListings from "./Components/Recruitment/JobListings";
-import Applicants from "./Components/Recruitment/Applicants";
+import TimesheetManagement from "./Components/AttendanceTime/TimesheetManagement";
+
 
 
 
@@ -37,6 +37,7 @@ const App = () => {
               <Route path="/attendance-tracking" element={<EmployeeAttendanceTracking />} />
               <Route path="/leave-application" element={<LeaveApplication />} />
               <Route path="/leave-approval" element={<LeaveApprovalPanel />} />
+              <Route path="/timesheet" element={<TimesheetManagement />} />
               <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
               <Route path="/employee-management" element={<EmployeeManagement />} />
               <Route path="/payroll" element={<PayrollCompensation />} />
@@ -44,8 +45,7 @@ const App = () => {
               <Route path="/recruitment" element={<Recruitment />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
               <Route path="/selfservice" element= {<SelfService />}/>
-              <Route path="/" element={<JobListings />} />
-              <Route path="/applicants" element={<Applicants />} />
+             
             </Routes>
           </div>
         </div>

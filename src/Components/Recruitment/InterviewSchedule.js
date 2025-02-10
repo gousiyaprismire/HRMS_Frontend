@@ -3,7 +3,7 @@ import "./Recruitment.css";
 
 function InterviewSchedule() {
   const [interviews, setInterviews] = useState([
-    // { candidate: "A", date: "2025-02-10", time: "10:00 AM" }
+     { candidate: "A", date: "2025-02-10", time: "10:00 AM" }
   ]);
 
   const [newInterview, setNewInterview] = useState({ candidate: "", date: "", time: "" });

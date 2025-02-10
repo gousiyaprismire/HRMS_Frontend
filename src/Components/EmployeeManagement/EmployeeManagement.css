@@ -1,6 +1,4 @@
 /* ===== Employee Management Container ===== */
-/* EmployeeManagement.css */
-
 .employee-management-container {
   max-width: 1000px;
   margin: 20px auto;
@@ -17,18 +15,19 @@
   margin-bottom: 20px;
 }
 
+/* ===== Tabs Navigation ===== */
 .tabs {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
   background: #f8f8f8;
-  padding: 20px;
+  padding: 15px;
   border-radius: 5px;
 }
 
 .tabs button {
   flex: 1;
-  padding: 20px;
+  padding: 15px;
   border: none;
   background: none;
   cursor: pointer;
@@ -48,136 +47,187 @@
   color: #007bff;
 }
 
+/* ===== Tab Content Area ===== */
 .tab-content {
+  background: white;
+  width: 90%;
+  max-width: 800px;
   padding: 20px;
-  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+/* ===== Employee List Styling ===== */
+.employee-list {
+  text-align: left;
+}
+
+.employee-list input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
 }
 
-@media (max-width: 768px) {
-  .tabs {
-    flex-direction: column;
-    align-items: center;
-  }
-  .tabs button {
-    width: 100%;
-    margin-bottom: 5px;
-  }
+.employee-list ul {
+  list-style: none;
+  padding: 0;
 }
 
-  /* ===== Tabs Navigation ===== */
-  
-  
-  /* ===== Tab Content Area ===== */
-  .tab-content {
-    background: white;
-    width: 90%;
-    max-width: 800px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
-  }
-  
-  /* ===== Employee List Styling ===== */
-  .employee-list {
-    text-align: left;
-  }
-  
-  .employee-list input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 15px;
-  }
-  
-  .employee-list ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .employee-list li {
-    background: #f8f9fa;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  .employee-list li:hover {
-    background: #2c75da;
-  }
-  
-  /* ===== Employee Profile Styling ===== */
-  .employee-profile {
-    text-align: left;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-    margin: auto;
-  }
-  
-  .employee-profile h2 {
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  
-  .employee-profile p {
-    font-size: 16px;
-    margin: 5px 0;
-  }
-  
-  .employee-profile input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .employee-profile button {
-    background: #007bff;
-    color: white;
-    padding: 12px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-    transition: 0.3s;
-  }
-  
-  .employee-profile button:hover {
-    background: #0056b3;
-  }
-  
-  .no-employee {
-    text-align: center;
-    font-size: 18px;
-    color: red;
-    margin-top: 20px;
-  }
-  
-  /* ===== Add Employee Styling ===== */
- /* Centered Full-Width Add Employee Form */
-.add-employee {
-  width: 120%; /* Takes most of the screen width */
-  max-width: px; /* Prevents form from being too wide */
-  margin: 20px auto; /* Centers the form horizontally */
+.employee-list li {
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.employee-list li:hover {
+  background: #2c75da;
+  color: white;
+}
+/* ===== Employee Profile Styling ===== */
+.employee-profile {
+  max-width: 600px;
+  margin: 20px auto;
   background: #f9f9f9;
   padding: 25px;
   border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  font-family: Arial, sans-serif;
+}
+
+/* Profile Title */
+.employee-profile h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Profile Details Layout */
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Individual Profile Row */
+.profile-row {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+  font-size: 18px; /* ✅ Made text bigger */
+}
+
+/* Aligning Profile Labels */
+.profile-row strong {
+  color: #333;
+  flex: 1;
+  font-size: 18px; /* ✅ Increased label font size */
+}
+
+/* Profile Data Styling */
+.profile-row span {
+  flex: 2;
+  color: #555;
+  text-align: left;
+  font-size: 18px; /* ✅ Made text bigger */
+}
+
+/* Editable Input Fields */
+.profile-row input {
+  flex: 2;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 18px; /* ✅ Increased input field text size */
+  width: 100%;
+}
+
+/* Status Styling */
+.active-status {
+  color: green;
+  font-weight: bold;
+}
+
+.inactive-status {
+  color: red;
+  font-weight: bold;
+}
+
+/* Edit & Save Buttons */
+.edit-button, .save-button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.edit-button:hover, .save-button:hover {
+  background-color: #0056b3;
+}
+
+/* No Employee Selected */
+.no-employee {
+  text-align: center;
+  font-size: 18px;
+  color: #999;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* ===== Responsive Profile Styling ===== */
+@media screen and (max-width: 768px) {
+  .employee-profile {
+    width: 95%;
+  }
+
+  .profile-row {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .profile-row strong {
+    font-size: 16px; /* ✅ Adjusted for smaller screens */
+  }
+
+  .profile-row span, .profile-row input {
+    font-size: 16px;
+  }
+}
+
+
+
+
+/* ===== Add Employee Styling ===== */
+/* ===== Add Employee Styling ===== */
+.add-employee-container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 20px auto;
+  background: #f9f9f9;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Form Title */
-.add-employee h2 {
+.add-employee-container h2 {
   text-align: center;
   color: #333;
   margin-bottom: 20px;
@@ -185,15 +235,14 @@
 }
 
 /* Form Layout */
-.add-form-group {
+.form-group {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
 }
 
-/* Label Styling */
-.add-form-group label {
-  width: 200px; /* Keeps labels aligned */
+.form-group label {
+  width: 200px;
   font-weight: bold;
   color: #555;
   text-align: left;
@@ -201,26 +250,26 @@
 }
 
 /* Input, Select & Textarea */
-.add-form-group input,
-.add-form-group select,
-.add-form-group textarea {
-  flex: 1; /* Takes remaining space */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
   text-align: left;
-  width: 100%; /* Ensures inputs take full available space */
+  width: 100%;
 }
 
 /* Textarea Styling */
-.add-form-group textarea {
+.form-group textarea {
   resize: vertical;
   min-height: 80px;
 }
 
 /* Submit Button */
-.add-button {
+.submit-button {
   background-color: #007bff;
   color: white;
   padding: 12px;
@@ -233,65 +282,113 @@
   font-weight: bold;
 }
 
-button:hover {
+.submit-button:hover {
   background-color: #0056b3;
 }
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
-  .add-employee {
-    width: 95%; /* Adjusts form width for smaller screens */
+  .add-employee-container {
+    width: 95%;
   }
 
-  .add-form-group {
+  .form-group {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .add-form-group label {
+  .form-group label {
     width: 100%;
     margin-bottom: 5px;
   }
 
-  .add-form-group input,
-  .add-form-group select,
-  .add-form-group textarea {
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
     width: 100%;
   }
 }
 
-  /* ===== Employee Documents Styling ===== */
-  .employee-documents {
-    text-align: left;
-  }
-  
-  .employee-documents input[type="file"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .employee-documents ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .employee-documents li {
-    background: #f8f9fa;
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-  }
-  
-  /* ===== Responsive Design ===== */
-  @media (max-width: 768px) {
-    .tabs {
-      flex-direction: column;
-    }
-  
-    .tab-content {
-      width: 100%;
-    }
-  }  
+/* ===== Employee Documents Styling ===== */
+/* ===== Employee Documents Styling ===== */
+.employee-documents {
+  max-width: 600px;
+  margin: auto;
+  background: #f9f9f9;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Title */
+.employee-documents h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Upload Button */
+.upload-label {
+  display: inline-block;
+  background: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.upload-label:hover {
+  background: #0056b3;
+}
+
+/* Document List */
+.document-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.document-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.document-item a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.document-item a:hover {
+  text-decoration: underline;
+}
+
+/* Delete Button */
+.delete-button {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.delete-button:hover {
+  background: #cc0000;
+}
+
+/* No Documents Message */
+.no-documents {
+  font-size: 16px;
+  color: #777;
+  font-style: italic;
+}
