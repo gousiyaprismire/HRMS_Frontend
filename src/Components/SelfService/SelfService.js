@@ -1,82 +1,45 @@
 import React, { useState } from 'react';
-import ProfileUpdate from './ProfileUpdate'; 
+import ProfileUpdate from './ProfileUpdate';
 
 const SelfService = () => {
-  const [activeTab, setActiveTab] = useState('profile');
+  const [activeTab, setActiveTab] = useState('dashboard');
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
+  const renderPage = () => {
+    switch (activeTab) {
+      case 'profile':
+        return <ProfileUpdate />;
+      case 'leaveAttendance':
+        return <p>Employee can view their past leave and attendance here.</p>;
+      case 'payrollTax':
+        return <p>Employee can download payslips and tax forms here.</p>;
+      case 'expenseReimbursement':
+        return <p>Employee can submit expense reimbursement requests here.</p>;
+      case 'helpDesk':
+        return <p>Employee can raise support tickets for IT/HR issues here.</p>;
+      default:
+        return (
+          <div className="selfservice-dashboard">
+            <h2 className="selfservice-dashboard-title">Self-Service Dashboard</h2>
+            <div className="selfservice-buttons">
+              <button onClick={() => setActiveTab('profile')}>Profile Update</button>
+              <button onClick={() => setActiveTab('leaveAttendance')}>Leave & Attendance History</button>
+              <button onClick={() => setActiveTab('payrollTax')}>Payroll & Tax Documents</button>
+              <button onClick={() => setActiveTab('expenseReimbursement')}>Expense Reimbursement Requests</button>
+              <button onClick={() => setActiveTab('helpDesk')}>Help Desk & Support Tickets</button>
+            </div>
+          </div>
+        );
+    }
   };
 
   return (
-    <div>
-      
-      <div className="tabs">
-        <button
-          className={activeTab === 'profile' ? 'active' : ''}
-          onClick={() => handleTabClick('profile')}
-        >
-          Profile Update
+    <div className="selfservice-container">
+      {renderPage()}
+      {activeTab !== 'dashboard' && (
+        <button className="selfservice-back-button" onClick={() => setActiveTab('dashboard')}>
+          Back
         </button>
-        <button
-          className={activeTab === 'leaveAttendance' ? 'active' : ''}
-          onClick={() => handleTabClick('leaveAttendance')}
-        >
-          Leave & Attendance History
-        </button>
-        <button
-          className={activeTab === 'payrollTax' ? 'active' : ''}
-          onClick={() => handleTabClick('payrollTax')}
-        >
-          Payroll & Tax Documents
-        </button>
-        <button
-          className={activeTab === 'expenseReimbursement' ? 'active' : ''}
-          onClick={() => handleTabClick('expenseReimbursement')}
-        >
-          Expense Reimbursement Requests
-        </button>
-        <button
-          className={activeTab === 'helpDesk' ? 'active' : ''}
-          onClick={() => handleTabClick('helpDesk')}
-        >
-          Help Desk & Support Tickets
-        </button>
-      </div>
-
-    
-      <div className="tab-content">
-        {activeTab === 'profile' && (
-          <div>
-            <h2>Profile Update</h2>
-            <ProfileUpdate />  
-          </div>
-        )}
-        {activeTab === 'leaveAttendance' && (
-          <div>
-            <h2>Leave & Attendance History</h2>
-            <p>Employee can view their past leave and attendance here.</p>
-          </div>
-        )}
-        {activeTab === 'payrollTax' && (
-          <div>
-            <h2>Payroll & Tax Documents</h2>
-            <p>Employee can download payslips and tax forms here.</p>
-          </div>
-        )}
-        {activeTab === 'expenseReimbursement' && (
-          <div>
-            <h2>Expense Reimbursement Requests</h2>
-            <p>Employee can submit expense reimbursement requests here.</p>
-          </div>
-        )}
-        {activeTab === 'helpDesk' && (
-          <div>
-            <h2>Help Desk & Support Tickets</h2>
-            <p>Employee can raise support tickets for IT/HR issues here.</p>
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 };

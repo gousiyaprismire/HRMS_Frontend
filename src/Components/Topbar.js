@@ -17,7 +17,7 @@ const TopBar = () => {
 
 const topBarStyles = {
   height: "70px",
-   //backgroundColor: "#34495e",
+  background: "linear-gradient(to left, #D88A29, #2e2929)", 
   color: "white",
   display: "flex",
   justifyContent: "space-between",

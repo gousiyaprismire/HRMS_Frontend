@@ -1,26 +1,27 @@
 import React, { useState } from "react";
 import "./Recruitment.css";
 
-function JobListings() {
-  
+function JobListings({ setActivePage }) {  
   const [jobs, setJobs] = useState([
     { title: "Software Engineer", applications: 10, status: "Recruitment Done", hired: "0/3" },
     { title: "Frontend Developer", applications: 7, status: "Recruitment Done", hired: "0/2" },
     { title: "Backend Developer", applications: 5, status: "Recruitment Done", hired: "0/2" },
-    { title: "Full Stack Developer", applications: 12, status: "Recruitment Done", hired: "0/4" },
   ]);
 
   const [newJob, setNewJob] = useState({ title: "", applications: 0, status: "Pending", hired: "0/1" });
 
   const jobTitles = [
-    "Chief Executive Officer",
-    "Chief Technical Officer",
-    "Consultant",
-    "Experienced Developer",
-    "Human Resources Manager",
-    "Marketing and Community Manager",
-    "Trainee",
-    "ERP Techno Functionalist",
+    "Software Engineer",
+    "Frontend Developer",
+    "Backend Developer",
+    "Full Stack Developer",
+    "DevOps Engineer",
+    "Cloud Architect",
+    "Cybersecurity Analyst",
+    "Data Scientist",
+    "AI Engineer",
+    "UI/UX Designer",
+    "QA Engineer",
   ];
 
   const handleAddJob = () => {
@@ -32,10 +33,13 @@ function JobListings() {
     }
   };
 
+  const handleApplicationsClick = () => {
+    setActivePage("applicants"); 
+  };
 
   return (
     <div className="recruitment-job-listings">
-      <h2 className="recruitment-job-listings-header">Job Positions</h2>
+      <h2 className="recruitment-job-listings-header">Job Listings</h2>
 
       <div className="recruitment-job-cards">
         {jobs.map((job, index) => (
@@ -44,7 +48,7 @@ function JobListings() {
             <div className="recruitment-job-info">
               <button 
                 className="recruitment-job-apply" 
-               
+                onClick={handleApplicationsClick} 
               >
                 Applications: {job.applications}
               </button>
@@ -55,11 +59,8 @@ function JobListings() {
         ))}
       </div>
 
-
       <div className="recruitment-job-add-container">
-        <label htmlFor="job-select" className="recruitment-job-select-label">
-          
-        </label>
+        <label htmlFor="job-select" className="recruitment-job-select-label"></label>
         <div className="recruitment-job-select-wrapper">
           <select
             id="job-select"

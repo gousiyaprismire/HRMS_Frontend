@@ -45,8 +45,9 @@ const App = () => {
               <Route path="/recruitment" element={<Recruitment />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
               <Route path="/selfservice" element= {<SelfService />}/>
-             
-            </Routes>
+
+  
+      </Routes>
           </div>
         </div>
       </div>
