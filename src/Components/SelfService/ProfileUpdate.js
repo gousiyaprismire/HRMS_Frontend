@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import './SelfService.css'; 
 
 const ProfileUpdate = () => {
-  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -9,7 +9,6 @@ const ProfileUpdate = () => {
     address: ''
   });
 
-  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -18,18 +17,17 @@ const ProfileUpdate = () => {
     });
   };
 
-  
   const handleSubmit = (e) => {
     e.preventDefault();
     alert('Profile updated successfully!');
-    
   };
 
   return (
-    <div>
-     
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className="selfservice-profile-update-container">
+      <h2 className="selfservice-profile-update-title">Update Your Profile</h2>
+      
+      <form onSubmit={handleSubmit} className="selfservice-profile-update-form">
+        <div className="selfservice-form-group">
           <label>Name:</label>
           <input
             type="text"
@@ -37,9 +35,11 @@ const ProfileUpdate = () => {
             value={formData.name}
             onChange={handleInputChange}
             placeholder="Enter your name"
+            className="selfservice-form-input"
           />
         </div>
-        <div>
+        
+        <div className="selfservice-form-group">
           <label>Email:</label>
           <input
             type="email"
@@ -47,9 +47,11 @@ const ProfileUpdate = () => {
             value={formData.email}
             onChange={handleInputChange}
             placeholder="Enter your email"
+            className="selfservice-form-input"
           />
         </div>
-        <div>
+        
+        <div className="selfservice-form-group">
           <label>Phone:</label>
           <input
             type="text"
@@ -57,9 +59,11 @@ const ProfileUpdate = () => {
             value={formData.phone}
             onChange={handleInputChange}
             placeholder="Enter your phone number"
+            className="selfservice-form-input"
           />
         </div>
-        <div>
+        
+        <div className="selfservice-form-group">
           <label>Address:</label>
           <input
             type="text"
@@ -67,11 +71,13 @@ const ProfileUpdate = () => {
             value={formData.address}
             onChange={handleInputChange}
             placeholder="Enter your address"
+            className="selfservice-form-input"
           />
         </div>
-        <div>
-          <button type="submit">Update Profile</button>
-        </div>
+        
+        <button type="submit" className="selfservice-profile-update-button">
+          Update Profile
+        </button>
       </form>
     </div>
   );

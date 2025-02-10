@@ -1,76 +1,135 @@
+/* Main Container */
 
-* {
-    font-family: 'Roboto';
-    box-sizing: border-box;
-  }
-.tabs {
-    display: flex;
-    justify-content: space-evenly;
-    margin-bottom: 20px;
-  }
+.selfservice-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; 
+  width: 100%;
+  font-family: Roboto, sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.selfservice-dashboard {
+  text-align: center;
+
+}
+
+.selfservice-dashboard-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 20px;
+}
+
+
+.selfservice-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+
+.selfservice-buttons button {
+  background: blue;
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  width: 100%;
+}
+
+.selfservice-buttons button:hover {
+  background: rgb(176, 171, 171);
+}
+
+
+.selfservice-back-button {
+  margin-top: 20px;
+  padding: 10px 16px;
+  font-size: 14px;
+  background: rebeccapurple;
+  color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
   
- 
-  .tabs button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
- 
-  .tabs button:hover {
-    background-color: #45a049;
-  }
-  
- 
-  .tabs button.active {
-    background-color: #45a049;
-    font-weight: bold;
-  }
-  
-  
-  .tab-content {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  
-  .tab-content h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  
-  form div {
-    margin-bottom: 15px;
-  }
-  
-  form input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  form button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  form button:hover {
-    background-color: #45a049;
-  }
-  
+  align-self: flex-start;
+}
+
+.selfservice-back-button:hover {
+  background: palevioletred;
+}
+
+
+
+/*  Profile Update  */
+.selfservice-profile-update-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.selfservice-profile-update-title {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.selfservice-profile-update-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.selfservice-form-group {
+  margin-bottom: 15px;
+}
+
+.selfservice-form-group label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.selfservice-form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.selfservice-form-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.selfservice-profile-update-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.selfservice-profile-update-button:hover {
+  background-color: #0056b3;
+}
