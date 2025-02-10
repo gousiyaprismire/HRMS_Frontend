@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SalaryStructure from "./SalaryStructure";
+//import SalaryStructure from "./SalaryStructure";
 import Payslips from "./Payslips";
 import Bonuses from "./Bonuses";
 import PayrollProcessing from "./PayrollProcessing";
@@ -26,14 +26,14 @@ const PayrollCompensation = () => {
       {currentPage === "dashboard" && (
         <Dashboard navigate={setCurrentPage} />
       )}
-      {currentPage === "salaryStructure" && (
-        <SalaryStructure
+      {/* {currentPage === "salaryStructure" && (
+       <SalaryStructure
           goBack={() => setCurrentPage("dashboard")}
           openAddNew={() => setCurrentPage("addNewSalary")}
           salaryData={salaryData}
           setSalaryData={setSalaryData}
         />
-      )}
+      )} */}
       {currentPage === "addNewSalary" && (
         <AddNewSalary goBack={() => setCurrentPage("salaryStructure")} setSalaryData={setSalaryData} />
       )}
