@@ -83,3 +83,4 @@ const AddNewSalary = ({ onBack }) => {
 };
 
 export default AddNewSalary;
+

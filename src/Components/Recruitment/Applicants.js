@@ -1,27 +1,26 @@
 import React, { useState } from "react";
-import "./Recruitment.css";  
+import "./Recruitment.css";
 
 function Applicants() {
   const [applicants, setApplicants] = useState([
     { name: "A", job: "Software Engineer", status: "Pending" },
-    { name: "B", job: "Product Manager", status: "Shortlisted" }
+    { name: "B", job: "Product Manager", status: "Shortlisted" },
   ]);
 
   const [name, setName] = useState("");
   const [job, setJob] = useState("");
   const [status, setStatus] = useState("");
 
-  
   const jobTitles = [
     "Software Engineer",
     "Product Manager",
     "UX Designer",
     "Data Scientist",
-    "QA Engineer"
+    "QA Engineer",
   ];
 
   const handleAddApplicant = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     if (!name || !job || !status) {
       alert("Please fill all fields");
       return;
@@ -30,7 +29,6 @@ function Applicants() {
     const newApplicant = { name, job, status };
     setApplicants((prevApplicants) => [...prevApplicants, newApplicant]);
 
-    
     setName("");
     setJob("");
     setStatus("");
@@ -84,13 +82,14 @@ function Applicants() {
         <button type="submit" className="submit-button">Add Applicant</button>
       </form>
 
-      
       <ul className="applicants-list">
         {applicants.map((app, index) => (
           <li key={index} className="applicant-item">
-            <span className="applicant-name">{app.name}</span> - 
-            <span className="applicant-job">{app.job}</span> 
-            <span className={`status ${app.status.toLowerCase()}`}>({app.status})</span>
+            <span className="applicant-name">{app.name}</span> -{" "}
+            <span className="applicant-job">{app.job}</span>{" "}
+            <span className={`status ${app.status.toLowerCase()}`}>
+              ({app.status})
+            </span>
           </li>
         ))}
       </ul>

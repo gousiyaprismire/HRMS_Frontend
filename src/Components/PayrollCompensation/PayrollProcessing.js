@@ -11,3 +11,4 @@ const PayrollProcessing = ({ goBack }) => {
 };
 
 export default PayrollProcessing;
+

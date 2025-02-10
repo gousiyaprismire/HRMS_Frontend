@@ -11,3 +11,4 @@ const Bonuses = ({ goBack }) => {
 };
 
 export default Bonuses;
+

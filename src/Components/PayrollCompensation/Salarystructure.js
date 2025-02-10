@@ -63,3 +63,4 @@ const SalaryStructure = ({ goBack, openAddNew, salaryData, setSalaryData }) => {
 };
 
 export default SalaryStructure;
+

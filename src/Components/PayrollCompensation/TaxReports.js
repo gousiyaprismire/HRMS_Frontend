@@ -11,3 +11,4 @@ const TaxReports = ({ goBack }) => {
 };
 
 export default TaxReports;
+
