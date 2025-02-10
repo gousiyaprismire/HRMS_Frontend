@@ -1,0 +1,72 @@
+.payslip-container {
+  padding: 20px;
+  background: linear-gradient(to right, #aa853e, white);
+  min-height: 100vh;
+}
+
+.filter-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.payslip-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.payslip-table th,
+.payslip-table td {
+  padding: 10px;
+  border: 1px solid #000;
+  text-align: center;
+}
+
+.view-btn {
+  background-color: #aa853e;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.payslip-details {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.payslip-details p {
+  margin: 5px 0;
+}
+
+.payslip-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.back-btn,
+.edit-btn,
+.generate-btn {
+  background-color: #aa853e;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.new-payslip-btn {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}

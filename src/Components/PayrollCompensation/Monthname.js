@@ -1,7 +1,14 @@
 import React, { useState } from "react";
-import "./Monthname.css";
+import "./MonthName.css";
 
 function MonthName({ onBack }) {
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 4 }, (_, i) => currentYear - i); // Past 4 years
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [data, setData] = useState([]);
@@ -20,12 +27,22 @@ function MonthName({ onBack }) {
       <div className="filters">
         <div className="input-group">
           <label>Year:</label>
-          <input type="text" value={year} onChange={(e) => setYear(e.target.value)} placeholder="Enter Year" />
+          <select value={year} onChange={(e) => setYear(e.target.value)}>
+            <option value="">Select Year</option>
+            {years.map((yr) => (
+              <option key={yr} value={yr}>{yr}</option>
+            ))}
+          </select>
         </div>
 
         <div className="input-group">
           <label>Month:</label>
-          <input type="text" value={month} onChange={(e) => setMonth(e.target.value)} placeholder="Enter Month" />
+          <select value={month} onChange={(e) => setMonth(e.target.value)}>
+            <option value="">Select Month</option>
+            {months.map((mth, index) => (
+              <option key={index} value={mth}>{mth}</option>
+            ))}
+          </select>
         </div>
       </div>
 

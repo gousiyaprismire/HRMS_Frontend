@@ -1,50 +1,63 @@
-.salary-container {
+.salary-structure {
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
 }
 
-.salary-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 50%;
-  margin: auto;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-
-.button-container {
+.search-container {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-button {
+.search-container input {
+  padding: 8px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-container .search-btn {
   padding: 8px 12px;
-  background-color: #007bff;
-  color: white;
+  background-color: #aa853e;
   border: none;
-  border-radius: 5px;
+  color: white;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #0056b3;
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.back-button {
+th, td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+th {
+  background-color: #004080;
+  color: white;
+}
+
+.edit-btn {
+  background-color: green;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.button-container {
   margin-top: 20px;
-  display: block;
-  background-color: red;
+  display: flex;
+  justify-content: space-between;
 }
 
-.back-button:hover {
-  background-color: darkred;
+.back-btn, .add-btn {
+  padding: 10px;
+  background-color: #aa853e;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
