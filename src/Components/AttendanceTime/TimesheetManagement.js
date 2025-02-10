@@ -17,7 +17,6 @@ function TimesheetManagement() {
     comments: "",
   });
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -26,11 +25,10 @@ function TimesheetManagement() {
     }));
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     const workHours = parseFloat(formData.workHours);
-    const overtime = workHours > 8 ? workHours - 8 : 0;
+    const overtime = workHours > 9 ? workHours - 9 : 0;
 
     const newTimesheet = {
       id: timesheets.length + 1,
@@ -45,15 +43,15 @@ function TimesheetManagement() {
     setFormData({ date: "", workHours: "", shift: "Morning", comments: "" });
   };
 
-  // Handle delete entry
   const handleDelete = (id) => {
     setTimesheets(timesheets.filter((entry) => entry.id !== id));
   };
 
   return (
     <div className="timesheet-container">
+      <button className="back-button" onClick={() => navigate(-1)}>←</button>
+
       <h2>Timesheet Management</h2>
-      <button onClick={() => navigate(-1)}>Back</button>
 
       <form onSubmit={handleSubmit} className="timesheet-form">
         <div>
