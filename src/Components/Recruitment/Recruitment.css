@@ -38,13 +38,14 @@ body {
   width: 100%;
   max-width: 600px; 
   margin: 20px auto; 
+  
 }
 
 .recruitment-buttons button {
   width: 100%; 
   padding: 15px;
   font-size: 18px;
-  border: none;
+  border: 1px solid #ccc;
   background-color: #007bff;
   color: white;
   border-radius: 5px;
