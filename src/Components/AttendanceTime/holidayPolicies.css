@@ -1,0 +1,65 @@
+.holiday-container {
+    padding: 20px;
+    text-align: center;
+    background-color: whitesmoke;
+    min-height: 100vh;
+    position: relative;
+  }
+  
+  /* Back Button at Top Left */
+  .back-button {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 10px 15px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .back-button:hover {
+    background-color: navy;
+  }
+  
+  /* Section Styling */
+  .holiday-section, .leave-section {
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 80%;
+  }
+  
+  /* Table Styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #2c3e50;
+    color: white;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f4f4f4;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .holiday-section, .leave-section {
+      max-width: 95%;
+    }
+  }
+  
