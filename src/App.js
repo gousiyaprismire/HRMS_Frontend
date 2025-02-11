@@ -17,6 +17,7 @@ import LeaveApplication from "./Components/AttendanceTime/LeaveApplication";
 import LeaveApprovalPanel from "./Components/AttendanceTime/LeaveApprovalPanel";
 import TimesheetManagement from "./Components/AttendanceTime/TimesheetManagement";
 import HolidayPolicies from "./Components/AttendanceTime/HolidayPolicies"
+import GoalCategories from "./Components/PerformanceManagement/GoalCategories";
 
 
 
