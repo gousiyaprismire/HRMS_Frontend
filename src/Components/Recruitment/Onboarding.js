@@ -4,7 +4,8 @@ import "./Recruitment.css";
 function Onboarding() {
   const [newHires, setNewHires] = useState([
     { name: "A", documentsSubmitted: true, startDate: "2025-02-01", department: "Engineering", status: "Completed" },
-    { name: "B", documentsSubmitted: false, startDate: "2025-02-15", department: "Marketing", status: "Pending" }
+    { name: "B", documentsSubmitted: false, startDate: "2025-02-15", department: "Marketing", status: "Pending" },
+    // { name: "C", documentsSubmitted: false, startDate: "2025-02-15", department: "Marketing", status: "Rejected" }
   ]);
 
   const handleUpdateStatus = (index, newStatus) => {
