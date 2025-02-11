@@ -16,9 +16,7 @@ import EmployeeAttendanceTracking from "./Components/AttendanceTime/EmployeeAtte
 import LeaveApplication from "./Components/AttendanceTime/LeaveApplication";
 import LeaveApprovalPanel from "./Components/AttendanceTime/LeaveApprovalPanel";
 import TimesheetManagement from "./Components/AttendanceTime/TimesheetManagement";
-
-
-
+import GoalCategories from "./Components/PerformanceManagement/GoalCategories";
 
 
 const App = () => {
@@ -45,8 +43,7 @@ const App = () => {
               <Route path="/recruitment" element={<Recruitment />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
               <Route path="/selfservice" element= {<SelfService />}/>
-
-  
+              <Route path="/goal-categories" element={<GoalCategories />} />
       </Routes>
           </div>
         </div>

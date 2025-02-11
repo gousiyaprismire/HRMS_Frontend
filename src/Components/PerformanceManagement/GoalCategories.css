@@ -1,6 +1,7 @@
 .goal-categories-container {
     padding: 20px;
     background: #f9f9f9;
+    display: block !important;
   }
   
   .breadcrumb {
@@ -92,3 +93,32 @@
     color: white;
   }
   
+
+  .modal label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.modal input,
+.modal textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.modal input:focus,
+.modal textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0px 0px 5px rgba(52, 152, 219, 0.5);
+}
+
+.modal textarea {
+    height: 80px;
+    resize: vertical;
+}
