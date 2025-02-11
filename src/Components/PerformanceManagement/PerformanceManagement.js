@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PerformanceManagement.css";
-
+import GoalCategories from "./GoalCategories";
 
 const PerformanceManagement = () => {
   const [showSettings, setShowSettings] = useState(false);
