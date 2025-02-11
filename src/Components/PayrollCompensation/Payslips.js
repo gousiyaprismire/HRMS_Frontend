@@ -1,62 +1,39 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./Payslips.css";
+import AddNewPayslip from "./AddNewPayslip";
 
-
-
-const Payslips = () => {
+const Payslips = ({ goBack, payslipData }) => {
   const [selectedPayslip, setSelectedPayslip] = useState(null);
-  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("All Months");
+  const [selectedYear, setSelectedYear] = useState("Select Year");
+  const [showAddPayslip, setShowAddPayslip] = useState(false);
 
-  const payslips = [
-    {
-      empId: "EMP001",
-      name: "Manjunath",
-      pan: "ABCDE1234F",
-      uan: "123456789012",
-      bank: "HDFC Bank - XXXX1234",
-      month: "January",
-      year: "2025",
-      payableDays: 26,
-      lopDays: 4,
-      doj: "2022-05-15",
-      gender: "Male",
-      location: "Bangalore",
-      totalEarnings: 50000,
-      hra: 10000,
-      otherAllowances: 5000,
-      bonuses: 2000,
-      deductions: 3000,
-    },
-    {
-      empId: "EMP002",
-      name: "Eknath",
-      pan: "XYZAB6789P",
-      uan: "098765432109",
-      bank: "ICICI Bank - XXXX5678",
-      month: "February",
-      year: "2025",
-      payableDays: 28,
-      lopDays: 2,
-      doj: "2021-08-10",
-      gender: "Female",
-      location: "Mumbai",
-      totalEarnings: 60000,
-      hra: 12000,
-      otherAllowances: 4000,
-      bonuses: 5000,
-      deductions: 3000,
-    },
-  ];
+  const filteredPayslips = payslipData.filter((payslip) => {
+    return (
+      (payslip.empId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        payslip.name.toLowerCase().includes(searchQuery.toLowerCase())) &&
+      (selectedMonth === "All Months" || payslip.month === selectedMonth) &&
+      (selectedYear === "Select Year" || payslip.year === selectedYear)
+    );
+  });
+
+  if (showAddPayslip) {
+    return <AddNewPayslip goBack={() => setShowAddPayslip(false)} />;
+  }
 
   return (
     <div className="payslip-container">
       <h2>Payslips</h2>
-
       
       <div className="filter-container">
-        <input type="text" placeholder="Search by Name or Emp ID..." />
-        <select>
+        <input
+          type="text"
+          placeholder="Search by Name or Emp ID..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <select value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}>
           <option>All Months</option>
           <option>January</option>
           <option>February</option>
@@ -71,7 +48,7 @@ const Payslips = () => {
           <option>November</option>
           <option>December</option>
         </select>
-        <select>
+        <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
           <option>Select Year</option>
           <option>2023</option>
           <option>2024</option>
@@ -89,15 +66,12 @@ const Payslips = () => {
           </tr>
         </thead>
         <tbody>
-          {payslips.map((payslip) => (
+          {filteredPayslips.map((payslip) => (
             <tr key={payslip.empId}>
               <td>{payslip.empId}</td>
               <td>{payslip.name}</td>
               <td>
-                <button
-                  className="view-btn"
-                  onClick={() => setSelectedPayslip(payslip)}
-                >
+                <button className="view-btn" onClick={() => setSelectedPayslip(payslip)}>
                   View
                 </button>
               </td>
@@ -125,7 +99,6 @@ const Payslips = () => {
             <p><strong>Other Allowances:</strong> {selectedPayslip.otherAllowances}</p>
             <p><strong>Bonuses:</strong> {selectedPayslip.bonuses}</p>
             <p><strong>Deductions:</strong> {selectedPayslip.deductions}</p>
-
             <div className="payslip-buttons">
               <button className="close-btn" onClick={() => setSelectedPayslip(null)}>Close</button>
             </div>
@@ -133,14 +106,12 @@ const Payslips = () => {
         </div>
       )}
 
-     
       <div className="button-container">
-        <button className="back-btn" onClick={() => navigate("/payroll-compensation")}>Back</button>
-        <button className="new-payslip-btn" onClick={() => navigate("/add-new-payslip")}>New Payslip</button>
+        <button className="back-btn" onClick={goBack}>Back</button>
+        <button className="new-payslip-btn" onClick={() => setShowAddPayslip(true)}>New Payslip</button>
       </div>
-      </div>
+    </div>
   );
 };
 
 export default Payslips;
-

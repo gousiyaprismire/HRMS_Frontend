@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./AddNewSalary.css";
 
-const AddNewSalary = ({ onBack }) => {
+const AddNewSalary = ({ goBack }) => {
   const [formData, setFormData] = useState({
+    empId: "",
     name: "",
     basicPay: "",
     hra: "",
@@ -19,7 +20,12 @@ const AddNewSalary = ({ onBack }) => {
   };
 
   const handleSave = () => {
-    onBack();
+    if (!formData.empId || !formData.name || !formData.basicPay) {
+      alert("Emp ID, Name, and Basic Pay are required fields!");
+      return;
+    }
+    console.log("Saved Data:", formData);
+    goBack();
   };
 
   return (
@@ -28,13 +34,18 @@ const AddNewSalary = ({ onBack }) => {
 
       <div className="form-container">
         <div className="form-group">
+          <label>Emp ID:</label>
+          <input type="text" name="empId" value={formData.empId} onChange={handleChange} required />
+        </div>
+
+        <div className="form-group">
           <label>Name:</label>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} />
+          <input type="text" name="name" value={formData.name} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
           <label>Basic Pay:</label>
-          <input type="text" name="basicPay" value={formData.basicPay} onChange={handleChange} />
+          <input type="text" name="basicPay" value={formData.basicPay} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
@@ -73,8 +84,8 @@ const AddNewSalary = ({ onBack }) => {
         </div>
 
         <div className="button-container">
-          <button className="back-btn" onClick={onBack}>Back</button>
-          <button className="cancel-btn" onClick={onBack}>Cancel</button>
+          <button className="back-btn" onClick={goBack}>Back</button>
+          <button className="cancel-btn" onClick={goBack}>Cancel</button>
           <button className="save-btn" onClick={handleSave}>Save</button>
         </div>
       </div>
@@ -83,4 +94,3 @@ const AddNewSalary = ({ onBack }) => {
 };
 
 export default AddNewSalary;
-

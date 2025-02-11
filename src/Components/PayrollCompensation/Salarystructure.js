@@ -4,8 +4,14 @@ import "./SalaryStructure.css";
 const SalaryStructure = ({ goBack, openAddNew, salaryData, setSalaryData }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredData = salaryData.filter((item) =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const handleEdit = (index) => {
+    console.log("Edit salary entry:", salaryData[index]);
+  };
+
+  const filteredData = salaryData.filter(
+    (item) =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.empId.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -14,7 +20,7 @@ const SalaryStructure = ({ goBack, openAddNew, salaryData, setSalaryData }) => {
       <div className="search-container">
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search by Name or Emp ID..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -23,6 +29,7 @@ const SalaryStructure = ({ goBack, openAddNew, salaryData, setSalaryData }) => {
       <table>
         <thead>
           <tr>
+            <th>Emp ID</th>
             <th>Name</th>
             <th>Basic Pay</th>
             <th>HRA</th>
@@ -38,6 +45,7 @@ const SalaryStructure = ({ goBack, openAddNew, salaryData, setSalaryData }) => {
         <tbody>
           {filteredData.map((employee, index) => (
             <tr key={index}>
+              <td>{employee.empId}</td>
               <td>{employee.name}</td>
               <td>{employee.basicPay}</td>
               <td>{employee.hra}</td>
@@ -48,7 +56,9 @@ const SalaryStructure = ({ goBack, openAddNew, salaryData, setSalaryData }) => {
               <td>{employee.food}</td>
               <td>{employee.pfEmployee}</td>
               <td>
-                <button className="edit-btn">Edit</button>
+                <button className="edit-btn" onClick={() => handleEdit(index)}>
+                  Edit
+                </button>
               </td>
             </tr>
           ))}
@@ -63,4 +73,3 @@ const SalaryStructure = ({ goBack, openAddNew, salaryData, setSalaryData }) => {
 };
 
 export default SalaryStructure;
-

@@ -3,7 +3,7 @@ import "./MonthName.css";
 
 function MonthName({ onBack }) {
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 4 }, (_, i) => currentYear - i); // Past 4 years
+  const years = Array.from({ length: 4 }, (_, i) => currentYear - i); 
   const months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
