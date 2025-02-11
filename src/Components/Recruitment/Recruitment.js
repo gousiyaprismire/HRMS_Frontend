@@ -7,52 +7,44 @@ import OfferLetters from "./OfferLetters";
 import Onboarding from "./Onboarding";
 
 function Recruitment() {
-  const [activeTab, setActiveTab] = useState("jobs");
+  const [activePage, setActivePage] = useState("dashboard");
+
+  const renderPage = () => {
+    switch (activePage) {
+      case "jobs":
+        return <JobListings setActivePage={setActivePage} />; 
+      case "applicants":
+        return <Applicants />;
+      case "interviews":
+        return <InterviewSchedule />;
+      case "offers":
+        return <OfferLetters />;
+      case "onboarding":
+        return <Onboarding />;
+      default:
+        return (
+          <>
+            <h1 className="recruitment-header">Recruitment Dashboard</h1>
+            <div className="recruitment-buttons">
+              <button onClick={() => setActivePage("jobs")}>Job Listings</button>
+              {/* <button onClick={() => setActivePage("applicants")}>Applicants</button> */}
+              <button onClick={() => setActivePage("interviews")}>Interviews</button>
+              <button onClick={() => setActivePage("offers")}>Offers</button>
+              <button onClick={() => setActivePage("onboarding")}>Onboarding</button>
+            </div>
+          </>
+        );
+    }
+  };
 
   return (
     <div className="recruitment-container">
-      <h2 className="recruitment-header">Recruitment</h2>
-
-      <div className="recruitment-tabs">
-        <button
-          onClick={() => setActiveTab("jobs")}
-          className={activeTab === "jobs" ? "active" : ""}
-        >
-          Job Listings
+      {renderPage()}
+      {activePage !== "dashboard" && (
+        <button className="recruitment-back-button" onClick={() => setActivePage("dashboard")}>
+          Back
         </button>
-        <button
-          onClick={() => setActiveTab("applicants")}
-          className={activeTab === "applicants" ? "active" : ""}
-        >
-          Applicants
-        </button>
-        <button
-          onClick={() => setActiveTab("interviews")}
-          className={activeTab === "interviews" ? "active" : ""}
-        >
-          Interviews
-        </button>
-        <button
-          onClick={() => setActiveTab("offers")}
-          className={activeTab === "offers" ? "active" : ""}
-        >
-          Offers
-        </button>
-        <button
-          onClick={() => setActiveTab("onboarding")}
-          className={activeTab === "onboarding" ? "active" : ""}
-        >
-          Onboarding
-        </button>
-      </div>
-
-      <div className="recruitment-tab-content">
-        {activeTab === "jobs" && <JobListings />}
-        {activeTab === "applicants" && <Applicants />}
-        {activeTab === "interviews" && <InterviewSchedule />}
-        {activeTab === "offers" && <OfferLetters />}
-        {activeTab === "onboarding" && <Onboarding />}
-      </div>
+      )}
     </div>
   );
 }

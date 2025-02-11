@@ -20,8 +20,6 @@ import HolidayPolicies from "./Components/AttendanceTime/HolidayPolicies"
 
 
 
-
-
 const App = () => {
   return (
     <Router>
@@ -47,8 +45,8 @@ const App = () => {
               <Route path="/recruitment" element={<Recruitment />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
               <Route path="/selfservice" element= {<SelfService />}/>
-             
-            </Routes>
+              <Route path="/goal-categories" element={<GoalCategories />} />
+      </Routes>
           </div>
         </div>
       </div>
