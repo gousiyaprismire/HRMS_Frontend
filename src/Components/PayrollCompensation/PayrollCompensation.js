@@ -1,50 +1,67 @@
 import React, { useState } from "react";
-import "./PayrollCompensation.css"; 
-import SalaryStructure from "./Salarystructure"; 
+import SalaryStructure from "./SalarysStructure";
+import Payslips from "./Payslips";
+import Bonuses from "./Bonuses";
+import PayrollProcessing from "./PayrollProcessing";
+import TaxReports from "./TaxrReports";
+import AddNewSalary from "./AddNewSalary";
+import AddNewPayslip from "./AddNewPayslip";
+import AddBonus from "./AddBonus";
+import "./PayrollCompensation.css";
 
-function PayrollCompensation() {
-  const [selectedSection, setSelectedSection] = useState(null);
+const PayrollCompensation = () => {
+  const [currentPage, setCurrentPage] = useState("dashboard");
+  
+  const [salaryData, setSalaryData] = useState([
+    { name: "Manjunath", basicPay: 50000, hra: 10000, pf: 5000, deductions: 2000, medical: 1500, travel: 2500, food: 2000, pfEmployee: 3000 },
+    { name: "Eknath", basicPay: 60000, hra: 12000, pf: 6000, deductions: 2500, medical: 2000, travel: 3000, food: 2500, pfEmployee: 4000 },
+  ]);
 
-  const renderSection = () => {
-    switch (selectedSection) {
-      case "Salarystructure":
-        return <SalaryStructure />;
-      case "payslips":
-        return <h2>Payslips & Salary Statements</h2>;
-      case "bonuses":
-        return <h2>Bonuses & Incentives</h2>;
-      case "payrollProcessing":
-        return <h2>Payroll Processing</h2>;
-      case "taxReports":
-        return <h2>Tax & Deduction Reports</h2>;
-      default:
-        return <p>Select an option to view details.</p>;
-    }
-  };
+  const [payslipData, setPayslipData] = useState([
+    { empId: "EMP001", name: "Manjunath", month: "January", year: "2025", salary: 70000 },
+    { empId: "EMP002", name: "Eknath", month: "February", year: "2025", salary: 80000 },
+  ]);
 
   return (
-    <div className="container">
-      <h1>Payroll & Compensation</h1>
-      <div className="button-container">
-        <button onClick={() => setSelectedSection("Salarystructure")}>
-          Salary Structure Management
-        </button>
-        <button onClick={() => setSelectedSection("payslips")}>
-          Payslips & Salary Statements
-        </button>
-        <button onClick={() => setSelectedSection("bonuses")}>
-          Bonuses & Incentives
-        </button>
-        <button onClick={() => setSelectedSection("payrollProcessing")}>
-          Payroll Processing
-        </button>
-        <button onClick={() => setSelectedSection("taxReports")}>
-          Tax & Deduction Reports
-        </button>
-      </div>
-      <div className="section-content">{renderSection()}</div>
+    <div className="payroll-container">
+      {currentPage === "dashboard" && <Dashboard navigate={setCurrentPage} />}
+      {currentPage === "salaryStructure" && (
+        <SalaryStructure goBack={() => setCurrentPage("dashboard")} openAddNew={() => setCurrentPage("addNewSalary")} salaryData={salaryData} setSalaryData={setSalaryData} />
+      )}
+      {currentPage === "addNewSalary" && (
+        <AddNewSalary goBack={() => setCurrentPage("salaryStructure")} setSalaryData={setSalaryData} />
+      )}
+      {currentPage === "payslips" && (
+        <Payslips goBack={() => setCurrentPage("dashboard")} openAddNew={() => setCurrentPage("addNewPayslip")} payslipData={payslipData} />
+      )}
+      {currentPage === "addNewPayslip" && (
+        <AddNewPayslip goBack={() => setCurrentPage("payslips")} setPayslipData={setPayslipData} />
+      )}
+      {currentPage === "bonuses" && (
+        <Bonuses goBack={() => setCurrentPage("dashboard")} openAddBonus={() => setCurrentPage("addBonus")} />
+      )}
+      {currentPage === "addBonus" && (
+        <AddBonus goBack={() => setCurrentPage("bonuses")} />
+      )}
+      {currentPage === "payrollProcessing" && <PayrollProcessing goBack={() => setCurrentPage("dashboard")} />}
+      {currentPage === "taxReports" && <TaxReports goBack={() => setCurrentPage("dashboard")} />}
     </div>
   );
-}
+};
+
+const Dashboard = ({ navigate }) => {
+  return (
+    <div className="dashboard">
+      <h2>Payroll Compensation</h2>
+      <div className="grid-container">
+        <button onClick={() => navigate("salaryStructure")}>Salary Structure</button>
+        <button onClick={() => navigate("payslips")}>Payslips</button>
+        <button onClick={() => navigate("bonuses")}>Bonuses & Incentives</button>
+        <button onClick={() => navigate("payrollProcessing")}>Payroll Processing</button>
+        <button onClick={() => navigate("taxReports")}>Tax & Deductions</button>
+      </div>
+    </div>
+  );
+};
 
 export default PayrollCompensation;
