@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import ProfileUpdate from './ProfileUpdate';
+import LeaveAttendance from './LeaveAttendance';
+import PayrollTax from './PayrollTax';
+import ExpenseReimbursement from './ExpenseReimbursement';
+import HelpDesk from './HelpDesk';
+
 
 const SelfService = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -9,13 +14,13 @@ const SelfService = () => {
       case 'profile':
         return <ProfileUpdate />;
       case 'leaveAttendance':
-        return <p>Employee can view their past leave and attendance here.</p>;
+        return <LeaveAttendance />;
       case 'payrollTax':
-        return <p>Employee can download payslips and tax forms here.</p>;
+        return <PayrollTax />;
       case 'expenseReimbursement':
-        return <p>Employee can submit expense reimbursement requests here.</p>;
+        return <ExpenseReimbursement />;
       case 'helpDesk':
-        return <p>Employee can raise support tickets for IT/HR issues here.</p>;
+        return <HelpDesk />;
       default:
         return (
           <div className="selfservice-dashboard">

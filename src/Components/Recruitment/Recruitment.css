@@ -46,7 +46,7 @@ body {
   padding: 15px;
   font-size: 18px;
   border: 1px solid #ccc;
-  background-color: #007bff;
+  background-color: #D88A29;
   color: white;
   border-radius: 5px;
   cursor: pointer;
@@ -54,7 +54,7 @@ body {
 }
 
 .recruitment-buttons button:hover {
-  background-color: #0056b3;
+  background-color: #aa853e;
 }
 
 
@@ -62,7 +62,7 @@ body {
   margin-top: 20px;
   padding: 10px 16px;
   font-size: 14px;
-  background: rebeccapurple;
+  background: #D88A29;
   color: white;
   border: none;
   border-radius: 8px;
@@ -74,7 +74,7 @@ body {
 }
 
 .recruitment-back-button:hover {
-  background: palevioletred;
+  background: #aa853e;
 }
 
 
@@ -129,7 +129,7 @@ body {
 }
 
 .recruitment-job-apply {
-  background: #007bff;
+  background: #D88A29;
   color: white;
   border: none;
   padding: 12px 20px;
@@ -140,7 +140,7 @@ body {
 }
 
 .recruitment-job-apply:hover {
-  background: #0056b3;
+  background: #aa853e;
 }
 
 .recruitment-job-status {
@@ -178,7 +178,7 @@ body {
 }
 
 .recruitment-add-job {
-  background: #28a745;
+  background: #D88A29;
   color: white;
   border: none;
   padding: 12px 20px;
@@ -189,164 +189,79 @@ body {
 }
 
 .recruitment-add-job:hover {
-  background: #218838;
+  background: #aa853e;
 }
 
 
 /* Applicants Component */
-.applicants-container {
-  width: 100%;
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-
-.applicants-header {
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-
-.applicants-form {
-  background: #f8f9fa;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.applicants-form-group {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-
-.applicants-form-group label {
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-.applicants-form-input,
-.applicants-form-select {
+.applicant-form {
   
-    padding: 12px; 
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 200%; 
-    max-width: 700px; /* length of the box */
-    height: 50px; 
-  }
-
-
-.applicants-form-input:focus,
-.applicants-form-select:focus {
-  border-color: #007bff;
-  outline: none;
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: Roboto;
+ 
 }
 
-
-.applicants-submit-button {
-  background: #007bff;
-  color: white;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-}
-
-.applicants-submit-button:hover {
-  background: #0056b3;
-}
-
-
-.applicants-list {
-  list-style: none;
-  padding: 0;
-  margin-top: 10px;
-}
-
-.applicants-item {
-  background: #f4f6f9;
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  font-size: 16px;
-  color: #333;
+.applicant-inline-group {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  gap: 20px;
+ 
+ 
 }
 
-
-.applicants-name {
-  font-weight: bold;
-  color: #007bff;
-}
-
-.applicants-job {
-  font-style: italic;
-  color: #555;
-}
-
-
-.applicants-status {
-  font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-
-.applicants-status.pending {
-  background: #ffc107;
-  color: #333;
-}
-
-.applicants-status.shortlisted {
-  background: #28a745;
-  color: white;
-}
-
-.applicants-status.rejected {
-  background: #dc3545;
-  color: white;
-}
-
-
-@media (max-width: 768px) {
-  .applicants-container {
-    max-width: 100%;
-    padding: 15px;
-  }
+.applicant-inline-group .applicant-form-group {
+  flex: 1;
   
-
-  .applicants-item {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px;
-  }
-
-  .applicants-status {
-    margin-top: 5px;
-  }
 }
+
+.applicant-inline-group .applicant-form-group input,
+.applicant-inline-group .applicant-form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: left;
+  font-size: medium;
+}
+
+.applicant-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #D88A29;
+  color: white;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.applicant-btn:hover {
+  background-color: #aa853e;
+}
+.applicant-inline-group .status-options {
+  display: flex;
+  gap: 20px;
+}
+
+.applicant-inline-group .status-options label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.applicant-inline-group .status-options input[type="radio"] {
+  accent-color: #4caf50;
+}
+
 
 
 /* Onboarding Component */
@@ -539,14 +454,14 @@ body {
 }
 
 .interview-container .interview-form input:focus {
-  border-color: #007bff;
+  border-color: #D88A29;
   outline: none;
 }
 
 
 .interview-container .interview-form button {
   padding: 12px;
-  background: #007bff;
+  background: #D88A29;
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -557,7 +472,7 @@ body {
 }
 
 .interview-container .interview-form button:hover {
-  background: #0056b3;
+  background: #aa853e;
 }
 
 @media (max-width: 768px) {
@@ -686,7 +601,7 @@ body {
 
 .offer-form button {
   padding: 12px;
-  background: #007bff;
+  background: #D88A29;
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -697,7 +612,7 @@ body {
 }
 
 .offer-form button:hover {
-  background: #0056b3;
+  background: #aa853e;
 }
 
 
