@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PerformanceManagement.css";
-import GoalCategories from "./GoalCategories";
 
 const PerformanceManagement = () => {
   const [showSettings, setShowSettings] = useState(false);
@@ -17,7 +16,7 @@ const PerformanceManagement = () => {
       <div className="header">
         <div className="performance-heading">
           <h1>Performance Management Dashboard</h1>
-          <p>View latest status of performance measurement at one place.</p>
+          <p className="performance-para">View latest status of performance measurement at one place.</p>
         </div>
         <div className="settings-container">
           <button className="settings-btn" onClick={() => setShowSettings(!showSettings)}>

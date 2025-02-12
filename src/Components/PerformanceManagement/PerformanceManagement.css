@@ -24,6 +24,7 @@
     font-size: 18px;
     font-weight: bold;
     /* color: #f0f0f0; */
+    
 }
 
 .settings-btn {
@@ -109,3 +110,6 @@
   .settings-dropdown li:hover {
     background: #f0f0f0;
   }
+ .performance-para {
+    color: black;
+ }

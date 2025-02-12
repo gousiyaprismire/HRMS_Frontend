@@ -52,8 +52,8 @@ const GoalCategories = () => {
       <div className="breadcrumb">
         <span onClick={() => navigate(-1)}>⬅ Performance Management</span> / Goal Categories
       </div>
-      <h1>Goal Categories</h1>
-      <p>Add or edit categories to measure goals and performance</p>
+      <h1 className="goal-categories-heading">Goal Categories</h1>
+      <p className="goal-categories-para">Add or edit categories to measure goals and performance</p>
       
       <div className="table-container">
         <table>
