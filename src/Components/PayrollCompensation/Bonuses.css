@@ -1,0 +1,62 @@
+.bonuses-container {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+    background: #aa853e;
+    color: black;
+    border-radius: 8px;
+  }
+  
+  h2 {
+    text-align: center;
+    font-size: 24px;
+    color: black; 
+  }
+  
+  .bonuses-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar {
+    width: 60%;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .add-bonus-btn {
+    background: white;
+    color: #aa853e;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .bonus-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .bonus-table th, .bonus-table td {
+    border: 1px solid black; 
+    padding: 10px;
+    text-align: left;
+    color: black; 
+  }
+  
+  .bonus-table th {
+    background: white;
+    color: #aa853e;
+  }
+  
+  .back-btn {
+    background: #444;
+    color: white;
+    padding: 10px;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  

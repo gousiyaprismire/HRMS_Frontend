@@ -1,0 +1,48 @@
+.add-new-tax {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+  }
+  
+  h2 {
+    color: black;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .back-btn, .save-btn {
+    background-color: #aa853e;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .back-btn:hover, .save-btn:hover {
+    background-color: #8a6d31;
+  }
+  

@@ -1,0 +1,90 @@
+.payroll-processing-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: black;
+  }
+  
+  h2 {
+    color: black;
+    text-align: center;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+  }
+  
+  .add-btn {
+    background-color: #aa853e;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .add-btn:hover {
+    background-color: #8a6d31;
+  }
+  
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #aa853e;
+    color: white;
+  }
+  
+  .process-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .process-btn:hover {
+    background-color: #388e3c;
+  }
+  
+  .disabled-btn {
+    background-color: #ccc;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: not-allowed;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .back-btn {
+    background-color: #aa853e;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .back-btn:hover {
+    background-color: #8a6d31;
+  }
+  
