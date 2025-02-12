@@ -1,108 +1,196 @@
-import React, { useState } from "react";
-import "./Recruitment.css";
-
-function Applicants() {
-  const [applicants, setApplicants] = useState([
-    { name: "A", job: "Software Engineer", status: "Pending" },
-    { name: "B", job: "Product Manager", status: "Shortlisted" },
-  ]);
-
-  const [name, setName] = useState("");
-  const [job, setJob] = useState("");
-  const [status, setStatus] = useState("");
-
-  const jobTitles = [
-    "Software Engineer",
-    "Frontend Developer",
-    "Backend Developer",
-    "Full Stack Developer",
-    "DevOps Engineer",
-    "Cloud Architect",
-    "Cybersecurity Analyst",
-    "Data Scientist",
-    "AI Engineer",
-    "UI/UX Designer",
-    "QA Engineer",
-  ];
-
-  const handleAddApplicant = (e) => {
-    e.preventDefault();
-    if (!name || !job || !status) {
-      alert("Please fill all fields");
-      return;
-    }
-
-    const newApplicant = { name, job, status };
-    setApplicants((prevApplicants) => [...prevApplicants, newApplicant]);
-
-    setName("");
-    setJob("");
-    setStatus("");
+import React, { useState } from 'react';
+import './Recruitment.css';
+ 
+const Applicant = () => {
+  const [formData, setFormData] = useState({
+    
+    applicantName: '',
+    contact: '',
+    email: '',
+    mobile: '',
+    degree: '',
+    appliedJob: '',
+    department: '',
+    expectedSalary: '',
+    extraAdvantages: '',
+    responsible: '',
+    nextAction: '',
+    appreciation: 0,
+    source: '',
+    referredBy: ''
+  });
+ 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
-
+ 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form Data:', formData);
+  };
+ 
   return (
-    <div className="applicants-container">
-      <h2 className="applicants-header">Applicants</h2>
-
-      <form onSubmit={handleAddApplicant} className="applicants-form">
-        <div className="applicants-form-group">
-          <label className="applicants-form-label">Name</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="applicants-form-input"
-            required
-          />
-        </div>
-        <div className="applicants-form-group">
-          <label className="applicants-form-label">Job</label>
-          <select
-            value={job}
-            onChange={(e) => setJob(e.target.value)}
-            className="applicants-form-select"
-            required
-          >
-            <option value="">Select Job</option>
-            {jobTitles.map((jobTitle, index) => (
-              <option key={index} value={jobTitle}>
-                {jobTitle}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="applicants-form-group">
-          <label className="applicants-form-label">Status</label>
-          <select
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            className="applicants-form-select"
-            required
-          >
-            <option value="">Select Status</option>
-            <option value="Pending">Pending</option>
-            <option value="Shortlisted">Shortlisted</option>
-            <option value="Rejected">Rejected</option>
-          </select>
-        </div>
-        <button type="submit" className="applicants-submit-button">
-          Add Applicant
-        </button>
-      </form>
-
-      <ul className="applicants-list">
-        {applicants.map((app, index) => (
-          <li key={index} className="applicants-item">
-            <span className="applicants-name">{app.name}</span> -{" "}
-            <span className="applicants-job">{app.job}</span>{" "}
-            <span className={`applicants-status ${app.status.toLowerCase()}`}>
-              ({app.status})
-            </span>
-          </li>
-        ))}
-      </ul>
+    <form onSubmit={handleSubmit} className="applicant-form">
+  {/* Applicant's Name and Contact */}
+  <div className="applicant-inline-group">
+    <div className="applicant-form-group">
+      <label>Applicant's Name:</label>
+      <input
+        type="text"
+        name="applicantName"
+        value={formData.applicantName}
+        onChange={handleChange}
+        placeholder="Enter applicant's name"
+      />
     </div>
-  );
-}
+    <div className="applicant-form-group">
+      <label>Contact:</label>
+      <select
+        name="contact"
+        value={formData.contact}
+        onChange={handleChange}
+      >
+        <option value="">Select contact</option>
+        <option value="phone">Mobile</option>
+        <option value="email">Email</option>
+      </select>
+    </div>
+  </div>
 
-export default Applicants;
+  {/* Email and Mobile */}
+  <div className="applicant-inline-group">
+    <div className="applicant-form-group">
+      <label>Email:</label>
+      <input
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        placeholder="Enter email"
+      />
+    </div>
+    <div className="applicant-form-group">
+      <label>Mobile:</label>
+      <input
+        type="text"
+        name="mobile"
+        value={formData.mobile}
+        onChange={handleChange}
+        placeholder="Enter mobile"
+      />
+    </div>
+  </div>
+
+  {/* Degree and Applied Job */}
+  <div className="applicant-inline-group">
+    <div className="applicant-form-group">
+      <label>Degree:</label>
+      <select
+        name="degree"
+        value={formData.degree}
+        onChange={handleChange}
+      >
+        <option value="">Select degree</option>
+        <option value="bachelors">Bachelors</option>
+        <option value="masters">Masters</option>
+        <option value="phd">PhD</option>
+      </select>
+    </div>
+    <div className="applicant-form-group">
+      <label>Applied Job:</label>
+      <select
+        name="appliedJob"
+        value={formData.appliedJob}
+        onChange={handleChange}
+      >
+        <option value="">Select job</option>
+        <option value="softwareTester">Software Tester</option>
+        <option value="developer">Full Stack Developer</option>
+        <option value="frontend">Frontend Developer</option>
+        <option value="backend">Backend Developer</option>
+        <option value="devops">DevOps Engineer</option>
+      </select>
+    </div>
+  </div>
+
+  {/* Department and Expected Salary */}
+  <div className="applicant-inline-group">
+    <div className="applicant-form-group">
+      <label>Department:</label>
+      <select
+        name="department"
+        value={formData.department}
+        onChange={handleChange}
+      >
+        <option value="">Select department</option>
+        <option value="hr">HR</option>
+        <option value="it">IT</option>
+        <option value="marketing">Marketing</option>
+      </select>
+    </div>
+    <div className="applicant-form-group">
+      <label>Expected Salary:</label>
+      <input
+        type="text"
+        name="expectedSalary"
+        value={formData.expectedSalary}
+        onChange={handleChange}
+        placeholder="Enter expected salary"
+      />
+    </div>
+  </div>
+{/* Status */}
+<div className="applicant-inline-group">
+  <div className="applicant-form-group">
+    <label>Status:</label>
+    <div className="status-options">
+      
+    <label>
+        <input
+          type="radio"
+          name="status"
+          value="hired"
+          checked={formData.status === 'hired'}
+          onChange={handleChange}
+        />
+        Hired
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="status"
+          value="shortlisted"
+          checked={formData.status === 'shortlisted'}
+          onChange={handleChange}
+        />
+        Shortlisted
+      </label>
+    
+      <label>
+        <input
+          type="radio"
+          name="status"
+          value="rejected"
+          checked={formData.status === 'rejected'}
+          onChange={handleChange}
+        />
+        Rejected
+      </label>
+    </div>
+  </div>
+</div>
+
+
+  {/* Buttons */}
+  <div>
+    <button type="submit" className="applicant-btn">Save</button>
+    <button type="reset" onClick={() => setFormData({})} className="applicant-btn">Discard</button>
+  </div>
+  
+</form>
+
+  );
+};
+ 
+export default Applicant;
