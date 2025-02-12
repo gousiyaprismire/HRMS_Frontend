@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./EmployeeManagement.css";
+import "./EmployeeProfile.css";
 
 const EmployeeProfile = ({ employee, onUpdate }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -13,7 +13,7 @@ const EmployeeProfile = ({ employee, onUpdate }) => {
 
   // Handle save button click
   const handleSave = () => {
-    onUpdate(editedEmployee); // Send updated data to the parent
+    onUpdate(editedEmployee); 
     setIsEditing(false);
   };
 

@@ -1,0 +1,54 @@
+.benefits-compliance-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+  }
+  
+  .benefits-compliance-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Tab Navigation Styles */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .tabs button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+  
+  .tabs button:hover {
+    background: #0056b3;
+  }
+  
+  .tabs button.active {
+    background: #0056b3;
+    font-weight: bold;
+    transform: scale(1.05);
+  }
+  
+  /* Tab Content Styling */
+  .tab-content {
+    background: white;
+    width: 90%;
+    max-width: 800px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+  
