@@ -16,8 +16,8 @@ import EmployeeAttendanceTracking from "./Components/AttendanceTime/EmployeeAtte
 import LeaveApplication from "./Components/AttendanceTime/LeaveApplication";
 import LeaveApprovalPanel from "./Components/AttendanceTime/LeaveApprovalPanel";
 import TimesheetManagement from "./Components/AttendanceTime/TimesheetManagement";
-
-
+import HolidayPolicies from "./Components/AttendanceTime/HolidayPolicies"
+import GoalCategories from "./Components/PerformanceManagement/GoalCategories";
 
 
 
@@ -37,6 +37,7 @@ const App = () => {
               <Route path="/attendance-tracking" element={<EmployeeAttendanceTracking />} />
               <Route path="/leave-application" element={<LeaveApplication />} />
               <Route path="/leave-approval" element={<LeaveApprovalPanel />} />
+              <Route path="/holiday" element={<HolidayPolicies />} />
               <Route path="/timesheet" element={<TimesheetManagement />} />
               <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
               <Route path="/employee-management" element={<EmployeeManagement />} />
@@ -45,8 +46,7 @@ const App = () => {
               <Route path="/recruitment" element={<Recruitment />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
               <Route path="/selfservice" element= {<SelfService />}/>
-
-  
+              <Route path="/goal-categories" element={<GoalCategories />} />
       </Routes>
           </div>
         </div>

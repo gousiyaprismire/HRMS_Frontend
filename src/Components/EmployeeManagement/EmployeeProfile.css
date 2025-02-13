@@ -112,7 +112,7 @@
     }
   
     .profile-row strong {
-      font-size: 16px; /* ✅ Adjusted for smaller screens */
+      font-size: 16px; 
     }
   
     .profile-row span, .profile-row input {

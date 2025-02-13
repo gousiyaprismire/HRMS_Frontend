@@ -19,7 +19,7 @@ const SelfService = () => {
       default:
         return (
           <div className="selfservice-dashboard">
-            <h2 className="selfservice-dashboard-title">Self-Service Dashboard</h2>
+            <h2 className="selfservice-dashboard-title">Self-Service For Employees</h2>
             <div className="selfservice-buttons">
               <button onClick={() => setActiveTab('profile')}>Profile Update</button>
               <button onClick={() => setActiveTab('leaveAttendance')}>Leave & Attendance History</button>

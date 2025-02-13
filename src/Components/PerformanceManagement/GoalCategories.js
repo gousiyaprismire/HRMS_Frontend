@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaEdit, FaTrash } from "react-icons/fa";
 import "./GoalCategories.css";
 
 const GoalCategories = () => {
@@ -53,8 +52,8 @@ const GoalCategories = () => {
       <div className="breadcrumb">
         <span onClick={() => navigate(-1)}>⬅ Performance Management</span> / Goal Categories
       </div>
-      <h1>Goal Categories</h1>
-      <p>Add or edit categories to measure goals and performance</p>
+      <h1 className="goal-categories-heading">Goal Categories</h1>
+      <p className="goal-categories-para">Add or edit categories to measure goals and performance</p>
       
       <div className="table-container">
         <table>
@@ -72,8 +71,8 @@ const GoalCategories = () => {
                   <td>{category.name}</td>
                   <td>{category.description}</td>
                   <td>
-                    <FaEdit className="action-icon" onClick={() => handleEdit(index)} />
-                    <FaTrash className="action-icon" onClick={() => handleDelete(index)} />
+                    <button onClick={() => handleEdit(index)}>Edit</button>
+                    <button onClick={() => handleDelete(index)}>Delete</button>
                   </td>
                 </tr>
               ))

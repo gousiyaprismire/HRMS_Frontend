@@ -5,8 +5,23 @@ import ClaimsReimbursements from "./ClaimsReimbursements";
 import CompanyPolicyCompliance from "./CompanyPolicyCompliance";
 import AuditComplianceReports from "./AuditComplianceReports";
 
+// Debugging: Log the imported components
+console.log(
+  BenefitsEnrollment,
+  ClaimsReimbursements,
+  CompanyPolicyCompliance,
+  AuditComplianceReports
+);
+
 function BenefitsCompliance() {
   const [activeTab, setActiveTab] = useState("benefits-enrollment");
+
+  const tabOptions = {
+    "benefits-enrollment": <BenefitsEnrollment />,
+    "claims-reimbursements": <ClaimsReimbursements />,
+    "company-policy": <CompanyPolicyCompliance />,
+    "audit-reports": <AuditComplianceReports />,
+  };
 
   return (
     <div className="benefits-compliance-container">
@@ -14,39 +29,22 @@ function BenefitsCompliance() {
 
       {/* Navigation Tabs */}
       <div className="tabs">
-        <button
-          onClick={() => setActiveTab("benefits-enrollment")}
-          className={activeTab === "benefits-enrollment" ? "active" : ""}
-        >
-          🏥 Benefits Enrollment
-        </button>
-        <button
-          onClick={() => setActiveTab("claims-reimbursements")}
-          className={activeTab === "claims-reimbursements" ? "active" : ""}
-        >
-          💰 Claims & Reimbursements
-        </button>
-        <button
-          onClick={() => setActiveTab("company-policy")}
-          className={activeTab === "company-policy" ? "active" : ""}
-        >
-          📜 Company Policy & Compliance
-        </button>
-        <button
-          onClick={() => setActiveTab("audit-reports")}
-          className={activeTab === "audit-reports" ? "active" : ""}
-        >
-          📊 Audit & Compliance Reports
-        </button>
+        {Object.keys(tabOptions).map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={activeTab === tab ? "active" : ""}
+          >
+            {tab === "benefits-enrollment" && "🏥 Benefits Enrollment"}
+            {tab === "claims-reimbursements" && "💰 Claims & Reimbursements"}
+            {tab === "company-policy" && "📜 Company Policy & Compliance"}
+            {tab === "audit-reports" && "📊 Audit & Compliance Reports"}
+          </button>
+        ))}
       </div>
 
       {/* Display Selected Component */}
-      <div className="tab-content">
-        {activeTab === "benefits-enrollment" && <BenefitsEnrollment />}
-        {activeTab === "claims-reimbursements" && <ClaimsReimbursements />}
-        {activeTab === "company-policy" && <CompanyPolicyCompliance />}
-        {activeTab === "audit-reports" && <AuditComplianceReports />}
-      </div>
+      <div className="tab-content">{tabOptions[activeTab]}</div>
     </div>
   );
 }

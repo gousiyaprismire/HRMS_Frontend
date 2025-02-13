@@ -59,17 +59,17 @@ const AddEmployee = ({ onAdd }) => {
     <div className="add-employee-container">
       <h2>Add Employee</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Employee Name:</label>
           <input type="text" name="name" value={employee.name} onChange={handleChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Email:</label>
           <input type="email" name="email" value={employee.email} onChange={handleChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Gender:</label>
           <select name="gender" value={employee.gender} onChange={handleChange} required>
             <option value="">Select Gender</option>
@@ -79,67 +79,67 @@ const AddEmployee = ({ onAdd }) => {
           </select>
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Date of Birth:</label>
           <input type="date" name="dob" value={employee.dob} onChange={handleChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Joining Date:</label>
           <input type="date" name="joiningDate" value={employee.joiningDate} onChange={handleChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Mobile Number:</label>
           <input type="tel" name="phone" value={employee.phone} onChange={handleChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Aadhar Number:</label>
           <input type="text" name="aadharNumber" value={employee.aadharNumber} onChange={handleChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Account Number:</label>
           <input type="text" name="accountNumber" value={employee.accountNumber} onChange={handleChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Department:</label>
           <input type="text" name="department" value={employee.department} onChange={handleChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Designation:</label>
           <input type="text" name="designation" value={employee.designation} onChange={handleChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Previous Company Name (if applicable):</label>
           <input type="text" name="previousCompany" value={employee.previousCompany} onChange={handleChange} />
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>PF Number:</label>
           <input type="text" name="pfNumber" value={employee.pfNumber} onChange={handleChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Salary:</label>
           <input type="number" name="salary" value={employee.salary} onChange={handleChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Current Address:</label>
           <textarea name="currentAddress" value={employee.currentAddress} onChange={handleChange} required></textarea>
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Permanent Address:</label>
           <textarea name="permanentAddress" value={employee.permanentAddress} onChange={handleChange} required></textarea>
         </div>
 
-        <div className="form-group">
+        <div className="add-employee-form-group">
           <label>Status:</label>
           <select name="isActive" value={employee.isActive} onChange={handleChange}>
             <option value="active">Active</option>

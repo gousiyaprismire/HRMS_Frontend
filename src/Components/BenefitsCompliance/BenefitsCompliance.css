@@ -1,54 +1,504 @@
+/* ===== Benefits & Compliance Container ===== */
 .benefits-compliance-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
     text-align: center;
-    padding: 20px;
-    background-color: #f4f4f4;
-    min-height: 100vh;
   }
   
+  /* Title Header */
   .benefits-compliance-header {
-    font-size: 24px;
-    font-weight: bold;
+    color: #333;
     margin-bottom: 20px;
+    font-size: 24px;
   }
   
-  /* Tab Navigation Styles */
+  /* ===== Navigation Tabs ===== */
   .tabs {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    background: #f8f8f8;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
   }
   
+  /* Tab Buttons */
   .tabs button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+    transition: all 0.3s ease;
+  }
+  
+  /* Active Tab */
+  .tabs button.active {
     background: #007bff;
     color: white;
-    border: none;
-    padding: 12px 18px;
-    cursor: pointer;
     border-radius: 5px;
-    font-size: 16px;
-    transition: 0.3s;
   }
   
+  /* Hover Effect */
   .tabs button:hover {
-    background: #0056b3;
+    color: #007bff;
   }
   
-  .tabs button.active {
-    background: #0056b3;
-    font-weight: bold;
-    transform: scale(1.05);
-  }
-  
-  /* Tab Content Styling */
+  /* ===== Tab Content Area ===== */
   .tab-content {
-    background: white;
-    width: 90%;
-    max-width: 800px;
     padding: 20px;
-    border-radius: 10px;
+    background: white;
+    border-radius: 5px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: left;
+  }
+  
+  /* ===== Responsive Design ===== */
+  @media (max-width: 768px) {
+    .tabs {
+      flex-direction: column;
+    }
+  
+    .tabs button {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+  
+    .benefits-compliance-container {
+      width: 95%;
+    }
+  
+    .tab-content {
+      width: 100%;
+    }
+  }
+  
+  
+ /* ===== Benefits Enrollment Styling ===== */
+.benefits-enrollment {
+    max-width: 600px;
+    margin: 20px auto;
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Form Title */
+  .benefits-enrollment h2 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  /* Description Text */
+  .benefits-enrollment p {
+    color: #555;
+    font-size: 16px;
+  }
+  
+  /* Form Layout */
+  .benefits-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Form Group */
+  .form-group {
+    text-align: left;
+  }
+  
+  /* Labels */
+  .form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  /* Input & Select Styling */
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Confirmation Message */
+  .confirmation-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: 1px solid #c3e6cb;
+  }
+  
+  /* Submit Button */
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .benefits-enrollment {
+      width: 95%;
+    }
+  
+    .form-group select {
+      font-size: 14px;
+    }
+  }
+  
+  
+  /* ===== Claims & Reimbursements Form Styling ===== */
+  .claims-reimbursements-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Title */
+.claims-reimbursements-container h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+/* Form Layout */
+.claims-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+/* Form Group */
+.claims-reimbursements-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels */
+.claims-reimbursements-form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Inputs & Select */
+.claims-reimbursements-form-group input,
+.claims-reimbursements-form-group select,
+.claims-reimbursements-form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Textarea */
+.claims-reimbursements-form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Receipt Preview */
+.receipt-preview {
+    text-align: left;
+    background: #e9f7ef;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.receipt-preview h4 {
+    color: #155724;
+    margin-bottom: 5px;
+}
+
+.receipt-preview ul {
+    list-style: none;
+    padding: 0;
+}
+
+.receipt-preview li {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Submit Button */
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Success / Error Message */
+.message {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.message::before {
+    content: "⚠ ";
+    font-size: 20px;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .claims-reimbursements-container {
+        width: 95%;
+    }
+
+    .claims-reimbursements-form-group input,
+    .claims-reimbursements-form-group select,
+    .claims-reimbursements-form-group textarea {
+        font-size: 14px;
+    }
+}
+  
+ /* ===== Company Policy Compliance Styling ===== */
+.company-policy-compliance-container {
+    max-width: 700px;
+    margin: 20px auto;
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Title */
+  .company-policy-compliance-container h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 22px;
+  }
+  
+  /* Description */
+  .company-policy-compliance-container p {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  /* Policy List */
+  .policy-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+  }
+  
+  /* Individual Policy Item */
+  .policy-item {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Policy Title */
+  .policy-item h4 {
+    color: #007bff;
+    margin-bottom: 5px;
+  }
+  
+  /* Policy Description */
+  .policy-item p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  /* Download Button */
+  .download-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline-block;
+  }
+  
+  .download-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .company-policy-compliance-container {
+      width: 95%;
+    }
+  
+    .policy-item {
+      padding: 12px;
+    }
+  
+    .download-button {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+  }
+   
+ /* ===== Audit & Compliance Reports Styling ===== */
+.audit-compliance-reports-container {
+    max-width: 700px;
+    margin: 20px auto;
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Title */
+  .audit-compliance-reports-container h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 22px;
+  }
+  
+  /* Description */
+  .audit-compliance-reports-container p {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  /* Report List */
+  .report-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+  }
+  
+  /* Individual Report Item */
+  .report-item {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Report Title */
+  .report-item h4 {
+    color: #007bff;
+    margin-bottom: 5px;
+  }
+  
+  /* Report Description */
+  .report-item p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  /* Status Indicator */
+  .status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .status.compliant {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .status.violation {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  /* Download Button */
+  .download-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline-block;
+  }
+  
+  .download-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .audit-compliance-reports-container {
+      width: 95%;
+    }
+  
+    .report-item {
+      padding: 12px;
+    }
+  
+    .download-button {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
   }
   

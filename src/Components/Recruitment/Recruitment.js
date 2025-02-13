@@ -24,7 +24,7 @@ function Recruitment() {
       default:
         return (
           <>
-            <h1 className="recruitment-header">Recruitment Dashboard</h1>
+            <h1 className="recruitment-header">Recruitment</h1>
             <div className="recruitment-buttons">
               <button onClick={() => setActivePage("jobs")}>Job Listings</button>
               {/* <button onClick={() => setActivePage("applicants")}>Applicants</button> */}
