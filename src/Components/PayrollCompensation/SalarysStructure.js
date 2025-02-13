@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./SalaryStructure.css";
+
 
 const SalaryStructure = ({ goBack, openAddNew, salaryData, setSalaryData }) => {
   const [searchQuery, setSearchQuery] = useState("");
