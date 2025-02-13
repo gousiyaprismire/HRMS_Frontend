@@ -15,7 +15,7 @@ const PerformanceManagement = () => {
     <div className="main-content">
       <div className="header">
         <div className="performance-heading">
-          <h1>Performance Management Dashboard</h1>
+          <h1>Performance Management</h1>
           <p className="performance-para">View latest status of performance measurement at one place.</p>
         </div>
         <div className="settings-container">
