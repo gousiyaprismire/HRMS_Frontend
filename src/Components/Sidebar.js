@@ -9,31 +9,149 @@ const Sidebar = () => {
   const handlePerformanceClick = () => {
     setShowPerformanceOptions(!showPerformanceOptions); 
     navigate("/performance-management"); 
+  }
+  const [recruitmentOpen, setRecruitmentOpen] = useState(false);
+  const [selfServiceOpen, setSelfServiceOpen] = useState(false);
+
+  const toggleRecruitment = () => {
+    setRecruitmentOpen(!recruitmentOpen);
+  };
+
+  const toggleSelfService = () => {
+    setSelfServiceOpen(!selfServiceOpen);
   };
 
   return (
     <div style={sidebarStyles}>
-      <div style={itemStyles} onClick={() => navigate("/dashboard")}>📊 Dashboard</div>
-      <div style={itemStyles} onClick={() => navigate("/employee-management")}>👥 Employee Management</div>
-      <div style={itemStyles} onClick={() => navigate("/payroll")}>💰 Payroll & Compensation</div>
-      <div style={itemStyles} onClick={() => navigate("/attendance")}>⏳ Attendance & Time</div>
+      <div style={itemStyles} onClick={() => navigate("/dashboard")}>
+        📊 Dashboard
+      </div>
+      <div style={itemStyles} onClick={() => navigate("/employee-management")}>
+        👥 Employee Management
+      </div>
+      <div style={itemStyles} onClick={() => navigate("/payroll")}>
+        💰 Payroll & Compensation
+      </div>
+      <div style={itemStyles} onClick={() => navigate("/attendance")}>
+        ⏳ Attendance & Time
+      </div>
+      <div style={itemStyles} onClick={() => navigate("/performance")}>
+        📊 Performance Management
+      </div>
 
-      <div onClick={handlePerformanceClick} style={dropdownItemStyles}> 📊  Performance Management </div>
-      {showPerformanceOptions && (
+      {/* Recruitment with Dropdown */}
+      <div style={itemStyles} onClick={toggleRecruitment}>
+        📝 Recruitment {recruitmentOpen ? "▲" : "▼"}
+      </div>
+      {recruitmentOpen && (
         <div style={dropdownStyles}>
-          <div style={dropdownItemStyles} onClick={() => navigate("/goal-categories")}>📌 Goal Categories</div>
-          <div style={dropdownItemStyles} onClick={() => navigate("/performance-periods")}>📅 Performance Periods</div>
-          <div style={dropdownItemStyles} onClick={() => navigate("/feedback-questions")}>📝 360° Feedback Questions</div>
-          <div style={dropdownItemStyles} onClick={() => navigate("/general-options")}>🔧 General Options</div>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/recruitment/job-listings");
+            }}
+          >
+            📋 Job Listings
+          </div>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/recruitment/applicant-management");
+            }}
+          >
+          
+            🗓 Interview Scheduling
+          </div>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/recruitment/offer-letters");
+            }}
+          >
+            ✉️ Offer Letters
+          </div>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/recruitment/onboarding");
+            }}
+          >
+            🚀 Onboarding
+          </div>
         </div>
-      )}  
+      )}
 
-      <div style={itemStyles} onClick={() => navigate("/recruitment")}>📝 Recruitment</div>
-      <div style={itemStyles} onClick={() => navigate("/benefits-compliance")}>📜 Benefits & Compliance</div>
-      <div style={itemStyles} onClick={() => navigate("/self-service")}>💻 Self-Service</div>
-      <div style={itemStyles} onClick={() => navigate("/analytics-reporting")}>📈 Analytics & Reporting</div>
-      <div style={itemStyles} onClick={() => navigate("/mobile-accessibility")}>📱 Mobile Accessibility</div>
-      <div style={itemStyles} onClick={() => navigate("/security")}>🔒 Security & Data Privacy</div>
+      <div style={itemStyles} onClick={() => navigate("/benefits-compliance")}>
+        📜 Benefits & Compliance
+      </div>
+
+      {/* Self-Service with Dropdown */}
+      <div style={itemStyles} onClick={toggleSelfService}>
+        💻 Self-Service {selfServiceOpen ? "▲" : "▼"}
+      </div>
+      {selfServiceOpen && (
+        <div style={dropdownStyles}>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/selfservice/profile-update");
+            }}
+          >
+            👤 Profile Update
+          </div>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/selfservice/leave-attendance-history");
+            }}
+          >
+            📅 Leave & Attendance History
+          </div>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/selfservice/payroll-tax-documents");
+            }}
+          >
+            💼 Payroll & Tax Documents
+          </div>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/selfservice/expense-reimbursement");
+            }}
+          >
+            🧾 Expense Reimbursement
+          </div>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/selfservice/help-desk");
+            }}
+          >
+            🆘 Help Desk & Support
+          </div>
+        </div>
+      )}
+
+      <div style={itemStyles} onClick={() => navigate("/analytics-reporting")}>
+        📈 Analytics & Reporting
+      </div>
+      <div style={itemStyles} onClick={() => navigate("/mobile-accessibility")}>
+        📱 Mobile Accessibility
+      </div>
+      <div style={itemStyles} onClick={() => navigate("/security")}>
+        🔒 Security & Data Privacy
+      </div>
     </div>
   );
 };
@@ -46,7 +164,7 @@ const sidebarStyles = {
   paddingTop: "50px",
   paddingLeft: '20px',
   position: "fixed",
-  top: "60px",  
+  top: "60px",
   left: "0",
   overflowY: "auto",
   zIndex: 999,

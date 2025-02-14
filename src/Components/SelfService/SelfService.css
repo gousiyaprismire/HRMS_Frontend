@@ -47,7 +47,7 @@
 }
 
 .selfservice-buttons button:hover {
-  background: rgb(176, 171, 171);
+  background: #aa853e;
 }
 
 
@@ -55,7 +55,7 @@
   margin-top: 20px;
   padding: 10px 16px;
   font-size: 14px;
-  background: rebeccapurple;
+  background: #D88A29;
   color: white;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -66,7 +66,7 @@
 }
 
 .selfservice-back-button:hover {
-  background: palevioletred;
+  background: #aa853e;
 }
 
 
@@ -114,14 +114,14 @@
 }
 
 .selfservice-form-input:focus {
-  border-color: #007bff;
+  border-color: #aa853e;
   outline: none;
 }
 
 .selfservice-profile-update-button {
   width: 100%;
   padding: 12px;
-  background-color: #007bff;
+  background-color: #aa853e;
   color: white;
   border: none;
   border-radius: 5px;
@@ -131,7 +131,7 @@
 }
 
 .selfservice-profile-update-button:hover {
-  background-color: #0056b3;
+  background-color: #D88A29;
 }
 
 /* LeaveAttendance.css */
@@ -139,6 +139,7 @@
   padding: 20px;
   background-color: #fff3e0;
   border-radius: 8px;
+  margin: 80px;
   
   
 }
@@ -164,6 +165,8 @@
   padding: 20px;
   background-color: #e3f2fd;
   border-radius: 8px;
+  margin: 50px;
+  text-align: center;
 }
 
 .payroll-tax-title {
@@ -218,7 +221,7 @@
 }
 
 .expense-reimbursement-button {
-  background-color: #2196f3;
+  background-color: #D88A29;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -227,7 +230,7 @@
 }
 
 .expense-reimbursement-button:hover {
-  background-color: #1e88e5;
+  background-color: #aa853e;
 }
 
 /* HelpDesk.css */
@@ -270,7 +273,7 @@
 }
 
 .helpdesk-button {
-  background-color: #00796b;
+  background-color: #D88A29;
   color: #fff;
   padding: 10px 15px;
   border: none;
@@ -280,5 +283,5 @@
 }
 
 .helpdesk-button:hover {
-  background-color: #004d40;
+  background-color: #aa853e;
 }

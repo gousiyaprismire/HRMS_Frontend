@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./Recruitment.css";
 
-function JobListings({ setActivePage }) {  
+function JobListings({ setActivePage }) {
+  const navigate = useNavigate(); // Initialize useNavigate
+  
   const [jobs, setJobs] = useState([
     { title: "Software Engineer", applications: 10, status: "Recruitment Done", hired: "0/3" },
     { title: "Frontend Developer", applications: 7, status: "Recruitment Done", hired: "0/2" },
@@ -33,8 +36,9 @@ function JobListings({ setActivePage }) {
     }
   };
 
-  const handleApplicationsClick = () => {
-    setActivePage("applicants"); 
+
+  const handleApplicationsClick = (jobTitle) => {
+    navigate(`/recruitment/job-listings/applicants?title=${jobTitle}`);
   };
 
   return (
@@ -48,7 +52,7 @@ function JobListings({ setActivePage }) {
             <div className="recruitment-job-info">
               <button 
                 className="recruitment-job-apply" 
-                onClick={handleApplicationsClick} 
+                onClick={() => handleApplicationsClick(job.title)} 
               >
                 Applications: {job.applications}
               </button>

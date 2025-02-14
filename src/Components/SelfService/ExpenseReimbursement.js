@@ -41,6 +41,7 @@ const ExpenseReimbursement = () => {
             onChange={handleInputChange}
             placeholder="Enter expense title"
             className="expense-form-input"
+            
           />
         </div>
 

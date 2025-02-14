@@ -9,7 +9,7 @@ import AttendanceTime from "./Components/AttendanceTime/AttendanceTime";
 import BenefitsCompliance from "./Components/BenefitsCompliance/BenefitsCompliance";
 import EmployeeManagement from "./Components/EmployeeManagement/EmployeeManagement";
 import PayrollCompensation from "./Components/PayrollCompensation/PayrollCompensation";
-import Recruitment from "./Components/Recruitment/Recruitment";
+
 import SecurityDataPrivacy from "./Components/SecurityDataPrivacy/SecurityDataPrivacy";
 import PerformanceManagement from "./Components/PerformanceManagement/PerformanceManagement";
 import SelfService from "./Components/SelfService/SelfService";
@@ -20,6 +20,16 @@ import TimesheetManagement from "./Components/AttendanceTime/TimesheetManagement
 import HolidayPolicies from "./Components/AttendanceTime/HolidayPolicies"
 import GoalCategories from "./Components/PerformanceManagement/GoalCategories";
 
+import JobListings from "./Components/Recruitment/JobListings";
+import InterviewSchedule from "./Components/Recruitment/InterviewSchedule";
+import OfferLetters from "./Components/Recruitment/OfferLetters";
+import Onboarding from "./Components/Recruitment/Onboarding";
+import Applicant from "./Components/Recruitment/Applicants";
+import ProfileUpdate from "./Components/SelfService/ProfileUpdate";
+import LeaveAttendance from "./Components/SelfService/LeaveAttendance";
+import PayrollTax from "./Components/SelfService/PayrollTax";
+import ExpenseReimbursement from "./Components/SelfService/ExpenseReimbursement";
+import HelpDesk from "./Components/SelfService/HelpDesk";
 
 
 const App = () => {
@@ -46,11 +56,23 @@ const App = () => {
               <Route path="/payroll" element={<PayrollCompensation />} />
               <Route path="/performance-management" element={<PerformanceManagement />} />
               <Route path="/goal-categories" element={<GoalCategories />} />
-              <Route path="/recruitment" element={<Recruitment />} />
+              <Route path="/security" element={<SecurityDataPrivacy />} />
+              
+              <Route path="/recruitment/job-listings" element={<JobListings />} />
+              <Route path="/recruitment/job-listings/applicants" element={<Applicant />} />
+              <Route path="/recruitment/applicant-management" element={<InterviewSchedule />} />
+              <Route path="/recruitment/offer-letters" element={<OfferLetters />} />
+              <Route path="/recruitment/onboarding" element={<Onboarding />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
               <Route path="/selfservice" element= {<SelfService />}/>
+              <Route path="/selfservice/profile-update" element={<ProfileUpdate />} />
+            <Route path="/selfservice/leave-attendance-history" element={<LeaveAttendance />} />
+            <Route path="/selfservice/payroll-tax-documents" element={<PayrollTax />} />
+            <Route path="/selfservice/expense-reimbursement" element={<ExpenseReimbursement />} />
+            <Route path="/selfservice/help-desk" element={<HelpDesk />} />
               
-      </Routes>
+             
+            </Routes>
           </div>
         </div>
       </div>
