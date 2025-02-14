@@ -1,75 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AddEmployee.css";
 
-const AddEmployee = ({ onAdd }) => {
-  const [employee, setEmployee] = useState({ 
-    name: "", 
-    email: "", 
+function AddEmployee({ onClose, onSave, editingEmployee }) {
+  const [employee, setEmployee] = useState({
+    id: null,
+    name: "",
+    email: "",
     gender: "",
     dob: "",
     joiningDate: "",
-    phone: "",
-    aadharNumber: "",
+    mobile: "",
+    aadhar: "",
     accountNumber: "",
-    department: "", 
+    department: "",
     designation: "",
-    previousCompany: "",
+    prevCompany: "",
     pfNumber: "",
     salary: "",
     currentAddress: "",
     permanentAddress: "",
-    isActive: "active",
+    status: "Active", // Default to Active
   });
 
+  // Load Employee Data When Editing
+  useEffect(() => {
+    if (editingEmployee) {
+      setEmployee(editingEmployee);
+    }
+  }, [editingEmployee]);
+
+  // Handle Input Changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEmployee({ ...employee, [name]: value });
+    setEmployee({ ...employee, [e.target.name]: e.target.value });
   };
 
+  // Handle Form Submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    const allFieldsFilled = Object.values(employee).every(value => value !== "");
-    
-    if (allFieldsFilled) {
-      onAdd(employee);
-      setEmployee({
-        name: "", 
-        email: "", 
-        gender: "",
-        dob: "",
-        joiningDate: "",
-        phone: "",
-        aadharNumber: "",
-        accountNumber: "",
-        department: "", 
-        designation: "",
-        previousCompany: "",
-        pfNumber: "",
-        salary: "",
-        currentAddress: "",
-        permanentAddress: "",
-        isActive: "active",
-      });
-    } else {
-      alert("Please fill in all required fields.");
-    }
+    onSave(employee);
   };
 
   return (
     <div className="add-employee-container">
-      <h2>Add Employee</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="add-employee-form-group">
+      <div className="add-employee-header">
+        <h3>Employee Registration Form</h3>
+        <button className="close-btn" onClick={onClose}>✖</button>
+      </div>
+
+      {/* ✅ Scrollable Form Wrapper */}
+      <div className="add-employee-content">
+        <form onSubmit={handleSubmit}>
           <label>Employee Name:</label>
           <input type="text" name="name" value={employee.name} onChange={handleChange} required />
-        </div>
 
-        <div className="add-employee-form-group">
           <label>Email:</label>
           <input type="email" name="email" value={employee.email} onChange={handleChange} required />
-        </div>
 
-        <div className="add-employee-form-group">
           <label>Gender:</label>
           <select name="gender" value={employee.gender} onChange={handleChange} required>
             <option value="">Select Gender</option>
@@ -77,80 +63,61 @@ const AddEmployee = ({ onAdd }) => {
             <option value="Female">Female</option>
             <option value="Other">Other</option>
           </select>
-        </div>
 
-        <div className="add-employee-form-group">
           <label>Date of Birth:</label>
           <input type="date" name="dob" value={employee.dob} onChange={handleChange} required />
-        </div>
 
-        <div className="add-employee-form-group">
           <label>Joining Date:</label>
           <input type="date" name="joiningDate" value={employee.joiningDate} onChange={handleChange} required />
-        </div>
 
-        <div className="add-employee-form-group">
           <label>Mobile Number:</label>
-          <input type="tel" name="phone" value={employee.phone} onChange={handleChange} required />
-        </div>
+          <input type="text" name="mobile" value={employee.mobile} onChange={handleChange} required />
 
-        <div className="add-employee-form-group">
           <label>Aadhar Number:</label>
-          <input type="text" name="aadharNumber" value={employee.aadharNumber} onChange={handleChange} required />
-        </div>
+          <input type="text" name="aadhar" value={employee.aadhar} onChange={handleChange} required />
 
-        <div className="add-employee-form-group">
           <label>Account Number:</label>
           <input type="text" name="accountNumber" value={employee.accountNumber} onChange={handleChange} required />
-        </div>
 
-        <div className="add-employee-form-group">
           <label>Department:</label>
-          <input type="text" name="department" value={employee.department} onChange={handleChange} required />
-        </div>
+          <select name="department" value={employee.department} onChange={handleChange} required>
+            <option value="">Select Department</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Finance">Finance</option>
+          </select>
 
-        <div className="add-employee-form-group">
           <label>Designation:</label>
           <input type="text" name="designation" value={employee.designation} onChange={handleChange} required />
-        </div>
 
-        <div className="add-employee-form-group">
-          <label>Previous Company Name (if applicable):</label>
-          <input type="text" name="previousCompany" value={employee.previousCompany} onChange={handleChange} />
-        </div>
+          <label>Previous Company Name:</label>
+          <input type="text" name="prevCompany" value={employee.prevCompany} onChange={handleChange} />
 
-        <div className="add-employee-form-group">
           <label>PF Number:</label>
-          <input type="text" name="pfNumber" value={employee.pfNumber} onChange={handleChange} required />
-        </div>
+          <input type="text" name="pfNumber" value={employee.pfNumber} onChange={handleChange} />
 
-        <div className="add-employee-form-group">
           <label>Salary:</label>
           <input type="number" name="salary" value={employee.salary} onChange={handleChange} required />
-        </div>
 
-        <div className="add-employee-form-group">
           <label>Current Address:</label>
           <textarea name="currentAddress" value={employee.currentAddress} onChange={handleChange} required></textarea>
-        </div>
 
-        <div className="add-employee-form-group">
           <label>Permanent Address:</label>
           <textarea name="permanentAddress" value={employee.permanentAddress} onChange={handleChange} required></textarea>
-        </div>
 
-        <div className="add-employee-form-group">
-          <label>Status:</label>
-          <select name="isActive" value={employee.isActive} onChange={handleChange}>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
+          <label>Employee Status:</label>
+          <select name="status" value={employee.status} onChange={handleChange} required>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
           </select>
-        </div>
 
-        <button type="submit">Submit</button>
-      </form>
+          <button type="submit" className="submit-btn">
+            {employee.id ? "Update Employee" : "Register Employee"}
+          </button>
+        </form>
+      </div>
     </div>
   );
-};
+}
 
 export default AddEmployee;
