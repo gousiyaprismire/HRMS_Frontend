@@ -32,7 +32,7 @@ const Applicant = () => {
  
   return (
     <form onSubmit={handleSubmit} className="applicant-form">
-  {/* Applicant's Name and Contact */}
+ 
   <div className="applicant-inline-group">
     <div className="applicant-form-group">
       <label>Applicant's Name:</label>
@@ -82,7 +82,7 @@ const Applicant = () => {
     </div>
   </div>
 
-  {/* Degree and Applied Job */}
+
   <div className="applicant-inline-group">
     <div className="applicant-form-group">
       <label>Degree:</label>
@@ -114,7 +114,7 @@ const Applicant = () => {
     </div>
   </div>
 
-  {/* Department and Expected Salary */}
+
   <div className="applicant-inline-group">
     <div className="applicant-form-group">
       <label>Department:</label>
@@ -182,7 +182,7 @@ const Applicant = () => {
 </div>
 
 
-  {/* Buttons */}
+ 
   <div>
     <button type="submit" className="applicant-btn">Save</button>
     <button type="reset" onClick={() => setFormData({})} className="applicant-btn">Discard</button>

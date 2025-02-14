@@ -139,6 +139,7 @@
   padding: 20px;
   background-color: #fff3e0;
   border-radius: 8px;
+  margin: 80px;
   
   
 }
@@ -164,6 +165,8 @@
   padding: 20px;
   background-color: #e3f2fd;
   border-radius: 8px;
+  margin: 50px;
+  text-align: center;
 }
 
 .payroll-tax-title {
@@ -270,7 +273,7 @@
 }
 
 .helpdesk-button {
-  background-color: #00796b;
+  background-color: #D88A29;
   color: #fff;
   padding: 10px 15px;
   border: none;
@@ -280,5 +283,5 @@
 }
 
 .helpdesk-button:hover {
-  background-color: #004d40;
+  background-color: #aa853e;
 }
