@@ -1,4 +1,5 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import Sidebar from "./Components/Sidebar";
 import TopBar from "./Components/Topbar";
@@ -31,6 +32,7 @@ const App = () => {
           <div style={{ marginLeft: "260px", padding: "20px", width: "100%" }}>
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={<Navigate to="/performance-management" />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/analytics-reporting" element={<AnalyticsReporting />}/>
               <Route path="/attendance" element={<AttendanceTime />} />
@@ -42,11 +44,12 @@ const App = () => {
               <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
               <Route path="/employee-management" element={<EmployeeManagement />} />
               <Route path="/payroll" element={<PayrollCompensation />} />
-              <Route path="performance" element={<PerformanceManagement />} />
+              <Route path="/performance-management" element={<PerformanceManagement />} />
+              <Route path="/goal-categories" element={<GoalCategories />} />
               <Route path="/recruitment" element={<Recruitment />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
               <Route path="/selfservice" element= {<SelfService />}/>
-              <Route path="/goal-categories" element={<GoalCategories />} />
+              
       </Routes>
           </div>
         </div>
