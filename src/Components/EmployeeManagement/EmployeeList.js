@@ -1,48 +1,44 @@
-import React, { useState } from "react";
-import "./EmployeeManagement.css";
+import React from "react";
+import "./EmployeeList.css";
 
-const EmployeeList = ({ employees = [], onSelectEmployee }) => {
-  const [search, setSearch] = useState("");
-
-  // Filter employees based on search input
-  const filteredEmployees = employees?.filter((emp) =>
-    emp.name.toLowerCase().includes(search.toLowerCase())
-  ) || [];
+function EmployeeList({ searchQuery, employees, onEdit, onDelete }) {
+  const filteredEmployees = employees.filter((emp) =>
+    emp.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
-    <div className="employee-list">
-      <h2>Employee List</h2>
-      
-      {/* Search Bar */}
-      <input
-        type="text"
-        placeholder="🔍 Search employees by name..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="search-bar"
-      />
-
-      {/* Employee List with Profile Summary */}
-      <ul>
+    <table className="employee-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Department</th>
+          <th>Contact</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
         {filteredEmployees.length > 0 ? (
-          filteredEmployees.map((emp) => (
-            <li key={emp.id} onClick={() => onSelectEmployee(emp)} className="employee-item">
-              <div className="employee-info">
-                <strong>{emp.name}</strong> - {emp.role}
-              </div>
-              <div className="employee-summary">
-                <p><strong>Department:</strong> {emp.department}</p>
-                <p><strong>Email:</strong> {emp.email}</p>
-                <p><strong>Phone:</strong> {emp.phone}</p>
-              </div>
-            </li>
+          filteredEmployees.map((employee) => (
+            <tr key={employee.id}>
+              <td>{employee.name}</td>
+              <td>{employee.role}</td>
+              <td>{employee.department}</td>
+              <td>{employee.contact}</td>
+              <td>
+                <button className="edit-btn" onClick={() => onEdit(employee)}>✏ Edit</button>
+                <button className="delete-btn" onClick={() => onDelete(employee.id)}>🗑 Delete</button>
+              </td>
+            </tr>
           ))
         ) : (
-          <p>No employees found</p>
+          <tr>
+            <td colSpan="5">No employees found</td>
+          </tr>
         )}
-      </ul>
-    </div>
+      </tbody>
+    </table>
   );
-};
+}
 
 export default EmployeeList;
