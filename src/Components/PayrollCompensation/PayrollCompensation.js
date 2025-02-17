@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import SalaryStructure from "./SalarysStructure";
+import SalaryStructure from "./SalaryStructure";
 import Payslips from "./Payslips";
 import Bonuses from "./Bonuses";
 import PayrollProcessing from "./PayrollProcessing";
-import TaxReports from "./TaxrReports";
+import TaxReports from "./TaxReports";
 import AddNewSalary from "./AddNewSalary";
 import AddNewPayslip from "./AddNewPayslip";
 import AddBonus from "./AddBonus";

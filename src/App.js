@@ -30,6 +30,11 @@ import LeaveAttendance from "./Components/SelfService/LeaveAttendance";
 import PayrollTax from "./Components/SelfService/PayrollTax";
 import ExpenseReimbursement from "./Components/SelfService/ExpenseReimbursement";
 import HelpDesk from "./Components/SelfService/HelpDesk";
+import SalaryStructure from "./Components/PayrollCompensation/SalaryStructure";
+import Payslips from "./Components/PayrollCompensation/Payslips";
+import Bonuses from "./Components/PayrollCompensation/Bonuses";
+import PayrollProcessing from "./Components/PayrollCompensation/PayrollProcessing";
+import TaxReports from "./Components/PayrollCompensation/TaxReports";
 
 
 const App = () => {
@@ -70,6 +75,11 @@ const App = () => {
             <Route path="/selfservice/payroll-tax-documents" element={<PayrollTax />} />
             <Route path="/selfservice/expense-reimbursement" element={<ExpenseReimbursement />} />
             <Route path="/selfservice/help-desk" element={<HelpDesk />} />
+            <Route path="/salary-structure" element={<SalaryStructure />} />
+              <Route path="/payslips" element={<Payslips />} />
+              <Route path="/bonuses" element={<Bonuses />} />
+              <Route path="/payroll-processing" element={<PayrollProcessing />} />
+              <Route path="/tax-reports" element={<TaxReports />} />
               
              
             </Routes>
