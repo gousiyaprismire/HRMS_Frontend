@@ -1,31 +1,37 @@
-.employee-list {
-    text-align: left;
-  }
-  
-  .employee-list input {
+/* Employee List Table */
+.employee-table {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 15px;
+    border-collapse: collapse;
   }
   
-  .employee-list ul {
-    list-style: none;
-    padding: 0;
+  .employee-table th, .employee-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
   }
   
-  .employee-list li {
-    background: #f8f9fa;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 5px;
+  .edit-btn, .delete-btn {
+    padding: 6px 12px;
+    margin: 3px;
+    border: none;
     cursor: pointer;
-    transition: 0.3s;
+    border-radius: 5px;
   }
   
-  .employee-list li:hover {
-    background: #2c75da;
+  .edit-btn {
+    background-color: #ffc107;
     color: white;
+  }
+  
+  .delete-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .edit-btn:hover {
+    background-color: #e0a800;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c82333;
   }
   

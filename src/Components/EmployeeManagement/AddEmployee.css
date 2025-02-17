@@ -1,92 +1,85 @@
-.add-employee-container {
-  width: 90%;
-  max-width: 1000px;
-  margin: 20px auto;
-  background: #f9f9f9;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Form Title */
-.add-employee-container h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
-  font-size: 24px;
-}
-
-/* Form Layout */
-.add-employee-form-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.add-employee-form-group label {
-  width: 200px;
-  font-weight: bold;
-  color: #555;
-  text-align: left;
-  margin-right: 10px;
-}
-
-/* Input, Select & Textarea */
-.add-employee-form-group input,
-.add-employee-form-group select,
-.add-employee-form-group textarea {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  text-align: left;
-  width: 100%;
-}
-
-/* Textarea Styling */
-.add-employee-form-group textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-/* Submit Button */
-.submit-button {
-  background-color: #007bff;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 18px;
-  margin-top: 15px;
-  width: 100%;
-  font-weight: bold;
-}
-
-.submit-button:hover {
-  background-color: #0056b3;
-}
-
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-  .add-employee-container {
-      width: 95%;
+/* Add Employee Popup */
+.add-employee-popup {
+    width: 450px;
+    height: 100vh; /* Full height of the viewport */
+    background-color: white;
+    box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s ease-in-out;
+    padding: 20px;
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevents unwanted overflow */
   }
-
-  .add-employee-form-group {
-      flex-direction: column;
-      align-items: flex-start;
+  
+  /* Header (Fixed Position) */
+  .add-employee-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
-
-  .add-employee-form-group label {
-      width: 100%;
-      margin-bottom: 5px;
+  
+  /* Scrollable Form Wrapper */
+  .add-employee-content {
+    flex-grow: 1;
+    overflow-y: auto; /* Enables vertical scrolling */
+    max-height: calc(100vh - 60px); /* Adjust height dynamically */
+    padding-right: 10px;
   }
-
-  .add-employee-form-group input,
-  .add-employee-form-group select,
-  .add-employee-form-group textarea {
-      width: 100%;
+  
+  /* Hide Scrollbar */
+  .add-employee-content::-webkit-scrollbar {
+    width: 6px;
   }
-}
+  
+  .add-employee-content::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border-radius: 5px;
+  }
+  
+  .add-employee-content::-webkit-scrollbar-thumb:hover {
+    background: #888;
+  }
+  
+  /* Form Inputs */
+  label {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Make Textarea Resizable */
+  textarea {
+    height: 60px;
+    resize: vertical;
+  }
+  
+  /* Submit Button */
+  .submit-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    margin-top: 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .submit-btn:hover {
+    background-color: #218838;
+  }
+  
