@@ -9,7 +9,6 @@ import AttendanceTime from "./Components/AttendanceTime/AttendanceTime";
 import BenefitsCompliance from "./Components/BenefitsCompliance/BenefitsCompliance";
 import EmployeeManagement from "./Components/EmployeeManagement/EmployeeManagement";
 import PayrollCompensation from "./Components/PayrollCompensation/PayrollCompensation";
-
 import SecurityDataPrivacy from "./Components/SecurityDataPrivacy/SecurityDataPrivacy";
 import PerformanceManagement from "./Components/PerformanceManagement/PerformanceManagement";
 import SelfService from "./Components/SelfService/SelfService";
@@ -19,7 +18,6 @@ import LeaveApprovalPanel from "./Components/AttendanceTime/LeaveApprovalPanel";
 import TimesheetManagement from "./Components/AttendanceTime/TimesheetManagement";
 import HolidayPolicies from "./Components/AttendanceTime/HolidayPolicies"
 import GoalCategories from "./Components/PerformanceManagement/GoalCategories";
-
 import JobListings from "./Components/Recruitment/JobListings";
 import InterviewSchedule from "./Components/Recruitment/InterviewSchedule";
 import OfferLetters from "./Components/Recruitment/OfferLetters";
@@ -62,7 +60,6 @@ const App = () => {
               <Route path="/performance-management" element={<PerformanceManagement />} />
               <Route path="/goal-categories" element={<GoalCategories />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
-              
               <Route path="/recruitment/job-listings" element={<JobListings />} />
               <Route path="/recruitment/job-listings/applicants" element={<Applicant />} />
               <Route path="/recruitment/applicant-management" element={<InterviewSchedule />} />

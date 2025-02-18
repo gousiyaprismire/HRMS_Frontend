@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./SalaryStructure.css";
-
 const SalaryStructure = () => {
   const [salaryData, setSalaryData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -11,7 +10,6 @@ const SalaryStructure = () => {
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false); 
   const [selectedItemId, setSelectedItemId] = useState(null); 
   const [editData, setEditData] = useState(null); 
-
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchSalaryData();
@@ -141,7 +139,7 @@ const SalaryStructure = () => {
     <div className="salary-structure-container">
       <h1>Salary Structure</h1>
       <div className="filters">
-        <button className="add-new-button" onClick={handleAddNew}>
+        <button className="payroll-add-new-button" onClick={handleAddNew}>
           + Add New
         </button>
         <div className="search-filter">
