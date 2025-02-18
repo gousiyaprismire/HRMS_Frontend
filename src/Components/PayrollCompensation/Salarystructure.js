@@ -134,7 +134,7 @@ const SalaryStructure = () => {
     }
     setPopupOpen(false); 
   };
-
+     
   return (
     <div className="salary-structure-container">
       <h1>Salary Structure</h1>
