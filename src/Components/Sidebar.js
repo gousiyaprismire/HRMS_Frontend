@@ -201,7 +201,7 @@ const Sidebar = () => {
 const sidebarStyles = {
   width: "280px",
   height: "calc(100vh - 60px)", 
-  // backgroundColor: "#2c3e50",
+ background: "#aa853e",
   color: "white",
   paddingTop: "50px",
   paddingLeft: '20px',
