@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./leaveApprovalPanel.css"; 
+import "./leaveApprovalPanel.css";
 
 function LeaveApprovalPanel() {
-  const navigate = useNavigate();
-
   // Sample leave requests 
   const [leaveRequests, setLeaveRequests] = useState([
     { id: 1, name: "Manjunadh", leaveType: "Sick Leave", startDate: "2025-02-05", endDate: "2025-02-06", status: "Pending" },
@@ -23,9 +20,6 @@ function LeaveApprovalPanel() {
 
   return (
     <div className="leave-approval-container">
-      <h2>Leave Approval Panel</h2>
-      <button onClick={() => navigate(-1)}>Back</button>
-
       <div className="leave-requests">
         <h3>Pending Leave Requests</h3>
         <table>
