@@ -1,72 +1,127 @@
-.payslip-container {
-    padding: 20px;
-    background: linear-gradient(to right, #aa853e, white);
-    min-height: 100vh;
-  }
-  
-  .filter-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .payslip-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  
-  .payslip-table th,
-  .payslip-table td {
-    padding: 10px;
-    border: 1px solid #000;
-    text-align: center;
-  }
-  
-  .view-btn {
-    background-color: #aa853e;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .payslip-details {
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    width: 300px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  .payslip-details p {
-    margin: 5px 0;
-  }
-  
-  .payslip-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-  
-  .back-btn,
-  .edit-btn,
-  .generate-btn {
-    background-color: #aa853e;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .new-payslip-btn {
-    background-color: green;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-  }
+.payroll-payslip-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.payroll-add-new-btn {
+  background-color: #aa853e;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.payroll-filters {
+  margin: 15px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.payroll-search {
+  background-color: white !important;
+}
+
+.payroll-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.payroll-table th, .payroll-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.payroll-edit-btn {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.payroll-delete-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.payroll-popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.payroll-popup-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.payroll-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.payroll-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.payroll-form-group label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.payroll-form-group input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.payroll-popup-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.payroll-save-btn, .payroll-cancel-btn {
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;  
+  font-size: 16px;
+}
+
+.payroll-save-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.payroll-cancel-btn {
+  background-color: #dc3545;
+  color: white;
+}
