@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./SalaryStructure.css";
+
 const SalaryStructure = () => {
   const [salaryData, setSalaryData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
