@@ -4,7 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [showPerformanceOptions, setShowPerformanceOptions] = useState(false);
+  const [attendanceDropdown, setAttendanceDropdown] = useState(false);
   const navigate = useNavigate();
+
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
   
   const handlePerformanceClick = () => {
     setShowPerformanceOptions(!showPerformanceOptions); 
@@ -32,9 +37,18 @@ const Sidebar = () => {
       <div style={itemStyles} onClick={() => navigate("/payroll")}>
         💰 Payroll & Compensation
       </div>
-      <div style={itemStyles} onClick={() => navigate("/attendance")}>
-        ⏳ Attendance & Time
+      <div style={itemStyles} onClick={() => setAttendanceDropdown(!attendanceDropdown)}>
+        ⏳ Attendance & Time {attendanceDropdown ? "▼" : "▶"}
       </div>
+      {attendanceDropdown && (
+        <div style={dropdownStyles}>
+          <div style={dropdownItemStyles} onClick={() => handleNavigate("/attendance-tracking")}>📌 Employee Attendance Tracking</div>
+          <div style={dropdownItemStyles} onClick={() => handleNavigate("/leave-application")}>📝 Leave Application</div>
+          <div style={dropdownItemStyles} onClick={() => handleNavigate("/leave-approval")}>✅ Leave Approval Panel</div>
+          <div style={dropdownItemStyles} onClick={() => handleNavigate("/timesheet")}>📅 Timesheet Management</div>
+          <div style={dropdownItemStyles} onClick={() => handleNavigate("/holiday")}>📜 Holiday & Leave Policies</div>
+        </div>
+      )}
       <div onClick={handlePerformanceClick} style={dropdownItemStyles}> 📊  Performance Management </div>
       {showPerformanceOptions && (
         <div style={dropdownStyles}>
