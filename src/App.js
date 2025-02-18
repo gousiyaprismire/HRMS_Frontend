@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react";     
 import { Navigate } from "react-router-dom";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import Sidebar from "./Components/Sidebar";
@@ -9,7 +9,6 @@ import AttendanceTime from "./Components/AttendanceTime/AttendanceTime";
 import BenefitsCompliance from "./Components/BenefitsCompliance/BenefitsCompliance";
 import EmployeeManagement from "./Components/EmployeeManagement/EmployeeManagement";
 import PayrollCompensation from "./Components/PayrollCompensation/PayrollCompensation";
-
 import SecurityDataPrivacy from "./Components/SecurityDataPrivacy/SecurityDataPrivacy";
 import PerformanceManagement from "./Components/PerformanceManagement/PerformanceManagement";
 import SelfService from "./Components/SelfService/SelfService";
@@ -19,7 +18,6 @@ import LeaveApprovalPanel from "./Components/AttendanceTime/LeaveApprovalPanel";
 import TimesheetManagement from "./Components/AttendanceTime/TimesheetManagement";
 import HolidayPolicies from "./Components/AttendanceTime/HolidayPolicies"
 import GoalCategories from "./Components/PerformanceManagement/GoalCategories";
-
 import JobListings from "./Components/Recruitment/JobListings";
 import InterviewSchedule from "./Components/Recruitment/InterviewSchedule";
 import OfferLetters from "./Components/Recruitment/OfferLetters";
@@ -30,6 +28,11 @@ import LeaveAttendance from "./Components/SelfService/LeaveAttendance";
 import PayrollTax from "./Components/SelfService/PayrollTax";
 import ExpenseReimbursement from "./Components/SelfService/ExpenseReimbursement";
 import HelpDesk from "./Components/SelfService/HelpDesk";
+import SalaryStructure from "./Components/PayrollCompensation/SalaryStructure";
+import Payslips from "./Components/PayrollCompensation/Payslips";
+import Bonuses from "./Components/PayrollCompensation/Bonuses";
+import PayrollProcessing from "./Components/PayrollCompensation/PayrollProcessing";
+import TaxReports from "./Components/PayrollCompensation/TaxReports";
 
 
 const App = () => {
@@ -57,7 +60,6 @@ const App = () => {
               <Route path="/performance-management" element={<PerformanceManagement />} />
               <Route path="/goal-categories" element={<GoalCategories />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
-              
               <Route path="/recruitment/job-listings" element={<JobListings />} />
               <Route path="/recruitment/job-listings/applicants" element={<Applicant />} />
               <Route path="/recruitment/applicant-management" element={<InterviewSchedule />} />
@@ -70,6 +72,11 @@ const App = () => {
             <Route path="/selfservice/payroll-tax-documents" element={<PayrollTax />} />
             <Route path="/selfservice/expense-reimbursement" element={<ExpenseReimbursement />} />
             <Route path="/selfservice/help-desk" element={<HelpDesk />} />
+            <Route path="/salary-structure" element={<SalaryStructure />} />
+              <Route path="/payslips" element={<Payslips />} />
+              <Route path="/bonuses" element={<Bonuses />} />
+              <Route path="/payroll-processing" element={<PayrollProcessing />} />
+              <Route path="/tax-reports" element={<TaxReports />} />
               
              
             </Routes>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+   
 const Sidebar = () => {
   const [showPerformanceOptions, setShowPerformanceOptions] = useState(false);
   const [attendanceDropdown, setAttendanceDropdown] = useState(false);
@@ -15,6 +15,7 @@ const Sidebar = () => {
     setShowPerformanceOptions(!showPerformanceOptions); 
     navigate("/performance-management"); 
   }
+  const [payrollOpen, setPayrollOpen] = useState(false);
   const [recruitmentOpen, setRecruitmentOpen] = useState(false);
   const [selfServiceOpen, setSelfServiceOpen] = useState(false);
 
@@ -25,6 +26,8 @@ const Sidebar = () => {
   const toggleSelfService = () => {
     setSelfServiceOpen(!selfServiceOpen);
   };
+  
+  const togglePayroll = () => setPayrollOpen(!payrollOpen);
 
   return (
     <div style={sidebarStyles}>
@@ -34,9 +37,28 @@ const Sidebar = () => {
       <div style={itemStyles} onClick={() => navigate("/employee-management")}>
         👥 Employee Management
       </div>
-      <div style={itemStyles} onClick={() => navigate("/payroll")}>
-        💰 Payroll & Compensation
-      </div>
+      <div style={itemStyles} onClick={togglePayroll}>
+                💰 Payroll & Compensation {payrollOpen ? "▲" : "▼"}
+            </div>
+            {payrollOpen && (
+                <div style={dropdownStyles}>
+                    <div style={dropdownItemStyles} onClick={() => navigate("/salary-structure")}>
+                        💼 Salary Structure
+                    </div>
+                    <div style={dropdownItemStyles} onClick={() => navigate("/payslips")}>
+                        📜 Payslips & Salary Statements
+                    </div>
+                    <div style={dropdownItemStyles} onClick={() => navigate("/bonuses")}>
+                        🎉 Bonuses & Incentives
+                    </div>
+                    <div style={dropdownItemStyles} onClick={() => navigate("/payroll-processing")}>
+                        🧾 Payroll Processing
+                    </div>
+                    <div style={dropdownItemStyles} onClick={() => navigate("/tax-reports")}>
+                        🧮 Tax & Deduction Reports
+                    </div>
+                </div>
+            )}
       <div style={itemStyles} onClick={() => setAttendanceDropdown(!attendanceDropdown)}>
         ⏳ Attendance & Time {attendanceDropdown ? "▼" : "▶"}
       </div>

@@ -9,8 +9,8 @@ function EmployeeManagement() {
   const [employees, setEmployees] = useState([
     {
       id: 1,
-      name: "Sowri",
-      email: "sowri@example.com",
+      name: "John Doe",
+      email: "johndoe@example.com",
       gender: "Male",
       dob: "1990-01-01",
       joiningDate: "2022-05-10",
@@ -28,8 +28,8 @@ function EmployeeManagement() {
     },
     {
       id: 2,
-      name: "Manjnadh",
-      email: "manjnadh@example.com",
+      name: "Jane Smith",
+      email: "janesmith@example.com",
       gender: "Female",
       dob: "1992-07-15",
       joiningDate: "2021-03-25",
@@ -48,51 +48,62 @@ function EmployeeManagement() {
   ]);
   const [editingEmployee, setEditingEmployee] = useState(null);
 
+  // Toggle Add Employee Popup
   const handleToggleAddEmployee = () => {
     setShowAddEmployee((prev) => !prev);
     setEditingEmployee(null);
   };
 
+  // Handle Search Input Change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
+  // Add or Update Employee
   const handleSaveEmployee = (employee) => {
     if (employee.id) {
+      // Update existing employee
       setEmployees((prev) => prev.map((emp) => (emp.id === employee.id ? employee : emp)));
     } else {
+      // Add new employee with unique ID
       setEmployees((prev) => [...prev, { ...employee, id: prev.length + 1 }]);
     }
     setShowAddEmployee(false);
   };
 
+  // Handle Edit Employee
   const handleEditEmployee = (employee) => {
     setEditingEmployee(employee);
     setShowAddEmployee(true);
   };
 
+  // Handle Delete Employee
   const handleDeleteEmployee = (id) => {
     setEmployees((prev) => prev.filter((emp) => emp.id !== id));
   };
 
   return (
-    <div className="employee-management-container">
-      <header className="employee-navbar-container">
+    <div className="employee-management">
+      {/* Navbar */}
+      <header className="employee-navbar">
         <h2 className="navbar-title">All Employees</h2>
         <input
           type="text"
-          className="employee-search-input"
+          className="search-input"
           placeholder="Search"
           value={searchQuery}
           onChange={handleSearchChange}
         />
       </header>
 
-      <main className="employee-main-content">
+      {/* Main Content Area */}
+      <main className="employee-content">
+        {/* Add Employee Button */}
         <button className="btn add-employee-btn" onClick={handleToggleAddEmployee}>
           ➕ ADD EMPLOYEE
         </button>
 
+        {/* Employee List */}
         <section className="employee-list-section">
           <EmployeeList
             searchQuery={searchQuery}
@@ -103,9 +114,10 @@ function EmployeeManagement() {
         </section>
       </main>
 
+      {/* Add/Edit Employee Popup */}
       {showAddEmployee && (
-        <div className="overlay-container">
-          <div className="add-employee-popup-container">
+        <div className="overlay">
+          <div className="add-employee-popup right-popup">
             <AddEmployee
               onClose={handleToggleAddEmployee}
               onSave={handleSaveEmployee}
