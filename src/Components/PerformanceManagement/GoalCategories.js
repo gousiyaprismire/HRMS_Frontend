@@ -60,7 +60,7 @@ const GoalCategories = () => {
           <thead>
             <tr>
               <th>Category Name</th>
-              <th>Description</th>
+              <th>Descriptions</th>
               <th>Actions</th>
             </tr>
           </thead>
