@@ -1,60 +1,113 @@
-import React, { useState } from "react";
+import { useState } from 'react';
+import { TextField, Snackbar, Alert } from '@mui/material';
 import "./Bonuses.css";
+   
+const Bonuses = () => {
+    const [openPopup, setOpenPopup] = useState(false);
+    const [data, setData] = useState([
+        { empId: 'EMP001', name: 'Manjunath', bonusAmount: '5000', bonusType: 'Performance Bonus' }
+    ]);
+    const [newEntry, setNewEntry] = useState({
+        empId: '',
+        name: '',
+        bonusAmount: '',
+        bonusType: ''
+    });
+    const [message, setMessage] = useState({ open: false, text: '', type: 'success' });
 
-const Bonuses = ({ goBack, openAddBonus }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+    const handleAddNew = () => setOpenPopup(true);
+    const handleClosePopup = () => setOpenPopup(false);
 
-  const bonusData = [
-    { id: 1, empId: "E101", name: "Manjunath", bonus: "5000", reason: "Project Completion" },
-    { id: 2, empId: "E102", name: "Eknath", bonus: "3000", reason: "Extra Hours Worked" },
-  ];
+    const handleChange = (e) => {
+        setNewEntry({ ...newEntry, [e.target.name]: e.target.value });
+    };
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
+    const handleSave = () => {
+        if (Object.values(newEntry).some(value => value === '')) {
+            setMessage({ open: true, text: 'All fields are required!', type: 'error' });
+            return;
+        }
+        setData([...data, newEntry]);
+        setNewEntry({ empId: '', name: '', bonusAmount: '', bonusType: '' });
+        setMessage({ open: true, text: 'Added successfully!', type: 'success' });
+        setOpenPopup(false);
+    };
 
-  return (
-    <div className="bonuses-container">
-      <h2>Bonuses & Incentives</h2>
-      <div className="bonuses-header">
-        <input
-          type="text"
-          placeholder="Search by Employee ID or Name"
-          value={searchTerm}
-          onChange={handleSearch}
-          className="search-bar"
-        />
-        <button className="add-bonus-btn" onClick={openAddBonus}>
-          + Add Bonus
-        </button>
-      </div>
-      <table className="bonus-table">
-        <thead>
-          <tr>
-            <th>Employee ID</th>
-            <th>Name</th>
-            <th>Bonus Amount</th>
-            <th>Reason</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bonusData
-            .filter((b) => b.empId.includes(searchTerm) || b.name.toLowerCase().includes(searchTerm.toLowerCase()))
-            .map((b) => (
-              <tr key={b.id}>
-                <td>{b.empId}</td>
-                <td>{b.name}</td>
-                <td>{b.bonus}</td>
-                <td>{b.reason}</td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-      <button className="back-btn" onClick={() => goBack()}>
-        Back
-      </button>
-    </div>
-  );
+    const handleDelete = (index) => {
+        if (window.confirm('Are you sure you want to delete?')) {
+            setData(data.filter((_, i) => i !== index));
+        }
+    };
+
+    return (
+        <div className="bonus-container">
+            <button className="bonus-add-new-btn" onClick={handleAddNew}>+ Add New</button>
+            <div className="bonus-filters">
+                <TextField className="bonus-search" label="Search" variant="outlined" size="small" />
+                <select>
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                </select>
+                <select>
+                    <option>2024</option>
+                    <option>2025</option>
+                    <option>2026</option>
+                    <option>2027</option>
+                </select>
+            </div>
+            <table className="bonus-table">
+                <thead>
+                    <tr>
+                        <th>Emp ID</th><th>Name</th><th>Bonus Amount</th><th>Bonus Type</th><th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map((item, index) => (
+                        <tr key={index}>
+                            <td>{item.empId}</td><td>{item.name}</td><td>{item.bonusAmount}</td><td>{item.bonusType}</td>
+                            <td>
+                                <button className="bonus-edit-btn">Edit</button>
+                                <button className="bonus-delete-btn" onClick={() => handleDelete(index)}>Delete</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+
+            {openPopup && (
+                <div className="bonus-popup">
+                    <div className="bonus-popup-inner">
+                        <button className="bonus-close-btn" onClick={handleClosePopup}>×</button>
+                        <h2>Add Bonus</h2>
+                        {Object.keys(newEntry).map((key) => (
+                            <div key={key} className="bonus-form-group">
+                                <label>{key}:</label>
+                                <TextField name={key} value={newEntry[key]} onChange={handleChange} fullWidth />
+                            </div>
+                        ))}
+                        <div className="bonus-popup-buttons">
+                            <button className="bonus-save-btn" onClick={handleSave}>Save</button>
+                            <button className="bonus-cancel-btn" onClick={handleClosePopup}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <Snackbar open={message.open} autoHideDuration={3000} onClose={() => setMessage({ ...message, open: false })}>
+                <Alert severity={message.type}>{message.text}</Alert>
+            </Snackbar>
+        </div>
+    );
 };
 
 export default Bonuses;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
- import "./SalaryStructure.css";
+ import "./SalaryStructures.css";
 
 const SalaryStructure = () => {
   const [salaryData, setSalaryData] = useState([]);

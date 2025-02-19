@@ -1,0 +1,91 @@
+.tax-container {
+    padding: 20px;
+}
+
+.tax-add-new-btn {
+    background-color: #aa853e;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    width: 150px;
+    text-align: center;
+}
+
+.tax-popup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0px 5px rgba(0,0,0,0.2);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.tax-close-btn {
+    align-self: flex-end;
+    font-size: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.tax-popup-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.tax-save-btn, .tax-cancel-btn {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    width: 45%;
+}
+
+.tax-save-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.tax-cancel-btn {
+    background-color: #d3d3d3;
+}
+
+.tax-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.tax-table th, .tax-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    color: black;
+}
+
+.tax-table th {
+    background-color: #f2f2f2;
+}
+
+.tax-edit-btn, .tax-delete-btn {
+    padding: 5px 8px;
+    margin: 2px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    width: 70px;
+    text-align: center;
+}
+
+.tax-delete-btn {
+    background-color: red;
+    color: white;
+}

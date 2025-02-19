@@ -28,7 +28,7 @@ import LeaveAttendance from "./Components/SelfService/LeaveAttendance";
 import PayrollTax from "./Components/SelfService/PayrollTax";
 import ExpenseReimbursement from "./Components/SelfService/ExpenseReimbursement";
 import HelpDesk from "./Components/SelfService/HelpDesk";
-import SalaryStructure from "./Components/PayrollCompensation/SalaryStructure";
+import SalaryStructure from "./Components/PayrollCompensation/SalaryStructures";
 import Payslips from "./Components/PayrollCompensation/Payslips";
 import Bonuses from "./Components/PayrollCompensation/Bonuses";
 import PayrollProcessing from "./Components/PayrollCompensation/PayrollProcessing";
