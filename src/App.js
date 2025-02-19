@@ -9,7 +9,6 @@ import AttendanceTime from "./Components/AttendanceTime/AttendanceTime";
 import BenefitsCompliance from "./Components/BenefitsCompliance/BenefitsCompliance";
 import EmployeeManagement from "./Components/EmployeeManagement/EmployeeManagement";
 import PayrollCompensation from "./Components/PayrollCompensation/PayrollCompensation";
-
 import SecurityDataPrivacy from "./Components/SecurityDataPrivacy/SecurityDataPrivacy";
 import PerformanceManagement from "./Components/PerformanceManagement/PerformanceManagement";
 import SelfService from "./Components/SelfService/SelfService";
@@ -19,7 +18,6 @@ import LeaveApprovalPanel from "./Components/AttendanceTime/LeaveApprovalPanel";
 import TimesheetManagement from "./Components/AttendanceTime/TimesheetManagement";
 import HolidayPolicies from "./Components/AttendanceTime/HolidayPolicies"
 import GoalCategories from "./Components/PerformanceManagement/GoalCategories";
-
 import JobListings from "./Components/Recruitment/JobListings";
 import InterviewSchedule from "./Components/Recruitment/InterviewSchedule";
 import OfferLetters from "./Components/Recruitment/OfferLetters";
@@ -30,7 +28,6 @@ import LeaveAttendance from "./Components/SelfService/LeaveAttendance";
 import PayrollTax from "./Components/SelfService/PayrollTax";
 import ExpenseReimbursement from "./Components/SelfService/ExpenseReimbursement";
 import HelpDesk from "./Components/SelfService/HelpDesk";
-
 import BenefitsEnrollment from './Components/BenefitsCompliance/BenefitsEnrollment';
 import ClaimsReimbursements from './Components/BenefitsCompliance/ClaimsReimbursements';
 import CompanyPolicyCompliance from './Components/BenefitsCompliance/CompanyPolicyCompliance';
@@ -62,12 +59,10 @@ const App = () => {
               <Route path="/performance-management" element={<PerformanceManagement />} />
               <Route path="/goal-categories" element={<GoalCategories />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
-
               <Route path="/benefits/benefits-enrollment" element={<BenefitsEnrollment />} />
               <Route path="/benefits/claims-reimbursements" element={<ClaimsReimbursements />} />
               <Route path="/benefits/company-policy-compliance" element={<CompanyPolicyCompliance />} />
               <Route path="/benefits/audit-reports" element={<AuditReports />} />
-              
               <Route path="/recruitment/job-listings" element={<JobListings />} />
               <Route path="/recruitment/job-listings/applicants" element={<Applicant />} />
               <Route path="/recruitment/applicant-management" element={<InterviewSchedule />} />
@@ -76,12 +71,10 @@ const App = () => {
               <Route path="/security" element={<SecurityDataPrivacy />} />
               <Route path="/selfservice" element= {<SelfService />}/>
               <Route path="/selfservice/profile-update" element={<ProfileUpdate />} />
-            <Route path="/selfservice/leave-attendance-history" element={<LeaveAttendance />} />
-            <Route path="/selfservice/payroll-tax-documents" element={<PayrollTax />} />
-            <Route path="/selfservice/expense-reimbursement" element={<ExpenseReimbursement />} />
-            <Route path="/selfservice/help-desk" element={<HelpDesk />} />
-              
-             
+              <Route path="/selfservice/leave-attendance-history" element={<LeaveAttendance />} />
+              <Route path="/selfservice/payroll-tax-documents" element={<PayrollTax />} />
+              <Route path="/selfservice/expense-reimbursement" element={<ExpenseReimbursement />} />
+             <Route path="/selfservice/help-desk" element={<HelpDesk />} />
             </Routes>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./EmployeeManagement.css";
 import EmployeeList from "./EmployeeList";
 import AddEmployee from "./AddEmployee";
@@ -7,25 +7,6 @@ function EmployeeManagement() {
   const [showAddEmployee, setShowAddEmployee] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [employees, setEmployees] = useState([
-    {
-      id: 1,
-      name: "Sowri",
-      email: "sowri@example.com",
-      gender: "Male",
-      dob: "1990-01-01",
-      joiningDate: "2022-05-10",
-      mobile: "123-456-7890",
-      aadhar: "1234-5678-9012",
-      accountNumber: "9876543210",
-      department: "Engineering",
-      designation: "Developer",
-      prevCompany: "Tech Corp",
-      pfNumber: "PF123456",
-      salary: "60000",
-      currentAddress: "123 Street, City",
-      permanentAddress: "456 Avenue, City",
-      status: "Active",
-    },
     {
       id: 2,
       name: "Manjnadh",
@@ -44,13 +25,32 @@ function EmployeeManagement() {
       currentAddress: "789 Road, City",
       permanentAddress: "101 Street, City",
       status: "Inactive",
+    },
+    {
+      id: 1,
+      name: "Sowri",
+      email: "sowri@example.com",
+      gender: "Male",
+      dob: "1990-01-01",
+      joiningDate: "2022-05-10",
+      mobile: "123-456-7890",
+      aadhar: "1234-5678-9012",
+      accountNumber: "9876543210",
+      department: "Engineering",
+      designation: "Developer",
+      prevCompany: "Tech Corp",
+      pfNumber: "PF123456",
+      salary: "60000",
+      currentAddress: "123 Street, City",
+      permanentAddress: "456 Avenue, City",
+      status: "Active",
     }
   ]);
   const [editingEmployee, setEditingEmployee] = useState(null);
 
   const handleToggleAddEmployee = () => {
     setShowAddEmployee((prev) => !prev);
-    setEditingEmployee(null); // Reset the editing state when toggling off
+    setEditingEmployee(null);
   };
 
   const handleSearchChange = (e) => {
@@ -58,21 +58,22 @@ function EmployeeManagement() {
   };
 
   const handleSaveEmployee = (employee) => {
+    if (!employee.name.trim() || !employee.email.trim()) {
+      alert("Name and Email are required!");
+      return;
+    }
+  
     if (employee.id) {
-      // Update existing employee
       setEmployees((prev) =>
         prev.map((emp) => (emp.id === employee.id ? employee : emp))
       );
     } else {
-      // Add new employee with a unique ID
-      setEmployees((prev) => [
-        ...prev,
-        { ...employee, id: Date.now() }, // Using Date.now() for a unique ID
-      ]);
+      const newId = employees.length ? Math.max(...employees.map((e) => e.id)) + 1 : 1;
+      setEmployees((prev) => [{ ...employee, id: newId }, ...prev]); 
     }
     setShowAddEmployee(false);
   };
-
+  
   const handleEditEmployee = (employee) => {
     setEditingEmployee(employee);
     setShowAddEmployee(true);
@@ -82,24 +83,10 @@ function EmployeeManagement() {
     setEmployees((prev) => prev.filter((emp) => emp.id !== id));
   };
 
-  const filteredEmployees = employees.filter((emp) =>
-    emp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    emp.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    emp.department.toLowerCase().includes(searchQuery.toLowerCase()) // Added more fields to search
-  );
-
-  useEffect(() => {
-    if (showAddEmployee) {
-      document.body.classList.add("modal-open");
-    } else {
-      document.body.classList.remove("modal-open");
-    }
-  }, [showAddEmployee]);
-
   return (
     <div className="employee-management-container">
       <header className="employee-navbar-container">
-        <h2 className="navbar-title">Employee Management</h2>
+        <h2 className="navbar-title">All Employees</h2>
         <input
           type="text"
           className="employee-search-input"
@@ -117,7 +104,7 @@ function EmployeeManagement() {
         <section className="employee-list-section">
           <EmployeeList
             searchQuery={searchQuery}
-            employees={filteredEmployees}
+            employees={employees}
             onEdit={handleEditEmployee}
             onDelete={handleDeleteEmployee}
           />

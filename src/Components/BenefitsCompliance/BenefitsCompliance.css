@@ -42,15 +42,14 @@
   
   /* Active Tab */
   .tabs button.active {
-    background: #007bff;
+    background: #aa853e;
     color: white;
     border-radius: 5px;
-  }
-  
-  /* Hover Effect */
-  .tabs button:hover {
-    color: #007bff;
-  }
+}
+
+.tabs button:hover {
+    color: #aa853e;
+}
   
   /* ===== Tab Content Area ===== */
   .tab-content {
@@ -366,7 +365,7 @@ button:hover {
   
   /* Download Button */
   .download-button {
-    background-color: #007bff;
+    background-color: #aa853e;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -375,11 +374,11 @@ button:hover {
     font-size: 14px;
     font-weight: bold;
     display: inline-block;
-  }
-  
-  .download-button:hover {
-    background-color: #0056b3;
-  }
+}
+
+.download-button:hover {
+    background-color: #8f6e2c;
+}
   
   /* Responsive Design */
   @media screen and (max-width: 768px) {
@@ -483,7 +482,7 @@ button:hover {
   }
   
   .download-button:hover {
-    background-color: #0056b3;
+    background-color: #8f6e2c;
   }
   
   /* Responsive Design */

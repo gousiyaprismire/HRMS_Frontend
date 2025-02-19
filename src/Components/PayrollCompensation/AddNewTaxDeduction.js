@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./AddNewTaxDeduction.css";
+// import "./AddNewTaxDeduction.css";
 
 const AddNewTaxDeduction = ({ onBack }) => {
   const [employeeId, setEmployeeId] = useState("");

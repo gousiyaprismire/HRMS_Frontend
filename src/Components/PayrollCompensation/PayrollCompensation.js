@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import SalaryStructure from "./SalarysStructure";
+import SalaryStructure from "./SalaryStructure";
 import Payslips from "./Payslips";
 import Bonuses from "./Bonuses";
 import PayrollProcessing from "./PayrollProcessing";
-import TaxReports from "./TaxrReports";
-import AddNewSalary from "./AddNewSalary";
-import AddNewPayslip from "./AddNewPayslip";
-import AddBonus from "./AddBonus";
-import "./PayrollCompensation.css";
-
+import TaxReports from "./TaxReports";
+// import AddNewSalary from "./AddNewSalary";
+// import AddNewPayslip from "./AddNewPayslip";
+// import AddBonus from "./AddBonus";
+import "./PayrollCompensation.css";   
 const PayrollCompensation = () => {
   const [currentPage, setCurrentPage] = useState("dashboard");
   
@@ -28,21 +27,21 @@ const PayrollCompensation = () => {
       {currentPage === "salaryStructure" && (
         <SalaryStructure goBack={() => setCurrentPage("dashboard")} openAddNew={() => setCurrentPage("addNewSalary")} salaryData={salaryData} setSalaryData={setSalaryData} />
       )}
-      {currentPage === "addNewSalary" && (
+      {/* {currentPage === "addNewSalary" && (
         <AddNewSalary goBack={() => setCurrentPage("salaryStructure")} setSalaryData={setSalaryData} />
-      )}
+      )} */}
       {currentPage === "payslips" && (
         <Payslips goBack={() => setCurrentPage("dashboard")} openAddNew={() => setCurrentPage("addNewPayslip")} payslipData={payslipData} />
       )}
-      {currentPage === "addNewPayslip" && (
+      {/* {currentPage === "addNewPayslip" && (
         <AddNewPayslip goBack={() => setCurrentPage("payslips")} setPayslipData={setPayslipData} />
-      )}
+      )} */}
       {currentPage === "bonuses" && (
         <Bonuses goBack={() => setCurrentPage("dashboard")} openAddBonus={() => setCurrentPage("addBonus")} />
       )}
-      {currentPage === "addBonus" && (
+      {/* {currentPage === "addBonus" && (
         <AddBonus goBack={() => setCurrentPage("bonuses")} />
-      )}
+      )} */}
       {currentPage === "payrollProcessing" && <PayrollProcessing goBack={() => setCurrentPage("dashboard")} />}
       {currentPage === "taxReports" && <TaxReports goBack={() => setCurrentPage("dashboard")} />}
     </div>

@@ -74,7 +74,7 @@ function TimesheetManagement() {
 
   return (
     <div className="timesheet-container">
-      <button className="add-entry-btn" onClick={() => setShowForm(true)}>Add Entry</button>
+      <button className="add-entry-btn" onClick={() => setShowForm(true)}>+ Add Entry</button>
 
       <h2>Timesheet Management</h2>
 

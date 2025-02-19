@@ -1,7 +1,7 @@
-/* Add Employee Popup */
+/* Popup Container */
 .add-employee-popup {
   width: 450px;
-  height: 100vh; /* Full height of the viewport */
+  height: 100vh; /* Full height */
   background-color: white;
   box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.4s ease-in-out;
@@ -9,11 +9,10 @@
   border-radius: 10px 0 0 10px;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Prevents unwanted overflow */
-  
+  overflow: hidden;
 }
 
-/* Header (Fixed Position) */
+/* Header (Fixed at Top) */
 .add-employee-header {
   display: flex;
   justify-content: space-between;
@@ -27,32 +26,19 @@
   z-index: 10;
 }
 
-/* Scrollable Form Wrapper */
+/* Scrollable Form Content */
 .add-employee-content {
   flex-grow: 1;
-  overflow-y: auto; /* Enables vertical scrolling */
-  max-height: calc(100vh - 60px); /* Adjust height dynamically */
+  overflow-y: auto;
   padding-right: 10px;
-}
-
-/* Hide Scrollbar */
-.add-employee-content::-webkit-scrollbar {
-  width: 6px;
-}
-
-.add-employee-content::-webkit-scrollbar-thumb {
-  background: #aaa;
-  border-radius: 5px;
-}
-
-.add-employee-content::-webkit-scrollbar-thumb:hover {
-  background: #888;
+  padding-bottom: 20px; /* Space for last field */
 }
 
 /* Form Inputs */
 label {
   font-weight: bold;
   margin-top: 10px;
+  display: block;
 }
 
 input, select, textarea {
@@ -63,24 +49,34 @@ input, select, textarea {
   border-radius: 5px;
 }
 
-/* Make Textarea Resizable */
+/* Textarea */
 textarea {
   height: 60px;
   resize: vertical;
 }
 
-/* Submit Button */
+/* Footer (Ensures Submit Button is at the bottom) */
+.add-employee-footer {
+  margin-top: 20px; /* Ensures spacing after the last input */
+  text-align: center;
+}
+
 .submit-btn {
-  background-color: #aa853e;
+  padding: 12px;
+  font-size: 16px;
+  background: #28a745;
   color: white;
-  padding: 10px;
-  margin-top: 15px;
   border: none;
-  cursor: pointer;
   border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 400px;
 }
 
 .submit-btn:hover {
-  background-color: #aa853e;
+  background: #218838;
 }
 
+.submit-btn:active {
+  background: #1e7e34;
+}
