@@ -1,65 +1,162 @@
-.leave-application-container {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  button {
-    margin-bottom: 20px;
-  }
-  
-  .leave-form {
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .leave-form div {
-    margin-bottom: 10px;
-  }
-  
-  .leave-form label {
-    font-weight: bold;
-  }
-  
-  .leave-form input,
-  .leave-form select {
-    padding: 10px;
-    font-size: 16px;
-    width: 250px;
-    margin-top: 5px;
-  }
-  
-  .leave-form button {
-    padding: 10px 20px;
-    background-color: #2c3e50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .leave-form button:hover {
-    background-color: navy;
-  }
-  
-  .leave-requests {
-    margin-top: 30px;
-  }
-  
-  .leave-requests table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .leave-requests th,
-  .leave-requests td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-  
-  .leave-requests th {
-    background-color: #f4f4f4;
-  }
-  
+.leave-container {
+  padding: 20px;
+  text-align: center;
+  background-color: #f4f4f9;
+  min-height: 100vh;
+  position: relative;
+}
+
+.add-entry-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background 0.3s ease-in-out;
+}
+
+.add-entry-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Sliding Form from Right */
+.leave-form {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 350px;
+  height: 100vh;
+  background: white;
+  padding: 40px 20px 20px 20px;
+  box-shadow: -4px 0px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px 0 0 10px;
+  transition: right 0.4s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index: 999;
+}
+
+.leave-form.show {
+  right: 0;
+}
+
+.leave-form h3 {
+  margin: 0;
+  padding-bottom: 15px;
+  font-size: 22px;
+  text-align: center;
+  color: #34495e;
+  font-weight: 600;
+}
+
+.leave-form div {
+  width: 100%;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.leave-form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.leave-form input,
+.leave-form select {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.leave-form button {
+  flex: 1;
+  padding: 12px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.leave-form button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+.leave-form button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.cancel-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #c82333;
+}
+
+.leave-table {
+  margin-top: 30px;
+}
+
+.leave-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.leave-table th,
+.leave-table td {
+  padding: 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.leave-table th {
+  background-color: #34495e;
+  color: white;
+}
+
+.delete-btn {
+  padding: 8px 12px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+.edit-btn {
+  padding: 8px 12px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 8px;
+}
+
+.edit-btn:hover {
+  background-color: #e67e22;
+}
