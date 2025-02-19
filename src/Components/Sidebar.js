@@ -83,7 +83,7 @@ const Sidebar = () => {
 
       {/* Recruitment with Dropdown */}
       <div style={itemStyles} onClick={toggleRecruitment}>
-        📝 Recruitment {recruitmentOpen ? "▲" : "▼"}
+        📝 Recruitment {recruitmentOpen }
       </div>
       {recruitmentOpen && (
         <div style={dropdownStyles}>
@@ -132,7 +132,7 @@ const Sidebar = () => {
       </div>
 
       <div style={itemStyles} onClick={toggleSelfService}>
-        💻 Self-Service {selfServiceOpen ? "▲" : "▼"}
+        💻 Self-Service {selfServiceOpen }
       </div>
       {selfServiceOpen && (
         <div style={dropdownStyles}>
