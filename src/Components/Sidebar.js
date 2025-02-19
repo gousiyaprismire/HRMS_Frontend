@@ -188,12 +188,7 @@ const Sidebar = () => {
       <div style={itemStyles} onClick={() => navigate("/analytics-reporting")}>
         📈 Analytics & Reporting
       </div>
-      <div style={itemStyles} onClick={() => navigate("/mobile-accessibility")}>
-        📱 Mobile Accessibility
-      </div>
-      <div style={itemStyles} onClick={() => navigate("/security")}>
-        🔒 Security & Data Privacy
-      </div>
+     
     </div>
   );
 };

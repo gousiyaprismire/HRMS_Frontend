@@ -1,62 +1,97 @@
-.bonuses-container {
-    width: 90%;
-    margin: auto;
-    padding: 20px;
-    background: #aa853e;
-    color: black;
-    border-radius: 8px;
-  }
-  
-  h2 {
-    text-align: center;
-    font-size: 24px;
-    color: black; 
-  }
-  
-  .bonuses-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .search-bar {
-    width: 60%;
-    padding: 10px;
-    font-size: 16px;
-  }
-  
-  .add-bonus-btn {
-    background: white;
-    color: #aa853e;
-    padding: 10px 20px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .bonus-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .bonus-table th, .bonus-table td {
-    border: 1px solid black; 
-    padding: 10px;
-    text-align: left;
-    color: black; 
-  }
-  
-  .bonus-table th {
-    background: white;
-    color: #aa853e;
-  }
-  
-  .back-btn {
-    background: #444;
-    color: white;
-    padding: 10px;
-    border: none;
-    margin-top: 20px;
-    cursor: pointer;
-  }
-  
+.bonus-container {
+  padding: 20px;
+}
+
+.bonus-add-new-btn {
+  background-color: #aa853e;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+  width: 150px;
+  text-align: center;
+}
+
+.bonus-popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0px 5px rgba(0,0,0,0.2);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bonus-close-btn {
+  align-self: flex-end;
+  font-size: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.bonus-popup-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.bonus-save-btn, .bonus-cancel-btn {
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  width: 45%;
+}
+
+.bonus-save-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.bonus-cancel-btn {
+  background-color: #d3d3d3;
+}
+
+.bonus-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.bonus-table th, .bonus-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  color: black;
+}
+
+.bonus-table th {
+  background-color: #f2f2f2;
+}
+
+.bonus-action-btn {
+  padding: 5px 10px;
+  margin: 2px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  width: 60px;
+  text-align: center;
+}
+
+.bonus-delete-btn {
+  background-color: red;
+  color: white;
+}
+
+.bonus-filters select, .bonus-filters .bonus-search {
+  font-size: 16px;
+  padding: 8px;
+  margin: 5px;
+}
