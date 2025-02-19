@@ -3,27 +3,28 @@ import { useNavigate } from "react-router-dom";
 import "./PerformanceManagement.css";
 
 const PerformanceManagement = () => {
-  const [showSettings, setShowSettings] = useState(false);
   const navigate = useNavigate();
-
-  // const handleNavigation = (path) => {
-  //   setShowSettings(false);
-  //   navigate(path);
-  // };
 
   return (
     <div className="main-content">
       <div className="header">
         <div className="performance-heading">
           <h1>Performance Management</h1>
-          <p className="performance-para">View latest status of performance measurement at one place.</p>
+          <p className="performance-para">
+            View the latest status of performance measurement in one place.
+          </p>
         </div>
-        
       </div>
 
       <div className="cards">
-        {["Total Employees", "Forms Sent", "Forms Accepted", "Rated by Employees", "Rated by Managers", 
-          "Rating Finalized"].map((title) => (
+        {[
+          "Total Employees",
+          "Forms Sent",
+          "Forms Accepted",
+          "Rated by Employees",
+          "Rated by Managers",
+          "Rating Finalized",
+        ].map((title) => (
           <div key={title} className="card">
             <h2>{title}</h2>
             <p>-</p>
@@ -32,8 +33,12 @@ const PerformanceManagement = () => {
       </div>
 
       <div className="buttons">
-        <button className="goal-btn">🎯 Organization Goals</button>
-        <button className="appraisal-btn">📄 Appraisal Forms</button>
+        <button className="goal-btn" onClick={() => navigate("/organization-goals")}>
+          🎯 Organization Goals
+        </button>
+        <button className="appraisal-btn" onClick={() => navigate("/appraisal-forms")}>
+          📄 Appraisal Forms
+        </button>
       </div>
     </div>
   );
