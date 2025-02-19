@@ -79,8 +79,6 @@ const App = () => {
               <Route path="/bonuses" element={<Bonuses />} />
               <Route path="/payroll-processing" element={<PayrollProcessing />} />
               <Route path="/tax-reports" element={<TaxReports />} />
-              
-             
             </Routes>
           </div>
         </div>
