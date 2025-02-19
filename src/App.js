@@ -33,6 +33,9 @@ import Payslips from "./Components/PayrollCompensation/Payslips";
 import Bonuses from "./Components/PayrollCompensation/Bonuses";
 import PayrollProcessing from "./Components/PayrollCompensation/PayrollProcessing";
 import TaxReports from "./Components/PayrollCompensation/TaxReports";
+import EmployeeReports from "./Components/AnalyticsReporting/EmployeeReports";
+import PayrollTaxReports from "./Components/AnalyticsReporting/PayrollTaxReports";
+
 
 
 const App = () => {
@@ -52,6 +55,12 @@ const App = () => {
               <Route path="/attendance-tracking" element={<EmployeeAttendanceTracking />} />
               <Route path="/leave-application" element={<LeaveApplication />} />
               <Route path="/leave-approval" element={<LeaveApprovalPanel />} />
+
+              <Route path="/employee-reports" element={<EmployeeReports />} />
+              <Route path="/payroll-tax-reports" element={<PayrollTaxReports />} />
+
+
+              
               <Route path="/holiday" element={<HolidayPolicies />} />
               <Route path="/timesheet" element={<TimesheetManagement />} />
               <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
