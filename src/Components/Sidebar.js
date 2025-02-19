@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 const Sidebar = () => {
   const [showPerformanceOptions, setShowPerformanceOptions] = useState(false);
   const [attendanceDropdown, setAttendanceDropdown] = useState(false);
+  const [benefitsOpen, setBenefitsOpen] = useState(false);
   const navigate = useNavigate();
+  
 
   const handleNavigate = (path) => {
     navigate(path);
@@ -24,6 +26,10 @@ const Sidebar = () => {
 
   const toggleSelfService = () => {
     setSelfServiceOpen(!selfServiceOpen);
+  };
+  
+  const toggleBenefits = () => {
+    setBenefitsOpen((prev) => !prev);
   };
 
   return (
@@ -105,9 +111,50 @@ const Sidebar = () => {
         </div>
       )}
 
-      <div style={itemStyles} onClick={() => navigate("/benefits-compliance")}>
-        📜 Benefits & Compliance
-      </div>
+<div style={itemStyles} onClick={toggleBenefits}>
+  🏢 Benefits & Compliance {benefitsOpen ? "▲" : "▼"}
+</div>
+{benefitsOpen && (
+  <div style={dropdownStyles}>
+    <div
+      style={dropdownItemStyles}
+      onClick={(event) => {
+        event.stopPropagation();
+        navigate("/benefits/benefits-enrollment");
+      }}
+    >
+      📑 Benefits Enrollment
+    </div>
+    <div
+      style={dropdownItemStyles}
+      onClick={(event) => {
+        event.stopPropagation();
+        navigate("/benefits/claims-reimbursements");
+      }}
+    >
+      💰 Claims & Reimbursements
+    </div>
+    <div
+      style={dropdownItemStyles}
+      onClick={(event) => {
+        event.stopPropagation();
+        navigate("/benefits/company-policy-compliance");
+      }}
+    >
+      📜 Company Policy & Compliance
+    </div>
+    <div
+      style={dropdownItemStyles}
+      onClick={(event) => {
+        event.stopPropagation();
+        navigate("/benefits/audit-reports");
+      }}
+    >
+      📝 Audit & Compliance Reports
+    </div>
+  </div>
+)}
+
 
       {/* Self-Service with Dropdown */}
       <div style={itemStyles} onClick={toggleSelfService}>

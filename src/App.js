@@ -31,6 +31,11 @@ import PayrollTax from "./Components/SelfService/PayrollTax";
 import ExpenseReimbursement from "./Components/SelfService/ExpenseReimbursement";
 import HelpDesk from "./Components/SelfService/HelpDesk";
 
+import BenefitsEnrollment from './Components/BenefitsCompliance/BenefitsEnrollment';
+import ClaimsReimbursements from './Components/BenefitsCompliance/ClaimsReimbursements';
+import CompanyPolicyCompliance from './Components/BenefitsCompliance/CompanyPolicyCompliance';
+import AuditReports from './Components/BenefitsCompliance/AuditComplianceReports';
+
 
 const App = () => {
   return (
@@ -57,6 +62,11 @@ const App = () => {
               <Route path="/performance-management" element={<PerformanceManagement />} />
               <Route path="/goal-categories" element={<GoalCategories />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
+
+              <Route path="/benefits/benefits-enrollment" element={<BenefitsEnrollment />} />
+              <Route path="/benefits/claims-reimbursements" element={<ClaimsReimbursements />} />
+              <Route path="/benefits/company-policy-compliance" element={<CompanyPolicyCompliance />} />
+              <Route path="/benefits/audit-reports" element={<AuditReports />} />
               
               <Route path="/recruitment/job-listings" element={<JobListings />} />
               <Route path="/recruitment/job-listings/applicants" element={<Applicant />} />

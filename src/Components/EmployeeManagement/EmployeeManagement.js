@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./EmployeeManagement.css";
 import EmployeeList from "./EmployeeList";
 import AddEmployee from "./AddEmployee";
@@ -50,7 +50,7 @@ function EmployeeManagement() {
 
   const handleToggleAddEmployee = () => {
     setShowAddEmployee((prev) => !prev);
-    setEditingEmployee(null);
+    setEditingEmployee(null); // Reset the editing state when toggling off
   };
 
   const handleSearchChange = (e) => {
@@ -59,9 +59,16 @@ function EmployeeManagement() {
 
   const handleSaveEmployee = (employee) => {
     if (employee.id) {
-      setEmployees((prev) => prev.map((emp) => (emp.id === employee.id ? employee : emp)));
+      // Update existing employee
+      setEmployees((prev) =>
+        prev.map((emp) => (emp.id === employee.id ? employee : emp))
+      );
     } else {
-      setEmployees((prev) => [...prev, { ...employee, id: prev.length + 1 }]);
+      // Add new employee with a unique ID
+      setEmployees((prev) => [
+        ...prev,
+        { ...employee, id: Date.now() }, // Using Date.now() for a unique ID
+      ]);
     }
     setShowAddEmployee(false);
   };
@@ -75,10 +82,24 @@ function EmployeeManagement() {
     setEmployees((prev) => prev.filter((emp) => emp.id !== id));
   };
 
+  const filteredEmployees = employees.filter((emp) =>
+    emp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    emp.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    emp.department.toLowerCase().includes(searchQuery.toLowerCase()) // Added more fields to search
+  );
+
+  useEffect(() => {
+    if (showAddEmployee) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+  }, [showAddEmployee]);
+
   return (
     <div className="employee-management-container">
       <header className="employee-navbar-container">
-        <h2 className="navbar-title">All Employees</h2>
+        <h2 className="navbar-title">Employee Management</h2>
         <input
           type="text"
           className="employee-search-input"
@@ -96,7 +117,7 @@ function EmployeeManagement() {
         <section className="employee-list-section">
           <EmployeeList
             searchQuery={searchQuery}
-            employees={employees}
+            employees={filteredEmployees}
             onEdit={handleEditEmployee}
             onDelete={handleDeleteEmployee}
           />

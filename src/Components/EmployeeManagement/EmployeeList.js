@@ -2,9 +2,13 @@ import React from "react";
 import "./EmployeeList.css";
 
 function EmployeeList({ searchQuery, employees, onEdit, onDelete }) {
+  // Filter the employees based on the search query
   const filteredEmployees = employees.filter((emp) =>
     emp.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Reverse the order of employees so that the most recent one appears first
+  const sortedEmployees = [...filteredEmployees].reverse();
 
   return (
     <div className="emp-table-container">
@@ -32,8 +36,8 @@ function EmployeeList({ searchQuery, employees, onEdit, onDelete }) {
           </tr>
         </thead>
         <tbody>
-          {filteredEmployees.length > 0 ? (
-            filteredEmployees.map((employee) => (
+          {sortedEmployees.length > 0 ? (
+            sortedEmployees.map((employee) => (
               <tr key={employee.id}>
                 <td>{employee.id}</td>
                 <td>{employee.name}</td>
@@ -53,8 +57,12 @@ function EmployeeList({ searchQuery, employees, onEdit, onDelete }) {
                 <td>{employee.permanentAddress}</td>
                 <td>{employee.status}</td>
                 <td className="emp-action-buttons">
-                  <button className="emp-edit-btn" onClick={() => onEdit(employee)}>✏ Edit</button>
-                  <button className="emp-delete-btn" onClick={() => onDelete(employee.id)}>🗑 Delete</button>
+                  <button className="emp-edit-btn" onClick={() => onEdit(employee)}>
+                    ✏ Edit
+                  </button>
+                  <button className="emp-delete-btn" onClick={() => onDelete(employee.id)}>
+                    🗑 Delete
+                  </button>
                 </td>
               </tr>
             ))

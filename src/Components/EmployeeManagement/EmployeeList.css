@@ -1,101 +1,98 @@
-/* Container for the entire employee table */
+/* General Styles */
 .emp-table-container {
-    width: 100%;
-    max-width: 1200px; /* Limit max width */
-    margin: 20px auto;
-    overflow-x: auto; /* Ensure table is scrollable if it exceeds screen width */
-    padding: 0 20px;
-  }
-  
-  /* Table Styling */
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.emp-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+}
+
+.emp-table th,
+.emp-table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* Table Header Styling */
+.emp-table th {
+  background-color: #aa853e; 
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.emp-table td {
+  background-color: #f9f9f9;
+  vertical-align: middle;
+}
+
+.emp-table tr:nth-child(even) td {
+  background-color: #f1f1f1;
+}
+
+/* No Data Found Styling */
+.emp-no-data {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  padding: 20px;
+  font-size: 1.2rem;
+  background-color: #f9f9f9;
+  border: none;
+}
+
+/* Action Buttons Styling */
+.emp-action-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.emp-edit-btn,
+.emp-delete-btn {
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.emp-edit-btn {
+  background-color: #aa853e; 
+  color: white;
+}
+
+.emp-edit-btn:hover {
+  background-color: #9d7a35; 
+}
+
+.emp-delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.emp-delete-btn:hover {
+  background-color: #e53935;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .emp-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 0.8rem;
   }
-  
-  /* Table Header */
-  .emp-table th {
-    background-color: #007bff;
-    color: white;
-    font-size: 1rem;
-    padding: 12px;
-    text-align: left;
-    border-bottom: 2px solid #ddd;
-    white-space: nowrap;
-  }
-  
-  /* Table Rows */
+
+  .emp-table th,
   .emp-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    white-space: nowrap; /* Prevent text wrapping */
-    font-size: 0.9rem;
+    padding: 8px;
   }
-  
-  /* Hover effect on rows */
-  .emp-table tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  /* No data row */
-  .emp-no-data {
-    text-align: center;
-    padding: 20px;
-    font-size: 1.1rem;
-    color: #999;
-    background-color: #f9f9f9;
-  }
-  
-  /* Action buttons */
-  .emp-action-buttons {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .emp-edit-btn,
-  .emp-delete-btn {
-    padding: 6px 12px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: #fff;
-    transition: background-color 0.3s ease;
-  }
-  
-  .emp-edit-btn {
-    background-color: #28a745; /* Green for Edit */
-  }
-  
-  .emp-delete-btn {
-    background-color: #dc3545; /* Red for Delete */
-  }
-  
-  .emp-edit-btn:hover {
-    background-color: #218838; /* Darker green for hover */
-  }
-  
-  .emp-delete-btn:hover {
-    background-color: #c82333; /* Darker red for hover */
-  }
-  
-  /* Mobile-friendly */
-  @media (max-width: 768px) {
-    .emp-table {
-      font-size: 0.8rem;
-    }
-  
-    .emp-table th,
-    .emp-table td {
-      padding: 8px;
-    }
-  
-    .emp-action-buttons {
-      flex-direction: column;
-    }
-  }
-  
+}
