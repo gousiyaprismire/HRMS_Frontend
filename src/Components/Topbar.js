@@ -58,7 +58,7 @@ const buttonStyles = {
   alignItems: "center",
   gap: "8px",
   transition: "background 0.3s",
-  marginTop: "20px",
+  marginTop: "10px",
 };
 
 const heading = {
