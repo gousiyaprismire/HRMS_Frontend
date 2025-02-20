@@ -83,7 +83,7 @@ const Sidebar = () => {
 
       {/* Recruitment with Dropdown */}
       <div style={itemStyles} onClick={toggleRecruitment}>
-        📝 Recruitment {recruitmentOpen ? "▲" : "▼"}
+        📝 Recruitment {recruitmentOpen }
       </div>
       {recruitmentOpen && (
         <div style={dropdownStyles}>
@@ -131,9 +131,8 @@ const Sidebar = () => {
         📜 Benefits & Compliance
       </div>
 
-      {/* Self-Service with Dropdown */}
       <div style={itemStyles} onClick={toggleSelfService}>
-        💻 Self-Service {selfServiceOpen ? "▲" : "▼"}
+        💻 Self-Service {selfServiceOpen }
       </div>
       {selfServiceOpen && (
         <div style={dropdownStyles}>
@@ -146,24 +145,8 @@ const Sidebar = () => {
           >
             👤 Profile Update
           </div>
-          <div
-            style={dropdownItemStyles}
-            onClick={(event) => {
-              event.stopPropagation();
-              navigate("/selfservice/leave-attendance-history");
-            }}
-          >
-            📅 Leave & Attendance History
-          </div>
-          <div
-            style={dropdownItemStyles}
-            onClick={(event) => {
-              event.stopPropagation();
-              navigate("/selfservice/payroll-tax-documents");
-            }}
-          >
-            💼 Payroll & Tax Documents
-          </div>
+
+
           <div
             style={dropdownItemStyles}
             onClick={(event) => {

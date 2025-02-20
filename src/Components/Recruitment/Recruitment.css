@@ -461,6 +461,7 @@ body {
 
 .interview-container .interview-form button {
   padding: 12px;
+  width: 200px; 
   background: #D88A29;
   color: white;
   font-size: 16px;
