@@ -81,7 +81,6 @@ const Sidebar = () => {
         </div>
       )}  
 
-      {/* Recruitment with Dropdown */}
       <div style={itemStyles} onClick={toggleRecruitment}>
         📝 Recruitment {recruitmentOpen }
       </div>
