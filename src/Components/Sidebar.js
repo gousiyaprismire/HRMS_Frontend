@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Sidebar = () => {
   const [showPerformanceOptions, setShowPerformanceOptions] = useState(false);
   const [attendanceDropdown, setAttendanceDropdown] = useState(false);
+  const [analyticsDropdown, setAnalyticsDropdown] = useState(false);
   const navigate = useNavigate();
 
   const handleNavigate = (path) => {
@@ -71,6 +72,9 @@ const Sidebar = () => {
           <div style={dropdownItemStyles} onClick={() => handleNavigate("/holiday")}>📜 Holiday & Leave Policies</div>
         </div>
       )}
+
+       
+
       <div onClick={handlePerformanceClick} style={dropdownItemStyles}> 📊  Performance Management </div>
       {showPerformanceOptions && (
         <div style={dropdownStyles}>
@@ -83,7 +87,7 @@ const Sidebar = () => {
 
       {/* Recruitment with Dropdown */}
       <div style={itemStyles} onClick={toggleRecruitment}>
-        📝 Recruitment {recruitmentOpen ? "▲" : "▼"}
+        📝 Recruitment {recruitmentOpen }
       </div>
       {recruitmentOpen && (
         <div style={dropdownStyles}>
@@ -131,9 +135,8 @@ const Sidebar = () => {
         📜 Benefits & Compliance
       </div>
 
-      {/* Self-Service with Dropdown */}
       <div style={itemStyles} onClick={toggleSelfService}>
-        💻 Self-Service {selfServiceOpen ? "▲" : "▼"}
+        💻 Self-Service {selfServiceOpen }
       </div>
       {selfServiceOpen && (
         <div style={dropdownStyles}>
@@ -146,24 +149,8 @@ const Sidebar = () => {
           >
             👤 Profile Update
           </div>
-          <div
-            style={dropdownItemStyles}
-            onClick={(event) => {
-              event.stopPropagation();
-              navigate("/selfservice/leave-attendance-history");
-            }}
-          >
-            📅 Leave & Attendance History
-          </div>
-          <div
-            style={dropdownItemStyles}
-            onClick={(event) => {
-              event.stopPropagation();
-              navigate("/selfservice/payroll-tax-documents");
-            }}
-          >
-            💼 Payroll & Tax Documents
-          </div>
+
+
           <div
             style={dropdownItemStyles}
             onClick={(event) => {
@@ -185,9 +172,16 @@ const Sidebar = () => {
         </div>
       )}
 
-      <div style={itemStyles} onClick={() => navigate("/analytics-reporting")}>
-        📈 Analytics & Reporting
+      {/* Analytics & Reporting Dropdown */}
+      <div style={itemStyles} onClick={() => setAnalyticsDropdown(!analyticsDropdown)}>
+        📈 Analytics & Reporting {analyticsDropdown ? "▼" : "▶"}
       </div>
+      {analyticsDropdown && (
+        <div style={dropdownStyles}>
+          <div style={dropdownItemStyles} onClick={() => navigate("/employee-reports")}>📋 Employee Reports</div>
+          <div style={dropdownItemStyles} onClick={() => navigate("/performance-appraisal-reports")}>📊 Performance & Appraisal Reports</div>
+        </div>
+      )}
      
     </div>
   );

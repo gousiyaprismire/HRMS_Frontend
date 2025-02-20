@@ -7,9 +7,9 @@ const TopBar = () => {
         <img src="/Logo.png" alt="HRMS Logo" style={logoStyles} />
         <h1 style={heading}>HRMS Portal</h1>
       </div>
-      <div>
-        <button style={buttonStyles}>LogOut</button>
-        <button style={buttonStyles}>Profile</button>
+      <div style={buttonContainer}>
+        <button style={buttonStyles}>👤</button>
+        <button style={buttonStyles}>🔒</button>
       </div>
     </div>
   );
@@ -17,7 +17,7 @@ const TopBar = () => {
 
 const topBarStyles = {
   height: "70px",
-  background: "#aa853e", 
+  background: "#aa853e",
   color: "white",
   display: "flex",
   justifyContent: "space-between",
@@ -33,18 +33,32 @@ const logoContainer = {
   alignItems: "center",
 };
 
+const buttonContainer = {
+  display: "flex",
+  gap: "15px",
+};
+
 const logoStyles = {
   height: "50px",
+  width: "50px",
   marginRight: "10px",
+  borderRadius: "50%",
 };
 
 const buttonStyles = {
-  // backgroundColor: "#2980b9",
   color: "black",
   border: "none",
-  padding: "10px 15px",
+  padding: "12px 20px",
   cursor: "pointer",
-  marginLeft: "10px",
+  fontSize: "18px",
+  fontWeight: "bold",
+  background: "#f0f0f0",
+  borderRadius: "30px",
+  display: "flex",
+  alignItems: "center",
+  gap: "8px",
+  transition: "background 0.3s",
+  marginTop: "20px",
 };
 
 const heading = {

@@ -28,14 +28,14 @@ import LeaveAttendance from "./Components/SelfService/LeaveAttendance";
 import PayrollTax from "./Components/SelfService/PayrollTax";
 import ExpenseReimbursement from "./Components/SelfService/ExpenseReimbursement";
 import HelpDesk from "./Components/SelfService/HelpDesk";
-import SalaryStructure from "./Components/PayrollCompensation/SalaryStructure";
+import SalaryStructure from "./Components/PayrollCompensation/SalaryStructures";
 import Payslips from "./Components/PayrollCompensation/Payslips";
 import Bonuses from "./Components/PayrollCompensation/Bonuses";
 import PayrollProcessing from "./Components/PayrollCompensation/PayrollProcessing";
 import TaxReports from "./Components/PayrollCompensation/TaxReports";
 import EmployeeReports from "./Components/AnalyticsReporting/EmployeeReports";
 import PayrollTaxReports from "./Components/AnalyticsReporting/PayrollTaxReports";
-
+import OrganizationGoals from "./Components/PerformanceManagement/OrganizationGoals";
 
 
 const App = () => {
@@ -68,6 +68,7 @@ const App = () => {
               <Route path="/payroll" element={<PayrollCompensation />} />
               <Route path="/performance-management" element={<PerformanceManagement />} />
               <Route path="/goal-categories" element={<GoalCategories />} />
+              <Route path="organization-goals" element={<OrganizationGoals />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
               <Route path="/recruitment/job-listings" element={<JobListings />} />
               <Route path="/recruitment/job-listings/applicants" element={<Applicant />} />
@@ -86,8 +87,6 @@ const App = () => {
               <Route path="/bonuses" element={<Bonuses />} />
               <Route path="/payroll-processing" element={<PayrollProcessing />} />
               <Route path="/tax-reports" element={<TaxReports />} />
-              
-             
             </Routes>
           </div>
         </div>

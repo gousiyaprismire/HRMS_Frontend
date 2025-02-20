@@ -1,8 +1,12 @@
-
+/* 
 .organization-goal-heading {
     color: white;
 }
 
 .organization-goal-para {
     color: white;
+} */
+
+.organization-goal-container {
+    padding-left: 15px;
 }
