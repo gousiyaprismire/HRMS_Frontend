@@ -179,7 +179,7 @@ const Sidebar = () => {
 const sidebarStyles = {
   width: "280px",
   height: "calc(100vh - 60px)", 
- background: "#aa853e",
+ background: "linear-gradient(to left,#D88A29, #2e2929)",
   color: "white",
   paddingTop: "50px",
   paddingLeft: '20px',
