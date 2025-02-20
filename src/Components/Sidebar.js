@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Sidebar = () => {
   const [showPerformanceOptions, setShowPerformanceOptions] = useState(false);
   const [attendanceDropdown, setAttendanceDropdown] = useState(false);
+  const [analyticsDropdown, setAnalyticsDropdown] = useState(false);
   const navigate = useNavigate();
 
   const handleNavigate = (path) => {
@@ -71,6 +72,9 @@ const Sidebar = () => {
           <div style={dropdownItemStyles} onClick={() => handleNavigate("/holiday")}>📜 Holiday & Leave Policies</div>
         </div>
       )}
+
+       
+
       <div onClick={handlePerformanceClick} style={dropdownItemStyles}> 📊  Performance Management </div>
       {showPerformanceOptions && (
         <div style={dropdownStyles}>
@@ -160,16 +164,23 @@ const Sidebar = () => {
             onClick={(event) => {
               event.stopPropagation();
               navigate("/selfservice/help-desk");
-            }}
+            }}  
           >
             🆘 Help Desk & Support
           </div>
         </div>
       )}
 
-      <div style={itemStyles} onClick={() => navigate("/analytics-reporting")}>
-        📈 Analytics & Reporting
+      {/* Analytics & Reporting Dropdown */}
+      <div style={itemStyles} onClick={() => setAnalyticsDropdown(!analyticsDropdown)}>
+        📈 Analytics & Reporting {analyticsDropdown ? "▼" : "▶"}
       </div>
+      {analyticsDropdown && (
+        <div style={dropdownStyles}>
+          <div style={dropdownItemStyles} onClick={() => navigate("/employee-reports")}>📋 Employee Reports</div>
+          <div style={dropdownItemStyles} onClick={() => navigate("/performance-appraisal-reports")}>📊 Performance & Appraisal Reports</div>
+        </div>
+      )}
      
     </div>
   );

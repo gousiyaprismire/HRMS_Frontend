@@ -1,0 +1,47 @@
+.analytics-reporting-dashboard {
+    padding: 20px;
+    text-align: center;
+    background-color: whitesmoke;
+    min-height: 100vh;
+  }
+  
+  .analytics-reporting-dashboard h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #2c3e50;
+  }
+  
+  .analytics-reporting-dashboard nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .analytics-reporting-dashboard nav ul li {
+    margin: 10px 0;
+  }
+  
+  .analytics-reporting-dashboard button {
+    width: 100%;
+    max-width: 350px;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .analytics-reporting-dashboard button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .analytics-reporting-dashboard button {
+      font-size: 16px;
+      padding: 10px;
+    }
+  }
+  
