@@ -165,7 +165,7 @@ const Sidebar = () => {
             onClick={(event) => {
               event.stopPropagation();
               navigate("/selfservice/help-desk");
-            }} 
+            }}  
           >
             🆘 Help Desk & Support
           </div>

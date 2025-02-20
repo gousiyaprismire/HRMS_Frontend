@@ -9,11 +9,9 @@ function AnalyticsReporting() {
       <nav>
         <ul>
           <li><Link to="/employee-reports"><button>Employee Reports</button></Link></li>
-          <li><Link to="/attendance-leave-reports"><button>Attendance & Leave Reports</button></Link></li>
-          <li><Link to="/payroll-tax-reports"><button>Payroll & Tax Reports</button></Link></li>
           <li><Link to="/performance-appraisal-reports"><button>Performance & Appraisal Reports</button></Link></li>
         </ul>
-      </nav>
+      </nav> 
     </div>
   );
 }
