@@ -1,197 +1,284 @@
 .salary-structure-container {
+  width: 100%;
+  padding: 20px;
+  background-color: white;
+  color: #333;
+}
+
+.salary-structure-container h1 {
+  text-align: center;
+  color: #aa853e;
+}
+
+.salary-filters {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.salary-payroll-add-new-button {
+  padding: 8px 16px;
+  background-color: #aa853e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.salary-add-new-button:hover {
+  background-color: #8a6c2a;
+}
+
+.salary-search-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.salary-search-filter input {
+  padding: 8px;
+  border: 1px solid #aa853e;
+  border-radius: 5px;
+  width: 150px;
+}
+
+.salary-search-filter select {
+  padding: 8px;
+  border: 1px solid #aa853e;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.salary-search-button {
+  padding: 8px 16px;
+  background-color: #aa853e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.salary-search-button:hover {
+  background-color: #8a6c2a;
+}
+
+.salary-table {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.salary-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.salary-table th,
+.salary-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.salary-table th {
+  background-color: #aa853e;
+  color: white;
+}
+
+.salary-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.salary-table tr:hover {
+  background-color: #ddd;
+}
+
+.salary-edit-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.salary-edit-button:hover {
+  background-color: #218838;
+}
+
+.salary-delete-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.salary-delete-button:hover {
+  background-color: #c82333;
+}
+
+.salary-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 1000;
+}
+
+.salary-add-new-popup {
+  width: 40%;
+  height: 100%;
+  background-color: white;
+  padding: 20px;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.salary-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.salary-popup-header h2 {
+  margin: 0;
+}
+
+.salary-close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.salary-popup-body {
+  margin-bottom: 20px;
+}
+
+.salary-popup-body form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.salary-popup-body label {
+  font-weight: bold;
+}
+
+.salary-popup-body input,
+.salary-popup-body select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.salary-popup-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.salary-save-button,
+.salary-cancel-button {
+  padding: 8px 16px;
+}
+
+#notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notification {
+  padding: 12px 20px;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.notification.success {
+  background-color: #28a745;
+}
+
+.notification.error {
+  background-color: #dc3545;
+}
+
+@media (max-width: 1024px) {
+  .salary-filters {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .salary-search-filter {
     width: 100%;
-    padding: 20px;
-    background-color: white;
-    color: #333;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .salary-structure-container h1 {
-    text-align: center;
-    color: #aa853e;
+
+  .salary-search-filter input,
+  .salary-search-filter select {
+    width: 100%;
   }
-  
-  .filters {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-     
-  .payroll-add-new-button {
-    padding: 8px 16px;
-    background-color: #aa853e;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .add-new-button:hover {
-    background-color: #8a6c2a;
-  }
-  
-  .search-filter {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .search-filter input {
-    padding: 8px;
-    border: 1px solid #aa853e;
-    border-radius: 5px;
-    width: 150px;
-  }
-  
-  .search-filter select {
-    padding: 8px;
-    border: 1px solid #aa853e;
-    border-radius: 5px;
+
+  .salary-table table {
     font-size: 14px;
   }
-  
-  .search-button {
-    padding: 8px 16px;
-    background-color: #aa853e;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .search-button:hover {
-    background-color: #8a6c2a;
-  }
-  
-  .salary-table {
-    margin-top: 20px;
-    overflow-x: auto;
-  }
-  
-  .salary-table table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
+}
+
+@media (max-width: 768px) {
+  .salary-table table,
+  .salary-table thead,
+  .salary-table tbody,
   .salary-table th,
-  .salary-table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: left;
-  }
-  
-  .salary-table th {
-    background-color: #aa853e;
-    color: white;
-  }
-  
-  .salary-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .salary-table tr:hover {
-    background-color: #ddd;
-  }
-  
-  .edit-button {
-    background-color: #28a745; 
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin-right: 5px;
-  }
-  
-  .edit-button:hover {
-    background-color: #218838;
-  }
-  
-  .delete-button {
-    background-color: #dc3545; 
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .delete-button:hover {
-    background-color: #c82333;
-  }
-  
-  .popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+  .salary-table td,
+  .salary-table tr {
+    display: block;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    z-index: 1000;
   }
-  
-  .add-new-popup {
-    width: 40%; 
-    height: 100%;
-    background-color: white;
-    padding: 20px;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
+
+  .salary-table thead {
+    display: none;
   }
-  
-  .popup-header {
+
+  .salary-table tr {
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+  }
+
+  .salary-table td {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    padding: 10px;
+    position: relative;
   }
-  
-  .popup-header h2 {
-    margin: 0;
-  }
-  
-  .close-button {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
-  .popup-body {
-    margin-bottom: 20px;
-  }
-  
-  .popup-body form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .popup-body label {
+
+  .salary-table td::before {
+    content: attr(data-label);
     font-weight: bold;
+    text-transform: uppercase;
   }
-  
-  .popup-body input,
-  .popup-body select {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+
+  .salary-add-new-popup {
+    width: 100%;
   }
-  
-  .popup-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-  }
-  
-  .save-button,
-  .cancel-button {
-    padding: 8px 16,
-  }
+}

@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-
+import "./SalaryStructures.css";
 const SalaryStructure = () => {
   const [salaryData, setSalaryData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [isPopupOpen, setPopupOpen] = useState(false); 
-  const [isDeletePopupOpen, setDeletePopupOpen] = useState(false); 
-  const [selectedItemId, setSelectedItemId] = useState(null); 
-  const [editData, setEditData] = useState(null); 
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState(null);
+  const [editData, setEditData] = useState(null);
+  const [notification, setNotification] = useState(null); 
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchSalaryData();
@@ -64,7 +66,6 @@ const SalaryStructure = () => {
         year: 2025,
         someCondition: true,
       },
-   
     ];
   };
 
@@ -76,73 +77,87 @@ const SalaryStructure = () => {
   };
 
   const handleAddNew = () => {
-    setEditData(null); 
-    setPopupOpen(true); 
+    setEditData(null);
+    setPopupOpen(true);
   };
 
   const handleEditClick = (item) => {
-    setEditData(item); 
-    setPopupOpen(true); 
+    setEditData(item);
+    setPopupOpen(true);
   };
 
   const handleClosePopup = () => {
-    setPopupOpen(false); 
+    setPopupOpen(false);
   };
 
   const handleDeleteClick = (empId) => {
-    setSelectedItemId(empId); 
+    setSelectedItemId(empId);
     setDeletePopupOpen(true);
   };
 
   const handleConfirmDelete = () => {
-   
     setSalaryData(salaryData.filter((item) => item.empId !== selectedItemId));
     setDeletePopupOpen(false);
+    setNotification({ type: "success", message: "Entry deleted successfully!" });
+    setTimeout(() => setNotification(null), 3000); // Hide notification after 3 seconds
   };
 
   const handleCancelDelete = () => {
-    setDeletePopupOpen(false); 
+    setDeletePopupOpen(false);
   };
 
   const handleSave = (e) => {
     e.preventDefault();
-   
-    if (editData) {
- 
-      const updatedData = salaryData.map((item) =>
-        item.empId === editData.empId ? { ...item, ...editData } : item
-      );
-      setSalaryData(updatedData);
-    } else {
-    
-      const newItem = {
-        empId: `E${Math.floor(Math.random() * 100000)}`,
-        name: e.target.name.value,
-        basicPay: parseFloat(e.target.basicPay.value),
-        hra: parseFloat(e.target.hra.value),
-        pf: parseFloat(e.target.pf.value),
-        deductions: parseFloat(e.target.deductions.value),
-        medicalAllowance: parseFloat(e.target.medicalAllowance.value),
-        travelAllowance: parseFloat(e.target.travelAllowance.value),
-        foodAllowance: parseFloat(e.target.foodAllowance.value),
-        pfEmployee: parseFloat(e.target.pfEmployee.value),
-        month: e.target.month.value,
-        year: parseInt(e.target.year.value),
-        someCondition: true,
-      };
-      setSalaryData([...salaryData, newItem]);
+    try {
+      if (editData) {
+        // Update existing item
+        const updatedData = salaryData.map((item) =>
+          item.empId === editData.empId ? { ...item, ...editData } : item
+        );
+        setSalaryData(updatedData);
+        setNotification({ type: "success", message: "Entry updated successfully!" });
+      } else {
+        // Add new item
+        const newItem = {
+          empId: `E${Math.floor(Math.random() * 100000)}`,
+          name: e.target.name.value,
+          basicPay: parseFloat(e.target.basicPay.value),
+          hra: parseFloat(e.target.hra.value),
+          pf: parseFloat(e.target.pf.value),
+          deductions: parseFloat(e.target.deductions.value),
+          medicalAllowance: parseFloat(e.target.medicalAllowance.value),
+          travelAllowance: parseFloat(e.target.travelAllowance.value),
+          foodAllowance: parseFloat(e.target.foodAllowance.value),
+          pfEmployee: parseFloat(e.target.pfEmployee.value),
+          month: e.target.month.value,
+          year: parseInt(e.target.year.value),
+          someCondition: true,
+        };
+        setSalaryData([...salaryData, newItem]);
+        setNotification({ type: "success", message: "Entry added successfully!" });
+      }
+      setPopupOpen(false);
+      setTimeout(() => setNotification(null), 3000); // Hide notification after 3 seconds
+    } catch (error) {
+      setNotification({ type: "error", message: "An error occurred. Please try again." });
+      setTimeout(() => setNotification(null), 3000); // Hide notification after 3 seconds
     }
-    setPopupOpen(false); 
   };
-     
+
   return (
     <div className="salary-structure-container">
       <h1>Salary Structure</h1>
-      <div className="filters">
-        <button className="payroll-add-new-button" onClick={handleAddNew}>
+      {/* Notification */}
+      {notification && (
+        <div className={`salary-notification salary-notification-${notification.type}`}>
+          {notification.message}
+        </div>
+      )}
+      <div className="salary-filters">
+        <button className="salary-add-new-button" onClick={handleAddNew}>
           + Add New
         </button>
-        <div className="search-filter">
+        <div className="salary-search-filter">
           <input
             type="text"
             placeholder="Search"
@@ -178,7 +193,7 @@ const SalaryStructure = () => {
               </option>
             ))}
           </select>
-          <button className="search-button">🔍</button>
+          <button className="salary-search-button">🔍</button>
         </div>
       </div>
       <div className="salary-table">
@@ -218,13 +233,13 @@ const SalaryStructure = () => {
                   <td>{item.year}</td>
                   <td>
                     <button
-                      className="edit-button"
+                      className="salary-edit-button"
                       onClick={() => handleEditClick(item)}
                     >
                       Edit
                     </button>
                     <button
-                      className="delete-button"
+                      className="salary-delete-button"
                       onClick={() => handleDeleteClick(item.empId)}
                     >
                       Delete
@@ -241,17 +256,17 @@ const SalaryStructure = () => {
         </table>
       </div>
 
-     
+      {/* Add New/Edit Popup */}
       {isPopupOpen && (
-        <div className="popup-overlay">
-          <div className="add-new-popup">
-            <div className="popup-header">
+        <div className="salary-popup-overlay">
+          <div className="salary-add-new-popup">
+            <div className="salary-popup-header">
               <h2>{editData ? "Edit Salary Entry" : "Add New Salary Entry"}</h2>
-              <button className="close-button" onClick={handleClosePopup}>
+              <button className="salary-close-button" onClick={handleClosePopup}>
                 &times;
               </button>
             </div>
-            <div className="popup-body">
+            <div className="salary-popup-body">
               <form onSubmit={handleSave}>
                 <label>Employee ID</label>
                 <input
@@ -353,13 +368,13 @@ const SalaryStructure = () => {
                     </option>
                   ))}
                 </select>
-                <div className="popup-footer">
-                  <button type="submit" className="save-button">
+                <div className="salary-popup-footer">
+                  <button type="submit" className="salary-save-button">
                     Save
                   </button>
                   <button
                     type="button"
-                    className="cancel-button"
+                    className="salary-cancel-button"
                     onClick={handleClosePopup}
                   >
                     Cancel
@@ -371,25 +386,25 @@ const SalaryStructure = () => {
         </div>
       )}
 
-      
+      {/* Delete Confirmation Popup */}
       {isDeletePopupOpen && (
-        <div className="delete-popup-overlay">
-          <div className="delete-popup">
-            <div className="delete-popup-header">
+        <div className="salary-delete-popup-overlay">
+          <div className="salary-delete-popup">
+            <div className="salary-delete-popup-header">
               <h2>Delete Confirmation</h2>
             </div>
-            <div className="delete-popup-body">
+            <div className="salary-delete-popup-body">
               <p>Are you sure you want to delete this entry?</p>
             </div>
-            <div className="delete-popup-footer">
+            <div className="salary-delete-popup-footer">
               <button
-                className="confirm-delete-button"
+                className="salary-confirm-delete-button"
                 onClick={handleConfirmDelete}
               >
                 Yes
               </button>
               <button
-                className="cancel-delete-button"
+                className="salary-cancel-delete-button"
                 onClick={handleCancelDelete}
               >
                 No
