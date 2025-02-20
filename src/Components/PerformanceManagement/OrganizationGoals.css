@@ -1,12 +1,73 @@
-/* 
+.organization-goal-container {
+    padding-left: 15px;
+    padding: 20px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
 .organization-goal-heading {
-    color: white;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .organization-goal-para {
-    color: white;
-} */
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
 
-.organization-goal-container {
-    padding-left: 15px;
+.organization-goal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #aa853e;
+}
+
+.organization-goal-table th, .organization-goal-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.organization-goal-table th {
+    background-color: #4a4a4a;
+    color: white;
+    font-weight: bold;
+}
+
+.select-period {
+    width: 200px;
+    font-size: 14px;
+    padding: 5px;
+}
+
+.organization-goal-btn-primary {
+    background-color: #007bff;
+    color: white;
+    margin-right: 10px;
+}
+
+.organization-goal-btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.organization-goal-btn-success {
+    background-color: #28a745;
+    color: white;
+    margin-top: 10px;
+}
+
+.add-new-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    position: relative;
+    margin-left: auto;
+    margin-top: 0;
 }

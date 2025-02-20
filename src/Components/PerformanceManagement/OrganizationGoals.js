@@ -9,6 +9,7 @@ function OrganizationGoals() {
     target: "",
     rollupMethod: "",
   });
+  const [editingIndex, setEditingIndex] = useState(null);
 
   useEffect(() => {
     // Fetch goals from API
@@ -21,30 +22,54 @@ function OrganizationGoals() {
   const handleAddClick = () => {
     setShowModal(true);
     setNewGoal({ description: "", target: "", rollupMethod: "" });
+    setEditingIndex(null);
   };
 
   const handleSave = () => {
     if (newGoal.description.trim() && newGoal.target.trim()) {
-      setGoals([...goals, newGoal]);
+      if (editingIndex !== null) {
+        const updatedGoals = [...goals];
+        updatedGoals[editingIndex] = newGoal;
+        setGoals(updatedGoals);
+      } else {
+        setGoals([...goals, newGoal]);
+      }
       setShowModal(false);
     }
   };
 
+  const handleEdit = (index) => {
+    setNewGoal(goals[index]);
+    setEditingIndex(index);
+    setShowModal(true);
+  };
+
+  const handleDelete = (index) => {
+    const updatedGoals = goals.filter((_, i) => i !== index);
+    setGoals(updatedGoals);
+  };
+
   return (
     <div className="organization-goal-container">
-      <h2 className="organization-goal-heading">Organization Goals</h2>
+      <div className="header-container">
+        <h2 className="organization-goal-heading">Organization Goals</h2>
+        <button className="btn organization-goal-btn-success add-new-button" onClick={handleAddClick}>
+          ➕ Add New
+        </button>
+      </div>
+      
       <p className="organization-goal-para">Define top level goals for performance period</p>
 
       <div className="mb-3">
         <label className="organization-goal-para"> Select Period:</label>
-        <select className="form-control">
+        <select className="form-control select-period">
           <option>Performance Appraisal for 2024</option>
           <option>Performance Appraisal for 2023</option>
           <option>Performance Appraisal for 2022</option>
         </select>
       </div>
 
-      <table className="table">
+      <table className="organization-goal-table">
         <thead>
           <tr>
             <th>Goal Description</th>
@@ -61,8 +86,8 @@ function OrganizationGoals() {
                 <td>{goal.target}</td>
                 <td>{goal.rollupMethod}</td>
                 <td>
-                  <button className="btn btn-primary">Edit</button>
-                  <button className="btn btn-danger">Delete</button>
+                  <button className="btn organization-goal-btn-primary" onClick={() => handleEdit(index)}>Edit</button>
+                  <button className="btn organization-goal-btn-danger" onClick={() => handleDelete(index)}>Delete</button>
                 </td>
               </tr>
             ))
@@ -74,16 +99,11 @@ function OrganizationGoals() {
         </tbody>
       </table>
 
-      {/* Add New Goal Button */}
-      <button className="btn btn-success" onClick={handleAddClick}>
-        ➕ Add New
-      </button>
-
-      {/* Modal for Adding Goal */}
+      {/* Modal for Adding/Edit Goal */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal">
-            <h2>Add New Goal</h2>
+            <h2>{editingIndex !== null ? "Edit Goal" : "Add New Goal"}</h2>
             <label>Goal Description *</label>
             <input
               type="text"
@@ -104,7 +124,7 @@ function OrganizationGoals() {
             />
             <div className="modal-actions">
               <button onClick={() => setShowModal(false)}>Close</button>
-              <button onClick={handleSave}>Save</button>
+              <button onClick={handleSave}>{editingIndex !== null ? "Update" : "Save"}</button>
             </div>
           </div>
         </div>
