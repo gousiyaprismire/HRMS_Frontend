@@ -14,7 +14,7 @@ function LeaveApprovalPanel() {
     setLeaveRequests((prevRequests) =>
       prevRequests.map((request) =>
         request.id === id ? { ...request, status: newStatus } : request
-      )
+      ) 
     );
   };
 
