@@ -1,22 +1,34 @@
 import { useState } from 'react';
 import { TextField, Snackbar, Alert } from '@mui/material';
 import "./Bonuses.css";
-   
+
 const Bonuses = () => {
     const [openPopup, setOpenPopup] = useState(false);
+    const [deletePopup, setDeletePopup] = useState({ open: false, index: null });
+    const [message, setMessage] = useState({ open: false, text: '', type: 'success' });
+    const [editIndex, setEditIndex] = useState(null);
+
     const [data, setData] = useState([
-        { empId: 'EMP001', name: 'Manjunath', bonusAmount: '5000', bonusType: 'Performance Bonus' }
+        { empId: '101', name: 'Manjunath', bonusAmount: '5000', bonusType: 'Performance Bonus' }
     ]);
+
     const [newEntry, setNewEntry] = useState({
         empId: '',
         name: '',
         bonusAmount: '',
         bonusType: ''
     });
-    const [message, setMessage] = useState({ open: false, text: '', type: 'success' });
 
-    const handleAddNew = () => setOpenPopup(true);
-    const handleClosePopup = () => setOpenPopup(false);
+    const handleAddNew = () => {
+        setNewEntry({ empId: '', name: '', bonusAmount: '', bonusType: '' });
+        setEditIndex(null);
+        setOpenPopup(true);
+    };
+
+    const handleClosePopup = () => {
+        setOpenPopup(false);
+        setEditIndex(null);
+    };
 
     const handleChange = (e) => {
         setNewEntry({ ...newEntry, [e.target.name]: e.target.value });
@@ -27,44 +39,40 @@ const Bonuses = () => {
             setMessage({ open: true, text: 'All fields are required!', type: 'error' });
             return;
         }
-        setData([...data, newEntry]);
-        setNewEntry({ empId: '', name: '', bonusAmount: '', bonusType: '' });
-        setMessage({ open: true, text: 'Added successfully!', type: 'success' });
+
+        if (editIndex !== null) {
+            const updatedData = [...data];
+            updatedData[editIndex] = newEntry;
+            setData(updatedData);
+            setMessage({ open: true, text: 'Updated successfully!', type: 'success' });
+        } else {
+            setData(prevData => [...prevData, newEntry]);
+            setMessage({ open: true, text: 'Added successfully!', type: 'success' });
+        }
+
         setOpenPopup(false);
+        setEditIndex(null);
+    };
+
+    const handleEdit = (index) => {
+        setNewEntry(data[index]);
+        setEditIndex(index);
+        setOpenPopup(true);
     };
 
     const handleDelete = (index) => {
-        if (window.confirm('Are you sure you want to delete?')) {
-            setData(data.filter((_, i) => i !== index));
-        }
+        setDeletePopup({ open: true, index });
+    };
+
+    const confirmDelete = () => {
+        setData(data.filter((_, i) => i !== deletePopup.index));
+        setDeletePopup({ open: false, index: null });
+        setMessage({ open: true, text: 'Deleted successfully!', type: 'success' });
     };
 
     return (
         <div className="bonus-container">
             <button className="bonus-add-new-btn" onClick={handleAddNew}>+ Add New</button>
-            <div className="bonus-filters">
-                <TextField className="bonus-search" label="Search" variant="outlined" size="small" />
-                <select>
-                    <option>January</option>
-                    <option>February</option>
-                    <option>March</option>
-                    <option>April</option>
-                    <option>May</option>
-                    <option>June</option>
-                    <option>July</option>
-                    <option>August</option>
-                    <option>September</option>
-                    <option>October</option>
-                    <option>November</option>
-                    <option>December</option>
-                </select>
-                <select>
-                    <option>2024</option>
-                    <option>2025</option>
-                    <option>2026</option>
-                    <option>2027</option>
-                </select>
-            </div>
             <table className="bonus-table">
                 <thead>
                     <tr>
@@ -76,7 +84,7 @@ const Bonuses = () => {
                         <tr key={index}>
                             <td>{item.empId}</td><td>{item.name}</td><td>{item.bonusAmount}</td><td>{item.bonusType}</td>
                             <td>
-                                <button className="bonus-edit-btn">Edit</button>
+                                <button className="bonus-edit-btn" onClick={() => handleEdit(index)}>Edit</button>
                                 <button className="bonus-delete-btn" onClick={() => handleDelete(index)}>Delete</button>
                             </td>
                         </tr>
@@ -85,10 +93,10 @@ const Bonuses = () => {
             </table>
 
             {openPopup && (
-                <div className="bonus-popup">
-                    <div className="bonus-popup-inner">
+                <div className="bonus-popup-overlay">
+                    <div className="bonus-popup">
                         <button className="bonus-close-btn" onClick={handleClosePopup}>×</button>
-                        <h2>Add Bonus</h2>
+                        <h2>{editIndex !== null ? 'Edit Bonus' : 'Add Bonus'}</h2>
                         {Object.keys(newEntry).map((key) => (
                             <div key={key} className="bonus-form-group">
                                 <label>{key}:</label>
@@ -96,14 +104,31 @@ const Bonuses = () => {
                             </div>
                         ))}
                         <div className="bonus-popup-buttons">
-                            <button className="bonus-save-btn" onClick={handleSave}>Save</button>
+                            <button className="bonus-save-btn" onClick={handleSave}>{editIndex !== null ? 'Update' : 'Save'}</button>
                             <button className="bonus-cancel-btn" onClick={handleClosePopup}>Cancel</button>
                         </div>
                     </div>
                 </div>
             )}
 
-            <Snackbar open={message.open} autoHideDuration={3000} onClose={() => setMessage({ ...message, open: false })}>
+            {deletePopup.open && (
+                <div className="bonus-popup-overlay">
+                    <div className="bonus-delete-popup">
+                        <p>Are you sure you want to delete?</p>
+                        <div className="bonus-popup-buttons">
+                            <button className="bonus-save-btn" onClick={confirmDelete}>Yes</button>
+                            <button className="bonus-cancel-btn" onClick={() => setDeletePopup({ open: false, index: null })}>No</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <Snackbar
+                open={message.open}
+                autoHideDuration={3000}
+                onClose={() => setMessage({ ...message, open: false })}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            >
                 <Alert severity={message.type}>{message.text}</Alert>
             </Snackbar>
         </div>

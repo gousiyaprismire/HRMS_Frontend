@@ -1,106 +1,153 @@
-import { useState } from 'react';
-import { TextField, Snackbar, Alert } from '@mui/material';
+import React, { useState, useEffect } from "react";
 import "./TaxReports.css";
 
 const TaxReports = () => {
-    const [openPopup, setOpenPopup] = useState(false);
-    const [data, setData] = useState([
-        { empId: '101', name: 'Manjunath', providentFund: '5000', insurance: '2000', deductions: '7000' }
-    ]);
-    const [newEntry, setNewEntry] = useState({
-        empId: '',
-        name: '',
-        providentFund: '',
-        insurance: '',
-        deductions: ''
-    });
-    const [message, setMessage] = useState({ open: false, text: '', type: 'success' });
+  const [taxReports, setTaxReports] = useState([
+    { id: 1, empId: "EMP001", name: "John Doe", providentFund: 5000, insurance: 2000, deductions: 1500 },
+    { id: 2, empId: "EMP002", name: "Jane Smith", providentFund: 5500, insurance: 2200, deductions: 1700 },
+  ]);
 
-    const handleAddNew = () => setOpenPopup(true);
-    const handleClosePopup = () => setOpenPopup(false);
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [selectedReport, setSelectedReport] = useState(null);
+  const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [toastMessage, setToastMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const [newReport, setNewReport] = useState({
+    empId: "",
+    name: "",
+    providentFund: "",
+    insurance: "",
+    deductions: "",
+  });
 
-    const handleChange = (e) => {
-        setNewEntry({ ...newEntry, [e.target.name]: e.target.value });
-    };
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => setShowToast(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showToast]);
 
-    const handleSave = () => {
-        if (Object.values(newEntry).some(value => value === '')) {
-            setMessage({ open: true, text: 'All fields are required!', type: 'error' });
-            return;
-        }
-        setData([newEntry, ...data]);
-        setNewEntry({ empId: '', name: '', providentFund: '', insurance: '', deductions: '' });
-        setMessage({ open: true, text: 'Added successfully!', type: 'success' });
-        setOpenPopup(false);
-    };
+  const openPopup = (report = null) => {
+    setSelectedReport(report);
+    setNewReport(report || { empId: "", name: "", providentFund: "", insurance: "", deductions: "" });
+    setPopupOpen(true);
+  };
 
-    const handleDelete = (index) => {
-        if (window.confirm('Are you sure you want to delete?')) {
-            setData(data.filter((_, i) => i !== index));
-            setMessage({ open: true, text: 'Deleted successfully!', type: 'success' });
-        }
-    };
+  const closePopup = () => {
+    setSelectedReport(null);
+    setPopupOpen(false);
+  };
 
-    return (
-        <div className="tax-container">
-            <button className="tax-add-new-btn" onClick={handleAddNew}>+ Add New</button>
-            <div className="tax-filters">
-                <TextField className="tax-search" label="Search" variant="outlined" size="small" />
-                <select>
-                    {["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map(month => (
-                        <option key={month}>{month}</option>
-                    ))}
-                </select>
-                <select>
-                    {[2024, 2025, 2026, 2027].map(year => (
-                        <option key={year}>{year}</option>
-                    ))}
-                </select>
+  const showToastMessage = (message, isError = false) => {
+    setToastMessage(message);
+    setShowToast(true);
+  };
+
+  const handleSave = () => {
+    if (selectedReport) {
+      setTaxReports(taxReports.map(report => report.id === selectedReport.id ? { ...newReport, id: selectedReport.id } : report));
+      showToastMessage("Updated Successfully!");
+    } else {
+      setTaxReports([...taxReports, { id: taxReports.length + 1, ...newReport }]);
+      showToastMessage("Added Successfully!");
+    }
+    closePopup();
+  };
+
+  const handleDelete = (id) => {
+    setTaxReports(taxReports.filter(report => report.id !== id));
+    showToastMessage("Deleted Successfully!", true);
+    setDeleteConfirm(null);
+  };
+
+  return (
+    <div className="tax-container">
+      <button className="tax-add-new-btn" onClick={() => openPopup()}>+ Add New</button>
+
+      <div className="tax-filters">
+        <input type="text" placeholder="Search..." className="tax-search" />
+        <select><option>Month</option></select>
+        <select><option>Year</option></select>
+      </div>
+
+      <table className="tax-table">
+        <thead>
+          <tr>
+            <th>Emp ID</th>
+            <th>Name</th>
+            <th>Provident Fund</th>
+            <th>Insurance</th>
+            <th>Deductions</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {taxReports.map((report) => (
+            <tr key={report.id}>
+              <td>{report.empId}</td>
+              <td>{report.name}</td>
+              <td>{report.providentFund}</td>
+              <td>{report.insurance}</td>
+              <td>{report.deductions}</td>
+              <td>
+                <button className="tax-edit-btn" onClick={() => openPopup(report)}>Edit</button>
+                <button className="tax-delete-btn" onClick={() => setDeleteConfirm(report.id)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {isPopupOpen && (
+        <div className="tax-popup-overlay" onClick={closePopup}>
+          <div className="tax-popup show" onClick={(e) => e.stopPropagation()}>
+            <button className="tax-close-btn" onClick={closePopup}>×</button>
+            <h2>{selectedReport ? "Edit Tax Report" : "Add New Tax Report"}</h2>
+            <div className="tax-form-group">
+              <label>Emp ID:</label>
+              <input type="text" value={newReport.empId} onChange={(e) => setNewReport({ ...newReport, empId: e.target.value })} />
             </div>
-            <table className="tax-table">
-                <thead>
-                    <tr>
-                        <th>Emp ID</th><th>Name</th><th>Provident Fund</th><th>Insurance</th><th>Deductions</th><th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((item, index) => (
-                        <tr key={index}>
-                            <td>{item.empId}</td><td>{item.name}</td><td>{item.providentFund}</td>
-                            <td>{item.insurance}</td><td>{item.deductions}</td>
-                            <td>
-                                <button className="tax-edit-btn">Edit</button>
-                                <button className="tax-delete-btn" onClick={() => handleDelete(index)}>Delete</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-
-            {openPopup && (
-                <div className="tax-popup">
-                    <div className="tax-popup-inner">
-                        <button className="tax-close-btn" onClick={handleClosePopup}>×</button>
-                        <h2>Add Tax Report</h2>
-                        {Object.keys(newEntry).map((key) => (
-                            <div key={key} className="tax-form-group">
-                                <label>{key}:</label>
-                                <TextField name={key} value={newEntry[key]} onChange={handleChange} fullWidth />
-                            </div>
-                        ))}
-                        <div className="tax-popup-buttons">
-                            <button className="tax-save-btn" onClick={handleSave}>Save</button>
-                            <button className="tax-cancel-btn" onClick={handleClosePopup}>Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            <Snackbar open={message.open} autoHideDuration={3000} onClose={() => setMessage({ ...message, open: false })}>
-                <Alert severity={message.type}>{message.text}</Alert>
-            </Snackbar>
+            <div className="tax-form-group">
+              <label>Name:</label>
+              <input type="text" value={newReport.name} onChange={(e) => setNewReport({ ...newReport, name: e.target.value })} />
+            </div>
+            <div className="tax-form-group">
+              <label>Provident Fund:</label>
+              <input type="number" value={newReport.providentFund} onChange={(e) => setNewReport({ ...newReport, providentFund: e.target.value })} />
+            </div>
+            <div className="tax-form-group">
+              <label>Insurance:</label>
+              <input type="number" value={newReport.insurance} onChange={(e) => setNewReport({ ...newReport, insurance: e.target.value })} />
+            </div>
+            <div className="tax-form-group">
+              <label>Deductions:</label>
+              <input type="number" value={newReport.deductions} onChange={(e) => setNewReport({ ...newReport, deductions: e.target.value })} />
+            </div>
+            <div className="tax-popup-buttons">
+              <button className="tax-save-btn" onClick={handleSave}>Save</button>
+              <button className="tax-cancel-btn" onClick={closePopup}>Cancel</button>
+            </div>
+          </div>
         </div>
-    );
+      )}
+
+      {deleteConfirm !== null && (
+        <div className="tax-popup-overlay">
+          <div className="tax-delete-popup">
+            <p>Are you sure you want to delete?</p>
+            <button className="tax-save-btn" onClick={() => handleDelete(deleteConfirm)}>Yes</button>
+            <button className="tax-cancel-btn" onClick={() => setDeleteConfirm(null)}>No</button>
+          </div>
+        </div>
+      )}
+
+      {showToast && (
+        <div className={`tax-toast ${toastMessage.includes("Deleted") ? "error" : ""}`}>
+          {toastMessage}
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default TaxReports;

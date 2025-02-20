@@ -1,38 +1,138 @@
 .bonus-container {
   padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
 .bonus-add-new-btn {
   background-color: #aa853e;
   color: white;
-  padding: 10px 15px;
+  padding: 12px 18px;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 18px;
+}
+
+.bonus-add-new-btn:hover {
+  background-color: #8a6d31;
+}
+
+.bonus-filters {
+  margin: 20px 0;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.bonus-search {
+  width: 250px !important;
+  padding: 10px;
   font-size: 16px;
-  margin-bottom: 10px;
-  width: 150px;
+}
+
+.bonus-filters select {
+  padding: 8px;
+  font-size: 16px;
+}
+
+.bonus-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.bonus-table th, .bonus-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  font-size: 16px;
   text-align: center;
+  color: #333;
+  font-weight: bold;
+}
+
+.bonus-table th {
+  background-color: #f8f9fa;
+}
+
+.bonus-edit-btn,
+.bonus-delete-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 2px;
+  font-size: 16px;
+}
+
+.bonus-edit-btn {
+  background-color: #ffc107;
+  color: black;
+}
+
+.bonus-delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.bonus-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .bonus-popup {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 400px;
+  width: 45%;
   height: 100%;
   background: white;
-  box-shadow: -2px 0px 5px rgba(0,0,0,0.2);
-  padding: 20px;
+  box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
+  padding: 25px;
+  overflow-y: auto;
+  position: relative;
 }
 
 .bonus-close-btn {
-  align-self: flex-end;
-  font-size: 20px;
-  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background: none;
+  border: none;
+  font-size: 26px;
   cursor: pointer;
+}
+
+.bonus-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.bonus-form-group label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 16px;
+  color: #333;
+}
+
+.bonus-form-group input,
+.bonus-form-group select {
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 18px;
+  width: 100%;
+  height: 50px;
+  box-sizing: border-box;
 }
 
 .bonus-popup-buttons {
@@ -42,56 +142,98 @@
 }
 
 .bonus-save-btn, .bonus-cancel-btn {
-  padding: 10px 15px;
+  padding: 8px 14px;
   border: none;
   cursor: pointer;
-  font-size: 14px;
-  width: 45%;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
 .bonus-save-btn {
-  background-color: #4CAF50;
+  background-color: #28a745;
   color: white;
 }
 
 .bonus-cancel-btn {
-  background-color: #d3d3d3;
-}
-
-.bonus-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-.bonus-table th, .bonus-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-  color: black;
-}
-
-.bonus-table th {
-  background-color: #f2f2f2;
-}
-
-.bonus-action-btn {
-  padding: 5px 10px;
-  margin: 2px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  width: 60px;
-  text-align: center;
-}
-
-.bonus-delete-btn {
-  background-color: red;
+  background-color: #dc3545;
   color: white;
 }
 
-.bonus-filters select, .bonus-filters .bonus-search {
-  font-size: 16px;
-  padding: 8px;
-  margin: 5px;
+.bonus-delete-popup {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 280px;
+  text-align: center;
+}
+
+.bonus-delete-popup button {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.bonus-toast {
+  position: fixed;
+  top: 15%;
+  right: 5%;
+  background: #28a745;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-size: 18px;
+  display: none;
+}
+
+.bonus-toast.error {
+  background: #dc3545;
+}
+
+@media (max-width: 1024px) {
+  .bonus-popup {
+      width: 55%;
+  }
+
+  .bonus-filters {
+      flex-direction: column;
+      gap: 8px;
+  }
+
+  .bonus-add-new-btn {
+      width: 100%;
+  }
+
+  .bonus-popup-buttons {
+      flex-direction: column;
+      gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bonus-popup {
+      width: 65%;
+  }
+
+  .bonus-table th, .bonus-table td {
+      padding: 10px;
+      font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bonus-popup {
+      width: 100%;
+      height: 100%;
+  }
+
+  .bonus-filters select,
+  .bonus-filters .bonus-search {
+      width: 100%;
+  }
+
+  .bonus-popup-buttons {
+      flex-direction: column;
+      gap: 12px;
+  }
 }
