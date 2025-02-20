@@ -38,7 +38,7 @@ const Sidebar = () => {
         👥 Employee Management
       </div>
       <div style={itemStyles} onClick={togglePayroll}>
-                💰 Payroll & Compensation {payrollOpen ? "▲" : "▼"}
+                💰 Payroll & Compensation {payrollOpen}
             </div>
             {payrollOpen && (
                 <div style={dropdownStyles}>
@@ -60,7 +60,7 @@ const Sidebar = () => {
                 </div>
             )}
       <div style={itemStyles} onClick={() => setAttendanceDropdown(!attendanceDropdown)}>
-        ⏳ Attendance & Time {attendanceDropdown ? "▼" : "▶"}
+        ⏳ Attendance & Time {attendanceDropdown}
       </div>
       {attendanceDropdown && (
         <div style={dropdownStyles}>
