@@ -20,23 +20,30 @@
     margin-bottom: 20px;
   }
   
-  .table-container {
-    background: white;
+  .goal-categories-table-container {
+    /* background: white; */
     padding: 15px;
     border-radius: 5px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  table {
+  .goal-categories-table {
     width: 100%;
     border-collapse: collapse;
   }
   
-  th, td {
+  .goal-categories-table th {
+    background-color: #4a4a4a;
+    color: white;
+    font-weight: bold;
+  }
+
+  .goal-categories-table td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
+  
   
   .no-data {
     text-align: center;
@@ -121,4 +128,4 @@
 .modal textarea {
     height: 80px;
     resize: vertical;
-}
+}                

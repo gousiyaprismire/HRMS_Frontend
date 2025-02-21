@@ -36,6 +36,7 @@ import TaxReports from "./Components/PayrollCompensation/TaxReports";
 import EmployeeReports from "./Components/AnalyticsReporting/EmployeeReports";
 import OrganizationGoals from "./Components/PerformanceManagement/OrganizationGoals";
 import AppraisalForms from "./Components/PerformanceManagement/AppraisalForms";
+import PerformancePeriod from "./Components/PerformanceManagement/PerformancePeriod";
 
 
 const App = () => {
@@ -69,6 +70,7 @@ const App = () => {
               <Route path="/goal-categories" element={<GoalCategories />} />
               <Route path="organization-goals" element={<OrganizationGoals />} />
               <Route path="appraisal-forms" element={<AppraisalForms />} />
+              <Route path="performance-periods" element={<PerformancePeriod />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
               <Route path="/recruitment/job-listings" element={<JobListings />} />
               <Route path="/recruitment/job-listings/applicants" element={<Applicant />} />
