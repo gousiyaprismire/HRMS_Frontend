@@ -24,8 +24,8 @@ const AppraisalForms = () => {
 
   return (
     <div className="appraisal-container">
-      <h2>Appraisal Forms</h2>
-      <p>View appraisal forms submitted by employees and managers.</p>
+      <h2 className="performance-period-h2">Appraisal Forms</h2>
+      <p className="performance-period-p">View appraisal forms submitted by employees and managers.</p>
 
       {/* Filters Section */}
       <div className="filters">
@@ -55,7 +55,7 @@ const AppraisalForms = () => {
       {/* Appraisal Forms Table */}
       <table className="appraisal-table">
         <thead>
-          <tr>
+          <tr className="appraisal-form th">
             <th>Employee</th>
             <th>Manager</th>
             <th>Status</th>
@@ -76,8 +76,8 @@ const AppraisalForms = () => {
                 <td>{form.status}</td>
                 <td>{form.lastAction}</td>
                 <td>
-                  <button className="edit-btn" onClick={() => editForm(form.id)}>Edit</button>
-                  <button className="delete-btn" onClick={() => deleteForm(form.id)}>Delete</button>
+                  <button className="appraisal-form-edit-btn " onClick={() => editForm(form.id)}>Edit</button>
+                  <button className="appraisal-form-delete-btn" onClick={() => deleteForm(form.id)}>Delete</button>
                 </td>
               </tr>
             ))

@@ -55,8 +55,8 @@ const GoalCategories = () => {
       <h1 className="goal-categories-heading">Goal Categories</h1>
       <p className="goal-categories-para">Add or edit categories to measure goals and performance</p>
       
-      <div className="table-container">
-        <table>
+      <div className="goal-categories-table-container">
+        <table className="goal-categories-table">
           <thead>
             <tr>
               <th>Category Name</th>
