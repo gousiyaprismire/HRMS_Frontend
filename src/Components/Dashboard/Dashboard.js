@@ -151,15 +151,25 @@ const Dashboard = () => {
       <div className="dashboard-quick-actions">
         <h2 className="dashboard-section-title">⚡ Quick Actions</h2>
         <div className="dashboard-actions-grid">
-          {[
-            { label: "➕ Add New Employee", color: "blue" },
-            { label: "✅ Approve Leave Requests", color: "gray" },
-            { label: "💰 Process Payroll", color: "green" },
-          ].map((action, index) => (
-            <button key={index} className={`dashboard-action-button ${action.color}`}>
-              {action.label}
-            </button>
-          ))}
+          <button
+            className="dashboard-action-button blue"
+            onClick={() => (window.location.href = "/employee-management")}
+          >
+            ➕ Add New Employee
+          </button>
+          <button
+            className="dashboard-action-button gray"
+            onClick={() => (window.location.href = "/recruitment/applicant-management")}
+          >
+            ✅ Recruitment
+          </button>
+          <button
+            className="dashboard-action-button green"
+            onClick={() => (window.location.href = "/payroll-processing")}
+          >
+            💰 Process Payroll
+          </button>
+          
         </div>
       </div>
 

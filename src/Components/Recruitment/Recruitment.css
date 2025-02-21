@@ -263,375 +263,462 @@ body {
 }
 
 
-
-/* Onboarding Component */
-.onboarding-container {
-  width: 100%;
-  max-width: 800px;
-  margin: auto;
-  padding: 80px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-
-.onboarding-header {
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-
-.onboarding-new-hire-list {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0;
-}
-
-.onboarding-new-hire-item {
-  background: #f4f6f9;
-  padding: 15px;
-  margin-bottom: 12px;
-  border-radius: 10px;
-  font-size: 16px;
-  color: #333;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.onboarding-new-hire-info {
-  text-align: left;
-  flex: 1;
-}
-
-.onboarding-new-hire-name {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.onboarding-new-hire-info p {
-  margin: 5px 0;
-  font-size: 14px;
-  color: #555;
-}
-
-
-.onboarding-status-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-left: 20px;
-}
-
-.onboarding-status-button {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  transition: background 0.3s ease-in-out;
-}
-
-.onboarding-status-button.completed {
-  background: #28a745;
-  color: white;
-}
-
-.onboarding-status-button.completed:hover {
-  background: #218838;
-}
-
-.onboarding-status-button.in-progress {
-  background: #ffc107;
-  color: #333;
-}
-
-.onboarding-status-button.in-progress:hover {
-  background: #e0a800;
-}
-
-.onboarding-status-button.pending {
-  background: #dc3545;
-  color: white;
-}
-
-.onboarding-status-button.pending:hover {
-  background: #c82333;
-}
-
-.onboarding-status-button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-}
-
-
-@media (max-width: 768px) {
-  .onboarding-container {
-    max-width: 100%;
-    padding: 15px;
-  }
-
-  .onboarding-new-hire-item {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 12px;
-  }
-
-  .onboarding-status-buttons {
-    flex-direction: row;
-    gap: 5px;
-    margin-top: 10px;
-  }
-}
-
-
-
 /* Interviews Section  */
-.interview-container {
-  width: 100%;
-  max-width: 800px;
+
+.interview-scheduler {
+  max-width: 1800px;
   margin: auto;
-  padding: 80px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  font-family: Roboto;
   text-align: center;
 }
 
 
-.interview-container .header {
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
+.interview-scheduler .card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
 
 
-.interview-container ul {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0;
-}
-
-.interview-container .interview-item {
-  background: #f4f6f9;
-  padding: 12px 15px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  font-size: 16px;
-  color: #333;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 500;
-}
-
-
-.interview-container .interview-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 20px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.interview-container .interview-form input {
-  padding: 10px;
-  border: 2px solid #ddd;
-  border-radius: 6px;
-  font-size: 16px;
+.interview-scheduler .input,
+.interview-scheduler .select,
+.interview-scheduler .button {
   width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
-.interview-container .interview-form input:focus {
-  border-color: #D88A29;
-  outline: none;
+
+.interview-scheduler .button {
+  background: #D88A29;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+  font-size: 16px;
+  width:100px;
+  
+}
+
+.interview-scheduler .button:hover {
+  background: #aa853e;
 }
 
 
-.interview-container .interview-form button {
-  padding: 12px;
-  width: 200px; 
+.interview-scheduler .upcoming-interviews {
+  /* background: white; */
+  
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  
+}
+
+
+.interview-scheduler .table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.interview-scheduler .table th,
+.interview-scheduler .table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.interview-scheduler .table th {
+  /* background: #f4f4f4; */
+  font-weight: bold;
+}
+
+.interview-scheduler .table tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.interview-scheduler .table tbody tr:hover {
+  background: #f1f1f1;
+}
+
+
+.interview-scheduler .status-badge {
+  padding: 5px 10px;
+  color: white;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.interview-scheduler .status-scheduled { background: blue; }
+.interview-scheduler .status-completed { background: green; }
+.interview-scheduler .status-rescheduled { background: orange; }
+.interview-scheduler .status-canceled { background: red; }
+
+
+.interview-scheduler .action-button {
+  padding: 5px 10px;
+  margin: 2px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.3s;
+}
+
+.interview-scheduler .action-reschedule { background: yellow; color: black; }
+.interview-scheduler .action-cancel { background: red; color: white; }
+.interview-scheduler .action-complete { background: green; color: white; }
+
+.interview-scheduler .action-button:hover {
+  opacity: 0.8;
+}
+/* Schedule New Interview */
+.add-interview-button {
+  display: block;
+  margin: 10px auto;
+  padding: 12px 20px;
   background: #D88A29;
   color: white;
   font-size: 16px;
   font-weight: bold;
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease;
 }
 
-.interview-container .interview-form button:hover {
+.add-interview-button:hover {
   background: #aa853e;
 }
-
-@media (max-width: 768px) {
-  .interview-container {
-    max-width: 100%;
-    padding: 15px;
-  }
-
-  .interview-container .interview-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-  }
-
-  .interview-container .interview-form {
-    padding: 15px;
-  }
-}
-
 
 /* Offers Section  */
 
 .offer-container {
   width: 100%;
-  max-width: 800px;
-  margin: auto;
-  padding: 80px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  margin: 20px auto;
+  padding: 20px;
+  /* background: #f8f9fa; */
+  border-radius: 10px;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
-
 .offer-container h2 {
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.offer-table {
+  width: 100%;
+  border-collapse: collapse;
   margin-bottom: 20px;
 }
 
-
-.offer-list {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0;
+.offer-table th, .offer-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
 }
 
-.offer-item {
-  background: #f4f6f9;
-  padding: 12px 15px;
+.offer-table th {
+  background: #D88A29;
+  color: white;
+}
+
+.status.sent { background: #ffc107; color: black; }
+.status.accepted { background: #28a745; color: white; }
+.status.rejected { background: #dc3545; color: white; }
+
+
+.offer-form input, .offer-form select {
+  width: 100%;
   margin-bottom: 10px;
-  border-radius: 8px;
-  font-size: 16px;
-  color: #333;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.offer-form {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 500;
+  flex-direction: column;
+  align-items: center; /* Center align all form elements */
 }
 
-.offer-item button {
-  padding: 8px 12px;
-  margin-left: 10px;
+.offer-form button {
+  margin-top: 10px;
+  padding: 8px 15px;
   font-size: 14px;
+  background-color: #D88A29;
+  color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease-in-out;
 }
 
-.offer-item button:first-child {
-  background: #28a745;
-  color: white;
+.offer-form button:hover {
+  background-color: #aa853e;
 }
 
-.offer-item button:first-child:hover {
-  background: #218838;
+
+.offer-container {
+  font-size: 14px; 
 }
 
-.offer-item button:last-child {
-  background: #dc3545;
-  color: white;
+.offer-form input,
+.offer-form select,
+.offer-form button {
+  font-size: 15px; 
 }
 
-.offer-item button:last-child:hover {
-  background: #c82333;
+.offer-table {
+  font-size: 14px; 
 }
 
-.offer-item button:disabled {
-  background: #ccc;
+.offer-table th,
+.offer-table td {
+  padding: 6px; 
+}
+.offer-table button {
+  font-size: 15px;  
+  padding: 5px 8px; 
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.offer-table button:disabled {
+  opacity: 0.5;
   cursor: not-allowed;
+}
+
+.offer-table button:nth-child(1) { 
+  background-color: green;
+  color: white;
+}
+
+.offer-table button:nth-child(2) { 
+  background-color: red;
+  color: white;
+}
+
+.offer-table button:hover:not(:disabled) {
+  opacity: 0.8;
+}
+
+.add-offer-button {
+  background-color: #D88A29;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 15px 0;
+}
+
+.add-offer-button:hover {
+  background-color: #aa853e;
 }
 
 .offer-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  align-items: center;
+  gap: 10px;
   padding: 20px;
   background: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.offer-form h3 {
-  font-size: 22px;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.offer-form input,
-.offer-form select {
-  padding: 10px;
-  border: 2px solid #ddd;
-  border-radius: 6px;
-  font-size: 16px;
-  width: 100%;
-}
-
-.offer-form input:focus,
-.offer-form select:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-
-.offer-form button {
-  padding: 12px;
-  width: 200px;
-  justify-content: center;
-  background: #D88A29;
+.cancel-button {
+  background-color: #D88A29;
   color: white;
-  font-size: 16px;
-  font-weight: bold;
+  padding: 9px;
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease-in-out;
+  
+}
+.cancel-button:hover {
+  background-color: #aa853e; 
+}
+/* Employee Onboarding  */
+.employee-onboarding {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  /* background: #f8f9fa; */
+  border-radius: 8px;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
-.offer-form button:hover {
+
+.employee-onboarding h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+
+.employee-onboarding .card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.employee-onboarding .input,
+.employee-onboarding .select,
+.employee-onboarding .input-file {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+
+.employee-onboarding .select {
+  cursor: pointer;
+}
+
+
+.employee-onboarding .input-file {
+  border: none;
+}
+
+
+.employee-onboarding .button {
+  background: #D88A29;
+  width: 200px;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.employee-onboarding .button:hover {
   background: #aa853e;
 }
 
 
-@media (max-width: 768px) {
-  .offer-container {
-    max-width: 100%;
-    padding: 15px;
-  }
+.employee-onboarding .onboarding-status {
+  margin-top: 20px;
+}
 
-  .offer-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-  }
+.employee-onboarding .table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
 
-  .offer-form {
-    padding: 15px;
-  }
+
+.employee-onboarding .table th {
+  background: #D88A29; 
+  color: black;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+}
+
+
+.employee-onboarding .table tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.employee-onboarding .table tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+
+.employee-onboarding .table tbody tr:hover {
+  background: #f1f1f1;
+}
+
+
+.employee-onboarding .status-badge {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.employee-onboarding .status-pending {
+  background: #ffc107;
+  color: #212529;
+}
+
+.employee-onboarding .status-inprogress {
+  background: #0e95aa;
+  color: white;
+}
+
+.employee-onboarding .status-completed {
+  background: #28a745;
+  color: white;
+}
+
+
+.employee-onboarding .action-button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  margin: 2px;
+  transition: background 0.3s;
+}
+
+
+.employee-onboarding .action-progress {
+  background: #17a2b8;
+  color: white;
+}
+
+.employee-onboarding .action-complete {
+  background: #28a745;
+  color: white;
+}
+
+.employee-onboarding .action-remove {
+  background: #dc3545;
+  color: white;
+}
+
+.employee-onboarding .action-button:hover {
+  opacity: 0.8;
+}
+
+
+.employee-onboarding .text-center {
+  text-align: center;
+}
+
+.employee-onboarding .toggle-form-button {
+  background-color: #D88A29;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.employee-onboarding .toggle-form-button:hover {
+  background-color: #aa853e;
 }
