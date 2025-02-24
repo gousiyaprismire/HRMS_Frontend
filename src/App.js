@@ -16,7 +16,7 @@ import EmployeeAttendanceTracking from "./Components/AttendanceTime/EmployeeAtte
 import LeaveApplication from "./Components/AttendanceTime/LeaveApplication";
 import LeaveApprovalPanel from "./Components/AttendanceTime/LeaveApprovalPanel";
 import TimesheetManagement from "./Components/AttendanceTime/TimesheetManagement";
-import HolidayPolicies from "./Components/AttendanceTime/HolidayPolicies"
+import HolidayPolicies from "./Components/AttendanceTime/HolidayPolicies";
 import GoalCategories from "./Components/PerformanceManagement/GoalCategories";
 import JobListings from "./Components/Recruitment/JobListings";
 import InterviewSchedule from "./Components/Recruitment/InterviewSchedule";
@@ -34,12 +34,10 @@ import Bonuses from "./Components/PayrollCompensation/Bonuses";
 import PayrollProcessing from "./Components/PayrollCompensation/PayrollProcessing";
 import TaxReports from "./Components/PayrollCompensation/TaxReports";
 import EmployeeReports from "./Components/AnalyticsReporting/EmployeeReports";
+import PerformanceAppraisalReports from "./Components/AnalyticsReporting/PerformanceAppraisalReports";
 import OrganizationGoals from "./Components/PerformanceManagement/OrganizationGoals";
 import AppraisalForms from "./Components/PerformanceManagement/AppraisalForms";
 import PerformancePeriod from "./Components/PerformanceManagement/PerformancePeriod";
-import FeedbackQuestions from "./Components/PerformanceManagement/FeedbackQuestions";
-import GeneralOptions from "./Components/PerformanceManagement/GeneralOptions";
-
 
 const App = () => {
   return (
@@ -51,14 +49,14 @@ const App = () => {
           <div style={{ marginLeft: "260px", padding: "20px", width: "100%" }}>
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/" element={<Navigate to="/performance-management" />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/analytics-reporting" element={<AnalyticsReporting />}/>
+              <Route path="/analytics-reporting" element={<AnalyticsReporting />} />
               <Route path="/attendance" element={<AttendanceTime />} />
               <Route path="/attendance-tracking" element={<EmployeeAttendanceTracking />} />
               <Route path="/leave-application" element={<LeaveApplication />} />
               <Route path="/leave-approval" element={<LeaveApprovalPanel />} />
               <Route path="/employee-reports" element={<EmployeeReports />} />
+              <Route path="/performance-appraisal-reports" element={<PerformanceAppraisalReports />} />
               <Route path="/holiday" element={<HolidayPolicies />} />
               <Route path="/timesheet" element={<TimesheetManagement />} />
               <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
@@ -66,19 +64,16 @@ const App = () => {
               <Route path="/payroll" element={<PayrollCompensation />} />
               <Route path="/performance-management" element={<PerformanceManagement />} />
               <Route path="/goal-categories" element={<GoalCategories />} />
-              <Route path="organization-goals" element={<OrganizationGoals />} />
-              <Route path="appraisal-forms" element={<AppraisalForms />} />
-              <Route path="performance-periods" element={<PerformancePeriod />} />
-              <Route path="feedback-questions" element={<FeedbackQuestions />} />
-              <Route path="general-options" element={<GeneralOptions />} />
+              <Route path="/organization-goals" element={<OrganizationGoals />} />
+              <Route path="/appraisal-forms" element={<AppraisalForms />} />
+              <Route path="/performance-periods" element={<PerformancePeriod />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
               <Route path="/recruitment/job-listings" element={<JobListings />} />
               <Route path="/recruitment/job-listings/applicants" element={<Applicant />} />
               <Route path="/recruitment/applicant-management" element={<InterviewSchedule />} />
               <Route path="/recruitment/offer-letters" element={<OfferLetters />} />
               <Route path="/recruitment/onboarding" element={<Onboarding />} />
-              <Route path="/security" element={<SecurityDataPrivacy />} />
-              <Route path="/selfservice" element= {<SelfService />}/>
+              <Route path="/selfservice" element={<SelfService />} />
               <Route path="/selfservice/profile-update" element={<ProfileUpdate />} />
               <Route path="/selfservice/leave-attendance-history" element={<LeaveAttendance />} />
               <Route path="/selfservice/payroll-tax-documents" element={<PayrollTax />} />
