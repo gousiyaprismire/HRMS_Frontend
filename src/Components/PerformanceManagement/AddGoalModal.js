@@ -20,7 +20,6 @@ function AddGoalModal({ onClose, onSave }) {
         <h2 className="text-xl font-semibold mb-4">Add Goal</h2>
         <p className="text-gray-600">Performance Appraisal for 2022</p>
 
-        {/* Goal Category Dropdown */}
         <label className="block text-sm font-medium mt-3">Goal Category *</label>
         <select
           className="w-full border p-2 rounded-md mt-1"
@@ -33,7 +32,6 @@ function AddGoalModal({ onClose, onSave }) {
           <option value="Growth Goals">Growth Goals</option>
         </select>
 
-        {/* Goal Description Input */}
         <label className="block text-sm font-medium mt-3">Goal Description *</label>
         <textarea
           className="w-full border p-2 rounded-md mt-1"
@@ -42,7 +40,6 @@ function AddGoalModal({ onClose, onSave }) {
           placeholder="Enter goal description"
         ></textarea>
 
-        {/* Measurable Goal Toggle */}
         <div className="flex items-center mt-3">
           <input
             type="checkbox"
@@ -54,7 +51,6 @@ function AddGoalModal({ onClose, onSave }) {
           <label htmlFor="measurable-goal">This is a measurable goal</label>
         </div>
 
-        {/* Buttons */}
         <div className="flex justify-end mt-4">
           <button className="px-4 py-2 bg-gray-300 rounded-md mr-2" onClick={onClose}>
             Close

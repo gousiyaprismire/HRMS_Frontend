@@ -1,4 +1,4 @@
-/* General container styling */
+
 .general-options-container {
     max-width: 800px;
     margin: 40px auto;
@@ -6,7 +6,6 @@
     font-family: Arial, sans-serif;
 }
 
-/* Section title */
 .general-options-container h2 {
     font-size: 22px;
     font-weight: bold;
@@ -14,14 +13,12 @@
     margin-bottom: 10px;
 }
 
-/* Section description */
 .general-options-container p {
     color: #666;
     font-size: 14px;
     margin-bottom: 20px;
 }
 
-/* Group styling */
 .options-group {
     margin-bottom: 20px;
 }
@@ -33,7 +30,6 @@
     margin-bottom: 10px;
 }
 
-/* List styling */
 .option-item {
     display: flex;
     justify-content: space-between;
@@ -41,7 +37,6 @@
     padding: 10px 0;
 }
 
-/* Toggle switch */
 .switch {
     position: relative;
     display: inline-block;
@@ -87,7 +82,6 @@ input:checked + .slider:before {
     transform: translateX(20px);
 }
 
-/* Save button */
 .save-button {
     background-color: #007bff;
     color: white;
@@ -106,7 +100,7 @@ input:checked + .slider:before {
 .save-button:hover {
     background-color: #0056b3;
 }
-/* Hide scrollbar for Chrome, Safari and Edge */
+
 ::-webkit-scrollbar {
     display: none;
 }

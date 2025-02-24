@@ -35,7 +35,6 @@ const AppraisalForms = () => {
       <h2 className="performance-period-h2">Appraisal Forms</h2>
       <p className="performance-period-p">View appraisal forms submitted by employees and managers.</p>
 
-      {/* Filters Section */}
       <div className="filters">
         <select value={period} onChange={(e) => setPeriod(e.target.value)}>
           <option>Performance Appraisal for 2024</option>
@@ -60,13 +59,11 @@ const AppraisalForms = () => {
         <button className="show-btn" onClick={showForms}>Show Forms</button>
       </div>
 
-      {/* Release & Recall Buttons */}
       <div className="action-buttons">
         <button className="release-btn" onClick={releaseForms}>Release Forms</button>
         <button className="recall-btn" onClick={recallForms}>Recall Forms</button>
       </div>
 
-      {/* Appraisal Forms Table */}
       <table className="appraisal-table">
         <thead>
           <tr>
