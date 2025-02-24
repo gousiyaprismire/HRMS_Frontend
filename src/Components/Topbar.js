@@ -8,8 +8,8 @@ const TopBar = () => {
         <h1 style={heading}>HRMS Portal</h1>
       </div>
       <div style={buttonContainer}>
-        <button style={buttonStyles}>👤</button>
-        <button style={buttonStyles}>🔒</button>
+        <button style={profileButtonStyles}>👤</button>
+        <button style={lockButtonStyles}>🔒</button>
       </div>
     </div>
   );
@@ -42,24 +42,45 @@ const logoStyles = {
   height: "50px",
   width: "50px",
   marginRight: "10px",
-  borderRadius: "50%",
+  borderRadius: "50%", 
 };
 
-const buttonStyles = {
+const profileButtonStyles = {
   color: "black",
   border: "none",
-  padding: "12px 20px",
+  padding: "12px",
   cursor: "pointer",
   fontSize: "18px",
   fontWeight: "bold",
   background: "#f0f0f0",
-  borderRadius: "30px",
+  borderRadius: "50%", 
   display: "flex",
+  justifyContent: "center",
   alignItems: "center",
-  gap: "8px",
+  width: "40px", 
+  height: "40px", 
   transition: "background 0.3s",
   marginTop: "10px",
 };
+
+const lockButtonStyles = {
+  color: "black",
+  border: "none",
+  padding: "12px",
+  cursor: "pointer",
+  fontSize: "18px",
+  fontWeight: "bold",
+  background: "#f0f0f0",
+  borderRadius: "50%", 
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "40px", 
+  height: "40px", 
+  transition: "background 0.3s",
+  marginTop: "10px",
+};
+
 
 const heading = {
   fontSize: "25px",

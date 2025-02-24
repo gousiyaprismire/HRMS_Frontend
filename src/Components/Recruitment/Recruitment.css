@@ -194,74 +194,170 @@ body {
 
 
 /* Applicants Component */
-.applicant-form {
-  
-  width: 80%;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  font-family: Roboto;
- 
+
+html, body {
+  height: 100%; 
+  margin: 0; 
+  overflow: hidden; 
 }
 
-.applicant-inline-group {
+.applicant-container {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
- 
- 
+  padding: 20px;
+  font-family: Roboto, sans-serif;
+  background-color: #f4f4f9;
+  height: 100%; 
+  align-items: center; 
+  margin-top: 50px; 
 }
 
-.applicant-inline-group .applicant-form-group {
-  flex: 1;
-  
+
+.applicant-left-section {
+  width: 1000%;
+  padding: 20px;
+  /* background: white; */
+  border-radius: 8px;
+  /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
 }
 
-.applicant-inline-group .applicant-form-group input,
-.applicant-inline-group .applicant-form-group select {
+.applicant-left-section h2 {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.applicant-table {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.applicant-table th,
+.applicant-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
   text-align: left;
-  font-size: medium;
+}
+
+.applicant-table th {
+  background: #D88A29;
+  color: white;
+}
+
+.applicant-table tr:nth-child(even) {
+  background: #f9f9f9;
 }
 
 .applicant-btn {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  background-color: #D88A29;
+  background: #D88A29;
   color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
   cursor: pointer;
   margin-right: 10px;
 }
 
 .applicant-btn:hover {
-  background-color: #aa853e;
-}
-.applicant-inline-group .status-options {
-  display: flex;
-  gap: 20px;
+  background: #aa853e;
 }
 
-.applicant-inline-group .status-options label {
+
+.applicant-right-section {
+  width: 1000%;
+  padding: 20px;
+  /* background: white; */
+  border-radius: 8px;
+  /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
+ 
+}
+
+.applicant-right-section h3 {
+  margin-bottom: 15px;
+  text-align: center;
+  
+}
+
+.applicant-form {
+  display: grid;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.applicant-form-group {
   display: flex;
-  align-items: center;
-  gap: 5px;
+  flex-direction: column;
+}
+
+.applicant-form-group label {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.applicant-form-group input,
+.applicant-form-group select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.applicant-form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+button.applicant-btn {
+  padding: 8px 12px;
+  font-size: 16px;
   cursor: pointer;
 }
 
-.applicant-inline-group .status-options input[type="radio"] {
-  accent-color: #4caf50;
+
+.applicant-form {
+  display: flex;
+  flex-direction: column;
 }
 
+.applicant-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 15px; 
+}
+
+.applicant-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.applicant-form-group label {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.applicant-form-group input,
+.applicant-form-group select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.applicant-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+
+@media (max-width: 768px) {
+  .applicant-form-grid {
+    grid-template-columns: 1fr; 
+  }
+}
 
 /* Interviews Section  */
 
@@ -380,7 +476,7 @@ body {
 .interview-scheduler .action-button:hover {
   opacity: 0.8;
 }
-/* Schedule New Interview */
+
 .add-interview-button {
   display: block;
   margin: 10px auto;
@@ -397,6 +493,13 @@ body {
 
 .add-interview-button:hover {
   background: #aa853e;
+}
+
+.back-button-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 /* Offers Section  */
@@ -438,17 +541,17 @@ body {
 
 
 .offer-form input, .offer-form select {
-  width: 100%;
+  width: 80%;
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-.offer-form {
+ /* .offer-form {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align all form elements */
-}
+  align-items: center; 
+}  */
 
 .offer-form button {
   margin-top: 10px;
@@ -459,6 +562,7 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width:100px;
 }
 
 .offer-form button:hover {
@@ -490,6 +594,7 @@ body {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  
 }
 
 .offer-table button:disabled {
@@ -520,6 +625,7 @@ body {
   font-size: 16px;
   cursor: pointer;
   margin: 15px 0;
+  
 }
 
 .add-offer-button:hover {
@@ -527,28 +633,86 @@ body {
 }
 
 .offer-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 20px;
-  background: #f8f9fa;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px; 
+  padding: 10px;
+  background: white;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* width: fit-content; */
+  margin: 0 auto;
+  text-align: left; 
+  position: relative;
 }
+
+
+.offer-form h3 {
+  grid-column: span 2;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+
+.offer-form input,
+.offer-form select,
+.offer-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.offer-form textarea,
+.offer-form button {
+  grid-column: span 2;
+}
+
+
+.offer-form button {
+  padding: 10px;
+  background: #D88A29;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  width:150px;
+  justify-content: flex-end;
+}
+.offer-form .button-container {
+  grid-column: span 2; 
+  display: flex;
+  justify-content: center; 
+}
+
+.offer-form button.cancel-button {
+  background: #D88A29;
+  width: 80px;
+  text-align: center;
+}
+
+.offer-form button:hover {
+  opacity: 0.8;
+}
+
 
 .cancel-button {
   background-color: #D88A29;
   color: white;
-  padding: 9px;
+  padding: 8px 16px;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  
+  margin-right: auto; 
+  display: block; 
+  text-align: left;
 }
+
 .cancel-button:hover {
-  background-color: #aa853e; 
+  background-color: #aa853e;
 }
+
+
 /* Employee Onboarding  */
 .employee-onboarding {
   max-width: 1200px;
@@ -568,13 +732,18 @@ body {
 
 
 .employee-onboarding .card {
-  background: #ffffff;
+  background: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 60%;
+  margin: 0 auto;
+}
+
+.employee-onboarding .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
 }
 
 

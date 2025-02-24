@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import "./Recruitment.css"; // Import the CSS file
+import "./Recruitment.css";
 
 function OfferLetters() {
   const [offers, setOffers] = useState([
     {
       candidate: "A",
-      email: "@example.com",
+      email: "a@example.com",
       phone: "9987456321",
       position: "Software Engineer",
       salary: "80,000",
@@ -52,7 +52,7 @@ function OfferLetters() {
   const workLocations = ["Remote", "On-site", "Hybrid"];
 
   const handleAddOffer = (e) => {
-    e.preventDefault(); // Prevent page reload
+    e.preventDefault();
     if (newOffer.candidate && newOffer.position && newOffer.email && newOffer.salary) {
       setOffers([...offers, newOffer]);
       setNewOffer({
@@ -84,54 +84,59 @@ function OfferLetters() {
     <div className="offer-container">
       <h2>Offer Letters</h2>
 
-      {/* Offer Letters Table */}
-      <table className="offer-table">
-        <thead>
-          <tr>
-            <th>Candidate</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Position</th>
-            <th>Salary</th>
-            <th>Joining Date</th>
-            <th>Employment Type</th>
-            <th>Work Location</th>
-            <th>Offer Expiry</th>
-            <th>HR Contact</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {offers.map((offer, index) => (
-            <tr key={index}>
-              <td>{offer.candidate}</td>
-              <td>{offer.email}</td>
-              <td>{offer.phone}</td>
-              <td>{offer.position}</td>
-              <td>{offer.salary}</td>
-              <td>{offer.joiningDate}</td>
-              <td>{offer.employmentType}</td>
-              <td>{offer.workLocation}</td>
-              <td>{offer.offerExpiry}</td>
-              <td>{offer.hrContact}</td>
-              <td className={`status ${offer.status.toLowerCase()}`}>{offer.status}</td>
-              <td>
-                <button onClick={() => handleStatusChange(index, "Accepted")} disabled={offer.status !== "Sent"}>
-                  Accept
-                </button>
-                <button onClick={() => handleStatusChange(index, "Rejected")} disabled={offer.status !== "Sent"}>
-                  Reject
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {/* Hide table and add button when form is shown */}
+      {!showForm && (
+        <>
+          {/* Offer Letters Table */}
+          <table className="offer-table">
+            <thead>
+              <tr>
+                <th>Candidate</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Position</th>
+                <th>Salary</th>
+                <th>Joining Date</th>
+                <th>Employment Type</th>
+                <th>Work Location</th>
+                <th>Offer Expiry</th>
+                <th>HR Contact</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {offers.map((offer, index) => (
+                <tr key={index}>
+                  <td>{offer.candidate}</td>
+                  <td>{offer.email}</td>
+                  <td>{offer.phone}</td>
+                  <td>{offer.position}</td>
+                  <td>{offer.salary}</td>
+                  <td>{offer.joiningDate}</td>
+                  <td>{offer.employmentType}</td>
+                  <td>{offer.workLocation}</td>
+                  <td>{offer.offerExpiry}</td>
+                  <td>{offer.hrContact}</td>
+                  <td className={`status ${offer.status.toLowerCase()}`}>{offer.status}</td>
+                  <td>
+                    <button onClick={() => handleStatusChange(index, "Accepted")} disabled={offer.status !== "Sent"}>
+                      Accept
+                    </button>
+                    <button onClick={() => handleStatusChange(index, "Rejected")} disabled={offer.status !== "Sent"}>
+                      Reject
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-      <button className="add-offer-button" onClick={() => setShowForm(true)}>
-        Add New Offer Letter
-      </button>
+          <button className="add-offer-button" onClick={() => setShowForm(true)}>
+            Add New Offer Letter
+          </button>
+        </>
+      )}
 
       {showForm && (
         <form className="offer-form" onSubmit={handleAddOffer}>
@@ -167,8 +172,11 @@ function OfferLetters() {
           <input type="date" placeholder="Offer Expiry Date" value={newOffer.offerExpiry} onChange={(e) => setNewOffer({ ...newOffer, offerExpiry: e.target.value })} />
           <input type="text" placeholder="HR Contact Person" value={newOffer.hrContact} onChange={(e) => setNewOffer({ ...newOffer, hrContact: e.target.value })} />
 
-          <button type="submit">Create Offer Letter</button>
-          <button type="button" className="cancel-button" onClick={() => setShowForm(false)}>Cancel</button>
+          <div className="button-container">
+    <button type="submit">Create Offer Letter</button>
+  </div>
+          
+          <button type="button" className="cancel-button" onClick={() => setShowForm(false)}>Back</button>
         </form>
       )}
     </div>
