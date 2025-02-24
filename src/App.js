@@ -37,6 +37,8 @@ import EmployeeReports from "./Components/AnalyticsReporting/EmployeeReports";
 import OrganizationGoals from "./Components/PerformanceManagement/OrganizationGoals";
 import AppraisalForms from "./Components/PerformanceManagement/AppraisalForms";
 import PerformancePeriod from "./Components/PerformanceManagement/PerformancePeriod";
+import FeedbackQuestions from "./Components/PerformanceManagement/FeedbackQuestions";
+import GeneralOptions from "./Components/PerformanceManagement/GeneralOptions";
 
 
 const App = () => {
@@ -56,11 +58,7 @@ const App = () => {
               <Route path="/attendance-tracking" element={<EmployeeAttendanceTracking />} />
               <Route path="/leave-application" element={<LeaveApplication />} />
               <Route path="/leave-approval" element={<LeaveApprovalPanel />} />
-
               <Route path="/employee-reports" element={<EmployeeReports />} />
-
-
-              
               <Route path="/holiday" element={<HolidayPolicies />} />
               <Route path="/timesheet" element={<TimesheetManagement />} />
               <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
@@ -71,6 +69,8 @@ const App = () => {
               <Route path="organization-goals" element={<OrganizationGoals />} />
               <Route path="appraisal-forms" element={<AppraisalForms />} />
               <Route path="performance-periods" element={<PerformancePeriod />} />
+              <Route path="feedback-questions" element={<FeedbackQuestions />} />
+              <Route path="general-options" element={<GeneralOptions />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
               <Route path="/recruitment/job-listings" element={<JobListings />} />
               <Route path="/recruitment/job-listings/applicants" element={<Applicant />} />
@@ -80,11 +80,11 @@ const App = () => {
               <Route path="/security" element={<SecurityDataPrivacy />} />
               <Route path="/selfservice" element= {<SelfService />}/>
               <Route path="/selfservice/profile-update" element={<ProfileUpdate />} />
-            <Route path="/selfservice/leave-attendance-history" element={<LeaveAttendance />} />
-            <Route path="/selfservice/payroll-tax-documents" element={<PayrollTax />} />
-            <Route path="/selfservice/expense-reimbursement" element={<ExpenseReimbursement />} />
-            <Route path="/selfservice/help-desk" element={<HelpDesk />} />
-            <Route path="/salary-structure" element={<SalaryStructure />} />
+              <Route path="/selfservice/leave-attendance-history" element={<LeaveAttendance />} />
+              <Route path="/selfservice/payroll-tax-documents" element={<PayrollTax />} />
+              <Route path="/selfservice/expense-reimbursement" element={<ExpenseReimbursement />} />
+              <Route path="/selfservice/help-desk" element={<HelpDesk />} />
+              <Route path="/salary-structure" element={<SalaryStructure />} />
               <Route path="/payslips" element={<Payslips />} />
               <Route path="/bonuses" element={<Bonuses />} />
               <Route path="/payroll-processing" element={<PayrollProcessing />} />

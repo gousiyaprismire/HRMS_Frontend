@@ -15,11 +15,19 @@ const AppraisalForms = () => {
   };
 
   const editForm = (id) => {
-    alert(`Edit form with ID: ${id}`);
+    alert(`Editing form ID: ${id}`);
   };
 
   const deleteForm = (id) => {
     setForms(forms.filter((form) => form.id !== id));
+  };
+
+  const releaseForms = () => {
+    setForms(forms.map((form) => ({ ...form, status: "Released", lastAction: new Date().toLocaleDateString() })));
+  };
+
+  const recallForms = () => {
+    setForms(forms.map((form) => ({ ...form, status: "Recalled", lastAction: new Date().toLocaleDateString() })));
   };
 
   return (
@@ -52,10 +60,16 @@ const AppraisalForms = () => {
         <button className="show-btn" onClick={showForms}>Show Forms</button>
       </div>
 
+      {/* Release & Recall Buttons */}
+      <div className="action-buttons">
+        <button className="release-btn" onClick={releaseForms}>Release Forms</button>
+        <button className="recall-btn" onClick={recallForms}>Recall Forms</button>
+      </div>
+
       {/* Appraisal Forms Table */}
       <table className="appraisal-table">
         <thead>
-          <tr className="appraisal-form th">
+          <tr>
             <th>Employee</th>
             <th>Manager</th>
             <th>Status</th>
@@ -76,8 +90,10 @@ const AppraisalForms = () => {
                 <td>{form.status}</td>
                 <td>{form.lastAction}</td>
                 <td>
-                  <button className="appraisal-form-edit-btn " onClick={() => editForm(form.id)}>Edit</button>
-                  <button className="appraisal-form-delete-btn" onClick={() => deleteForm(form.id)}>Delete</button>
+                  <div className="appraisal-form-actions">
+                    <button className="appraisal-form-edit-btn" onClick={() => editForm(form.id)}>Edit</button>
+                    <button className="appraisal-form-delete-btn" onClick={() => deleteForm(form.id)}>Delete</button>
+                  </div>
                 </td>
               </tr>
             ))
