@@ -23,8 +23,6 @@ function HolidayPolicies() {
 
   return (
     <div className="holiday-container">
-      <button className="back-button" onClick={() => navigate(-1)}>←</button>
-
       <h2>Holiday & Leave Policies</h2>
 
       {/* Holiday Calendar */}

@@ -18,8 +18,8 @@ function LeaveApplication() {
   const [isEditing, setIsEditing] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [deleteId, setDeleteId] = useState(null);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [deleteEntry, setDeleteEntry] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,9 +49,18 @@ function LeaveApplication() {
     setShowForm(true);
   };
 
-  const handleDelete = () => {
-    setLeaveRequests(leaveRequests.filter(req => req.id !== deleteId));
-    setShowDeleteConfirm(false);
+  const handleDelete = (entry) => {
+    setDeleteEntry(entry);
+    setShowDeleteDialog(true);
+  };
+
+  const confirmDelete = () => {
+    setLeaveRequests(leaveRequests.filter(req => req.id !== deleteEntry.id));
+    setShowDeleteDialog(false);
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteDialog(false);
   };
 
   return (
@@ -60,7 +69,7 @@ function LeaveApplication() {
       <h2>Leave Application</h2>
       
       {showForm && (
-        <div className={`leave-form ${showForm ? "show" : ""}`}>
+        <div className="leave-form show">
           <h3>{isEditing ? "Edit Leave Request" : "New Leave Request"}</h3>
           <form onSubmit={handleSubmit}>
             <div>
@@ -92,14 +101,6 @@ function LeaveApplication() {
         </div>
       )}
 
-      {showDeleteConfirm && (
-        <div className="delete-popup">
-          <p>Are you sure you want to delete this leave request?</p>
-          <button className="confirm-btn" onClick={handleDelete}>Yes, Delete</button>
-          <button className="cancel-btn" onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
-        </div>
-      )}
-      
       <div className="leave-table">
         <h3>Leave Requests</h3>
         <table>
@@ -128,7 +129,7 @@ function LeaveApplication() {
                   <td>{request.status}</td>
                   <td>
                     <button className="edit-btn" onClick={() => handleEdit(request)}>Edit</button>
-                    <button className="delete-btn" onClick={() => { setDeleteId(request.id); setShowDeleteConfirm(true); }}>Delete</button>
+                    <button className="delete-btn" onClick={() => handleDelete(request)}>Delete</button>
                   </td>
                 </tr>
               ))
@@ -136,6 +137,26 @@ function LeaveApplication() {
           </tbody>
         </table>
       </div>
+
+      {showDeleteDialog && deleteEntry && (
+        <div className="delete-confirmation-dialog">
+          <div className="dialog-content">
+            <h4>Confirm Deletion</h4>
+            <p>Are you sure you want to delete this leave request?</p>
+            <ul>
+              <li><strong>ID:</strong> {deleteEntry.id}</li>
+              <li><strong>Name:</strong> {deleteEntry.name}</li>
+              <li><strong>Leave Type:</strong> {deleteEntry.leaveType}</li>
+              <li><strong>Start Date:</strong> {deleteEntry.startDate}</li>
+              <li><strong>End Date:</strong> {deleteEntry.endDate}</li>
+            </ul>
+            <div className="dialog-buttons">
+              <button className="confirm-btn" onClick={confirmDelete}>Confirm</button>
+              <button className="cancel-btn" onClick={cancelDelete}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
