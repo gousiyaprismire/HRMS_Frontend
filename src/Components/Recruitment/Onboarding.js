@@ -96,7 +96,7 @@ const EmployeeOnboarding = () => {
       location: "Remote",
       documents: null,
     });
-    setShowForm(false);
+    setShowForm(false); // Hide form after submission
   };
 
   const updateStatus = (id, newStatus) => {
@@ -115,112 +115,131 @@ const EmployeeOnboarding = () => {
     <div className="employee-onboarding">
       <h2>New Employee Onboarding</h2>
 
-      <button className="toggle-form-button" onClick={() => setShowForm(!showForm)}>
-        {showForm ? "Close Form" : "Add New Employee"}
-      </button>
+   
+      {!showForm && (
+        <>
+          <button className="toggle-form-button" onClick={() => setShowForm(true)}>
+            Add New Employee
+          </button>
 
-      {showForm && (
-        <div className="card">
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Full Name"
-            className="input"
-          />
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email Address"
-            className="input"
-          />
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="Phone Number"
-            className="input"
-          />
-          <select name="role" value={formData.role} onChange={handleChange} className="select">
-            <option value="">Select Job Role</option>
-            {jobRoles.map((role, index) => (
-              <option key={index} value={role}>{role}</option>
-            ))}
-          </select>
-          <select name="department" value={formData.department} onChange={handleChange} className="select">
-            <option value="">Select Department</option>
-            {departments.map((dept, index) => (
-              <option key={index} value={dept}>{dept}</option>
-            ))}
-          </select>
-          <input
-            type="date"
-            name="joiningDate"
-            value={formData.joiningDate}
-            onChange={handleChange}
-            className="input"
-          />
-          <select name="manager" value={formData.manager} onChange={handleChange} className="select">
-            <option value="">Select Reporting Manager</option>
-            {managers.map((mgr, index) => (
-              <option key={index} value={mgr}>{mgr}</option>
-            ))}
-          </select>
-          <select name="location" value={formData.location} onChange={handleChange} className="select">
-            {workLocations.map((loc, index) => (
-              <option key={index} value={loc}>{loc}</option>
-            ))}
-          </select>
-          <input type="file" multiple onChange={handleFileChange} className="input-file" />
-          <div className="button-container">
-            <button onClick={handleSubmit} className="button">Add Employee</button>
+          <div className="onboarding-status">
+            <h2>Onboarding Status</h2>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Employee Name</th>
+                  <th>Job Role</th>
+                  <th>Joining Date</th>
+                  <th>Status</th>
+                  <th>HR Contact</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {employees.length > 0 ? (
+                  employees.map((emp) => (
+                    <tr key={emp.id}>
+                      <td>{emp.name}</td>
+                      <td>{emp.role}</td>
+                      <td>{emp.joiningDate}</td>
+                      <td>
+                        <span className={`status-badge status-${emp.status.toLowerCase()}`}>
+                          {emp.status}
+                        </span>
+                      </td>
+                      <td>{emp.hrContact}</td>
+                      <td>
+                        <button onClick={() => updateStatus(emp.id, "In Progress")} className="action-button action-progress">In Progress</button>
+                        <button onClick={() => updateStatus(emp.id, "Completed")} className="action-button action-complete">Complete</button>
+                        <button onClick={() => removeEmployee(emp.id)} className="action-button action-remove">Remove</button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr><td colSpan="6" className="text-center">No Employees</td></tr>
+                )}
+              </tbody>
+            </table>
           </div>
-        </div>
+        </>
       )}
 
-      <div className="onboarding-status">
-        <h2>Onboarding Status</h2>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Employee Name</th>
-              <th>Job Role</th>
-              <th>Joining Date</th>
-              <th>Status</th>
-              <th>HR Contact</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {employees.length > 0 ? (
-              employees.map((emp) => (
-                <tr key={emp.id}>
-                  <td>{emp.name}</td>
-                  <td>{emp.role}</td>
-                  <td>{emp.joiningDate}</td>
-                  <td>
-                    <span className={`status-badge status-${emp.status.toLowerCase()}`}>
-                      {emp.status}
-                    </span>
-                  </td>
-                  <td>{emp.hrContact}</td>
-                  <td>
-                    <button onClick={() => updateStatus(emp.id, "In Progress")} className="action-button action-progress">In Progress</button>
-                    <button onClick={() => updateStatus(emp.id, "Completed")} className="action-button action-complete">Complete</button>
-                    <button onClick={() => removeEmployee(emp.id)} className="action-button action-remove">Remove</button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr><td colSpan="6" className="text-center">No Employees</td></tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+      {/* Form Section */}
+      {showForm && (
+  <div className="employee-onboarding card">
+    <h3>Add New Employee</h3>
+    
+    {/* Form Grid for Two-Column Layout */}
+    <div className="form-grid">
+      <input
+        type="text"
+        name="name"
+        value={formData.name}
+        onChange={handleChange}
+        placeholder="Full Name"
+        className="input"
+        required
+      />
+      <input
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        placeholder="Email Address"
+        className="input"
+        required
+      />
+      <input
+        type="tel"
+        name="phone"
+        value={formData.phone}
+        onChange={handleChange}
+        placeholder="Phone Number"
+        className="input"
+        required
+      />
+      <select name="role" value={formData.role} onChange={handleChange} className="select" required>
+        <option value="">Select Job Role</option>
+        {jobRoles.map((role, index) => (
+          <option key={index} value={role}>{role}</option>
+        ))}
+      </select>
+      <select name="department" value={formData.department} onChange={handleChange} className="select" required>
+        <option value="">Select Department</option>
+        {departments.map((dept, index) => (
+          <option key={index} value={dept}>{dept}</option>
+        ))}
+      </select>
+      <input
+        type="date"
+        name="joiningDate"
+        value={formData.joiningDate}
+        onChange={handleChange}
+        className="input"
+        required
+      />
+      <select name="manager" value={formData.manager} onChange={handleChange} className="select" required>
+        <option value="">Select Reporting Manager</option>
+        {managers.map((mgr, index) => (
+          <option key={index} value={mgr}>{mgr}</option>
+        ))}
+      </select>
+      <select name="location" value={formData.location} onChange={handleChange} className="select">
+        {workLocations.map((loc, index) => (
+          <option key={index} value={loc}>{loc}</option>
+        ))}
+      </select>
+      <input type="file" multiple onChange={handleFileChange} className="input-file" />
+    </div>
+
+    {/* Buttons */}
+    <div className="button-container">
+      <button onClick={handleSubmit} className="button">Add Employee</button>
+      <button className="cancel-button" onClick={() => setShowForm(false)}>Back</button>
+    </div>
+
+        </div>
+      )}
     </div>
   );
 };

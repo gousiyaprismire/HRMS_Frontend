@@ -37,9 +37,13 @@ const InterviewScheduler = () => {
     <div className="interview-scheduler">
       <h2>Interview Scheduler</h2>
       
-      <button className="add-interview-button" onClick={() => setShowForm(true)}>Schedule New Interview</button>
-      
-      {showForm && (
+      {!showForm && (
+        <button className="add-interview-button" onClick={() => setShowForm(true)}>
+          Schedule New Interview
+        </button>
+      )}
+
+      {showForm ? (
         <div className="card">
           <h3>Schedule New Interview</h3>
           <input type="text" name="candidate" value={formData.candidate} onChange={handleChange} placeholder="Candidate Name" className="input" />
@@ -57,47 +61,50 @@ const InterviewScheduler = () => {
             <option value="In-Person">In-Person</option>
           </select>
           <button onClick={handleSchedule} className="button">Schedule</button>
-          <button className="cancel-button" onClick={() => setShowForm(false)}>Cancel</button>
+          <div className="back-button-container">
+  <button className="cancel-button" onClick={() => setShowForm(false)}>Back</button>
+</div>
+
+        </div>
+      ) : (
+        <div className="upcoming-interviews">
+          <h2>Upcoming Interviews</h2>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Candidate</th>
+                <th>Job Position</th>
+                <th>Date & Time</th>
+                <th>Interviewer</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {interviews.length > 0 ? (
+                interviews.map((interview) => (
+                  <tr key={interview.id}>
+                    <td>{interview.candidate}</td>
+                    <td>{interview.job}</td>
+                    <td>{interview.dateTime.replace("T", " ")}</td>
+                    <td>{interview.interviewer}</td>
+                    <td><span className={`status-badge status-${interview.status}`}>{interview.status}</span></td>
+                    <td>
+                      <button onClick={() => updateStatus(interview.id, "rescheduled")} className="action-button action-reschedule">Reschedule</button>
+                      <button onClick={() => updateStatus(interview.id, "canceled")} className="action-button action-cancel">Cancel</button>
+                      <button onClick={() => updateStatus(interview.id, "completed")} className="action-button action-complete">Mark as Completed</button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6" className="text-center">No upcoming interviews</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       )}
-
-      <div className="upcoming-interviews">
-        <h2>Upcoming Interviews</h2>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Candidate</th>
-              <th>Job Position</th>
-              <th>Date & Time</th>
-              <th>Interviewer</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {interviews.length > 0 ? (
-              interviews.map((interview) => (
-                <tr key={interview.id}>
-                  <td>{interview.candidate}</td>
-                  <td>{interview.job}</td>
-                  <td>{interview.dateTime.replace("T", " ")}</td>
-                  <td>{interview.interviewer}</td>
-                  <td><span className={`status-badge status-${interview.status}`}>{interview.status}</span></td>
-                  <td>
-                    <button onClick={() => updateStatus(interview.id, "rescheduled")} className="action-button action-reschedule">Reschedule</button>
-                    <button onClick={() => updateStatus(interview.id, "canceled")} className="action-button action-cancel">Cancel</button>
-                    <button onClick={() => updateStatus(interview.id, "completed")} className="action-button action-complete">Mark as Completed</button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6" className="text-center">No upcoming interviews</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
     </div>
   );
 };
