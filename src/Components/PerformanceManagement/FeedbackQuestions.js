@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./FeedbackQuestions.css"; // Ensure the CSS file is linked
+import "./FeedbackQuestions.css"; 
 
 const FeedbackQuestions = () => {
   const [questions, setQuestions] = useState([
@@ -10,17 +10,14 @@ const FeedbackQuestions = () => {
   const [newQuestion, setNewQuestion] = useState("");
   const [editingId, setEditingId] = useState(null);
 
-  // Handle input change
   const handleChange = (e) => {
     setNewQuestion(e.target.value);
   };
 
-  // Handle form submission for adding or updating a question
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newQuestion.trim()) {
       if (editingId !== null) {
-        // Update existing question
         setQuestions(
           questions.map((q) =>
             q.id === editingId ? { ...q, text: newQuestion } : q
@@ -28,20 +25,17 @@ const FeedbackQuestions = () => {
         );
         setEditingId(null);
       } else {
-        // Add new question
         setQuestions([...questions, { id: questions.length + 1, text: newQuestion }]);
       }
       setNewQuestion("");
     }
   };
 
-  // Handle edit
   const handleEdit = (question) => {
     setEditingId(question.id);
     setNewQuestion(question.text);
   };
 
-  // Handle delete
   const handleDelete = (id) => {
     setQuestions(questions.filter((q) => q.id !== id));
   };
@@ -51,7 +45,6 @@ const FeedbackQuestions = () => {
       <h2>360° Feedback Questions</h2>
       <p>Manage feedback questions for employee performance evaluation.</p>
 
-      {/* Add/Edit Question Form */}
       <form onSubmit={handleSubmit} className="question-form">
         <input
           type="text"
@@ -63,7 +56,6 @@ const FeedbackQuestions = () => {
         <button type="submit">{editingId ? "Update Question" : "Add Question"}</button>
       </form>
 
-      {/* Questions Table */}
       <table className="feedback-questions-table">
         <thead>
           <tr>
