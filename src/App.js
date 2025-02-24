@@ -51,6 +51,11 @@ const App = () => {
               <Route path="/attendance-tracking" element={<EmployeeAttendanceTracking />} />
               <Route path="/leave-application" element={<LeaveApplication />} />
               <Route path="/leave-approval" element={<LeaveApprovalPanel />} />
+
+              {/* <Route path="/employee-reports" element={<EmployeeReports />} /> */}
+
+
+              
               <Route path="/holiday" element={<HolidayPolicies />} />
               <Route path="/timesheet" element={<TimesheetManagement />} />
               <Route path="/benefits-compliance" element={<BenefitsCompliance />} />

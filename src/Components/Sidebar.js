@@ -6,6 +6,7 @@ const Sidebar = () => {
   const [showPerformanceOptions, setShowPerformanceOptions] = useState(false);
   const [attendanceDropdown, setAttendanceDropdown] = useState(false);
   const [benefitsOpen, setBenefitsOpen] = useState(false);
+  const [analyticsDropdown, setAnalyticsDropdown] = useState(false);
   const navigate = useNavigate();
   
 
@@ -43,7 +44,7 @@ const Sidebar = () => {
         👥 Employee Management
       </div>
       <div style={itemStyles} onClick={togglePayroll}>
-                💰 Payroll & Compensation {payrollOpen ? "▲" : "▼"}
+                💰 Payroll & Compensation {payrollOpen}
             </div>
             {payrollOpen && (
                 <div style={dropdownStyles}>
@@ -65,7 +66,7 @@ const Sidebar = () => {
                 </div>
             )}
       <div style={itemStyles} onClick={() => setAttendanceDropdown(!attendanceDropdown)}>
-        ⏳ Attendance & Time {attendanceDropdown ? "▼" : "▶"}
+        ⏳ Attendance & Time {attendanceDropdown}
       </div>
       {attendanceDropdown && (
         <div style={dropdownStyles}>
@@ -76,6 +77,9 @@ const Sidebar = () => {
           <div style={dropdownItemStyles} onClick={() => handleNavigate("/holiday")}>📜 Holiday & Leave Policies</div>
         </div>
       )}
+
+       
+
       <div onClick={handlePerformanceClick} style={dropdownItemStyles}> 📊  Performance Management </div>
       {showPerformanceOptions && (
         <div style={dropdownStyles}>
@@ -86,9 +90,8 @@ const Sidebar = () => {
         </div>
       )}  
 
-      {/* Recruitment with Dropdown */}
       <div style={itemStyles} onClick={toggleRecruitment}>
-        📝 Recruitment {recruitmentOpen ? "▲" : "▼"}
+        📝 Recruitment {recruitmentOpen }
       </div>
       {recruitmentOpen && (
         <div style={dropdownStyles}>
@@ -177,9 +180,8 @@ const Sidebar = () => {
 )}
 
 
-      {/* Self-Service with Dropdown */}
       <div style={itemStyles} onClick={toggleSelfService}>
-        💻 Self-Service {selfServiceOpen ? "▲" : "▼"}
+        💻 Self-Service {selfServiceOpen }
       </div>
       {selfServiceOpen && (
         <div style={dropdownStyles}>
@@ -192,24 +194,8 @@ const Sidebar = () => {
           >
             👤 Profile Update
           </div>
-          <div
-            style={dropdownItemStyles}
-            onClick={(event) => {
-              event.stopPropagation();
-              navigate("/selfservice/leave-attendance-history");
-            }}
-          >
-            📅 Leave & Attendance History
-          </div>
-          <div
-            style={dropdownItemStyles}
-            onClick={(event) => {
-              event.stopPropagation();
-              navigate("/selfservice/payroll-tax-documents");
-            }}
-          >
-            💼 Payroll & Tax Documents
-          </div>
+
+
           <div
             style={dropdownItemStyles}
             onClick={(event) => {
@@ -224,16 +210,23 @@ const Sidebar = () => {
             onClick={(event) => {
               event.stopPropagation();
               navigate("/selfservice/help-desk");
-            }}
+            }}  
           >
             🆘 Help Desk & Support
           </div>
         </div>
       )}
 
-      <div style={itemStyles} onClick={() => navigate("/analytics-reporting")}>
-        📈 Analytics & Reporting
+      {/* Analytics & Reporting Dropdown */}
+      <div style={itemStyles} onClick={() => setAnalyticsDropdown(!analyticsDropdown)}>
+        📈 Analytics & Reporting {analyticsDropdown ? "▼" : "▶"}
       </div>
+      {analyticsDropdown && (
+        <div style={dropdownStyles}>
+          <div style={dropdownItemStyles} onClick={() => navigate("/employee-reports")}>📋 Employee Reports</div>
+          <div style={dropdownItemStyles} onClick={() => navigate("/performance-appraisal-reports")}>📊 Performance & Appraisal Reports</div>
+        </div>
+      )}
      
     </div>
   );
@@ -242,7 +235,7 @@ const Sidebar = () => {
 const sidebarStyles = {
   width: "280px",
   height: "calc(100vh - 60px)", 
- background: "#aa853e",
+ background: "linear-gradient(to left,#D88A29, #2e2929)",
   color: "white",
   paddingTop: "50px",
   paddingLeft: '20px',

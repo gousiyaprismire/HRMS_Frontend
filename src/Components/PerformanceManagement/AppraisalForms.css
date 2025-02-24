@@ -1,0 +1,98 @@
+.appraisal-container {
+    padding: 20px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+
+  p {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* Filters Section */
+  .filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .filters select, .show-btn {
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  .show-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 5px;
+  }
+  
+  .show-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Table */
+  .appraisal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .appraisal-table thead {
+    background-color: #007bff; 
+    color: white; 
+  }
+  
+  .appraisal-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    /* text-align: left; */
+  }
+  
+  .appraisal-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  /* Buttons */
+  .appraisal-form-edit-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+  }
+  
+  .edit-btn:hover {
+    background-color: #218838;
+  }
+  
+  .appraisal-form-delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c82333;
+  }
+  
+  .appraisal-form th {
+    background-color: #2c3e50;
+    color: white;
+  }
+  
