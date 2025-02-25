@@ -5,12 +5,12 @@
   min-height: 100vh;
 }
 
-h2 {
+.employee-reports-page-title {
   color: #333;
   margin-bottom: 20px;
 }
 
-.search-bar {
+.employee-reports-search-bar {
   width: 300px;
   padding: 10px;
   margin-bottom: 20px;
@@ -20,7 +20,7 @@ h2 {
   border-color: black;
 }
 
-.cards-container {
+.employee-reports-cards-container {
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -29,7 +29,7 @@ h2 {
 }
 
 /* Individual Card */
-.card {
+.employee-reports-card {
   background: #aa853e;
   padding: 20px;
   border-radius: 10px;
@@ -38,19 +38,19 @@ h2 {
   width: 200px;
 }
 
-.card h3 {
+.employee-reports-card-title {
   color: #555;
   font-size: 18px;
   margin-bottom: 10px;
 }
 
-.card p {
+.employee-reports-card-value {
   font-size: 22px;
   font-weight: bold;
   color: #2c3e50;
 }
 
-.chart-container {
+.employee-reports-chart-container {
   background: white;
   padding: 20px;
   border-radius: 10px;
@@ -59,11 +59,16 @@ h2 {
   margin: auto;
 }
 
-.export-buttons {
+.employee-reports-chart-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.employee-reports-export-buttons {
   margin-top: 20px;
 }
 
-.export-btn {
+.employee-reports-export-btn {
   padding: 10px 15px;
   margin: 5px;
   border: none;
@@ -72,76 +77,75 @@ h2 {
   font-size: 14px;
 }
 
-.csv-btn {
+.employee-reports-csv-btn {
   background-color: #3498db;
   color: white;
 }
 
-.csv-btn:hover {
+.employee-reports-csv-btn:hover {
   background-color: #2980b9;
 }
 
-.excel-btn {
+.employee-reports-excel-btn {
   background-color: #27ae60;
   color: white;
 }
 
-.excel-btn:hover {
+.employee-reports-excel-btn:hover {
   background-color: #1e8449;
 }
 
-.pdf-btn {
+.employee-reports-pdf-btn {
   background-color: #e74c3c;
   color: white;
 }
 
-.pdf-btn:hover {
+.employee-reports-pdf-btn:hover {
   background-color: #c0392b;
+}
+
+/* Table Styles */
+.employee-reports-table {
+  width: 80%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.employee-reports-table-header {
+  background-color: #D88A29;
+  color: white;
+}
+
+.employee-reports-table-row:nth-child(even) {
+  background-color: #f4f4f4;
+}
+
+.employee-reports-table-cell {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
 }
 
 /* Responsive Design */
 @media (max-width: 600px) {
-  .cards-container {
+  .employee-reports-cards-container {
     flex-direction: column;
     align-items: center;
   }
 
-  .chart-container {
+  .employee-reports-chart-container {
     max-width: 100%;
   }
 
-  .search-bar {
+  .employee-reports-search-bar {
     width: 100%;
   }
-  
-  table {
-    width: 80%;
-    border-collapse: collapse;
-    background: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  th, td {
-    padding: 12px;
-    text-align: center;
-    border: 1px solid #ddd;
-  }
-  
-  th {
-    background-color: #D88A29;
-    color: white;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f4f4f4;
-  }
-  
-  @media (max-width: 600px) {
-    table {
-      width: 100%;
-    }
+
+  .employee-reports-table {
+    width: 100%;
   }
 }
-  

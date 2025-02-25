@@ -55,7 +55,7 @@ const EmployeeReports = () => {
 
   return (
     <div className="employee-reports-container">
-      <h2>Employee Reports</h2>
+      <h2 className="employee-reports-page-title">Employee Reports</h2>
 
       {/* Search Bar */}
       <input
@@ -63,31 +63,31 @@ const EmployeeReports = () => {
         placeholder="Search Department..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="search-bar"
+        className="employee-reports-search-bar"
       />
 
-      <div className="cards-container">
-        <div className="card">
-          <h3>Active Employees</h3>
-          <p>{stats.activeEmployees}</p>
+      <div className="employee-reports-cards-container">
+        <div className="employee-reports-card">
+          <h3 className="employee-reports-card-title">Active Employees</h3>
+          <p className="employee-reports-card-value">{stats.activeEmployees}</p>
         </div>
-        <div className="card">
-          <h3>Retention Rate</h3>
-          <p>{stats.retentionRate}</p>
+        <div className="employee-reports-card">
+          <h3 className="employee-reports-card-title">Retention Rate</h3>
+          <p className="employee-reports-card-value">{stats.retentionRate}</p>
         </div>
-        <div className="card">
-          <h3>Turnover Rate</h3>
-          <p>{stats.turnoverRate}</p>
+        <div className="employee-reports-card">
+          <h3 className="employee-reports-card-title">Turnover Rate</h3>
+          <p className="employee-reports-card-value">{stats.turnoverRate}</p>
         </div>
-        <div className="card">
-          <h3>Average Salary</h3>
-          <p>{stats.avgSalary}</p>
+        <div className="employee-reports-card">
+          <h3 className="employee-reports-card-title">Average Salary</h3>
+          <p className="employee-reports-card-value">{stats.avgSalary}</p>
         </div>
       </div>
 
       {/* Bar Chart */}
-      <div className="chart-container">
-        <h3>Department-wise Employee Count</h3>
+      <div className="employee-reports-chart-container">
+        <h3 className="employee-reports-chart-title">Department-wise Employee Count</h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={filteredData}>
             <XAxis dataKey="name" />
@@ -98,14 +98,14 @@ const EmployeeReports = () => {
         </ResponsiveContainer>
       </div>
 
-      <div className="export-buttons">
-        <button onClick={exportToCSV} className="export-btn csv-btn">
+      <div className="employee-reports-export-buttons">
+        <button onClick={exportToCSV} className="employee-reports-export-btn employee-reports-csv-btn">
           Export CSV
         </button>
-        <button onClick={exportToExcel} className="export-btn excel-btn">
+        <button onClick={exportToExcel} className="employee-reports-export-btn employee-reports-excel-btn">
           Export Excel
         </button>
-        <button onClick={exportToPDF} className="export-btn pdf-btn">
+        <button onClick={exportToPDF} className="employee-reports-export-btn employee-reports-pdf-btn">
           Export PDF
         </button>
       </div>
