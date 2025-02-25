@@ -65,7 +65,7 @@
 }
 
 
-.edit-btn {
+.performance-period-edit-btn {
     background-color: #28a745;
     color: white;
     border: none;
@@ -75,11 +75,11 @@
     margin-right: 5px;
 }
 
-.edit-btn:hover {
+.performance-period-edit-btn:hover {
     background-color: #218838;
 }
 
-.delete-btn {
+.performance-period-delete-btn {
     background-color: #dc3545;
     color: white;
     border: none;
@@ -88,6 +88,6 @@
     border-radius: 5px;
 }
 
-.delete-btn:hover {
+.performance-period-delete-btn:hover {
     background-color: #c82333;
 }

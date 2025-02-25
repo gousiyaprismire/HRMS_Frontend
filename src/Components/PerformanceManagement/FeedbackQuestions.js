@@ -70,8 +70,8 @@ const FeedbackQuestions = () => {
               <td>{index + 1}</td>
               <td>{question.text}</td>
               <td>
-                <button className="edit-btn" onClick={() => handleEdit(question)}>Edit</button>
-                <button className="delete-btn" onClick={() => handleDelete(question.id)}>Delete</button>
+                <button className="feedback-questions-edit-btn" onClick={() => handleEdit(question)}>Edit</button>
+                <button className="feedback-questions-delete-btn" onClick={() => handleDelete(question.id)}>Delete</button>
               </td>
             </tr>
           ))}

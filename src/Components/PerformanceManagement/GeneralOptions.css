@@ -1,8 +1,10 @@
-
 .general-options-container {
     max-width: 800px;
     margin: 40px auto;
-    padding: 10px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
 }
 
@@ -35,6 +37,11 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.option-item:last-child {
+    border-bottom: none;
 }
 
 .switch {
@@ -91,7 +98,7 @@ input:checked + .slider:before {
     cursor: pointer;
     border-radius: 5px;
     display: block;
-    width: 200px;
+    width: 100%;
     text-align: center;
     margin-top: 20px;
     transition: 0.3s;
@@ -100,8 +107,3 @@ input:checked + .slider:before {
 .save-button:hover {
     background-color: #0056b3;
 }
-
-::-webkit-scrollbar {
-    display: none;
-}
-

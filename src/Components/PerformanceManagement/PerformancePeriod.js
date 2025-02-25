@@ -89,8 +89,8 @@ const PerformancePeriod = () => {
               <td>{period.startDate}</td>
               <td>{period.endDate}</td>
               <td>
-                <button className="edit-btn" onClick={() => handleEdit(period)}>Edit</button>
-                <button className="delete-btn" onClick={() => handleDelete(period.id)}>Delete</button>
+                <button className="performance-period-edit-btn" onClick={() => handleEdit(period)}>Edit</button>
+                <button className="performance-period-delete-btn" onClick={() => handleDelete(period.id)}>Delete</button>
               </td>
             </tr>
           ))}
