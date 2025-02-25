@@ -147,5 +147,5 @@ const PayrollProcessing = () => {
         </div>
     );
 };
-
+  
 export default PayrollProcessing;

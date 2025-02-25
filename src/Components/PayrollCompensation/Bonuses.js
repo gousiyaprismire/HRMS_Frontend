@@ -84,7 +84,7 @@ const Bonuses = () => {
     return (
         <div className="bonus-container">
             <button className="bonus-add-new-btn" onClick={handleAddNew}>+ Add New</button>
-
+  
             <div className="bonus-filters">
                 <TextField
                     className="bonus-search"

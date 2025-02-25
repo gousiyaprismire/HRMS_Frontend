@@ -84,7 +84,7 @@ const Payslip = () => {
     const handleYearFilterChange = (e) => {
         setYearFilter(e.target.value);
     };
-
+   
     const filteredData = data.filter(item => {
         const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesMonth = monthFilter ? item.doj.split('-')[1] === monthFilter : true;
