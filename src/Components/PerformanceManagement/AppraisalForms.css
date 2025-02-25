@@ -96,9 +96,9 @@
 }
 
 
-.actions {
+.appraisal-form-actions {
     display: flex;
-    gap: 10px; 
+    gap: 20px; 
 }
 
 
@@ -111,12 +111,12 @@
     transition: 0.3s;
 }
 
-.appraisal-form-edit-btn {
+.performance-appraisal-form-edit-btn {
     background: #28a745;
     color: white;
 }
 
-.appraisal-form-delete-btn {
+.performance-appraisal-form-delete-btn {
     background: #dc3545;
     color: white;
 }

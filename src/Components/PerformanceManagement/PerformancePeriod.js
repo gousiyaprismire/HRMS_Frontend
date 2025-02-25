@@ -8,7 +8,9 @@ const PerformancePeriod = () => {
   ]);
 
   const [newPeriod, setNewPeriod] = useState({ name: "", startDate: "", endDate: "" });
-  const [editingId, setEditingId] = useState(null); 
+  const [editingId, setEditingId] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
 
   const handleChange = (e) => {
     setNewPeriod({ ...newPeriod, [e.target.name]: e.target.value });
@@ -18,16 +20,14 @@ const PerformancePeriod = () => {
     e.preventDefault();
     if (newPeriod.name && newPeriod.startDate && newPeriod.endDate) {
       if (editingId !== null) {
-        
         setPeriods(periods.map((period) =>
           period.id === editingId ? { ...period, ...newPeriod } : period
         ));
         setEditingId(null);
       } else {
-        
         setPeriods([...periods, { id: periods.length + 1, ...newPeriod }]);
       }
-      setNewPeriod({ name: "", startDate: "", endDate: "" }); 
+      setNewPeriod({ name: "", startDate: "", endDate: "" });
     }
   };
 
@@ -36,8 +36,15 @@ const PerformancePeriod = () => {
     setNewPeriod({ name: period.name, startDate: period.startDate, endDate: period.endDate });
   };
 
-  const handleDelete = (id) => {
-    setPeriods(periods.filter((period) => period.id !== id));
+  const confirmDelete = (id) => {
+    setDeleteId(id);
+    setShowDeleteModal(true);
+  };
+
+  const handleDelete = () => {
+    setPeriods(periods.filter((period) => period.id !== deleteId));
+    setShowDeleteModal(false);
+    setDeleteId(null);
   };
 
   return (
@@ -45,7 +52,6 @@ const PerformancePeriod = () => {
       <h2>Performance Periods</h2>
       <p>Manage appraisal periods for employees and managers.</p>
 
-    
       <form onSubmit={handleSubmit} className="period-form">
         <input
           type="text"
@@ -72,7 +78,6 @@ const PerformancePeriod = () => {
         <button type="submit">{editingId ? "Update Period" : "Add Period"}</button>
       </form>
 
-      
       <table className="performance-period-table">
         <thead>
           <tr>
@@ -90,12 +95,25 @@ const PerformancePeriod = () => {
               <td>{period.endDate}</td>
               <td>
                 <button className="performance-period-edit-btn" onClick={() => handleEdit(period)}>Edit</button>
-                <button className="performance-period-delete-btn" onClick={() => handleDelete(period.id)}>Delete</button>
+                <button className="performance-period-delete-btn" onClick={() => confirmDelete(period.id)}>Delete</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {showDeleteModal && (
+        <div className="performance-period-modal-overlay">
+          <div className="performance-period-modal-content">
+            <h3>Confirm Delete</h3>
+            <p>Are you sure you want to delete this period?</p>
+            <div className="performance-period-modal-buttons">
+              <button onClick={handleDelete} className="performance-period-delete-btn">Yes, Delete</button>
+              <button onClick={() => setShowDeleteModal(false)} className="performance-period-cancel-btn">Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
