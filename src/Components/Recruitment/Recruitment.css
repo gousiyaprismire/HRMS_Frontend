@@ -195,11 +195,7 @@ body {
 
 /* Applicants Component */
 
-html, body {
-  height: 100%; 
-  margin: 0; 
-  overflow: hidden; 
-}
+
 
 .applicant-container {
   display: flex;
@@ -500,6 +496,7 @@ button.applicant-btn {
   justify-content: flex-start;
   width: 100%;
   margin-bottom: 10px;
+  font-size: 12px;
 }
 
 /* Offers Section  */
