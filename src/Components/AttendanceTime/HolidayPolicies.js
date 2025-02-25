@@ -23,48 +23,48 @@ function HolidayPolicies() {
 
   return (
     <div className="holiday-container">
-      <h2>Holiday & Leave Policies</h2>
+      <h2 className="page-title">Holiday & Leave Policies</h2>
 
       {/* Holiday Calendar */}
-      <div className="holiday-section">
-        <h3>Company Holidays - 2025</h3>
-        <table>
+      <div className="holiday-section-container">
+        <h3 className="holiday-header">Company Holidays - 2025</h3>
+        <table className="holiday-table-container">
           <thead>
             <tr>
-              <th>Date</th>
-              <th>Holiday</th>
-              <th>Type</th>
+              <th className="holiday-table-header">Date</th>
+              <th className="holiday-table-header">Holiday</th>
+              <th className="holiday-table-header">Type</th>
             </tr>
           </thead>
           <tbody>
             {holidays.map((holiday, index) => (
-              <tr key={index}>
-                <td>{holiday.date}</td>
-                <td>{holiday.name}</td>
-                <td>{holiday.type}</td>
+              <tr key={index} className="holiday-row-container">
+                <td className="holiday-date-container">{holiday.date}</td>
+                <td className="holiday-name-container">{holiday.name}</td>
+                <td className="holiday-type-container">{holiday.type}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      {/* Leave Policies Section */}
-      <div className="leave-section">
-        <h3>Leave Policies</h3>
-        <table>
+      { /* Leave Policies Section */ }
+      <div className="leave-section-container">
+        <h3 className="leave-header">Leave Policies</h3>
+        <table className="leave-table-container">
           <thead>
             <tr>
-              <th>Type of Leave</th>
-              <th>Days Allowed</th>
-              <th>Description</th>
+              <th className="leave-table-header">Type of Leave</th>
+              <th className="leave-table-header">Days Allowed</th>
+              <th className="leave-table-header">Description</th>
             </tr>
           </thead>
           <tbody>
             {leavePolicies.map((policy, index) => (
-              <tr key={index}>
-                <td>{policy.type}</td>
-                <td>{policy.days}</td>
-                <td>{policy.description}</td>
+              <tr key={index} className="leave-row-container">
+                <td className="leave-type-container">{policy.type}</td>
+                <td className="leave-days-container">{policy.days}</td>
+                <td className="leave-description-container">{policy.description}</td>
               </tr>
             ))}
           </tbody>
