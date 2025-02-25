@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./EmployeeManagement.css";
 import EmployeeList from "./EmployeeList";
 import AddEmployee from "./AddEmployee";
+ 
 
 function EmployeeManagement() {
   const [showAddEmployee, setShowAddEmployee] = useState(false);
@@ -26,6 +27,8 @@ function EmployeeManagement() {
       permanentAddress: "456 Avenue, City",
       status: "Active",
     },
+
+    
     {
       id: 2,
       name: "Jane Smith",
