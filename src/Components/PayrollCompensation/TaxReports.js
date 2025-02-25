@@ -3,8 +3,8 @@ import "./TaxReports.css";
 
 const TaxReports = () => {
   const [taxReports, setTaxReports] = useState([
-    { id: 1, empId: "EMP001", name: "John Doe", providentFund: 5000, insurance: 2000, deductions: 1500 },
-    { id: 2, empId: "EMP002", name: "Jane Smith", providentFund: 5500, insurance: 2200, deductions: 1700 },
+    { id: 1, empId: "EMP001", name: "Manjunadh", providentFund: 5000, insurance: 2000, deductions: 1500 },
+    { id: 2, empId: "EMP002", name: "Eknath", providentFund: 5500, insurance: 2200, deductions: 1700 },
   ]);
 
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -48,7 +48,8 @@ const TaxReports = () => {
       setTaxReports(taxReports.map(report => report.id === selectedReport.id ? { ...newReport, id: selectedReport.id } : report));
       showToastMessage("Updated Successfully!");
     } else {
-      setTaxReports([...taxReports, { id: taxReports.length + 1, ...newReport }]);
+      const newEntry = { id: taxReports.length + 1, ...newReport };
+      setTaxReports([newEntry, ...taxReports]); // Newly added data appears first
       showToastMessage("Added Successfully!");
     }
     closePopup();
@@ -151,3 +152,4 @@ const TaxReports = () => {
 };
 
 export default TaxReports;
+ 

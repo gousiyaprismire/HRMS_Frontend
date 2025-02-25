@@ -7,20 +7,25 @@ const Bonuses = () => {
     const [deletePopup, setDeletePopup] = useState({ open: false, index: null });
     const [message, setMessage] = useState({ open: false, text: '', type: 'success' });
     const [editIndex, setEditIndex] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [selectedMonth, setSelectedMonth] = useState("");
+    const [selectedYear, setSelectedYear] = useState("");
 
     const [data, setData] = useState([
-        { empId: '101', name: 'Manjunath', bonusAmount: '5000', bonusType: 'Performance Bonus' }
+        { empId: '101', name: 'Manjunath', bonusAmount: '5000', bonusType: 'Performance Bonus', month: 'January', year: '2024' }
     ]);
 
     const [newEntry, setNewEntry] = useState({
         empId: '',
         name: '',
         bonusAmount: '',
-        bonusType: ''
+        bonusType: '',
+        month: '',
+        year: ''
     });
 
     const handleAddNew = () => {
-        setNewEntry({ empId: '', name: '', bonusAmount: '', bonusType: '' });
+        setNewEntry({ empId: '', name: '', bonusAmount: '', bonusType: '', month: '', year: '' });
         setEditIndex(null);
         setOpenPopup(true);
     };
@@ -46,7 +51,7 @@ const Bonuses = () => {
             setData(updatedData);
             setMessage({ open: true, text: 'Updated successfully!', type: 'success' });
         } else {
-            setData(prevData => [...prevData, newEntry]);
+            setData(prevData => [newEntry, ...prevData]); // Add new entry at the top
             setMessage({ open: true, text: 'Added successfully!', type: 'success' });
         }
 
@@ -70,19 +75,60 @@ const Bonuses = () => {
         setMessage({ open: true, text: 'Deleted successfully!', type: 'success' });
     };
 
+    const filteredData = data.filter(item =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        (selectedMonth === "" || item.month === selectedMonth) &&
+        (selectedYear === "" || item.year === selectedYear)
+    );
+
     return (
         <div className="bonus-container">
             <button className="bonus-add-new-btn" onClick={handleAddNew}>+ Add New</button>
+  
+            <div className="bonus-filters">
+                <TextField
+                    className="bonus-search"
+                    label="Search..."
+                    variant="outlined"
+                    size="small"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <select className="bonus-dropdown" value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}>
+                    <option value="">Month</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
+                <select className="bonus-dropdown" value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
+                    <option value="">Year</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                </select>
+            </div>
+
             <table className="bonus-table">
                 <thead>
                     <tr>
-                        <th>Emp ID</th><th>Name</th><th>Bonus Amount</th><th>Bonus Type</th><th>Actions</th>
+                        <th>Emp ID</th><th>Name</th><th>Bonus Amount</th><th>Bonus Type</th><th>Month</th><th>Year</th><th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item, index) => (
+                    {filteredData.map((item, index) => (
                         <tr key={index}>
                             <td>{item.empId}</td><td>{item.name}</td><td>{item.bonusAmount}</td><td>{item.bonusType}</td>
+                            <td>{item.month}</td><td>{item.year}</td>
                             <td>
                                 <button className="bonus-edit-btn" onClick={() => handleEdit(index)}>Edit</button>
                                 <button className="bonus-delete-btn" onClick={() => handleDelete(index)}>Delete</button>
