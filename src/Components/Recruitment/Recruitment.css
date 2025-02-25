@@ -194,9 +194,6 @@ body {
 
 
 /* Applicants Component */
-
-
-
 .applicant-container {
   display: flex;
   justify-content: space-between;
@@ -214,7 +211,7 @@ body {
   padding: 20px;
   /* background: white; */
   border-radius: 8px;
-  /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
+   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 .applicant-left-section h2 {
@@ -234,12 +231,13 @@ body {
 .applicant-table td {
   padding: 10px;
   border: 1px solid #ddd;
-  text-align: left;
+  text-align: center;
 }
 
 .applicant-table th {
   background: #D88A29;
   color: white;
+  text-align: center;
 }
 
 .applicant-table tr:nth-child(even) {
@@ -264,9 +262,9 @@ body {
 .applicant-right-section {
   width: 1000%;
   padding: 20px;
-  /* background: white; */
+   /* background: white;  */
   border-radius: 8px;
-  /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
+   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
  
 }
 
@@ -311,6 +309,30 @@ button.applicant-btn {
   cursor: pointer;
 }
 
+button.save-btn {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button.cancel-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button.save-btn:hover{
+  background-color: green;
+}
+button.cancel-btn:hover {
+  background-color: Red;
+}
 
 .applicant-form {
   display: flex;
@@ -354,6 +376,55 @@ button.applicant-btn {
     grid-template-columns: 1fr; 
   }
 }
+.applicant-action-btn {
+  padding: 5px 10px;
+  margin: 2px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.applicant-action-btn:nth-child(1) {
+  background-color: #28a745; /* Green for Hired */
+  color: white;
+}
+
+.applicant-action-btn:nth-child(1):hover {
+  background-color: #218838;
+}
+
+.applicant-action-btn:nth-child(2) {
+  background-color: #dc3545; /* Red for Rejected */
+  color: white;
+}
+
+.applicant-action-btn:nth-child(2):hover {
+  background-color: #c82333;
+}
+
+.applicant-action-btn:nth-child(3) {
+  background-color: #ffc107; 
+  color: black;
+}
+
+.applicant-action-btn:nth-child(3):hover {
+  background-color: #e0a800;
+}
+.popup {
+  position: fixed;
+  top: 15%; 
+  left: 70%;
+  transform: translate(-50%, 0); 
+  background: rgb(124, 121, 121);
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 1000;
+}
+
 
 /* Interviews Section  */
 
@@ -372,6 +443,7 @@ button.applicant-btn {
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  width:1200px;
 }
 
 
@@ -427,7 +499,7 @@ button.applicant-btn {
 }
 
 .interview-scheduler .table th {
-  /* background: #f4f4f4; */
+  background: #D88A29; 
   font-weight: bold;
 }
 
@@ -475,7 +547,7 @@ button.applicant-btn {
 
 .add-interview-button {
   display: block;
-  margin: 10px auto;
+  margin: 10px 0; 
   padding: 12px 20px;
   background: #D88A29;
   color: white;
@@ -485,6 +557,7 @@ button.applicant-btn {
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s ease;
+  
 }
 
 .add-interview-button:hover {
@@ -497,6 +570,48 @@ button.applicant-btn {
   width: 100%;
   margin-bottom: 10px;
   font-size: 12px;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.popup-box {
+  background: white;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.popup-buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.popup-buttons button:first-child {
+  background-color: green;
+  color: white;
+}
+
+
+.popup-buttons button:last-child {
+  background-color: red;
+  color: white;
 }
 
 /* Offers Section  */
@@ -584,6 +699,7 @@ button.applicant-btn {
 .offer-table th,
 .offer-table td {
   padding: 6px; 
+  font-size: 15px;
 }
 .offer-table button {
   font-size: 15px;  
@@ -614,6 +730,7 @@ button.applicant-btn {
 }
 
 .add-offer-button {
+  position: relative; 
   background-color: #D88A29;
   color: white;
   padding: 10px 15px;
@@ -621,8 +738,8 @@ button.applicant-btn {
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  margin: 15px 0;
-  
+  margin-bottom: 20px; 
+  display: block; 
 }
 
 .add-offer-button:hover {
@@ -692,6 +809,9 @@ button.applicant-btn {
 .offer-form button:hover {
   opacity: 0.8;
 }
+.offer-table {
+  margin-top: 30px; 
+}
 
 
 .cancel-button {
@@ -703,6 +823,7 @@ button.applicant-btn {
   margin-right: auto; 
   display: block; 
   text-align: left;
+  font-size: medium;
 }
 
 .cancel-button:hover {
