@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TextField, Snackbar, Alert, MenuItem } from '@mui/material';
+import { TextField, Snackbar, Alert } from '@mui/material';
 import "./Payslips.css";
 
 const Payslip = () => {
@@ -8,8 +8,8 @@ const Payslip = () => {
     const [message, setMessage] = useState({ open: false, text: '', type: 'success' });
     const [editIndex, setEditIndex] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
-    const [monthFilter, setMonthFilter] = useState("");
-    const [yearFilter, setYearFilter] = useState("");
+    const [monthFilter] = useState("");
+    const [yearFilter ] = useState("");
     const [selectedMonth, setSelectedMonth] = useState("");
     const [selectedYear, setSelectedYear] = useState("");
     const [data, setData] = useState([
@@ -77,13 +77,6 @@ const Payslip = () => {
         setMessage({ open: true, text: 'Deleted successfully!', type: 'success' });
     };
 
-    const handleMonthFilterChange = (e) => {
-        setMonthFilter(e.target.value);
-    };
-
-    const handleYearFilterChange = (e) => {
-        setYearFilter(e.target.value);
-    };
    
     const filteredData = data.filter(item => {
         const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
