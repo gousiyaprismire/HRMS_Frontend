@@ -1,257 +1,227 @@
 .tax-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Add New Button */
-  .tax-add-new-btn {
-    background-color: #007bff;
-    color: white;
-    padding: 12px 18px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-  }
-  
-  .tax-add-new-btn:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Filters */
-  .tax-filters {
-    margin: 20px 0;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .tax-search {
-    width: 250px !important;
-    padding: 10px;
-    font-size: 16px;
-  }
-  
-  .tax-filters select {
-    padding: 8px;
-    font-size: 16px;
-  }
-  
-  /* Table */
-  .tax-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .tax-table th, .tax-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    font-size: 16px;
-    text-align: center;
-  }
-  
-  .tax-table th {
-    background-color: #f8f9fa;
-    font-weight: bold;
-    color: black;
-  }
-  
-  /* Action Buttons */
-  .tax-edit-btn,
-  .tax-delete-btn {
-    padding: 8px 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 2px;
-    font-size: 16px;
-  }
-  
-  .tax-edit-btn {
-    background-color: #ffc107;
-    color: black;
-  }
-  
-  .tax-delete-btn {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  /* Popup Overlay */
-  .tax-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-  
-  /* Right-side Sliding Popup */
-  .tax-popup {
-    width: 45%;
-    height: 100%;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+
+.tax-add-new-btn {
+  background-color: #aa853e;
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.tax-add-new-btn:hover {
+  background-color: #aa853e;
+}
+
+.tax-filters {
+  margin: 20px 0;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tax-search {
+  width: 250px !important;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.tax-filters select {
+  padding: 8px;
+  font-size: 16px;
+}
+
+.tax-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.tax-table th, .tax-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.tax-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  color: black;
+}
+
+
+.tax-edit-btn,
+.tax-delete-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 2px;
+  font-size: 16px;
+}
+
+.tax-edit-btn {
+  background-color: #ffc107;
+  color: black;
+}
+
+.tax-delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.tax-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+
+.tax-popup {
+  width: 45%;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  overflow-y: auto;
+  position: relative;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.tax-popup.show {
+  transform: translateX(0);
+}
+
+.tax-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+
+.tax-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.tax-form-group label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 16px;
+}
+
+.tax-form-group input,
+.tax-form-group select {
+  padding: 10px; 
+  height: 40px; 
+  font-size: 16px; 
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.tax-popup-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.tax-save-btn, .tax-cancel-btn {
+  padding: 8px 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.tax-save-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.tax-cancel-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+
+.tax-delete-popup {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 280px;
+  text-align: center;
+}
+
+.tax-toast {
+  position: fixed;
+  top: 15%;
+  right: 5%;
+  background: #28a745;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-size: 18px;
+  opacity: 1; 
+  transition: opacity 0.5s ease-in-out;
+  display: block;
+}
+
+.tax-toast.error {
+  background: #dc3545;
+}
+.tax-form-group input,
+.tax-form-group select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+  height: 35px; 
+  box-sizing: border-box;
+}
+
+.tax-popup {
+    width: 38%;
+    height: auto; 
+    max-height: 85vh;
     background: white;
     box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    padding: 25px;
+    padding: 18px; 
     overflow-y: auto;
     position: relative;
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
-  }
-  
-  .tax-popup.show {
+}
+
+.tax-popup.show {
     transform: translateX(0);
-  }
-  
-  /* Close Button */
-  .tax-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 26px;
-    cursor: pointer;
-  }
-  
-  /* Form */
-  .tax-form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 18px;
-    width: 100%;
-  }
-  
-  .tax-form-group label {
-    font-weight: bold;
-    margin-bottom: 6px;
-    font-size: 16px;
-  }
-  
-  .tax-form-group input,
-  .tax-form-group select {
-    padding: 14px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 18px;
-    width: 100%;
-    height: 50px;
-    box-sizing: border-box;
-  }
-  
-  /* Form Buttons */
-  .tax-popup-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  .tax-save-btn, .tax-cancel-btn {
-    padding: 8px 14px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  .tax-save-btn {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .tax-cancel-btn {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  /* Delete Confirmation */
-  .tax-delete-popup {
-    background: white;
-    padding: 18px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    width: 280px;
-    text-align: center;
-  }
-  
-  .tax-delete-popup button {
-    padding: 6px 12px;
-    font-size: 14px;
-    border-radius: 4px;
-  }
-  
-  /* Success/Error Toast */
-  .tax-toast {
-    position: fixed;
-    top: 15%;
-    right: 5%;
-    background: #28a745;
-    color: white;
-    padding: 12px 18px;
-    border-radius: 6px;
-    font-size: 18px;
-    display: none;
-  }
-  
-  .tax-toast.error {
-    background: #dc3545;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 1024px) {
-    .tax-popup {
-        width: 55%;
-    }
-  
-    .tax-filters {
-        flex-direction: column;
-        gap: 8px;
-    }
-  
-    .tax-add-new-btn {
-        width: 100%;
-    }
-  
-    .tax-popup-buttons {
-        flex-direction: column;
-        gap: 12px;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .tax-popup {
-        width: 65%;
-    }
-  
-    .tax-table th, .tax-table td {
-        padding: 10px;
-        font-size: 15px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .tax-popup {
-        width: 100%;
-        height: 100%;
-    }
-  
-    .tax-filters select,
-    .tax-filters .tax-search {
-        width: 100%;
-    }
-  
-    .tax-popup-buttons {
-        flex-direction: column;
-        gap: 12px;
-    }
-  }
-  
+}

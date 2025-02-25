@@ -47,7 +47,7 @@ const PayrollProcessing = () => {
             setData(updatedData);
             setMessage({ open: true, text: 'Updated successfully!', type: 'success' });
         } else {
-            setData([...data, newEntry]);
+            setData([newEntry, ...data]); // Newly added data appears first
             setMessage({ open: true, text: 'Added successfully!', type: 'success' });
         }
 
