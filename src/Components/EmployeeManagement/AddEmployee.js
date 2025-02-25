@@ -19,35 +19,33 @@ function AddEmployee({ onClose, onSave, editingEmployee }) {
     salary: "",
     currentAddress: "",
     permanentAddress: "",
-    status: "Active", // Default to Active
+    status: "Active", // Default status
   });
 
-  // Load Employee Data When Editing
   useEffect(() => {
     if (editingEmployee) {
       setEmployee(editingEmployee);
     }
   }, [editingEmployee]);
 
-  // Handle Input Changes
   const handleChange = (e) => {
     setEmployee({ ...employee, [e.target.name]: e.target.value });
   };
 
-  // Handle Form Submission
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(employee);
   };
 
   return (
-    <div className="add-employee-container">
+    <div className="add-employee-popup">
+      {/* Header */}
       <div className="add-employee-header">
         <h3>Employee Registration Form</h3>
-        <button className="close-btn" onClick={onClose}>✖</button>
+        <button className="add-employee-close-btn" onClick={onClose}>✖</button>
       </div>
 
-      {/* ✅ Scrollable Form Wrapper */}
+      {/* Scrollable Form */}
       <div className="add-employee-content">
         <form onSubmit={handleSubmit}>
           <label>Employee Name:</label>
@@ -111,9 +109,12 @@ function AddEmployee({ onClose, onSave, editingEmployee }) {
             <option value="Inactive">Inactive</option>
           </select>
 
-          <button type="submit" className="submit-btn">
-            {employee.id ? "Update Employee" : "Register Employee"}
-          </button>
+          {/* Sticky Footer with Submit Button */}
+          <div className="add-employee-footer">
+            <button type="submit" className="submit-btn1">
+              {employee.id ? "Update Employee" : "Submit"}
+            </button>
+          </div>
         </form>
       </div>
     </div>
