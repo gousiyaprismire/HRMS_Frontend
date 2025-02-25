@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 import "./OrganizationGoals.css";
 
 function OrganizationGoals() {
   const [goals, setGoals] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [newGoal, setNewGoal] = useState({
     description: "",
     target: "",
     rollupMethod: "",
   });
   const [editingIndex, setEditingIndex] = useState(null);
+  const [deleteIndex, setDeleteIndex] = useState(null);
 
   useEffect(() => {
     // Fetch goals from API
@@ -44,9 +46,13 @@ function OrganizationGoals() {
     setShowModal(true);
   };
 
-  const handleDelete = (index) => {
-    const updatedGoals = goals.filter((_, i) => i !== index);
-    setGoals(updatedGoals);
+  const handleDelete = () => {
+    if (deleteIndex !== null) {
+      const updatedGoals = goals.filter((_, i) => i !== deleteIndex);
+      setGoals(updatedGoals);
+      setShowDeleteModal(false);
+      setDeleteIndex(null);
+    }
   };
 
   return (
@@ -57,7 +63,7 @@ function OrganizationGoals() {
           ➕ Add New
         </button>
       </div>
-      
+
       <p className="organization-goal-para">Define top level goals for performance period</p>
 
       <div className="mb-3">
@@ -87,7 +93,15 @@ function OrganizationGoals() {
                 <td>{goal.rollupMethod}</td>
                 <td>
                   <button className="btn organization-goal-btn-primary" onClick={() => handleEdit(index)}>Edit</button>
-                  <button className="btn organization-goal-btn-danger" onClick={() => handleDelete(index)}>Delete</button>
+                  <button
+                    className="btn organization-goal-btn-danger"
+                    onClick={() => {
+                      setDeleteIndex(index);
+                      setShowDeleteModal(true);
+                    }}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))
@@ -99,7 +113,6 @@ function OrganizationGoals() {
         </tbody>
       </table>
 
-      {/* Modal for Adding/Edit Goal */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal">
@@ -125,6 +138,19 @@ function OrganizationGoals() {
             <div className="modal-actions">
               <button onClick={() => setShowModal(false)}>Close</button>
               <button onClick={handleSave}>{editingIndex !== null ? "Update" : "Save"}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showDeleteModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete this goal?</p>
+            <div className="modal-actions">
+              <button onClick={() => setShowDeleteModal(false)}>Cancel</button>
+              <button className="btn organization-goal-btn-danger" onClick={handleDelete}>Delete</button>
             </div>
           </div>
         </div>

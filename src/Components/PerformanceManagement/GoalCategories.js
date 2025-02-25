@@ -9,6 +9,7 @@ const GoalCategories = () => {
   const [description, setDescription] = useState("");
   const [categories, setCategories] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(null);
 
   const handleAddClick = () => {
     setShowModal(true);
@@ -44,7 +45,12 @@ const GoalCategories = () => {
   };
 
   const handleDelete = (index) => {
-    setCategories(categories.filter((_, i) => i !== index));
+    setConfirmDelete(index);
+  };
+
+  const confirmDeleteAction = () => {
+    setCategories(categories.filter((_, i) => i !== confirmDelete));
+    setConfirmDelete(null);
   };
 
   return (
@@ -72,7 +78,7 @@ const GoalCategories = () => {
                   <td>{category.description}</td>
                   <td>
                     <button onClick={() => handleEdit(index)}>Edit</button>
-                    <button onClick={() => handleDelete(index)}>Delete</button>
+                    <button className="goal-categories-delete-btn" onClick={() => handleDelete(index)}>Delete</button>
                   </td>
                 </tr>
               ))
@@ -105,6 +111,19 @@ const GoalCategories = () => {
             <div className="goal-categories-modal-actions">
               <button onClick={handleClose}>Close</button>
               <button onClick={handleSave}>Save</button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {confirmDelete !== null && (
+        <div className="goal-categories-modal-overlay">
+          <div className="goal-categories-modal">
+            <h2>Confirm Delete</h2>
+            <p>Are you sure you want to delete this category?</p>
+            <div className="goal-categories-modal-actions">
+              <button onClick={() => setConfirmDelete(null)}>Cancel</button>
+              <button className="goal-categories-delete-btn" onClick={confirmDeleteAction}>Delete</button>
             </div>
           </div>
         </div>

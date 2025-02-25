@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./FeedbackQuestions.css"; 
+import "./FeedbackQuestions.css";
 
 const FeedbackQuestions = () => {
   const [questions, setQuestions] = useState([
@@ -9,6 +9,8 @@ const FeedbackQuestions = () => {
 
   const [newQuestion, setNewQuestion] = useState("");
   const [editingId, setEditingId] = useState(null);
+  const [deleteId, setDeleteId] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleChange = (e) => {
     setNewQuestion(e.target.value);
@@ -36,8 +38,15 @@ const FeedbackQuestions = () => {
     setNewQuestion(question.text);
   };
 
-  const handleDelete = (id) => {
-    setQuestions(questions.filter((q) => q.id !== id));
+  const confirmDelete = (id) => {
+    setDeleteId(id);
+    setShowDeleteModal(true);
+  };
+
+  const handleDelete = () => {
+    setQuestions(questions.filter((q) => q.id !== deleteId));
+    setShowDeleteModal(false);
+    setDeleteId(null);
   };
 
   return (
@@ -71,12 +80,26 @@ const FeedbackQuestions = () => {
               <td>{question.text}</td>
               <td>
                 <button className="feedback-questions-edit-btn" onClick={() => handleEdit(question)}>Edit</button>
-                <button className="feedback-questions-delete-btn" onClick={() => handleDelete(question.id)}>Delete</button>
+                <button className="feedback-questions-delete-btn" onClick={() => confirmDelete(question.id)}>Delete</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      
+      {showDeleteModal && (
+        <div className="feedback-questions-modal-overlay">
+          <div className="feedback-questions-modal-box">
+            <h3>Are you sure?</h3>
+            <p>Do you really want to delete this feedback question? This action cannot be undone.</p>
+            <div className="feedback-questions-modal-buttons">
+              <button onClick={handleDelete} className="feedback-questions-confirm-delete">Yes, Delete</button>
+              <button onClick={() => setShowDeleteModal(false)} className="feedback-questions-cancel-btn">Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

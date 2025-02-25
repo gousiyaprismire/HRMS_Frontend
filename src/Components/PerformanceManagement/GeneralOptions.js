@@ -94,7 +94,7 @@ const GeneralOptions = () => {
                 </div>
             </div>
 
-            <button className="save-button">Save Changes</button>
+            <button className="general-options-save-button">Save Changes</button>
         </div>
     );
 };

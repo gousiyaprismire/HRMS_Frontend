@@ -6,8 +6,8 @@ const AppraisalForms = () => {
   const [location, setLocation] = useState("All Locations");
   const [department, setDepartment] = useState("All Departments");
   const [forms, setForms] = useState([
-    { id: 1, employee: "John Doe", manager: "Jane Smith", status: "Pending", lastAction: "10 Feb 2025" },
-    { id: 2, employee: "Alice Brown", manager: "Michael Scott", status: "Approved", lastAction: "15 Feb 2025" }
+    { id: 1, employee: "Name1", manager: "Manager1", status: "Pending", lastAction: "10 Feb 2025" },
+    { id: 2, employee: "Name2", manager: "Manager2", status: "Approved", lastAction: "15 Feb 2025" }
   ]);
 
   const showForms = () => {
