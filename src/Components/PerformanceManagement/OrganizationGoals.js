@@ -51,9 +51,9 @@ function OrganizationGoals() {
 
   return (
     <div className="organization-goal-container">
-      <div className="header-container">
+      <div className="organization-goal-header-container">
         <h2 className="organization-goal-heading">Organization Goals</h2>
-        <button className="btn organization-goal-btn-success add-new-button" onClick={handleAddClick}>
+        <button className="btn organization-goal-btn-success organization-goal-add-new-button" onClick={handleAddClick}>
           ➕ Add New
         </button>
       </div>
@@ -62,7 +62,7 @@ function OrganizationGoals() {
 
       <div className="mb-3">
         <label className="organization-goal-para"> Select Period:</label>
-        <select className="form-control select-period">
+        <select className="form-control organization-goal-select-period">
           <option>Performance Appraisal for 2024</option>
           <option>Performance Appraisal for 2023</option>
           <option>Performance Appraisal for 2022</option>

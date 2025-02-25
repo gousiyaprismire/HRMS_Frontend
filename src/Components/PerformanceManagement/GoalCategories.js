@@ -78,18 +78,18 @@ const GoalCategories = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="3" className="no-data">No Categories Found</td>
+                <td colSpan="3" className="goal-categories-no-data">No Categories Found</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
       
-      <button className="add-btn" onClick={handleAddClick}>➕ Add</button>
+      <button className="goal-categories-add-btn" onClick={handleAddClick}>➕ Add</button>
       
       {showModal && (
-        <div className="modal-overlay">
-          <div className="modal">
+        <div className="goal-categories-modal-overlay">
+          <div className="goal-categories-modal">
             <h2>{editIndex !== null ? "Edit Category" : "Add Category"}</h2>
             <label>Name *</label>
             <input
@@ -102,7 +102,7 @@ const GoalCategories = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
-            <div className="modal-actions">
+            <div className="goal-categories-modal-actions">
               <button onClick={handleClose}>Close</button>
               <button onClick={handleSave}>Save</button>
             </div>

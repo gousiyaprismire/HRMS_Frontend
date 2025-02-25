@@ -38,6 +38,8 @@ import PerformanceAppraisalReports from "./Components/AnalyticsReporting/Perform
 import OrganizationGoals from "./Components/PerformanceManagement/OrganizationGoals";
 import AppraisalForms from "./Components/PerformanceManagement/AppraisalForms";
 import PerformancePeriod from "./Components/PerformanceManagement/PerformancePeriod";
+import FeedbackQuestions from "./Components/PerformanceManagement/FeedbackQuestions";
+import GeneralOptions from "./Components/PerformanceManagement/GeneralOptions";
 
 const App = () => {
   return (
@@ -67,6 +69,8 @@ const App = () => {
               <Route path="/organization-goals" element={<OrganizationGoals />} />
               <Route path="/appraisal-forms" element={<AppraisalForms />} />
               <Route path="/performance-periods" element={<PerformancePeriod />} />
+              <Route path="feedback-questions" element={<FeedbackQuestions />} />
+              <Route path="general-options" element={<GeneralOptions />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
               <Route path="/recruitment/job-listings" element={<JobListings />} />
               <Route path="/recruitment/job-listings/applicants" element={<Applicant />} />
