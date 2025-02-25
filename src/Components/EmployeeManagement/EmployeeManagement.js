@@ -27,6 +27,8 @@ function EmployeeManagement() {
       permanentAddress: "456 Avenue, City",
       status: "Active",
     },
+
+    
     {
       id: 2,
       name: "Jane Smith",
