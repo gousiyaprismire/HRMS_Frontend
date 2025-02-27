@@ -84,6 +84,7 @@ function AddEmployee({ onClose, onSave, editingEmployee }) {
             <option value="Marketing">Marketing</option>
             <option value="Finance">Finance</option>
           </select>
+          
 
           <label>Designation:</label>
           <input type="text" name="designation" value={employee.designation} onChange={handleChange} required />

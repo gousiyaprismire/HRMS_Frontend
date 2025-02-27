@@ -134,6 +134,7 @@ const Sidebar = () => {
         </div>
       )}
 
+
 <div style={itemStyles} onClick={toggleBenefits}>
   🏢 Benefits & Compliance {benefitsOpen ? "▲" : "▼"}
 </div>

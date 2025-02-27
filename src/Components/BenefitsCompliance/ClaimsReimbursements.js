@@ -10,7 +10,7 @@ function ClaimsReimbursements() {
     receipts: [],
   });
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(""); 
 
   // Handle input changes
   const handleChange = (e) => {

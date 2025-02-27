@@ -28,7 +28,8 @@ function CompanyPolicyCompliance() {
       alert("⚠ This document is currently unavailable.");
       return;
     }
-    window.open(url, "_blank", "noopener,noreferrer");
+    
+    window.open(url, "_blank", "noopener,noreferrer"); 
   };
 
   return (
