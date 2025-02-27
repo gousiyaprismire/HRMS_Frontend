@@ -9,18 +9,18 @@ const Payslip = () => {
     const [editIndex, setEditIndex] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [monthFilter] = useState("");
-    const [yearFilter ] = useState("");
+    const [yearFilter] = useState("");
     const [selectedMonth, setSelectedMonth] = useState("");
     const [selectedYear, setSelectedYear] = useState("");
     const [data, setData] = useState([
-        { empId: '101', name: 'Manjunath', pan: 'ABCDE1234F', uan: '100200300400', bankDays: '30', lopDays: '0', doj: '01-01-2020', gender: 'Male', totalEarnings: '50000' }
+        { EmpId: '101', Name: 'Manjunath', Pan: 'ABCDE1234F', UAN: '100200300400', BankDays: '30', LopDays: '0', Doj: '01-01-2020', Gender: 'Male', TotalEarnings: '50000' }
     ]);
     const [newEntry, setNewEntry] = useState({
-        empId: '', name: '', pan: '', uan: '', bankDays: '', lopDays: '', doj: '', gender: '', totalEarnings: ''
+        EmpId: '', Name: '', Pan: '', UAN: '', BankDays: '', LopDays: '', Doj: '', Gender: '', TotalEarnings: ''
     });
 
     const handleAddNew = () => {
-        setNewEntry({ empId: '', name: '', pan: '', uan: '', bankDays: '', lopDays: '', doj: '', gender: '', totalEarnings: '' });
+        setNewEntry({ EmpId: '', Name: '', Pan: '', UAN: '', BankDays: '', LopDays: '', Doj: '', Gender: '', TotalEarnings: '' });
         setEditIndex(null);
         setOpenPopup(true);
     };
@@ -40,7 +40,6 @@ const Payslip = () => {
     const handleYearChange = (e) => {
         setSelectedYear(e.target.value);
     };
-    
 
     const handleSave = () => {
         if (Object.values(newEntry).some(value => value.trim() === '')) {
@@ -77,9 +76,8 @@ const Payslip = () => {
         setMessage({ open: true, text: 'Deleted successfully!', type: 'success' });
     };
 
-   
     const filteredData = data.filter(item => {
-        const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = item.Name?.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesMonth = monthFilter ? item.doj.split('-')[1] === monthFilter : true;
         const matchesYear = yearFilter ? item.doj.split('-')[2] === yearFilter : true;
         return matchesSearch && matchesMonth && matchesYear;
@@ -87,6 +85,8 @@ const Payslip = () => {
 
     return (
         <div className="payroll-container">
+            <h1>Payslips & Salary Statements</h1> 
+
             <button className="payroll-add-new-btn" onClick={handleAddNew}>+ Add New</button>
 
             <div className="payroll-filters">
@@ -98,8 +98,8 @@ const Payslip = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
-<select className="payroll-dropdown" value={selectedMonth} onChange={handleMonthChange}>
-<option value="">Month</option>
+                <select className="payroll-dropdown" value={selectedMonth} onChange={handleMonthChange}>
+                    <option value="">Month</option>
                     <option value="January">January</option>
                     <option value="February">February</option>
                     <option value="March">March</option>
@@ -114,7 +114,7 @@ const Payslip = () => {
                     <option value="December">December</option>
                 </select>
                 <select className="payroll-dropdown" value={selectedYear} onChange={handleYearChange}>
-                <option value="">Year</option>
+                    <option value="">Year</option>
                     <option value="2022">2022</option>
                     <option value="2023">2023</option>
                     <option value="2024">2024</option>

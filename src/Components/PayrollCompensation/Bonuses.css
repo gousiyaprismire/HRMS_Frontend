@@ -53,7 +53,9 @@
 }
 
 .bonus-table th {
-  background-color: #f8f9fa;
+  background-color: #34495e; 
+  color: white; 
+  font-weight: bold;
 }
 
 .bonus-edit-btn,

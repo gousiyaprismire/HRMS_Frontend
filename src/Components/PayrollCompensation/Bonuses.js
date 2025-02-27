@@ -12,20 +12,20 @@ const Bonuses = () => {
     const [selectedYear, setSelectedYear] = useState("");
 
     const [data, setData] = useState([
-        { empId: '101', name: 'Manjunath', bonusAmount: '5000', bonusType: 'Performance Bonus', month: 'January', year: '2024' }
+        { EmpId: '101', Name: 'Manjunath', BonusAmount: '5000', BonusType: 'Performance Bonus', Month: 'January', Year: '2024' }
     ]);
 
     const [newEntry, setNewEntry] = useState({
-        empId: '',
-        name: '',
-        bonusAmount: '',
-        bonusType: '',
-        month: '',
-        year: ''
+        EmpId: '',
+        Name: '',
+        BonusAmount: '',
+        BonusType: '',
+        Month: '',
+        Year: ''
     });
 
     const handleAddNew = () => {
-        setNewEntry({ empId: '', name: '', bonusAmount: '', bonusType: '', month: '', year: '' });
+        setNewEntry({ EmpId: '', Name: '', BonusAmount: '', BonusType: '', Month: '', Year: '' });
         setEditIndex(null);
         setOpenPopup(true);
     };
@@ -51,7 +51,7 @@ const Bonuses = () => {
             setData(updatedData);
             setMessage({ open: true, text: 'Updated successfully!', type: 'success' });
         } else {
-            setData(prevData => [newEntry, ...prevData]); // Add new entry at the top
+            setData(prevData => [newEntry, ...prevData]);
             setMessage({ open: true, text: 'Added successfully!', type: 'success' });
         }
 
@@ -76,15 +76,16 @@ const Bonuses = () => {
     };
 
     const filteredData = data.filter(item =>
-        item.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-        (selectedMonth === "" || item.month === selectedMonth) &&
-        (selectedYear === "" || item.year === selectedYear)
+        item.Name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        (selectedMonth === "" || item.Month === selectedMonth) &&
+        (selectedYear === "" || item.Year === selectedYear)
     );
 
     return (
         <div className="bonus-container">
+            <h1>Bonuses & Incentives</h1> 
             <button className="bonus-add-new-btn" onClick={handleAddNew}>+ Add New</button>
-  
+
             <div className="bonus-filters">
                 <TextField
                     className="bonus-search"
@@ -127,8 +128,8 @@ const Bonuses = () => {
                 <tbody>
                     {filteredData.map((item, index) => (
                         <tr key={index}>
-                            <td>{item.empId}</td><td>{item.name}</td><td>{item.bonusAmount}</td><td>{item.bonusType}</td>
-                            <td>{item.month}</td><td>{item.year}</td>
+                            <td>{item.EmpId}</td><td>{item.Name}</td><td>{item.BonusAmount}</td><td>{item.BonusType}</td>
+                            <td>{item.Month}</td><td>{item.Year}</td>
                             <td>
                                 <button className="bonus-edit-btn" onClick={() => handleEdit(index)}>Edit</button>
                                 <button className="bonus-delete-btn" onClick={() => handleDelete(index)}>Delete</button>
