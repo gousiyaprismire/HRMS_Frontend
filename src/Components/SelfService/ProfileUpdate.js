@@ -5,8 +5,8 @@ const ProfileUpdate = () => {
  
   const initialProfiles = [
     {
-      name: "Joy",
-      email: "joy.d@example.com",
+      name: "Priya",
+      email: "Priya.d@example.com",
       phone: "9874563210",
       address: " Hyderabad",
       dob: "1990-05-15",
@@ -66,10 +66,17 @@ const ProfileUpdate = () => {
   return (
     <div className="selfservice-profile-update-container">
       <h2 className="selfservice-profile-update-title">Profile Management</h2>
-
+   
+    
      
       {!showForm && (
-        <>
+  <>
+    <button
+      className="selfservice-add-profile-button"
+      onClick={() => setShowForm(true)}
+    >
+      Add Profile
+    </button>
           <table className="selfservice-profile-table">
             <thead>
               <tr>
@@ -98,14 +105,8 @@ const ProfileUpdate = () => {
               ))}
             </tbody>
           </table>
-
-         
-          <button
-            className="selfservice-add-profile-button"
-            onClick={() => setShowForm(true)}
-          >
-            Add Profile
-          </button>
+      
+      
         </>
       )}
 

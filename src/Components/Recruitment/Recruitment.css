@@ -234,11 +234,19 @@ body {
   text-align: center;
 }
 
-.applicant-table th {
-  background: #D88A29;
-  color: white;
-  text-align: center;
+.applicant-table {
+  margin-top: 30px;
+  width: 100%;
+  border-collapse: collapse;
 }
+
+.applicant-table th {
+  background: rgb(196, 190, 196); 
+  color: black;
+  text-align: center;
+  padding: 10px;
+}
+
 
 .applicant-table tr:nth-child(even) {
   background: #f9f9f9;
@@ -252,6 +260,8 @@ body {
   border-radius: 5px;
   cursor: pointer;
   margin-right: 10px;
+  margin-top: -10px;
+  position: relative;
 }
 
 .applicant-btn:hover {
@@ -307,7 +317,9 @@ button.applicant-btn {
   padding: 8px 12px;
   font-size: 16px;
   cursor: pointer;
+ 
 }
+
 
 button.save-btn {
   background-color: green;
@@ -387,7 +399,7 @@ button.cancel-btn:hover {
 }
 
 .applicant-action-btn:nth-child(1) {
-  background-color: #28a745; /* Green for Hired */
+  background-color: #28a745; 
   color: white;
 }
 
@@ -396,7 +408,7 @@ button.cancel-btn:hover {
 }
 
 .applicant-action-btn:nth-child(2) {
-  background-color: #dc3545; /* Red for Rejected */
+  background-color: #dc3545; 
   color: white;
 }
 
@@ -434,6 +446,7 @@ button.cancel-btn:hover {
   padding: 20px;
   font-family: Roboto;
   text-align: center;
+  overflow-x: hidden;
 }
 
 
@@ -459,7 +472,7 @@ button.cancel-btn:hover {
 
 
 .interview-scheduler .button {
-  background: #D88A29;
+  background: Green;
   color: white;
   cursor: pointer;
   transition: 0.3s;
@@ -470,7 +483,7 @@ button.cancel-btn:hover {
 }
 
 .interview-scheduler .button:hover {
-  background: #aa853e;
+  background: Green;
 }
 
 
@@ -499,8 +512,9 @@ button.cancel-btn:hover {
 }
 
 .interview-scheduler .table th {
-  background: #D88A29; 
+  background: rgb(196, 190, 196); ; 
   font-weight: bold;
+  color:black;
 }
 
 .interview-scheduler .table tbody tr:nth-child(even) {
@@ -643,8 +657,8 @@ button.cancel-btn:hover {
 }
 
 .offer-table th {
-  background: #D88A29;
-  color: white;
+  background: rgb(196, 190, 196); ;
+  color: black;
 }
 
 .status.sent { background: #ffc107; color: black; }
@@ -677,9 +691,9 @@ button.cancel-btn:hover {
   width:100px;
 }
 
-.offer-form button:hover {
+/* .offer-form button:hover {
   background-color: #aa853e;
-}
+} */
 
 
 .offer-container {
@@ -786,7 +800,7 @@ button.cancel-btn:hover {
 
 .offer-form button {
   padding: 10px;
-  background: #D88A29;
+  background: Green;
   color: white;
   border: none;
   cursor: pointer;
@@ -801,7 +815,7 @@ button.cancel-btn:hover {
 }
 
 .offer-form button.cancel-button {
-  background: #D88A29;
+  background: Red;
   width: 80px;
   text-align: center;
 }
@@ -815,7 +829,7 @@ button.cancel-btn:hover {
 
 
 .cancel-button {
-  background-color: #D88A29;
+  background-color: Red;
   color: white;
   padding: 8px 16px;
   border: none;
@@ -827,7 +841,7 @@ button.cancel-btn:hover {
 }
 
 .cancel-button:hover {
-  background-color: #aa853e;
+  background-color: Red;
 }
 
 
@@ -854,7 +868,7 @@ button.cancel-btn:hover {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 60%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -887,7 +901,7 @@ button.cancel-btn:hover {
 
 
 .employee-onboarding .button {
-  background: #D88A29;
+  background: Green;
   width: 200px;
   color: white;
   padding: 10px;
@@ -896,10 +910,13 @@ button.cancel-btn:hover {
   font-size: 16px;
   cursor: pointer;
   transition: background 0.3s ease;
+  margin-left: auto; 
+  display: block; 
 }
 
+
 .employee-onboarding .button:hover {
-  background: #aa853e;
+  background: green;
 }
 
 
@@ -908,18 +925,21 @@ button.cancel-btn:hover {
 }
 
 .employee-onboarding .table {
-  width: 100%;
+  width: 100%; 
   border-collapse: collapse;
-  margin-top: 10px;
 }
 
-
-.employee-onboarding .table th {
-  background: #D88A29; 
-  color: black;
-  font-weight: bold;
+.employee-onboarding .table th, 
+.employee-onboarding .table td {
+  border: 1px solid white; 
   padding: 10px;
   text-align: center;
+}
+
+.employee-onboarding .table th {
+  background: rgb(196, 190, 196); 
+  color: Black;
+  font-weight: bold;
 }
 
 

@@ -51,7 +51,7 @@ const ExpenseReimbursement = () => {
       {!showForm && (
         <>
           <button className="expense-toggle-button" onClick={() => setShowForm(true)}>
-            Submit New Expense
+           Add New Expense
           </button>
 
           <h3 className="expense-history-title">Expense History</h3>
