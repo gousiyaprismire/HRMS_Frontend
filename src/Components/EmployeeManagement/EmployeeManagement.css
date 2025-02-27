@@ -1,201 +1,297 @@
-/* Employee Management Container */
-.employee-management {
-  padding: 20px;
-  background-color: #f8f9fa;
-  min-height: 100vh;
-  overflow: hidden; /* Prevents page scrolling when popup is open */
+/* General container for the Employee Management section */
+.employee-management-container {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
-/* Navbar */
-.employee-navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 15px;
-  background-color: white;
-  border-bottom: 1px solid #ddd;
+/* Navbar section */
+.employee-navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-/* Search Input */
-.search-input {
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 200px;
-  outline: none;
+.navbar-title {
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 600;
 }
 
-/* Add Employee Button */
-.add-employee-btn {
-  background-color: #dc3545;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
+.employee-search-input {
+    width: 250px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
 }
 
-.add-employee-btn:hover {
-  background-color: #c82333;
-  transform: scale(1.05);
+.employee-search-input:focus {
+    border-color: #007bff;
 }
 
-/* Employee List Section */
+/* Button for adding a new employee */
+.btn.add-employee-btn {
+    background-color: #aa853e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn.add-employee-btn:hover {
+    background-color: #8a6930;
+}
+
+/* Section for employee list */
 .employee-list-section {
-  margin-top: 10px;
+    margin-top: 20px;
 }
 
-/* Pagination Controls */
-.pagination-controls {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 15px;
+/* Overlay for the Add Employee popup */
+.overlay-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
 
-.prev-btn {
-  background-color: #ddd;
-  color: gray;
-  cursor: not-allowed;
-}
-
-.next-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 8px 15px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-}
-
-/* MODAL OVERLAY (Background Stays Fixed) */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Dark overlay */
-  display: flex;
-  justify-content: flex-end; /* Aligns popup to the right */
-  align-items: center;
-  z-index: 1000;
-  overflow: hidden; /* Prevents page scrolling */
-}
-
-/* Slide-in Add Employee Popup */
+/* Add Employee Popup */
 .add-employee-popup {
-  width: 450px;
-  height: 100%;
-  background-color: white;
-  box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.4s ease-in-out;
-  padding: 20px;
-  border-radius: 10px 0 0 10px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* Prevents the popup from overflowing */
+    width: 450px;
+    height: 100vh;
+    background-color: white;
+    box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s ease-in-out;
+    padding: 20px;
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transform: translateX(100%);
+    animation: slideIn 0.4s forwards;
+}
+
+/* Animation for Popup */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Header (Fixed at Top) */
+.add-employee-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Close Button */
+.add-employee-close-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #ff4d4d;
+    transition: color 0.3s;
+}
+
+.add-employee-close-btn:hover {
+    color: #d60000;
 }
 
 /* Scrollable Form Content */
 .add-employee-content {
-  flex-grow: 1;
-  overflow-y: auto; /* Enables scrolling */
-  max-height: 85vh; /* Prevents form from exceeding screen height */
-  padding-right: 10px;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    padding-bottom: 20px; /* Space for last field */
 }
 
-
-/* Employee List Table */
-.employee-list {
-  margin-top: 15px;
-  overflow-x: auto;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+/* Form Inputs */
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
 }
 
-/* Employee Table */
-.employee-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-}
-
-.employee-table th, .employee-table td {
-  padding: 12px;
-  border: 1px solid #ddd;
-  text-align: left;
-  color: black; /* FIX: Ensure text is visible */
-}
-
-/* Table Header */
-.employee-table th {
-  background-color: #f4f4f4;
-  font-weight: bold;
-  color: black; /* FIX: Make header text black */
-}
-
-/* Edit & Delete Buttons */
-.edit-btn, .delete-btn {
-  padding: 8px 12px;
-  margin: 3px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background 0.2s ease-in-out;
-}
-
-.edit-btn {
-  background-color: #ffc107;
-  color: white;
-}
-
-.delete-btn {
-  background-color: #dc3545;
-  color: white;
-}
-
-.edit-btn:hover {
-  background-color: #e0a800;
-}
-
-.delete-btn:hover {
-  background-color: #c82333;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .employee-management {
-    padding: 10px;
-  }
-
-  .employee-navbar {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .search-input {
+input, select, textarea {
     width: 100%;
-  }
-
-  .employee-table th, .employee-table td {
     padding: 8px;
-    font-size: 14px;
-  }
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
-  .edit-btn, .delete-btn {
-    padding: 6px 10px;
-    font-size: 12px;
-  }
+/* Textarea */
+textarea {
+    height: 60px;
+    resize: vertical;
+}
 
-  .add-employee-popup {
+/* Footer (Fixed at Bottom) */
+.add-employee-footer {
+    position: sticky;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    border-radius: 0;
-  }
+    background-color: #f9f9f9;
+    padding: 16px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    z-index: 20;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+}
 
-  .add-employee-content {
-    max-height: 70vh;
-  }
+/* Submit Button */
+.submit-btn1 {
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 400px;
+    transition: background 0.3s ease;
+}
+
+.submit-btn1:hover {
+    background: #218838;
+}
+
+.submit-btn1:active {
+    background: #1e7e34;
+}
+
+.submit-btn1:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* Confirmation Modal */
+.confirmation-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+/* Confirmation Modal */
+.confirmation-modal {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 320px;
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Centering the buttons inside the modal */
+.confirmation-modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Adds spacing between buttons */
+    margin-top: 15px;
+}
+
+/* Confirm Button */
+.confirm-btn {
+    background: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+    font-size: 1rem;
+}
+
+.confirm-btn:hover {
+    background: darkgreen;
+}
+
+/* Cancel Button */
+.cancel-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+    font-size: 1rem;
+}
+
+.cancel-btn:hover {
+    background: darkred;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .employee-management-container {
+        padding: 10px;
+    }
+    .employee-search-input {
+        width: 100%;
+    }
+    .add-employee-popup {
+        width: 100%;
+        border-radius: 0;
+    }
+    .confirmation-modal {
+        width: 90%;
+    }
 }

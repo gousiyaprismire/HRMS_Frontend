@@ -2,16 +2,35 @@ import React, { useState } from "react";
 import "./EmployeeManagement.css";
 import EmployeeList from "./EmployeeList";
 import AddEmployee from "./AddEmployee";
- 
+import ConfirmationModal from "./ConfirmationModal"; // Import Modal Component
 
 function EmployeeManagement() {
   const [showAddEmployee, setShowAddEmployee] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [employees, setEmployees] = useState([
     {
+      id: 2,
+      name: "Manjnadh",
+      email: "manjnadh@example.com",
+      gender: "Female",
+      dob: "1992-07-15",
+      joiningDate: "2021-03-25",
+      mobile: "987-654-3210",
+      aadhar: "4321-8765-2109",
+      accountNumber: "1234567890",
+      department: "HR",
+      designation: "Manager",
+      prevCompany: "Biz Solutions",
+      pfNumber: "PF654321",
+      salary: "75000",
+      currentAddress: "789 Road, City",
+      permanentAddress: "101 Street, City",
+      status: "Inactive",
+    },
+    {
       id: 1,
-      name: "John Doe",
-      email: "johndoe@example.com",
+      name: "Sowri",
+      email: "sowri@example.com",
       gender: "Male",
       dob: "1990-01-01",
       joiningDate: "2022-05-10",
@@ -27,86 +46,84 @@ function EmployeeManagement() {
       permanentAddress: "456 Avenue, City",
       status: "Active",
     },
-
-    
-    {
-      id: 2,
-      name: "Jane Smith",
-      email: "janesmith@example.com",
-      gender: "Female",
-      dob: "1992-07-15",
-      joiningDate: "2021-03-25",
-      mobile: "987-654-3210",
-      aadhar: "4321-8765-2109",
-      accountNumber: "1234567890",
-      department: "HR",
-      designation: "Manager",
-      prevCompany: "Biz Solutions",
-      pfNumber: "PF654321",
-      salary: "75000",
-      currentAddress: "789 Road, City",
-      permanentAddress: "101 Street, City",
-      status: "Inactive",
-    }
   ]);
   const [editingEmployee, setEditingEmployee] = useState(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [confirmationAction, setConfirmationAction] = useState(null);
+  const [confirmationMessage, setConfirmationMessage] = useState(""); // Added for dynamic message
 
-  // Toggle Add Employee Popup
   const handleToggleAddEmployee = () => {
     setShowAddEmployee((prev) => !prev);
     setEditingEmployee(null);
   };
 
-  // Handle Search Input Change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  // Add or Update Employee
   const handleSaveEmployee = (employee) => {
-    if (employee.id) {
-      // Update existing employee
-      setEmployees((prev) => prev.map((emp) => (emp.id === employee.id ? employee : emp)));
-    } else {
-      // Add new employee with unique ID
-      setEmployees((prev) => [...prev, { ...employee, id: prev.length + 1 }]);
-    }
-    setShowAddEmployee(false);
+    if (showConfirmation) return; // Prevent opening multiple modals
+
+    const message = employee.id
+      ? "Are you sure you want to update this employee?"
+      : "Are you sure you want to add this employee?";
+
+    setConfirmationMessage(message);
+    setShowConfirmation(true);
+
+    setConfirmationAction(() => () => {
+      setEmployees((prev) =>
+        employee.id
+          ? prev.map((emp) => (emp.id === employee.id ? employee : emp))
+          : [{ ...employee, id: prev.length ? Math.max(...prev.map((e) => e.id)) + 1 : 1 }, ...prev]
+      );
+
+      setShowAddEmployee(false);
+      setShowConfirmation(false);
+    });
   };
 
-  // Handle Edit Employee
   const handleEditEmployee = (employee) => {
     setEditingEmployee(employee);
     setShowAddEmployee(true);
   };
 
-  // Handle Delete Employee
   const handleDeleteEmployee = (id) => {
-    setEmployees((prev) => prev.filter((emp) => emp.id !== id));
+    if (showConfirmation) return; // Prevent duplicate modals
+
+    setConfirmationMessage("Are you sure you want to delete this employee?");
+    setShowConfirmation(true);
+
+    setConfirmationAction(() => () => {
+      setEmployees((prev) => prev.filter((emp) => emp.id !== id));
+      setShowConfirmation(false);
+    });
+  };
+
+  const handleConfirmAction = () => {
+    if (confirmationAction) {
+      confirmationAction();
+    }
   };
 
   return (
-    <div className="employee-management">
-      {/* Navbar */}
-      <header className="employee-navbar">
+    <div className="employee-management-container">
+      <header className="employee-navbar-container">
         <h2 className="navbar-title">All Employees</h2>
         <input
           type="text"
-          className="search-input"
+          className="employee-search-input"
           placeholder="Search"
           value={searchQuery}
           onChange={handleSearchChange}
         />
       </header>
 
-      {/* Main Content Area */}
-      <main className="employee-content">
-        {/* Add Employee Button */}
+      <main className="employee-main-content">
         <button className="btn add-employee-btn" onClick={handleToggleAddEmployee}>
           ➕ ADD EMPLOYEE
         </button>
 
-        {/* Employee List */}
         <section className="employee-list-section">
           <EmployeeList
             searchQuery={searchQuery}
@@ -117,10 +134,9 @@ function EmployeeManagement() {
         </section>
       </main>
 
-      {/* Add/Edit Employee Popup */}
       {showAddEmployee && (
-        <div className="overlay">
-          <div className="add-employee-popup right-popup">
+        <div className="overlay-container">
+          <div className="add-employee-popup-container">
             <AddEmployee
               onClose={handleToggleAddEmployee}
               onSave={handleSaveEmployee}
@@ -128,6 +144,14 @@ function EmployeeManagement() {
             />
           </div>
         </div>
+      )}
+
+      {showConfirmation && (
+        <ConfirmationModal
+          message={confirmationMessage} // Dynamic message
+          onConfirm={handleConfirmAction}
+          onCancel={() => setShowConfirmation(false)}
+        />
       )}
     </div>
   );

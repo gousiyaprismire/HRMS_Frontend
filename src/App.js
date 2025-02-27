@@ -38,8 +38,12 @@ import PerformanceAppraisalReports from "./Components/AnalyticsReporting/Perform
 import OrganizationGoals from "./Components/PerformanceManagement/OrganizationGoals";
 import AppraisalForms from "./Components/PerformanceManagement/AppraisalForms";
 import PerformancePeriod from "./Components/PerformanceManagement/PerformancePeriod";
-import FeedbackQuestions from "./Components/PerformanceManagement/FeedbackQuestions";
-import GeneralOptions from "./Components/PerformanceManagement/GeneralOptions";
+import BenefitsEnrollment from './Components/BenefitsCompliance/BenefitsEnrollment';
+import ClaimsReimbursements from './Components/BenefitsCompliance/ClaimsReimbursements';
+import CompanyPolicyCompliance from './Components/BenefitsCompliance/CompanyPolicyCompliance';
+import AuditReports from './Components/BenefitsCompliance/AuditComplianceReports';
+import FeedbackQuestions from './Components/PerformanceManagement/FeedbackQuestions';
+import GeneralOptions from './Components/PerformanceManagement/GeneralOptions';
 
 const App = () => {
   return (
@@ -72,6 +76,12 @@ const App = () => {
               <Route path="feedback-questions" element={<FeedbackQuestions />} />
               <Route path="general-options" element={<GeneralOptions />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
+
+              <Route path="/benefits/benefits-enrollment" element={<BenefitsEnrollment />} />
+              <Route path="/benefits/claims-reimbursements" element={<ClaimsReimbursements />} />
+              <Route path="/benefits/company-policy-compliance" element={<CompanyPolicyCompliance />} />
+              <Route path="/benefits/audit-reports" element={<AuditReports />} />
+
               <Route path="/recruitment/job-listings" element={<JobListings />} />
               <Route path="/recruitment/job-listings/applicants" element={<Applicant />} />
               <Route path="/recruitment/applicant-management" element={<InterviewSchedule />} />
