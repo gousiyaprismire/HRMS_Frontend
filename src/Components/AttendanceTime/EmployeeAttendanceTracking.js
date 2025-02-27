@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./EmployeeAttendanceTracking.css";
+// import "./EmployeeAttendanceTracking.css";
 
 function EmployeeAttendanceTracking() {
   const [records] = useState([
