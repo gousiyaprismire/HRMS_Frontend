@@ -55,48 +55,48 @@ const PerformanceAppraisalReports = () => {
 
   return (
     <div className="performance-report-container">
-      <h2>Performance & Appraisal Reports</h2>
+      <h2 className="performance-title-container">Performance & Appraisal Reports</h2>
       
-      <div className="controls">
-        <TextField label="Search Employee" variant="outlined" size="small" onChange={(e) => setSearchTerm(e.target.value)} />
-        <Button variant="contained" color="success" onClick={exportToExcel}>Export Excel</Button>
-        <Button variant="contained" color="error" onClick={exportToPDF}>Export PDF</Button>
+      <div className="performance-controls-container">
+        <TextField className="performance-search-container" label="Search Employee" variant="outlined" size="small" onChange={(e) => setSearchTerm(e.target.value)} />
+        <Button className="performance-export-btn-container excel-btn-container" variant="contained" color="success" onClick={exportToExcel}>Export Excel</Button>
+        <Button className="performance-export-btn-container pdf-btn-container" variant="contained" color="error" onClick={exportToPDF}>Export PDF</Button>
       </div>
 
-      <table className="performance-table">
-        <thead>
+      <table className="performance-table-container">
+        <thead className="performance-table-header-container">
           <tr>
-            <th>Employee</th>
-            <th>Performance Rating</th>
-            <th>Goal Achievement (%)</th>
-            <th>Projects</th>
-            <th>Training</th>
-            <th>Feedback Score</th>
-            <th>Promotions</th>
+            <th className="performance-table-cell-container">Employee</th>
+            <th className="performance-table-cell-container">Performance Rating</th>
+            <th className="performance-table-cell-container">Goal Achievement (%)</th>
+            <th className="performance-table-cell-container">Projects</th>
+            <th className="performance-table-cell-container">Training</th>
+            <th className="performance-table-cell-container">Feedback Score</th>
+            <th className="performance-table-cell-container">Promotions</th>
           </tr>
         </thead>
         <tbody>
           {filteredData.map((emp, index) => (
-            <tr key={index}>
-              <td>{emp.name}</td>
-              <td>{emp.rating}</td>
-              <td>{emp.goalAchievement}%</td>
-              <td>{emp.projects}</td>
-              <td>{emp.training}</td>
-              <td>{emp.feedbackScore}</td>
-              <td>{emp.promotions}</td>
+            <tr className="performance-table-row-container" key={index}>
+              <td className="performance-table-cell-container">{emp.name}</td>
+              <td className="performance-table-cell-container">{emp.rating}</td>
+              <td className="performance-table-cell-container">{emp.goalAchievement}%</td>
+              <td className="performance-table-cell-container">{emp.projects}</td>
+              <td className="performance-table-cell-container">{emp.training}</td>
+              <td className="performance-table-cell-container">{emp.feedbackScore}</td>
+              <td className="performance-table-cell-container">{emp.promotions}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <div className="charts">
-        <div className="bar-chart">
-          <h3>Performance & Goal Achievement</h3>
+      <div className="performance-charts-container">
+        <div className="performance-bar-chart-container">
+          <h3 className="performance-chart-title-container">Performance & Goal Achievement</h3>
           <Bar data={barChartData} />
         </div>
-        <div className="pie-chart">
-          <h3>Training Completion</h3>
+        <div className="performance-pie-chart-container">
+          <h3 className="performance-chart-title-container">Training Completion</h3>
           <Pie data={pieChartData} />
         </div>
       </div>

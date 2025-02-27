@@ -73,7 +73,9 @@ const PayrollProcessing = () => {
 
     return (
         <div className="payroll-container">
+            <h1>Payroll Processing</h1> {/* Added heading */}
             <button className="payroll-add-new-btn" onClick={handleAddNew}>+ Add New</button>
+
             <div className="payroll-filters">
                 <TextField className="payroll-search" label="Search" variant="outlined" size="small" />
                 <select>
@@ -86,6 +88,7 @@ const PayrollProcessing = () => {
                     <option>2025</option>
                 </select>
             </div>
+
             <table className="payroll-table">
                 <thead>
                     <tr>
@@ -147,5 +150,5 @@ const PayrollProcessing = () => {
         </div>
     );
 };
-  
+
 export default PayrollProcessing;

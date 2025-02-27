@@ -6,9 +6,9 @@ const PerformanceManagement = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="main-content">
-      <div className="header">
-        <div className="performance-heading">
+    <div className="performance-management-main-content">
+      <div className="performance-management-header">
+        <div className="performance-management-heading">
           <h1>Performance Management</h1>
           <p className="performance-para">
             View the latest status of performance measurement in one place.
@@ -16,7 +16,7 @@ const PerformanceManagement = () => {
         </div>
       </div>
 
-      <div className="cards">
+      <div className="performance-management-cards">
         {[
           "Total Employees",
           "Forms Sent",
@@ -25,14 +25,14 @@ const PerformanceManagement = () => {
           "Rated by Managers",
           "Rating Finalized",
         ].map((title) => (
-          <div key={title} className="card">
+          <div key={title} className="performance-management-card">
             <h2>{title}</h2>
             <p>-</p>
           </div>
         ))}
       </div>
 
-      <div className="buttons">
+      <div className="performance-management-buttons">
         <button className="goal-btn" onClick={() => navigate("/organization-goals")}>
           🎯 Organization Goals
         </button>

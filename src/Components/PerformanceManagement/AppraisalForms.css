@@ -1,9 +1,9 @@
-.appraisal-container {
+.performance-appraisal-container {
     margin-left: 20px; 
     padding: 20px;
 }
 
-.filters {
+.performance-appraisal-filters {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -12,7 +12,7 @@
     margin-bottom: 20px;
 }
 
-.filters select {
+.performance-appraisal-filters select {
     padding: 10px;
     font-size: 14px;
     border-radius: 5px;
@@ -21,7 +21,7 @@
     min-width: 200px;
 }
 
-.show-btn {
+.performance-appraisal-show-btn {
     padding: 10px 16px;
     font-size: 14px;
     border-radius: 5px;
@@ -32,17 +32,17 @@
     transition: 0.3s;
 }
 
-.show-btn:hover {
+.performance-appraisal-show-btn:hover {
     background: #218838;
 }
 
-.action-buttons {
+.performance-appraisal-action-buttons {
     display: flex;
     gap: 15px;
     margin-bottom: 20px;
 }
 
-.release-btn, .recall-btn {
+.performance-appraisal-release-btn, .performance-appraisal-recall-btn {
     padding: 10px 16px;
     font-size: 14px;
     border-radius: 5px;
@@ -51,25 +51,25 @@
     transition: 0.3s;
 }
 
-.release-btn {
+.performance-appraisal-release-btn {
     background: #007bff;
     color: white;
 }
 
-.recall-btn {
+.performance-appraisal-recall-btn {
     background: #dc3545;
     color: white;
 }
 
-.release-btn:hover {
+.performance-appraisal-release-btn:hover {
     background: #0056b3;
 }
 
-.recall-btn:hover {
+.performance-appraisal-recall-btn:hover {
     background: #c82333;
 }
 
-.appraisal-table {
+.performance-appraisal-appraisal-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -79,7 +79,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.appraisal-table th {
+.performance-appraisal-appraisal-table th {
     background: #ff8c00;
     color: white;
     padding: 12px;
@@ -96,9 +96,9 @@
 }
 
 
-.actions {
+.appraisal-form-actions {
     display: flex;
-    gap: 10px; 
+    gap: 20px; 
 }
 
 
@@ -111,20 +111,20 @@
     transition: 0.3s;
 }
 
-.appraisal-form-edit-btn {
+.performance-appraisal-form-edit-btn {
     background: #28a745;
     color: white;
 }
 
-.appraisal-form-delete-btn {
+.performance-appraisal-form-delete-btn {
     background: #dc3545;
     color: white;
 }
 
-.appraisal-form-edit-btn:hover {
+.performance-appraisal-form-edit-btn:hover {
     background: #218838;
 }
 
-.appraisal-form-delete-btn:hover {
+.performance-appraisal-form-delete-btn:hover {
     background: #c82333;
 }

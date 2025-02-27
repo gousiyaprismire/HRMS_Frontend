@@ -164,12 +164,12 @@ const EmployeeOnboarding = () => {
         </>
       )}
 
-      {/* Form Section */}
+     
       {showForm && (
   <div className="employee-onboarding card">
     <h3>Add New Employee</h3>
     
-    {/* Form Grid for Two-Column Layout */}
+  
     <div className="form-grid">
       <input
         type="text"
@@ -232,7 +232,7 @@ const EmployeeOnboarding = () => {
       <input type="file" multiple onChange={handleFileChange} className="input-file" />
     </div>
 
-    {/* Buttons */}
+   
     <div className="button-container">
       <button onClick={handleSubmit} className="button">Add Employee</button>
       <button className="cancel-button" onClick={() => setShowForm(false)}>Back</button>

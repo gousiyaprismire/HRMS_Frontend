@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./EmployeeManagement.css";
 import EmployeeList from "./EmployeeList";
 import AddEmployee from "./AddEmployee";
+import ConfirmationModal from "./ConfirmationModal"; // Import Modal Component
 
 function EmployeeManagement() {
   const [showAddEmployee, setShowAddEmployee] = useState(false);
@@ -44,9 +45,12 @@ function EmployeeManagement() {
       currentAddress: "123 Street, City",
       permanentAddress: "456 Avenue, City",
       status: "Active",
-    }
+    },
   ]);
   const [editingEmployee, setEditingEmployee] = useState(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [confirmationAction, setConfirmationAction] = useState(null);
+  const [confirmationMessage, setConfirmationMessage] = useState(""); // Added for dynamic message
 
   const handleToggleAddEmployee = () => {
     setShowAddEmployee((prev) => !prev);
@@ -58,29 +62,48 @@ function EmployeeManagement() {
   };
 
   const handleSaveEmployee = (employee) => {
-    if (!employee.name.trim() || !employee.email.trim()) {
-      alert("Name and Email are required!");
-      return;
-    }
-  
-    if (employee.id) {
+    if (showConfirmation) return; // Prevent opening multiple modals
+
+    const message = employee.id
+      ? "Are you sure you want to update this employee?"
+      : "Are you sure you want to add this employee?";
+
+    setConfirmationMessage(message);
+    setShowConfirmation(true);
+
+    setConfirmationAction(() => () => {
       setEmployees((prev) =>
-        prev.map((emp) => (emp.id === employee.id ? employee : emp))
+        employee.id
+          ? prev.map((emp) => (emp.id === employee.id ? employee : emp))
+          : [{ ...employee, id: prev.length ? Math.max(...prev.map((e) => e.id)) + 1 : 1 }, ...prev]
       );
-    } else {
-      const newId = employees.length ? Math.max(...employees.map((e) => e.id)) + 1 : 1;
-      setEmployees((prev) => [{ ...employee, id: newId }, ...prev]); 
-    }
-    setShowAddEmployee(false);
+
+      setShowAddEmployee(false);
+      setShowConfirmation(false);
+    });
   };
-  
+
   const handleEditEmployee = (employee) => {
     setEditingEmployee(employee);
     setShowAddEmployee(true);
   };
 
   const handleDeleteEmployee = (id) => {
-    setEmployees((prev) => prev.filter((emp) => emp.id !== id));
+    if (showConfirmation) return; // Prevent duplicate modals
+
+    setConfirmationMessage("Are you sure you want to delete this employee?");
+    setShowConfirmation(true);
+
+    setConfirmationAction(() => () => {
+      setEmployees((prev) => prev.filter((emp) => emp.id !== id));
+      setShowConfirmation(false);
+    });
+  };
+
+  const handleConfirmAction = () => {
+    if (confirmationAction) {
+      confirmationAction();
+    }
   };
 
   return (
@@ -122,9 +145,16 @@ function EmployeeManagement() {
           </div>
         </div>
       )}
+
+      {showConfirmation && (
+        <ConfirmationModal
+          message={confirmationMessage} // Dynamic message
+          onConfirm={handleConfirmAction}
+          onCancel={() => setShowConfirmation(false)}
+        />
+      )}
     </div>
   );
 }
-
 
 export default EmployeeManagement;

@@ -22,6 +22,9 @@ function AddEmployee({ onClose, onSave, editingEmployee }) {
     status: "Active", // Default status
   });
 
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [tempEmployee, setTempEmployee] = useState(null);
+
   useEffect(() => {
     if (editingEmployee) {
       setEmployee(editingEmployee);
@@ -34,7 +37,17 @@ function AddEmployee({ onClose, onSave, editingEmployee }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(employee);
+    setTempEmployee(employee);
+    setShowConfirmation(true);
+  };
+
+  const handleConfirm = () => {
+    onSave(tempEmployee);
+    setShowConfirmation(false);
+  };
+
+  const handleCancel = () => {
+    setShowConfirmation(false);
   };
 
   return (
@@ -84,7 +97,6 @@ function AddEmployee({ onClose, onSave, editingEmployee }) {
             <option value="Marketing">Marketing</option>
             <option value="Finance">Finance</option>
           </select>
-          
 
           <label>Designation:</label>
           <input type="text" name="designation" value={employee.designation} onChange={handleChange} required />
@@ -110,14 +122,25 @@ function AddEmployee({ onClose, onSave, editingEmployee }) {
             <option value="Inactive">Inactive</option>
           </select>
 
-          {/* Sticky Footer with Submit Button */}
+          {/* Footer with Submit Button */}
           <div className="add-employee-footer">
-            <button type="submit" className="submit-btn1">
-              {employee.id ? "Update Employee" : "Submit"}
-            </button>
+            <button type="submit" className="submit-btn">Submit</button>
           </div>
         </form>
       </div>
+
+      {/* Confirmation Modal */}
+      {showConfirmation && (
+        <div className="confirmation-modal-overlay">
+          <div className="confirmation-modal">
+            <p>Are you sure you want to proceed with this action?</p>
+            <div className="confirmation-modal-buttons">
+              <button className="confirm-btn" onClick={handleConfirm}>Confirm</button>
+              <button className="cancel-btn" onClick={handleCancel}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Recruitment.css";
-
+ 
 function OfferLetters() {
   const [offers, setOffers] = useState([
     {
@@ -30,7 +30,7 @@ function OfferLetters() {
       status: "Sent",
     },
   ]);
-
+ 
   const [newOffer, setNewOffer] = useState({
     candidate: "",
     email: "",
@@ -44,13 +44,13 @@ function OfferLetters() {
     hrContact: "",
     status: "Sent",
   });
-
+ 
   const [showForm, setShowForm] = useState(false);
-
+ 
   const jobPositions = ["Software Engineer", "Product Manager", "UX Designer", "Data Scientist", "QA Engineer"];
   const employmentTypes = ["Full-Time", "Part-Time", "Contract"];
   const workLocations = ["Remote", "On-site", "Hybrid"];
-
+ 
   const handleAddOffer = (e) => {
     e.preventDefault();
     if (newOffer.candidate && newOffer.position && newOffer.email && newOffer.salary) {
@@ -68,26 +68,29 @@ function OfferLetters() {
         hrContact: "",
         status: "Sent",
       });
-      setShowForm(false); // Hide form after submission
+      setShowForm(false); 
     } else {
       alert("Please fill in all required fields.");
     }
   };
-
+ 
   const handleStatusChange = (index, status) => {
     const updatedOffers = [...offers];
     updatedOffers[index].status = status;
     setOffers(updatedOffers);
   };
-
+ 
   return (
     <div className="offer-container">
       <h2>Offer Letters</h2>
-
-      {/* Hide table and add button when form is shown */}
+ 
       {!showForm && (
         <>
-          {/* Offer Letters Table */}
+         <button className="add-offer-button" onClick={() => setShowForm(true)}>
+            Add New Offer Letter
+          </button>
+ 
+       
           <table className="offer-table">
             <thead>
               <tr>
@@ -131,56 +134,54 @@ function OfferLetters() {
               ))}
             </tbody>
           </table>
-
-          <button className="add-offer-button" onClick={() => setShowForm(true)}>
-            Add New Offer Letter
-          </button>
+ 
+         
         </>
       )}
-
+ 
       {showForm && (
         <form className="offer-form" onSubmit={handleAddOffer}>
           <h3>Add New Offer Letter</h3>
           <input type="text" placeholder="Candidate Name" value={newOffer.candidate} onChange={(e) => setNewOffer({ ...newOffer, candidate: e.target.value })} required />
           <input type="email" placeholder="Candidate Email" value={newOffer.email} onChange={(e) => setNewOffer({ ...newOffer, email: e.target.value })} required />
           <input type="text" placeholder="Phone Number" value={newOffer.phone} onChange={(e) => setNewOffer({ ...newOffer, phone: e.target.value })} />
-
+ 
           <select value={newOffer.position} onChange={(e) => setNewOffer({ ...newOffer, position: e.target.value })} required>
             <option value="">Select Job Position</option>
             {jobPositions.map((position, index) => (
               <option key={index} value={position}>{position}</option>
             ))}
           </select>
-
+ 
           <input type="text" placeholder="Salary Package" value={newOffer.salary} onChange={(e) => setNewOffer({ ...newOffer, salary: e.target.value })} required />
           <input type="date" value={newOffer.joiningDate} onChange={(e) => setNewOffer({ ...newOffer, joiningDate: e.target.value })} />
-
+ 
           <select value={newOffer.employmentType} onChange={(e) => setNewOffer({ ...newOffer, employmentType: e.target.value })}>
             <option value="">Select Employment Type</option>
             {employmentTypes.map((type, index) => (
               <option key={index} value={type}>{type}</option>
             ))}
           </select>
-
+ 
           <select value={newOffer.workLocation} onChange={(e) => setNewOffer({ ...newOffer, workLocation: e.target.value })}>
             <option value="">Select Work Location</option>
             {workLocations.map((location, index) => (
               <option key={index} value={location}>{location}</option>
             ))}
           </select>
-
+ 
           <input type="date" placeholder="Offer Expiry Date" value={newOffer.offerExpiry} onChange={(e) => setNewOffer({ ...newOffer, offerExpiry: e.target.value })} />
           <input type="text" placeholder="HR Contact Person" value={newOffer.hrContact} onChange={(e) => setNewOffer({ ...newOffer, hrContact: e.target.value })} />
-
+ 
           <div className="button-container">
     <button type="submit">Create Offer Letter</button>
   </div>
-          
+         
           <button type="button" className="cancel-button" onClick={() => setShowForm(false)}>Back</button>
         </form>
       )}
     </div>
   );
 }
-
+ 
 export default OfferLetters;

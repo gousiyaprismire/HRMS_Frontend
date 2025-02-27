@@ -6,8 +6,8 @@ const AppraisalForms = () => {
   const [location, setLocation] = useState("All Locations");
   const [department, setDepartment] = useState("All Departments");
   const [forms, setForms] = useState([
-    { id: 1, employee: "John Doe", manager: "Jane Smith", status: "Pending", lastAction: "10 Feb 2025" },
-    { id: 2, employee: "Alice Brown", manager: "Michael Scott", status: "Approved", lastAction: "15 Feb 2025" }
+    { id: 1, employee: "Name1", manager: "Manager1", status: "Pending", lastAction: "10 Feb 2025" },
+    { id: 2, employee: "Name2", manager: "Manager2", status: "Approved", lastAction: "15 Feb 2025" }
   ]);
 
   const showForms = () => {
@@ -31,11 +31,11 @@ const AppraisalForms = () => {
   };
 
   return (
-    <div className="appraisal-container">
+    <div className="performance-appraisal-container">
       <h2 className="performance-period-h2">Appraisal Forms</h2>
       <p className="performance-period-p">View appraisal forms submitted by employees and managers.</p>
 
-      <div className="filters">
+      <div className="performance-appraisal-filters">
         <select value={period} onChange={(e) => setPeriod(e.target.value)}>
           <option>Performance Appraisal for 2024</option>
           <option>Performance Appraisal for 2023</option>
@@ -56,15 +56,15 @@ const AppraisalForms = () => {
           <option>Engineering</option>
         </select>
 
-        <button className="show-btn" onClick={showForms}>Show Forms</button>
+        <button className="performance-appraisal-show-btn" onClick={showForms}>Show Forms</button>
       </div>
 
-      <div className="action-buttons">
-        <button className="release-btn" onClick={releaseForms}>Release Forms</button>
-        <button className="recall-btn" onClick={recallForms}>Recall Forms</button>
+      <div className="performance-appraisal-action-buttons">
+        <button className="performance-appraisal-release-btn" onClick={releaseForms}>Release Forms</button>
+        <button className="performance-appraisal-recall-btn" onClick={recallForms}>Recall Forms</button>
       </div>
 
-      <table className="appraisal-table">
+      <table className="performance-appraisal-appraisal-table">
         <thead>
           <tr>
             <th>Employee</th>
@@ -88,8 +88,8 @@ const AppraisalForms = () => {
                 <td>{form.lastAction}</td>
                 <td>
                   <div className="appraisal-form-actions">
-                    <button className="appraisal-form-edit-btn" onClick={() => editForm(form.id)}>Edit</button>
-                    <button className="appraisal-form-delete-btn" onClick={() => deleteForm(form.id)}>Delete</button>
+                    <button className="performance-appraisal-form-edit-btn" onClick={() => editForm(form.id)}>Edit</button>
+                    <button className="performance-appraisal-form-delete-btn" onClick={() => deleteForm(form.id)}>Delete</button>
                   </div>
                 </td>
               </tr>

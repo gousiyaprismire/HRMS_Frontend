@@ -3,7 +3,7 @@
     padding: 20px;
 }
 
-.header-container {
+.organization-goal-header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,7 +40,7 @@
     font-weight: bold;
 }
 
-.select-period {
+.organization-goal-select-period {
     width: 200px;
     font-size: 14px;
     padding: 5px;
@@ -63,7 +63,7 @@
     margin-top: 10px;
 }
 
-.add-new-button {
+.organization-goal-add-new-button {
     position: absolute;
     top: 20px;
     right: 20px;

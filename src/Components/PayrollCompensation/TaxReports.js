@@ -63,6 +63,7 @@ const TaxReports = () => {
 
   return (
     <div className="tax-container">
+      <h1>Tax & Deduction Reports</h1> {/* Added heading */}
       <button className="tax-add-new-btn" onClick={() => openPopup()}>+ Add New</button>
 
       <div className="tax-filters">
@@ -152,4 +153,3 @@ const TaxReports = () => {
 };
 
 export default TaxReports;
- 

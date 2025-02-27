@@ -31,6 +31,20 @@ const InterviewScheduler = () => {
 
   const updateStatus = (id, newStatus) => {
     setInterviews(interviews.map((interview) => (interview.id === id ? { ...interview, status: newStatus } : interview)));
+    setPopup({ show: true, id, status: newStatus });
+  };
+ 
+  const [popup, setPopup] = useState({ show: false, id: null, status: "" });
+ 
+
+ 
+  const confirmStatusUpdate = () => {
+    setInterviews(
+      interviews.map((interview) =>
+        interview.id === popup.id ? { ...interview, status: popup.status, actionTaken: true } : interview
+      )
+    );
+    setPopup({ show: false, id: null, status: "" });
   };
 
   return (
@@ -105,6 +119,20 @@ const InterviewScheduler = () => {
           </table>
         </div>
       )}
+     
+      {popup.show && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <h3>Confirm Action</h3>
+            <p>Are you sure you want to mark this interview as <strong>{popup.status}</strong>?</p>
+            <div className="popup-buttons">
+              <button className="confirm-btn" onClick={confirmStatusUpdate}>Yes</button>
+              <button className="cancel-btn" onClick={() => setPopup({ show: false, id: null, status: "" })}>No</button>
+            </div>
+          </div>
+        </div>
+      )}
+      
     </div>
   );
 };

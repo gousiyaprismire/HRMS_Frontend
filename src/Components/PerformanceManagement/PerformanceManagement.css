@@ -1,116 +1,72 @@
-.main-content {
-    flex: 1;
-    padding: 20px;
-    /* background: #ecf0f1; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  /* border: 2px solid red; */
-   border-radius: 10px;
+.performance-management-main-content {
+  flex: 1;
+  padding: 20px;
+  /* background: #ecf0f1; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+/* border: 2px solid red; */
+ border-radius: 10px;
 }
 
-.header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    position: relative;
-    font-size: 16px;
+.performance-management-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  font-size: 16px;
 }
 
-.performance-heading {
-    flex-grow: 1;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    /* color: #f0f0f0; */
-    
+.performance-management-heading {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  /* color: #f0f0f0; */
+  
 }
 
-.settings-btn {
-    /* position: right; */
-    
-    right: 0;
-    padding: 10px 15px;
-    border: none;
-    background: #3498db;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
+.performance-management-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
 }
 
-.cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+.performance-management-card {
+  background: white;
+  padding: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.card {
-    background: white;
-    padding: 10px;
-    padding-left: 50px;
-    padding-right: 50px;
-    text-align: center;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.buttons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+.performance-management-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .goal-btn, .appraisal-btn {
-    padding: 10px 20px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
+  padding: 10px 20px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .goal-btn {
-    background: #e74c3c;
+  background: #e74c3c;
 }
 
 .appraisal-btn {
-    background: #f1c40f;
+  background: #f1c40f;
 }
 
-.settings-container {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .settings-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: white;
-    border: 1px solid #ccc;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    width: 200px;
-    z-index: 1000;
-  }
-  
-  .settings-dropdown ul {
-    list-style: none;
-    margin: 0;
-    padding: 10px;
-  }
-  
-  .settings-dropdown li {
-    padding: 10px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .settings-dropdown li:hover {
-    background: #f0f0f0;
-  }
- .performance-para {
-    color: black;
- }
+.performance-para {
+  color: black;
+}
