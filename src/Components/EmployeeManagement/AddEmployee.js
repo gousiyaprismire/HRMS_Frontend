@@ -19,35 +19,46 @@ function AddEmployee({ onClose, onSave, editingEmployee }) {
     salary: "",
     currentAddress: "",
     permanentAddress: "",
-    status: "Active", // Default to Active
+    status: "Active", // Default status
   });
 
-  // Load Employee Data When Editing
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [tempEmployee, setTempEmployee] = useState(null);
+
   useEffect(() => {
     if (editingEmployee) {
       setEmployee(editingEmployee);
     }
   }, [editingEmployee]);
 
-  // Handle Input Changes
   const handleChange = (e) => {
     setEmployee({ ...employee, [e.target.name]: e.target.value });
   };
 
-  // Handle Form Submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(employee);
+    setTempEmployee(employee);
+    setShowConfirmation(true);
+  };
+
+  const handleConfirm = () => {
+    onSave(tempEmployee);
+    setShowConfirmation(false);
+  };
+
+  const handleCancel = () => {
+    setShowConfirmation(false);
   };
 
   return (
-    <div className="add-employee-container">
+    <div className="add-employee-popup">
+      {/* Header */}
       <div className="add-employee-header">
         <h3>Employee Registration Form</h3>
-        <button className="close-btn" onClick={onClose}>✖</button>
+        <button className="add-employee-close-btn" onClick={onClose}>✖</button>
       </div>
 
-      {/* ✅ Scrollable Form Wrapper */}
+      {/* Scrollable Form */}
       <div className="add-employee-content">
         <form onSubmit={handleSubmit}>
           <label>Employee Name:</label>
@@ -111,11 +122,25 @@ function AddEmployee({ onClose, onSave, editingEmployee }) {
             <option value="Inactive">Inactive</option>
           </select>
 
-          <button type="submit" className="submit-btn">
-            {employee.id ? "Update Employee" : "Register Employee"}
-          </button>
+          {/* Footer with Submit Button */}
+          <div className="add-employee-footer">
+            <button type="submit" className="submit-btn">Submit</button>
+          </div>
         </form>
       </div>
+
+      {/* Confirmation Modal */}
+      {showConfirmation && (
+        <div className="confirmation-modal-overlay">
+          <div className="confirmation-modal">
+            <p>Are you sure you want to proceed with this action?</p>
+            <div className="confirmation-modal-buttons">
+              <button className="confirm-btn" onClick={handleConfirm}>Confirm</button>
+              <button className="cancel-btn" onClick={handleCancel}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
