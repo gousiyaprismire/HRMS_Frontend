@@ -1,5 +1,5 @@
-/* General container for the Employee Management section */
-.employee-management-container {
+/* General container for Employee Management */
+.employee-management-wrapper {
     font-family: Arial, sans-serif;
     max-width: 1200px;
     margin: 20px auto;
@@ -10,20 +10,20 @@
 }
 
 /* Navbar section */
-.employee-navbar-container {
+.employee-management-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.navbar-title {
+.employee-header-title {
     font-size: 1.8rem;
     color: #333;
     font-weight: 600;
 }
 
-.employee-search-input {
+#employee-search-input {
     width: 250px;
     padding: 10px;
     font-size: 1rem;
@@ -32,12 +32,12 @@
     outline: none;
 }
 
-.employee-search-input:focus {
+#employee-search-input:focus {
     border-color: #007bff;
 }
 
 /* Button for adding a new employee */
-.btn.add-employee-btn {
+.btn.employee-add-button {
     background-color: #aa853e;
     color: white;
     border: none;
@@ -48,17 +48,17 @@
     transition: background-color 0.3s ease;
 }
 
-.btn.add-employee-btn:hover {
+.btn.employee-add-button:hover {
     background-color: #8a6930;
 }
 
 /* Section for employee list */
-.employee-list-section {
+.employee-list-container {
     margin-top: 20px;
 }
 
-/* Overlay for the Add Employee popup */
-.overlay-container {
+/* Overlay for Add Employee Popup */
+.employee-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -72,7 +72,7 @@
 }
 
 /* Add Employee Popup */
-.add-employee-popup {
+.employee-popup {
     width: 450px;
     height: 100vh;
     background-color: white;
@@ -143,7 +143,23 @@ label {
     display: block;
 }
 
-input, select, textarea {
+/* Unique Input, Select, and Textarea Styling */
+#employee-name,
+#employee-email,
+#employee-gender,
+#employee-dob,
+#employee-joining-date,
+#employee-mobile,
+#employee-aadhar,
+#employee-account,
+#employee-department,
+#employee-designation,
+#employee-prev-company,
+#employee-pf-number,
+#employee-salary,
+#employee-current-address,
+#employee-permanent-address,
+#employee-status {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
@@ -152,7 +168,8 @@ input, select, textarea {
 }
 
 /* Textarea */
-textarea {
+#employee-current-address,
+#employee-permanent-address {
     height: 60px;
     resize: vertical;
 }
@@ -174,7 +191,7 @@ textarea {
 }
 
 /* Submit Button */
-.submit-btn1 {
+.submit-btn {
     padding: 12px;
     font-size: 16px;
     font-weight: bold;
@@ -188,21 +205,21 @@ textarea {
     transition: background 0.3s ease;
 }
 
-.submit-btn1:hover {
+.submit-btn:hover {
     background: #218838;
 }
 
-.submit-btn1:active {
+.submit-btn:active {
     background: #1e7e34;
 }
 
-.submit-btn1:disabled {
+.submit-btn:disabled {
     background: #ccc;
     cursor: not-allowed;
 }
 
 /* Confirmation Modal */
-.confirmation-modal-overlay {
+.employee-confirmation-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -216,7 +233,7 @@ textarea {
 }
 
 /* Confirmation Modal */
-.confirmation-modal {
+.employee-confirmation-modal {
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -228,7 +245,7 @@ textarea {
 }
 
 /* Centering the buttons inside the modal */
-.confirmation-modal-buttons {
+.employee-confirmation-buttons {
     display: flex;
     justify-content: space-between;
     gap: 10px; /* Adds spacing between buttons */
@@ -236,7 +253,7 @@ textarea {
 }
 
 /* Confirm Button */
-.confirm-btn {
+.employee-confirm-btn {
     background: green;
     color: white;
     border: none;
@@ -247,12 +264,12 @@ textarea {
     font-size: 1rem;
 }
 
-.confirm-btn:hover {
+.employee-confirm-btn:hover {
     background: darkgreen;
 }
 
 /* Cancel Button */
-.cancel-btn {
+.employee-cancel-btn {
     background: red;
     color: white;
     border: none;
@@ -263,7 +280,7 @@ textarea {
     font-size: 1rem;
 }
 
-.cancel-btn:hover {
+.employee-cancel-btn:hover {
     background: darkred;
 }
 
@@ -281,17 +298,17 @@ textarea {
 
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
-    .employee-management-container {
+    .employee-management-wrapper {
         padding: 10px;
     }
-    .employee-search-input {
+    #employee-search-input {
         width: 100%;
     }
-    .add-employee-popup {
+    .employee-popup {
         width: 100%;
         border-radius: 0;
     }
-    .confirmation-modal {
+    .employee-confirmation-modal {
         width: 90%;
     }
 }

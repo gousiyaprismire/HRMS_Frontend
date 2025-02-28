@@ -1,5 +1,5 @@
-/* Confirmation Modal */
-.confirmation-modal-overlay {
+/* Confirmation Modal Overlay */
+.employee-confirmation-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -12,7 +12,8 @@
     z-index: 100;
 }
 
-.confirmation-modal {
+/* Confirmation Modal */
+.employee-confirmation-modal {
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -23,42 +24,67 @@
     animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Centering the buttons inside the modal */
-.confirmation-modal-buttons {
+/* Message Styling */
+.employee-confirmation-message {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Button Container */
+.employee-confirmation-buttons {
     display: flex;
-    justify-content: space-between;
-    gap: 10px; /* Adds spacing between buttons */
-    margin-top: 15px;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
 }
 
-/* Confirm Button */
-.confirm-btn {
-    background: green;
+/* Confirm Button - Yes/Confirm/Update (Green) */
+.employee-confirm-btn {
+    background-color: #28a745; /* Green */
     color: white;
     border: none;
     padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    border-radius: 4px;
-    transition: background 0.3s;
-    font-size: 1rem;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    width: 120px;
 }
 
-.confirm-btn:hover {
-    background: darkgreen;
+.employee-confirm-btn:hover {
+    background-color: #218838;
 }
 
-/* Cancel Button */
-.cancel-btn {
-    background: red;
+/* Cancel Button - No/Cancel (Red) */
+.employee-cancel-btn {
+    background-color: #dc3545; /* Red */
     color: white;
     border: none;
     padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    border-radius: 4px;
-    transition: background 0.3s;
-    font-size: 1rem;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    width: 120px;
 }
 
-.cancel-btn:hover {
-    background: darkred;
+.employee-cancel-btn:hover {
+    background-color: #c82333;
+}
+
+/* Fade-In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

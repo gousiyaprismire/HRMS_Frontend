@@ -58,7 +58,23 @@ label {
     display: block;
 }
 
-input, select, textarea {
+/* Unique Input, Select, and Textarea Styling */
+#employee-name,
+#employee-email,
+#employee-gender,
+#employee-dob,
+#employee-joining-date,
+#employee-mobile,
+#employee-aadhar,
+#employee-account,
+#employee-department,
+#employee-designation,
+#employee-prev-company,
+#employee-pf-number,
+#employee-salary,
+#employee-current-address,
+#employee-permanent-address,
+#employee-status {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
@@ -67,7 +83,8 @@ input, select, textarea {
 }
 
 /* Textarea */
-textarea {
+#employee-current-address,
+#employee-permanent-address {
     height: 60px;
     resize: vertical;
 }
@@ -89,7 +106,7 @@ textarea {
 }
 
 /* Submit Button */
-.submit-btn1 {
+.submit-btn {
     padding: 12px;
     font-size: 16px;
     font-weight: bold;
@@ -103,15 +120,15 @@ textarea {
     transition: background 0.3s ease;
 }
 
-.submit-btn1:hover {
+.submit-btn:hover {
     background: #218838;
 }
 
-.submit-btn1:active {
+.submit-btn:active {
     background: #1e7e34;
 }
 
-.submit-btn1:disabled {
+.submit-btn:disabled {
     background: #ccc;
     cursor: not-allowed;
 }
@@ -164,7 +181,7 @@ textarea {
 
 /* Confirm Button (Green) */
 .confirm-btn {
-    background-color: #28a745;
+    background-color: #28a745 !important; /* Ensures green */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -177,12 +194,16 @@ textarea {
 }
 
 .confirm-btn:hover {
-    background-color: #218838;
+    background-color: #218838 !important;
+}
+
+.confirm-btn:active {
+    background-color: #1e7e34 !important;
 }
 
 /* Cancel Button (Red) */
 .cancel-btn {
-    background-color: #dc3545;
+    background-color: #dc3545 !important; /* Ensures red */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -195,7 +216,11 @@ textarea {
 }
 
 .cancel-btn:hover {
-    background-color: #c82333;
+    background-color: #c82333 !important;
+}
+
+.cancel-btn:active {
+    background-color: #a71d2a !important;
 }
 
 /* Fade-In Animation */
