@@ -61,63 +61,63 @@ function AddEmployee({ onClose, onSave, editingEmployee }) {
       {/* Scrollable Form */}
       <div className="add-employee-content">
         <form onSubmit={handleSubmit}>
-          <label>Employee Name:</label>
-          <input type="text" name="name" value={employee.name} onChange={handleChange} required />
+          <label htmlFor="employee-name">Employee Name:</label>
+          <input type="text" id="employee-name" name="name" value={employee.name} onChange={handleChange} required />
 
-          <label>Email:</label>
-          <input type="email" name="email" value={employee.email} onChange={handleChange} required />
+          <label htmlFor="employee-email">Email:</label>
+          <input type="email" id="employee-email" name="email" value={employee.email} onChange={handleChange} required />
 
-          <label>Gender:</label>
-          <select name="gender" value={employee.gender} onChange={handleChange} required>
+          <label htmlFor="employee-gender">Gender:</label>
+          <select id="employee-gender" name="gender" value={employee.gender} onChange={handleChange} required>
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Other">Other</option>
           </select>
 
-          <label>Date of Birth:</label>
-          <input type="date" name="dob" value={employee.dob} onChange={handleChange} required />
+          <label htmlFor="employee-dob">Date of Birth:</label>
+          <input type="date" id="employee-dob" name="dob" value={employee.dob} onChange={handleChange} required />
 
-          <label>Joining Date:</label>
-          <input type="date" name="joiningDate" value={employee.joiningDate} onChange={handleChange} required />
+          <label htmlFor="employee-joining-date">Joining Date:</label>
+          <input type="date" id="employee-joining-date" name="joiningDate" value={employee.joiningDate} onChange={handleChange} required />
 
-          <label>Mobile Number:</label>
-          <input type="text" name="mobile" value={employee.mobile} onChange={handleChange} required />
+          <label htmlFor="employee-mobile">Mobile Number:</label>
+          <input type="text" id="employee-mobile" name="mobile" value={employee.mobile} onChange={handleChange} required />
 
-          <label>Aadhar Number:</label>
-          <input type="text" name="aadhar" value={employee.aadhar} onChange={handleChange} required />
+          <label htmlFor="employee-aadhar">Aadhar Number:</label>
+          <input type="text" id="employee-aadhar" name="aadhar" value={employee.aadhar} onChange={handleChange} required />
 
-          <label>Account Number:</label>
-          <input type="text" name="accountNumber" value={employee.accountNumber} onChange={handleChange} required />
+          <label htmlFor="employee-account">Account Number:</label>
+          <input type="text" id="employee-account" name="accountNumber" value={employee.accountNumber} onChange={handleChange} required />
 
-          <label>Department:</label>
-          <select name="department" value={employee.department} onChange={handleChange} required>
+          <label htmlFor="employee-department">Department:</label>
+          <select id="employee-department" name="department" value={employee.department} onChange={handleChange} required>
             <option value="">Select Department</option>
             <option value="Engineering">Engineering</option>
             <option value="Marketing">Marketing</option>
             <option value="Finance">Finance</option>
           </select>
 
-          <label>Designation:</label>
-          <input type="text" name="designation" value={employee.designation} onChange={handleChange} required />
+          <label htmlFor="employee-designation">Designation:</label>
+          <input type="text" id="employee-designation" name="designation" value={employee.designation} onChange={handleChange} required />
 
-          <label>Previous Company Name:</label>
-          <input type="text" name="prevCompany" value={employee.prevCompany} onChange={handleChange} />
+          <label htmlFor="employee-prev-company">Previous Company Name:</label>
+          <input type="text" id="employee-prev-company" name="prevCompany" value={employee.prevCompany} onChange={handleChange} />
 
-          <label>PF Number:</label>
-          <input type="text" name="pfNumber" value={employee.pfNumber} onChange={handleChange} />
+          <label htmlFor="employee-pf-number">PF Number:</label>
+          <input type="text" id="employee-pf-number" name="pfNumber" value={employee.pfNumber} onChange={handleChange} />
 
-          <label>Salary:</label>
-          <input type="number" name="salary" value={employee.salary} onChange={handleChange} required />
+          <label htmlFor="employee-salary">Salary:</label>
+          <input type="number" id="employee-salary" name="salary" value={employee.salary} onChange={handleChange} required />
 
-          <label>Current Address:</label>
-          <textarea name="currentAddress" value={employee.currentAddress} onChange={handleChange} required></textarea>
+          <label htmlFor="employee-current-address">Current Address:</label>
+          <textarea id="employee-current-address" name="currentAddress" value={employee.currentAddress} onChange={handleChange} required></textarea>
 
-          <label>Permanent Address:</label>
-          <textarea name="permanentAddress" value={employee.permanentAddress} onChange={handleChange} required></textarea>
+          <label htmlFor="employee-permanent-address">Permanent Address:</label>
+          <textarea id="employee-permanent-address" name="permanentAddress" value={employee.permanentAddress} onChange={handleChange} required></textarea>
 
-          <label>Employee Status:</label>
-          <select name="status" value={employee.status} onChange={handleChange} required>
+          <label htmlFor="employee-status">Employee Status:</label>
+          <select id="employee-status" name="status" value={employee.status} onChange={handleChange} required>
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
           </select>

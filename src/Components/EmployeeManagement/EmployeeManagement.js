@@ -5,9 +5,9 @@ import AddEmployee from "./AddEmployee";
 import ConfirmationModal from "./ConfirmationModal"; // Import Modal Component
 
 function EmployeeManagement() {
-  const [showAddEmployee, setShowAddEmployee] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [employees, setEmployees] = useState([
+  const [showAddEmployeePopup, setShowAddEmployeePopup] = useState(false);
+  const [employeeSearchQuery, setEmployeeSearchQuery] = useState("");  
+  const [employeeRecords, setEmployeeRecords] = useState([
     {
       id: 2,
       name: "Manjnadh",
@@ -47,110 +47,111 @@ function EmployeeManagement() {
       status: "Active",
     },
   ]);
-  const [editingEmployee, setEditingEmployee] = useState(null);
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [confirmationAction, setConfirmationAction] = useState(null);
-  const [confirmationMessage, setConfirmationMessage] = useState(""); // Added for dynamic message
+  const [employeeToEdit, setEmployeeToEdit] = useState(null);
+  const [showEmployeeConfirmation, setShowEmployeeConfirmation] = useState(false);
+  const [confirmationEmployeeAction, setConfirmationEmployeeAction] = useState(null);
+  const [confirmationEmployeeMessage, setConfirmationEmployeeMessage] = useState(""); // Added for dynamic message
 
-  const handleToggleAddEmployee = () => {
-    setShowAddEmployee((prev) => !prev);
-    setEditingEmployee(null);
+  const toggleAddEmployeePopup = () => {
+    setShowAddEmployeePopup((prev) => !prev);
+    setEmployeeToEdit(null);
   };
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
+  const handleEmployeeSearchChange = (e) => {
+    setEmployeeSearchQuery(e.target.value);
   };
 
   const handleSaveEmployee = (employee) => {
-    if (showConfirmation) return; // Prevent opening multiple modals
+    if (showEmployeeConfirmation) return; // Prevent opening multiple modals
 
     const message = employee.id
       ? "Are you sure you want to update this employee?"
       : "Are you sure you want to add this employee?";
 
-    setConfirmationMessage(message);
-    setShowConfirmation(true);
+    setConfirmationEmployeeMessage(message);
+    setShowEmployeeConfirmation(true);
 
-    setConfirmationAction(() => () => {
-      setEmployees((prev) =>
+    setConfirmationEmployeeAction(() => () => {
+      setEmployeeRecords((prev) =>
         employee.id
           ? prev.map((emp) => (emp.id === employee.id ? employee : emp))
           : [{ ...employee, id: prev.length ? Math.max(...prev.map((e) => e.id)) + 1 : 1 }, ...prev]
       );
 
-      setShowAddEmployee(false);
-      setShowConfirmation(false);
+      setShowAddEmployeePopup(false);
+      setShowEmployeeConfirmation(false);
     });
   };
 
   const handleEditEmployee = (employee) => {
-    setEditingEmployee(employee);
-    setShowAddEmployee(true);
+    setEmployeeToEdit(employee);
+    setShowAddEmployeePopup(true);
   };
 
   const handleDeleteEmployee = (id) => {
-    if (showConfirmation) return; // Prevent duplicate modals
+    if (showEmployeeConfirmation) return; // Prevent duplicate modals
 
-    setConfirmationMessage("Are you sure you want to delete this employee?");
-    setShowConfirmation(true);
+    setConfirmationEmployeeMessage("Are you sure you want to delete this employee?");
+    setShowEmployeeConfirmation(true);
 
-    setConfirmationAction(() => () => {
-      setEmployees((prev) => prev.filter((emp) => emp.id !== id));
-      setShowConfirmation(false);
+    setConfirmationEmployeeAction(() => () => {
+      setEmployeeRecords((prev) => prev.filter((emp) => emp.id !== id));
+      setShowEmployeeConfirmation(false);
     });
   };
 
-  const handleConfirmAction = () => {
-    if (confirmationAction) {
-      confirmationAction();
+  const handleConfirmEmployeeAction = () => {
+    if (confirmationEmployeeAction) {
+      confirmationEmployeeAction();
     }
   };
 
   return (
-    <div className="employee-management-container">
-      <header className="employee-navbar-container">
-        <h2 className="navbar-title">All Employees</h2>
+    <div className="employee-management-wrapper">
+      <header className="employee-management-header">
+        <h2 className="employee-header-title">All Employees</h2>
         <input
           type="text"
-          className="employee-search-input"
+          id="employee-search-input"
+          className="employee-search-box"
           placeholder="Search"
-          value={searchQuery}
-          onChange={handleSearchChange}
+          value={employeeSearchQuery}
+          onChange={handleEmployeeSearchChange}
         />
       </header>
 
-      <main className="employee-main-content">
-        <button className="btn add-employee-btn" onClick={handleToggleAddEmployee}>
+      <main className="employee-management-main">
+        <button className="btn employee-add-button" onClick={toggleAddEmployeePopup}>
           ➕ ADD EMPLOYEE
         </button>
 
-        <section className="employee-list-section">
+        <section className="employee-list-container">
           <EmployeeList
-            searchQuery={searchQuery}
-            employees={employees}
+            searchQuery={employeeSearchQuery}
+            employees={employeeRecords}
             onEdit={handleEditEmployee}
             onDelete={handleDeleteEmployee}
           />
         </section>
       </main>
 
-      {showAddEmployee && (
-        <div className="overlay-container">
-          <div className="add-employee-popup-container">
+      {showAddEmployeePopup && (
+        <div className="employee-overlay">
+          <div className="employee-popup">
             <AddEmployee
-              onClose={handleToggleAddEmployee}
+              onClose={toggleAddEmployeePopup}
               onSave={handleSaveEmployee}
-              editingEmployee={editingEmployee}
+              editingEmployee={employeeToEdit}
             />
           </div>
         </div>
       )}
 
-      {showConfirmation && (
+      {showEmployeeConfirmation && (
         <ConfirmationModal
-          message={confirmationMessage} // Dynamic message
-          onConfirm={handleConfirmAction}
-          onCancel={() => setShowConfirmation(false)}
+          message={confirmationEmployeeMessage} // Dynamic message
+          onConfirm={handleConfirmEmployeeAction}
+          onCancel={() => setShowEmployeeConfirmation(false)}
         />
       )}
     </div>

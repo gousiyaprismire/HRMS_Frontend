@@ -29,7 +29,7 @@ function ClaimsReimbursements() {
 
     setFormData((prevState) => ({
       ...prevState,
-      receipts: [...prevState.receipts, ...files], // Allows adding more files instead of replacing
+      receipts: [...prevState.receipts, ...files], 
     }));
   };
 
@@ -53,12 +53,12 @@ function ClaimsReimbursements() {
       return;
     }
 
-    // Example of submitting the data (Replace with API integration)
+    
     console.log("Expense Submitted:", formData);
 
     setMessage("✅ Your claim has been submitted for approval.");
 
-    // Reset form after submission
+    
     setFormData({
       expenseType: "medical",
       amount: "",
@@ -149,7 +149,7 @@ function ClaimsReimbursements() {
           </div>
         )}
 
-        <button type="submit">🚀 Submit for Approval</button>
+        <button type="submit"> 🚀 Submit for Approval</button>
       </form>
 
       {message && <p className="message" aria-live="polite">{message}</p>}
