@@ -125,6 +125,7 @@ const InterviewScheduler = () => {
           <div className="popup-box">
             <h3>Confirm Action</h3>
             <p>Are you sure you want to mark this interview as <strong>{popup.status}</strong>?</p>
+            
             <div className="popup-buttons">
               <button className="confirm-btn" onClick={confirmStatusUpdate}>Yes</button>
               <button className="cancel-btn" onClick={() => setPopup({ show: false, id: null, status: "" })}>No</button>

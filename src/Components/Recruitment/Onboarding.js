@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Modal } from "antd";  
 import "./Recruitment.css";
 
 const EmployeeOnboarding = () => {
@@ -44,11 +45,20 @@ const EmployeeOnboarding = () => {
   });
 
   const [showForm, setShowForm] = useState(false);
+  const [popupVisible, setPopupVisible] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
 
   const jobRoles = ["Software Engineer", "Data Analyst", "HR Manager"];
   const departments = ["IT", "HR", "Finance"];
   const managers = ["Keerthi", "Priya", "Purple"];
   const workLocations = ["Remote", "On-site", "Hybrid"];
+
+
+<select>
+  {workLocations.map((location, index) => (
+    <option key={index} value={location}>{location}</option>
+  ))}
+</select>
 
   const generateEmployeeID = () => {
     return `EMP${String(employees.length + 1).padStart(3, "0")}`;
@@ -63,6 +73,12 @@ const EmployeeOnboarding = () => {
     setFormData({ ...formData, documents: e.target.files });
   };
 
+
+  const showPopup = (message) => {
+    setPopupMessage(message);
+    setPopupVisible(true);
+  };
+
   const handleSubmit = () => {
     if (
       !formData.name ||
@@ -73,7 +89,7 @@ const EmployeeOnboarding = () => {
       !formData.joiningDate ||
       !formData.manager
     ) {
-      alert("Please fill all fields!");
+      showPopup("Please fill all required fields!"); 
       return;
     }
 
@@ -85,6 +101,8 @@ const EmployeeOnboarding = () => {
     };
 
     setEmployees([...employees, newEmployee]);
+    showPopup("Employee added successfully!"); 
+
     setFormData({
       name: "",
       email: "",
@@ -96,7 +114,7 @@ const EmployeeOnboarding = () => {
       location: "Remote",
       documents: null,
     });
-    setShowForm(false); // Hide form after submission
+    setShowForm(false);
   };
 
   const updateStatus = (id, newStatus) => {
@@ -105,17 +123,18 @@ const EmployeeOnboarding = () => {
         emp.id === id ? { ...emp, status: newStatus } : emp
       )
     );
+    showPopup(`Status updated to "${newStatus}"`); 
   };
 
   const removeEmployee = (id) => {
     setEmployees(employees.filter((emp) => emp.id !== id));
+    showPopup("Employee removed successfully!"); 
   };
 
   return (
     <div className="employee-onboarding">
       <h2>New Employee Onboarding</h2>
 
-   
       {!showForm && (
         <>
           <button className="toggle-form-button" onClick={() => setShowForm(true)}>
@@ -164,82 +183,46 @@ const EmployeeOnboarding = () => {
         </>
       )}
 
-     
       {showForm && (
-  <div className="employee-onboarding card">
-    <h3>Add New Employee</h3>
-    
-  
-    <div className="form-grid">
-      <input
-        type="text"
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        placeholder="Full Name"
-        className="input"
-        required
-      />
-      <input
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        placeholder="Email Address"
-        className="input"
-        required
-      />
-      <input
-        type="tel"
-        name="phone"
-        value={formData.phone}
-        onChange={handleChange}
-        placeholder="Phone Number"
-        className="input"
-        required
-      />
-      <select name="role" value={formData.role} onChange={handleChange} className="select" required>
-        <option value="">Select Job Role</option>
-        {jobRoles.map((role, index) => (
-          <option key={index} value={role}>{role}</option>
-        ))}
-      </select>
-      <select name="department" value={formData.department} onChange={handleChange} className="select" required>
-        <option value="">Select Department</option>
-        {departments.map((dept, index) => (
-          <option key={index} value={dept}>{dept}</option>
-        ))}
-      </select>
-      <input
-        type="date"
-        name="joiningDate"
-        value={formData.joiningDate}
-        onChange={handleChange}
-        className="input"
-        required
-      />
-      <select name="manager" value={formData.manager} onChange={handleChange} className="select" required>
-        <option value="">Select Reporting Manager</option>
-        {managers.map((mgr, index) => (
-          <option key={index} value={mgr}>{mgr}</option>
-        ))}
-      </select>
-      <select name="location" value={formData.location} onChange={handleChange} className="select">
-        {workLocations.map((loc, index) => (
-          <option key={index} value={loc}>{loc}</option>
-        ))}
-      </select>
-      <input type="file" multiple onChange={handleFileChange} className="input-file" />
-    </div>
+        <div className="employee-onboarding card">
+          <h3>Add New Employee</h3>
 
-   
-    <div className="button-container">
-      <button onClick={handleSubmit} className="button">Add Employee</button>
-      <button className="cancel-button" onClick={() => setShowForm(false)}>Back</button>
-    </div>
+          <div className="form-grid">
+            <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Full Name" className="input" required />
+            <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email Address" className="input" required />
+            <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" className="input" required />
 
+            <select name="role" value={formData.role} onChange={handleChange} className="select" required>
+              <option value="">Select Job Role</option>
+              {jobRoles.map((role, index) => <option key={index} value={role}>{role}</option>)}
+            </select>
+
+            <select name="department" value={formData.department} onChange={handleChange} className="select" required>
+              <option value="">Select Department</option>
+              {departments.map((dept, index) => <option key={index} value={dept}>{dept}</option>)}
+            </select>
+
+            <input type="date" name="joiningDate" value={formData.joiningDate} onChange={handleChange} className="input" required />
+
+            <select name="manager" value={formData.manager} onChange={handleChange} className="select" required>
+              <option value="">Select Reporting Manager</option>
+              {managers.map((mgr, index) => <option key={index} value={mgr}>{mgr}</option>)}
+            </select>
+
+            <input type="file" multiple onChange={handleFileChange} className="input-file" />
+          </div>
+
+          <div className="button-container">
+            <button onClick={handleSubmit} className="button">Add Employee</button>
+            <button className="cancel-button" onClick={() => setShowForm(false)}>Back</button>
+          </div>
         </div>
       )}
+
+      {/* Centered Popup */}
+      <Modal visible={popupVisible} onCancel={() => setPopupVisible(false)} footer={null} centered>
+        <p style={{ textAlign: "center", fontSize: "18px" }}>{popupMessage}</p>
+      </Modal>
     </div>
   );
 };

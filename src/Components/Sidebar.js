@@ -39,6 +39,50 @@ const Sidebar = () => {
       <div style={itemStyles} onClick={() => navigate("/dashboard")}>
         📊 Dashboard
       </div>
+      <div style={itemStyles} onClick={toggleRecruitment}>
+        📝 Recruitment {recruitmentOpen }
+      </div>
+      {recruitmentOpen && (
+        <div style={dropdownStyles}>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/recruitment/job-listings");
+            }}
+          >
+            📋 Job Listings
+          </div>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/recruitment/applicant-management");
+            }}
+          >
+          
+            🗓 Interview Scheduling
+          </div>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/recruitment/offer-letters");
+            }}
+          >
+            ✉️ Offer Letters
+          </div>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/recruitment/onboarding");
+            }}
+          >
+            🚀 Onboarding
+          </div>
+        </div>
+      )}
       <div style={itemStyles} onClick={() => navigate("/employee-management")}>
         👥 Employee Management
       </div>
@@ -89,50 +133,7 @@ const Sidebar = () => {
         </div>
       )}  
 
-      <div style={itemStyles} onClick={toggleRecruitment}>
-        📝 Recruitment {recruitmentOpen }
-      </div>
-      {recruitmentOpen && (
-        <div style={dropdownStyles}>
-          <div
-            style={dropdownItemStyles}
-            onClick={(event) => {
-              event.stopPropagation();
-              navigate("/recruitment/job-listings");
-            }}
-          >
-            📋 Job Listings
-          </div>
-          <div
-            style={dropdownItemStyles}
-            onClick={(event) => {
-              event.stopPropagation();
-              navigate("/recruitment/applicant-management");
-            }}
-          >
-          
-            🗓 Interview Scheduling
-          </div>
-          <div
-            style={dropdownItemStyles}
-            onClick={(event) => {
-              event.stopPropagation();
-              navigate("/recruitment/offer-letters");
-            }}
-          >
-            ✉️ Offer Letters
-          </div>
-          <div
-            style={dropdownItemStyles}
-            onClick={(event) => {
-              event.stopPropagation();
-              navigate("/recruitment/onboarding");
-            }}
-          >
-            🚀 Onboarding
-          </div>
-        </div>
-      )}
+
 
 
 <div style={itemStyles} onClick={toggleBenefits}>

@@ -5,19 +5,41 @@ import "./Recruitment.css";
 function OfferLetters() {
   const [offers, setOffers] = useState([
     {
-      candidate: "A",
-      email: "a@example.com",
+      candidate: "Keerthi",
+      email: "a@gmail.com",
       phone: "9987456321",
       position: "Software Engineer",
-      salary: "80,000",
+      salary: "10LPA",
       joiningDate: "2025-03-01",
       employmentType: "Full-Time",
       workLocation: "On-site",
       offerExpiry: "2025-02-25",
-      hrContact: "Purple",
+      hr: "Keerthi",
+      status: "Sent",
+    },
+    {
+      candidate: "Priya",
+      email: "b@gmail.com",
+      phone: "9987456320",
+      position: "Devops Engineer",
+      salary: "8LPA",
+      joiningDate: "2025-03-17",
+      employmentType: "Full-Time",
+      workLocation: "Remote",
+      offerExpiry: "2025-03-25",
+      hr: "Keerthi",
       status: "Sent",
     },
   ]);
+
+  const [showForm, setShowForm] = useState(false);
+  const [selectedOffer, setSelectedOffer] = useState(null);
+  const [detailsModalVisible, setDetailsModalVisible] = useState(false);
+  const [editMode, setEditMode] = useState(false); 
+
+  const jobPositions = ["Software Engineer", "Product Manager", "UX Designer", "Data Scientist", "QA Engineer"];
+  const employmentTypes = ["Full-Time", "Part-Time", "Contract"];
+  const workLocations = ["Remote", "On-site", "Hybrid"];
 
   const [newOffer, setNewOffer] = useState({
     candidate: "",
@@ -33,18 +55,21 @@ function OfferLetters() {
     status: "Sent",
   });
 
-  const [showForm, setShowForm] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-
-  const jobPositions = ["Software Engineer", "Product Manager", "UX Designer", "Data Scientist", "QA Engineer"];
-  const employmentTypes = ["Full-Time", "Part-Time", "Contract"];
-  const workLocations = ["Remote", "On-site", "Hybrid"];
-
   const handleAddOffer = (e) => {
     e.preventDefault();
     if (newOffer.candidate && newOffer.position && newOffer.email && newOffer.salary) {
-      setOffers([...offers, newOffer]);
+      if (editMode) {
+       
+        const updatedOffers = offers.map((offer, index) =>
+          index === selectedOffer ? newOffer : offer
+        );
+        setOffers(updatedOffers);
+        setEditMode(false);
+      } else {
+       
+        setOffers([...offers, newOffer]);
+      }
+
       setNewOffer({
         candidate: "",
         email: "",
@@ -59,28 +84,21 @@ function OfferLetters() {
         status: "Sent",
       });
       setShowForm(false);
-      showModal("Offer Letter Created Successfully!");
     } else {
-      showModal("Please fill in all required fields.");
+      alert("Please fill in all required fields.");
     }
   };
 
-  const handleStatusChange = (index, status) => {
-    Modal.confirm({
-      title: `Are you sure you want to ${status.toLowerCase()} this offer?`,
-      content: `This action will mark the offer as ${status}.`,
-      onOk: () => {
-        const updatedOffers = [...offers];
-        updatedOffers[index].status = status;
-        setOffers(updatedOffers);
-        showModal(`Offer Letter ${status} Successfully!`);
-      },
-    });
+  const showDetailsModal = (offer) => {
+    setSelectedOffer(offer);
+    setDetailsModalVisible(true);
   };
 
-  const showModal = (message) => {
-    setModalMessage(message);
-    setModalVisible(true);
+  const handleEditOffer = (index) => {
+    setNewOffer(offers[index]);
+    setSelectedOffer(index);
+    setEditMode(true);
+    setShowForm(true);
   };
 
   return (
@@ -100,13 +118,6 @@ function OfferLetters() {
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Position</th>
-                <th>Salary</th>
-                <th>Joining Date</th>
-                <th>Employment Type</th>
-                <th>Work Location</th>
-                <th>Offer Expiry</th>
-                <th>HR Contact</th>
-                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -117,20 +128,9 @@ function OfferLetters() {
                   <td>{offer.email}</td>
                   <td>{offer.phone}</td>
                   <td>{offer.position}</td>
-                  <td>{offer.salary}</td>
-                  <td>{offer.joiningDate}</td>
-                  <td>{offer.employmentType}</td>
-                  <td>{offer.workLocation}</td>
-                  <td>{offer.offerExpiry}</td>
-                  <td>{offer.hrContact}</td>
-                  <td className={`status ${offer.status.toLowerCase()}`}>{offer.status}</td>
                   <td>
-                    <button onClick={() => handleStatusChange(index, "Accepted")} disabled={offer.status !== "Sent"}>
-                      Accept
-                    </button>
-                    <button onClick={() => handleStatusChange(index, "Rejected")} disabled={offer.status !== "Sent"}>
-                      Reject
-                    </button>
+                    <button onClick={() => showDetailsModal(offer)}>View Details</button>
+                    <button onClick={() => handleEditOffer(index)}>Edit</button>
                   </td>
                 </tr>
               ))}
@@ -141,7 +141,7 @@ function OfferLetters() {
 
       {showForm && (
         <form className="offer-form" onSubmit={handleAddOffer}>
-          <h3>Add New Offer Letter</h3>
+          <h3>{editMode ? "Edit Offer Letter" : "Add New Offer Letter"}</h3>
           <input type="text" placeholder="Candidate Name" value={newOffer.candidate} onChange={(e) => setNewOffer({ ...newOffer, candidate: e.target.value })} required />
           <input type="email" placeholder="Candidate Email" value={newOffer.email} onChange={(e) => setNewOffer({ ...newOffer, email: e.target.value })} required />
           <input type="text" placeholder="Phone Number" value={newOffer.phone} onChange={(e) => setNewOffer({ ...newOffer, phone: e.target.value })} />
@@ -174,20 +174,39 @@ function OfferLetters() {
           <input type="text" placeholder="HR Contact Person" value={newOffer.hrContact} onChange={(e) => setNewOffer({ ...newOffer, hrContact: e.target.value })} />
 
           <div className="button-container">
-            <button type="submit">Create Offer Letter</button>
+            <button type="submit">{editMode ? "Update Offer Letter" : "Create Offer Letter"}</button>
           </div>
 
           <button type="button" className="cancel-button" onClick={() => setShowForm(false)}>Back</button>
         </form>
       )}
 
-      {/* Modal for messages */}
-      <Modal visible={modalVisible} onOk={() => setModalVisible(false)} onCancel={() => setModalVisible(false)} footer={[
-        <Button key="ok" type="primary" onClick={() => setModalVisible(false)}>
-          OK
-        </Button>
-      ]}>
-        <p>{modalMessage}</p>
+      <Modal
+        title="Offer Details"
+        visible={detailsModalVisible}
+        onCancel={() => setDetailsModalVisible(false)}
+        footer={[
+          <Button key="close" onClick={() => setDetailsModalVisible(false)}>
+            Close
+          </Button>,
+        ]}
+        className="custom-modal"
+      >
+        {selectedOffer && (
+          <div className="offer-details">
+            <p><strong>Candidate:</strong> {selectedOffer.candidate}</p>
+            <p><strong>Email:</strong> {selectedOffer.email}</p>
+            <p><strong>Phone:</strong> {selectedOffer.phone}</p>
+            <p><strong>Position:</strong> {selectedOffer.position}</p>
+            <p><strong>Salary:</strong> {selectedOffer.salary}</p>
+            <p><strong>Joining Date:</strong> {selectedOffer.joiningDate}</p>
+            <p><strong>Employment Type:</strong> {selectedOffer.employmentType}</p>
+            <p><strong>Work Location:</strong> {selectedOffer.workLocation}</p>
+            <p><strong>Offer Expiry:</strong> {selectedOffer.offerExpiry}</p>
+            <p><strong>HR Contact:</strong> {selectedOffer.hrContact}</p>
+            <p><strong>Status:</strong> {selectedOffer.status}</p>
+          </div>
+        )}
       </Modal>
     </div>
   );
