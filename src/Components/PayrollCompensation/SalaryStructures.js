@@ -156,11 +156,12 @@ const SalaryStructure = () => {
                             <td>{item.hra}</td>
                             <td>{item.month}</td>
                             <td>{item.year}</td>
-                            <td>
+                            <td> 
+                            <div className="salary-action-buttons">
                                 <button className="salary-view-btn" onClick={() => handleView(item)}>👁️ </button>
                                 <button className="salary-edit-btn" onClick={() => handleEdit(item)}> Edit</button>
                                 <button className="salary-delete-btn" onClick={() => confirmDelete(item)}> Delete</button>
-                               
+                                </div>
 
 
                             </td>

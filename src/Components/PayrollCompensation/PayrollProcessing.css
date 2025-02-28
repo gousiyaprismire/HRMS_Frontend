@@ -82,10 +82,17 @@
   background-color: #ffc107;
   color: black;
 }
-
+.payroll-edit-btn:hover {
+  background-color: #ffc107;
+}
 .payroll-delete-btn {
   background-color: #dc3545;
   color: white;
+}
+
+
+.payroll-delete-btn:hover {
+  background-color: #dc3545;
 }
 
 
@@ -170,9 +177,17 @@
   color: white;
 }
 
+.payroll-save-btn:hover {
+  background-color: #28a745;
+}
+
 .payroll-cancel-btn {
   background-color: #dc3545;
   color: white;
+}
+
+.payroll-cancel-btn:hover {
+  background-color: #dc3545;
 }
 
 .payroll-delete-popup {

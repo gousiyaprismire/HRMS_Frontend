@@ -150,6 +150,7 @@
   cursor: pointer;
   border-radius: 4px;
   font-size: 16px;
+  gap: 50px;
 }
 
 .salary-cancel-btn,
@@ -161,6 +162,7 @@
   cursor: pointer;
   border-radius: 4px;
   font-size: 16px;
+  gap:50px;
 }
 
 .salary-save-btn:hover,
@@ -213,6 +215,13 @@
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  gap: 20px;
+}
+
+.salary-action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 
