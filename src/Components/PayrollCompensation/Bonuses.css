@@ -72,10 +72,17 @@
   background-color: #ffc107;
   color: black;
 }
+.bonus-edit-btn:hover {
+  background-color: #ffc107;
+}
 
 .bonus-delete-btn {
   background-color: #dc3545;
   color: white;
+}
+
+.bonus-delete-btn:hover {
+  background-color: #dc3545;
 }
 
 .bonus-popup-overlay {
@@ -156,10 +163,17 @@
   background-color: #28a745;
   color: white;
 }
+.bonus-save-btn:hover {
+  background-color: #28a745;
+}
 
 .bonus-cancel-btn {
   background-color: #dc3545;
   color: white;
+}
+
+.bonus-cancel-btn:hover {
+  background-color: #dc3545;
 }
 
 .bonus-delete-popup {

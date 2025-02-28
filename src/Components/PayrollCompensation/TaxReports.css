@@ -73,9 +73,18 @@
   color: black;
 }
 
+.tax-edit-btn:hover {
+  background-color: #ffc107;
+}
+
+
 .tax-delete-btn {
   background-color: #dc3545;
   color: white;
+}
+
+.tax-delete-btn:hover {
+  background-color: #dc3545;
 }
 
 .tax-popup-overlay {
@@ -164,11 +173,17 @@
   color: white;
 }
 
+.tax-save-btn:hover {
+  background-color: #28a745;
+}
+
 .tax-cancel-btn {
   background-color: #dc3545;
   color: white;
 }
-
+.tax-cancel-btn:hover {
+  background-color: #dc3545;
+}
 
 .tax-delete-popup {
   background: white;
