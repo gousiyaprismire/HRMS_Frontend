@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { TextField, Snackbar, Alert } from "@mui/material";
+import { TextField, Snackbar, Alert, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material"; 
 import "./SalaryStructures.css";
 
 const SalaryStructure = () => {
     const [openAddForm, setOpenAddForm] = useState(false);
+    const [deletePopup, setDeletePopup] = useState(false); 
     const [openViewPopup, setOpenViewPopup] = useState(false);
     const [selectedEntry, setSelectedEntry] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
@@ -51,12 +52,6 @@ const SalaryStructure = () => {
         setOpenAddForm(false);
     };
 
-    const handleCloseViewPopup = () => {
-        setOpenViewPopup(false);
-        setSelectedEntry(null);
-        setIsEditing(false);
-    };
-
     const handleChange = (e) => {
         setNewEntry({ ...newEntry, [e.target.name]: e.target.value });
     };
@@ -74,12 +69,30 @@ const SalaryStructure = () => {
 
     const handleView = (entry) => {
         setSelectedEntry({ ...entry });
+        setIsEditing(false); 
         setOpenViewPopup(true);
     };
-
-    const handleEdit = () => {
+    
+    const handleEdit = (entry) => {
+        setSelectedEntry({ ...entry });
         setIsEditing(true);
+        setOpenViewPopup(true);
     };
+    
+    
+
+    const confirmDelete = (entry) => {
+        setSelectedEntry(entry);
+        setDeletePopup(true); 
+    };
+    
+    const handleDelete = (entry) => {
+        setData(data.filter(item => item.empId !== entry.empId));
+        setMessage({ open: true, text: "Deleted successfully!", type: "success" });
+        setDeletePopup(false); 
+    };
+    
+    
 
     const handleUpdate = () => {
         setData(data.map(item => (item.empId === selectedEntry.empId ? selectedEntry : item)));
@@ -87,11 +100,6 @@ const SalaryStructure = () => {
         setIsEditing(false);
     };
 
-    const handleDelete = () => {
-        setData(data.filter(item => item.empId !== selectedEntry.empId));
-        setOpenViewPopup(false);
-        setMessage({ open: true, text: "Deleted successfully!", type: "success" });
-    };
 
     const filteredData = data.filter(item =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
@@ -149,53 +157,18 @@ const SalaryStructure = () => {
                             <td>{item.month}</td>
                             <td>{item.year}</td>
                             <td>
-                                <button className="salary-view-btn" onClick={() => handleView(item)}>👁️ View</button>
+                                <button className="salary-view-btn" onClick={() => handleView(item)}>👁️ </button>
+                                <button className="salary-edit-btn" onClick={() => handleEdit(item)}> Edit</button>
+                                <button className="salary-delete-btn" onClick={() => confirmDelete(item)}> Delete</button>
+                               
+
+
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
 
-            {openViewPopup && selectedEntry && (
-                <div className="salary-form-overlay show">
-                    <div className="salary-popup">
-                        <button className="salary-close-btn" onClick={handleCloseViewPopup}>×</button>
-                        <h2>View Salary Details</h2>
-                        {Object.keys(selectedEntry).map((key) => (
-                            <div key={key} className="salary-form-group">
-                                <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
-                                <TextField
-                                    name={key}
-                                    value={selectedEntry[key]}
-                                    onChange={(e) => setSelectedEntry({ ...selectedEntry, [e.target.name]: e.target.value })}
-                                    fullWidth
-                                    disabled={!isEditing}
-                                />
-                            </div>
-                        ))}
-                        <div className="salary-form-buttons">
-                            {isEditing ? (
-                                <button className="salary-save-btn" onClick={handleUpdate}>Save</button>
-                            ) : (
-                                <button className="salary-edit-btn" onClick={handleEdit}>Edit</button>
-                            )}
-                            <button className="salary-delete-btn" onClick={handleDelete}>Delete</button>
-                            <button className="salary-cancel-btn" onClick={handleCloseViewPopup}>Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            <Snackbar
-                open={message.open}
-                autoHideDuration={3000}
-                onClose={() => setMessage({ ...message, open: false })}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            >
-                <Alert severity={message.type}>{message.text}</Alert>
-            </Snackbar>
-
-        
             {openAddForm && (
                 <div className="salary-form-overlay show">
                     <div className="salary-popup">
@@ -204,7 +177,12 @@ const SalaryStructure = () => {
                         {Object.keys(newEntry).map((key) => (
                             <div key={key} className="salary-form-group">
                                 <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
-                                <TextField name={key} value={newEntry[key]} onChange={handleChange} fullWidth />
+                                <TextField
+                                    name={key}
+                                    value={newEntry[key]}
+                                    onChange={handleChange}
+                                    fullWidth
+                                />
                             </div>
                         ))}
                         <div className="salary-form-buttons">
@@ -214,6 +192,61 @@ const SalaryStructure = () => {
                     </div>
                 </div>
             )}
+
+<Dialog open={deletePopup} onClose={() => setDeletePopup(false)}>
+                <DialogTitle>Confirm Delete</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Are you sure you want to delete the salary record for <b>{selectedEntry?.name}</b>?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={() => setDeletePopup(false)} color="secondary">Cancel</Button>
+                <Button onClick={() => handleDelete(selectedEntry)} color="primary">Delete</Button>  
+                </DialogActions>
+            </Dialog>
+
+            
+          {openViewPopup && selectedEntry && (
+    <div className="salary-form-overlay show">
+        <div className="salary-popup">
+            <button className="salary-close-btn" onClick={() => setOpenViewPopup(false)}>×</button>
+            <h2>{isEditing ? "Edit Salary Details" : "View Salary Details"}</h2>
+            {Object.keys(selectedEntry).map((key) => (
+                <div key={key} className="salary-form-group">
+                    <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
+                    <TextField
+                        name={key}
+                        value={selectedEntry[key]}
+                        onChange={(e) => setSelectedEntry({ ...selectedEntry, [e.target.name]: e.target.value })}
+                        fullWidth
+                        disabled={!isEditing}
+                    />
+                </div>
+            ))}
+            <div className="salary-form-buttons">
+                {isEditing ? (
+                    <button className="salary-save-btn" onClick={handleUpdate}>Save</button>
+                ) : (
+                    <button className="salary-edit-btn" onClick={() => setIsEditing(true)}>Edit</button>
+                )}
+                <button className="salary-cancel-btn" onClick={() => setOpenViewPopup(false)}>Cancel</button>
+            </div>
+        </div>
+    </div>
+)}
+
+
+            
+
+            <Snackbar
+                open={message.open}
+                autoHideDuration={3000}
+                onClose={() => setMessage({ ...message, open: false })}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            >
+                <Alert severity={message.type}>{message.text}</Alert>
+            </Snackbar>
         </div>
     );
 };
