@@ -199,13 +199,19 @@ const Applicant = () => {
         </div>
       )}
 
-      {popupMessage && (
-        <div className="popup">
-          <div className="popup-content">
-            <p>{popupMessage}</p>
-          </div>
-        </div>
-      )}
+{popupMessage && (
+  <div className="popup-overlay">
+    <div className="popup">
+      <div className="popup-content">
+        <p>{popupMessage}</p>
+        <button className="popup-close-btn" onClick={() => setPopupMessage("")}>
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };
