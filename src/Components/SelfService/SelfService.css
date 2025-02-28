@@ -10,6 +10,7 @@
   font-family: Roboto, sans-serif;
   padding: 20px;
   box-sizing: border-box;
+  
 }
 
 .selfservice-dashboard {
@@ -71,7 +72,7 @@
 
 
 
-/*  Profile Update  */
+/* Profile update */
 
 .selfservice-profile-update-container {
   max-width: 1800px;
@@ -81,6 +82,7 @@
   border-radius: 10px;
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
   font-family: Roboto, sans-serif;
+  
 }
 
 
@@ -108,7 +110,7 @@
 }
 
 .selfservice-profile-table th {
-  background-color: #D88A29;
+  background-color: rgb(193, 136, 171);;
   color: white;
 }
 
@@ -175,11 +177,29 @@
 .selfservice-add-profile-button {
   background-color: #D88A29;
   color: white;
-  margin-top: 10px;
+  margin-bottom: 20px; 
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
+.selfservice-profile-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px; 
+}
+
+.selfservice-profile-table th,
+.selfservice-profile-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+
 .selfservice-profile-update-button {
-  background-color: #aa853e;
+  background-color: Green;
   color: white;
 }
 
@@ -195,7 +215,7 @@
 }
 
 .selfservice-profile-update-button:hover {
-  background-color: #D88A29;
+  background-color: Green;
 }
 
 .selfservice-back-button:hover {
@@ -230,6 +250,17 @@
   margin-bottom: 15px;
   font-weight: bold;
 }
+.expense-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+}
+.expense-toggle-button {
+  margin-bottom: 5;
+}
+.expense-table {
+  margin-top: 20px;
+}
 
 .expense-toggle-button {
   background-color: #D88A29;
@@ -238,9 +269,14 @@
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  margin-left: 30px; 
   transition: background 0.3s ease;
+  align-self: flex-start;
+  position: absolute;
+  left: 0;
 }
+
 
 .expense-toggle-button:hover {
   background-color: #aa853e;
@@ -256,7 +292,8 @@
 .expense-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin-top: 20px;
+  
 }
 
 .expense-table th, .expense-table td {
@@ -266,7 +303,8 @@
 }
 
 .expense-table th {
-  background-color: #D88A29;
+  background-color: rgb(193, 136, 171);
+  color:white;
 }
 
 .expense-status {
@@ -313,7 +351,7 @@
 }
 
 .expense-reimbursement-button {
-  background-color: #D88A29;
+  background-color: Green;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -327,11 +365,11 @@
 
 
 .expense-reimbursement-button:hover {
-  background-color: #aa853e;
+  background-color: Green;
 }
 
 .expense-cancel-button {
-  background-color: #D88A29;
+  background-color: Red;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -354,7 +392,7 @@
 }
 
 .expense-cancel-button:hover {
-  background-color: #aa853e;
+  background-color: Red;
 }
 
 
@@ -373,7 +411,7 @@
 }
 
 .helpdesk-add-button {
-  display: block;
+  /* display: block; */
   margin: 10px auto;
   background-color: #D88A29;
   color: white;
@@ -413,28 +451,29 @@
 }
 
 .helpdesk-submit-button {
-  background-color: #D88A29;
+  background-color: Green;
   color: white;
   padding: 5px 10px;
-  font-size: 16px;
+  font-size: 14px; 
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s ease;
-  width: 120px;
-  height: 50px;
+  width: 150px;
+  height: 40px;
   text-align: center;
   display: block;
-  margin: 10px auto; /* Centers the button */
+  margin: 10px auto;
 }
 
+
 .helpdesk-submit-button:hover {
-  background-color: #aa853e;
+  background-color: green;
 }
 
 
 .helpdesk-cancel-button {
-  background-color: #D88A29;
+  background-color: red;
   color: white;
   padding: 5px 15px;
   border: none;
@@ -445,13 +484,13 @@
   display: block;
   width: 80px;
   font-size: 16px;
-  height: 40px;
+  height: 30px;
   margin-left: 0;
   margin-top: 40px; 
 }
 
 .helpdesk-cancel-button:hover {
-  background-color: #aa853e;
+  background-color: red;
 }
 
 .helpdesk-table {
@@ -464,9 +503,11 @@
   border: 1px solid #ddd;
   padding: 10px;
   text-align: center;
- 
 }
-
+.helpdesk-table th {
+  background-color: rgb(193, 136, 171);; 
+  color: white; 
+}
 .helpdesk-status-badge {
   padding: 5px 10px;
   border-radius: 5px;

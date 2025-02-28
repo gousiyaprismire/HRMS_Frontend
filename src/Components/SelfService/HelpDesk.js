@@ -68,7 +68,7 @@ const HelpDesk = () => {
       {!showForm && (
         <>
           <button className="helpdesk-add-button" onClick={() => setShowForm(true)}>
-            Submit New Ticket
+           New Ticket
           </button>
 
           <div className="helpdesk-status">
