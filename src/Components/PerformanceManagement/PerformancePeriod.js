@@ -53,30 +53,31 @@ const PerformancePeriod = () => {
       <p>Manage appraisal periods for employees and managers.</p>
 
       <form onSubmit={handleSubmit} className="period-form">
-        <input
-          type="text"
-          name="name"
-          placeholder="Performance Period Name"
-          value={newPeriod.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="date"
-          name="startDate"
-          value={newPeriod.startDate}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="date"
-          name="endDate"
-          value={newPeriod.endDate}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">{editingId ? "Update Period" : "Add Period"}</button>
-      </form>
+  <input
+    type="text"
+    name="name"
+    placeholder="Performance Period Name"
+    value={newPeriod.name}
+    onChange={handleChange}
+    required
+  />
+  <input
+    type="date"
+    name="startDate"
+    value={newPeriod.startDate}
+    onChange={handleChange}
+    required
+  />
+  <input
+    type="date"
+    name="endDate"
+    value={newPeriod.endDate}
+    onChange={handleChange}
+    required
+  />
+  <button type="submit">{editingId ? "Update" : "Add"}</button>
+</form>
+
 
       <table className="performance-period-table">
         <thead>
