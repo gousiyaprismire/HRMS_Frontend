@@ -1,9 +1,10 @@
-.performance-appraisal-container {
+
+.performance-appraisal-container { 
     margin-left: 20px; 
     padding: 20px;
 }
 
-.performance-appraisal-filters {
+.performance-appraisal-filters { 
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -12,7 +13,7 @@
     margin-bottom: 20px;
 }
 
-.performance-appraisal-filters select {
+.performance-appraisal-filters select { 
     padding: 10px;
     font-size: 14px;
     border-radius: 5px;
@@ -21,7 +22,7 @@
     min-width: 200px;
 }
 
-.performance-appraisal-show-btn {
+.performance-appraisal-show-btn { 
     padding: 10px 16px;
     font-size: 14px;
     border-radius: 5px;
@@ -36,13 +37,15 @@
     background: #218838;
 }
 
-.performance-appraisal-action-buttons {
+
+.performance-appraisal-action-buttons { 
     display: flex;
     gap: 15px;
     margin-bottom: 20px;
 }
 
-.performance-appraisal-release-btn, .performance-appraisal-recall-btn {
+.performance-appraisal-release-btn, 
+.performance-appraisal-recall-btn { 
     padding: 10px 16px;
     font-size: 14px;
     border-radius: 5px;
@@ -51,7 +54,7 @@
     transition: 0.3s;
 }
 
-.performance-appraisal-release-btn {
+.performance-appraisal-release-btn { 
     background: #007bff;
     color: white;
 }
@@ -69,40 +72,43 @@
     background: #c82333;
 }
 
-.performance-appraisal-appraisal-table {
+
+.performance-appraisal-appraisal-table { 
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     background: white;
     border-radius: 8px;
+    text-align: center;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 .performance-appraisal-appraisal-table th {
-    background: #ff8c00;
+    background:#011218; 
     color: white;
-    padding: 12px;
-    text-align: left;
-    font-size: 14px;
+    padding: 14px;
+    text-align: center; 
+    font-size: 16px;
+    border-bottom: 2px solid #005b8e;
+    text-transform: uppercase;
 }
 
 
-.appraisal-table td {
+.performance-appraisal-appraisal-table td {
     padding: 12px;
     border-bottom: 1px solid #ddd;
     font-size: 14px;
     color: #333;
+    text-align: center; 
 }
 
-
-.appraisal-form-actions {
+.appraisal-form-actions { 
     display: flex;
     gap: 20px; 
 }
 
-
-.appraisal-form-edit-btn, .appraisal-form-delete-btn {
+.performance-appraisal-form-edit-btn, 
+.performance-appraisal-form-delete-btn { 
     padding: 8px 14px;
     border-radius: 5px;
     font-size: 14px;

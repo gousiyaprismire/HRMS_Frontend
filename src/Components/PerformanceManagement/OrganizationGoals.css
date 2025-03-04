@@ -31,6 +31,7 @@
 .organization-goal-table th, .organization-goal-table td {
     border: 1px solid #ddd;
     padding: 10px;
+    font-size: 18px;
     text-align: left;
 }
 
@@ -70,4 +71,67 @@
     position: relative;
     margin-left: auto;
     margin-top: 0;
+}
+.organization-goal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white; 
+}
+
+.organization-goal-table th, .organization-goal-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center; 
+}
+
+.organization-goal-table th {
+    background-color: #4a4a4a;
+    color: white;
+    font-weight: bold;
+}
+
+.organization-goal-table tbody tr:nth-child(2) {
+    background: white !important;
+}
+
+/* .modal {
+    background: white; 
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+} */
+
+.modal {
+    background: white; 
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.modal-actions button {
+    padding: 8px 15px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.modal-actions button:first-child {
+    /* background-color: #dc3545;  */
+    background-color: #28a745; 
+    color: white;
+}
+
+.modal-actions button:last-child {
+    /* background-color: #28a745;  */
+    background-color: #dc3545; 
+    color: white;
 }

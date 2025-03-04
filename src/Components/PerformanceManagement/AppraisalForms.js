@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; 
 import "./AppraisalForms.css";
 
 const AppraisalForms = () => {
@@ -19,7 +19,9 @@ const AppraisalForms = () => {
   };
 
   const deleteForm = (id) => {
-    setForms(forms.filter((form) => form.id !== id));
+    if (window.confirm("Are you sure you want to delete this form?")) {
+      setForms(forms.filter((form) => form.id !== id));
+    }
   };
 
   const releaseForms = () => {
@@ -97,6 +99,11 @@ const AppraisalForms = () => {
           )}
         </tbody>
       </table>
+
+      {/* <div className="appraisal-form-actions">
+        <button className="save-btn">Save</button>
+        <button className="cancel-btn">Cancel</button>
+      </div> */}
     </div>
   );
 };
