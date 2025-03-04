@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import "./EmployeeAttendanceTracking.css";
+import "./EmployeeAttendanceTracking.css";
 
 function EmployeeAttendanceTracking() {
   const [records] = useState([
@@ -10,19 +10,28 @@ function EmployeeAttendanceTracking() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredRecords, setFilteredRecords] = useState(records);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   const handleSearch = (e) => {
-    const query = e.target.value.trim().toLowerCase();
+    const query = e.target.value.toLowerCase();
     setSearchQuery(query);
 
-    if (query === "") {
-      setFilteredRecords(records); // Show all records when input is empty
-    } else {
-      const filtered = records.filter(
-        (record) =>
-          record.id.toString() === query || record.name.toLowerCase().includes(query)
-      );
-      setFilteredRecords(filtered);
+    const filtered = records.filter(
+      (record) =>
+        record.id.toString().includes(query) ||
+        record.name.toLowerCase().includes(query)
+    );
+
+    setFilteredRecords(filtered);
+  };
+
+  const handleViewDetails = (employee) => {
+    setSelectedEmployee(employee);
+  };
+
+  const handleClosePopup = (e) => {
+    if (e.target.classList.contains("modal-overlay")) {
+      setSelectedEmployee(null);
     }
   };
 
@@ -41,37 +50,51 @@ function EmployeeAttendanceTracking() {
       </div>
 
       <div className="attendance-table-container">
-        <table className="attendance-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredRecords.length > 0 ? (
-              filteredRecords.map((record) => (
+        {filteredRecords.length > 0 ? (
+          <table className="attendance-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredRecords.map((record) => (
                 <tr key={record.id}>
                   <td>{record.id}</td>
                   <td>{record.name}</td>
                   <td>
-                    <button className="attendance-button">
+                    <button
+                      className="attendance-button"
+                      onClick={() => handleViewDetails(record)}
+                    >
                       View Details
                     </button>
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="3" className="attendance-no-records">
-                  No records found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p className="attendance-no-records">No records found</p>
+        )}
       </div>
+
+      {selectedEmployee && (
+        <div className="modal-overlay" onClick={handleClosePopup}>
+          <div className="modal-content">
+            <h3>Attendance Details</h3>
+            <p><strong>ID:</strong> {selectedEmployee.id}</p>
+            <p><strong>Name:</strong> {selectedEmployee.name}</p>
+            <p><strong>Clock In:</strong> {selectedEmployee.clockIn}</p>
+            <p><strong>Clock Out:</strong> {selectedEmployee.clockOut}</p>
+            <button className="close-button" onClick={() => setSelectedEmployee(null)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
