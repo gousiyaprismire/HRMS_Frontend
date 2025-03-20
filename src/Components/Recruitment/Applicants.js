@@ -1,30 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./Recruitment.css";
+
+const API_URL = "http://localhost:8080/applicants"; 
+
+const degrees = ["B.Sc", "M.Sc", "B.Tech", "M.Tech", "MBA", "Ph.D"];
+const departments = ["HR", "Engineering", "Marketing", "Finance", "Operations"];
+const appliedJobs = ["Software Engineer", "Data Analyst", "Marketing Executive", "HR Manager"];
 
 const Applicant = () => {
   const [showForm, setShowForm] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
-  const [applicants, setApplicants] = useState([
-    {
-      id: 1,
-      applicantName: "Keerthi",
-      email: "Purple@p.com",
-      mobile: "7865461234",
-      appliedJob: "Frontend Developer",
-      status: "Shortlisted",
-    },
-    {
-      id: 2,
-      applicantName: "Priya",
-      email: "Dolly@d.com",
-      mobile: "9876543210",
-      appliedJob: "Backend Developer",
-      status: "Hired",
-    },
-  ]);
+  const [applicants, setApplicants] = useState([]);
 
   const [formData, setFormData] = useState({
-    applicantName: "",
+    name: "",
     email: "",
     mobile: "",
     degree: "",
@@ -38,32 +28,91 @@ const Applicant = () => {
     source: "",
     referredBy: "",
     status: "Pending",
+    resume: { url: "" },
   });
 
+ 
+  useEffect(() => {
+    fetchApplicants();
+  }, []);
+
+  const fetchApplicants = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setApplicants(response.data);
+    } catch (error) {
+      console.error("Error fetching applicants:", error);
+    }
+  };
+
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    if (name === "resume") {
+      setFormData({ ...formData, resume: { url: value } });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.applicantName || !formData.email || !formData.mobile || !formData.degree || !formData.appliedJob || !formData.expectedSalary || !formData.department) {
-      alert("Please fill in all required fields before saving.");
+
+    if (!formData.name || !formData.email || !formData.mobile || !formData.degree || !formData.appliedJob || !formData.expectedSalary || !formData.department) {
+      showPopup("Please fill in all required fields before saving.");
       return;
     }
-    setApplicants([...applicants, { id: applicants.length + 1, ...formData }]);
-    setShowForm(false);
-    resetForm();
+
+    try {
+      const response = await axios.post(API_URL, formData);
+      setApplicants([...applicants, response.data]); 
+      setShowForm(false);
+      showPopup("Applicant added successfully!");
+      resetForm();
+    } catch (error) {
+      console.error("Error adding applicant:", error);
+      showPopup("Failed to add applicant. Try again!");
+    }
   };
 
-  const handleCancel = () => {
-    setShowForm(false);
-    resetForm();
+  
+  const updateStatus = async (id, newStatus) => {
+    try {
+      const applicantToUpdate = applicants.find((app) => app.id === id);
+      if (!applicantToUpdate) {
+        showPopup("Applicant not found!");
+        return;
+      }
+
+      const updatedApplicant = { ...applicantToUpdate, status: newStatus };
+
+      const response = await axios.put(`${API_URL}/${id}`, updatedApplicant); 
+      console.log("Updated Applicant:", response.data); 
+
+      setApplicants((prevApplicants) =>
+        prevApplicants.map((app) =>
+          app.id === id ? { ...app, status: newStatus } : app
+        )
+      );
+
+      showPopup(`Applicant status updated to "${newStatus}"`);
+    } catch (error) {
+      console.error("Error updating status:", error);
+      showPopup("Failed to update status. Try again!");
+    }
   };
 
+  
+  const showPopup = (message) => {
+    setPopupMessage(message);
+    setTimeout(() => setPopupMessage(""), 2000);
+  };
+
+ 
   const resetForm = () => {
     setFormData({
-      applicantName: "",
+      name: "",
       email: "",
       mobile: "",
       degree: "",
@@ -77,17 +126,8 @@ const Applicant = () => {
       source: "",
       referredBy: "",
       status: "Pending",
+      resume: { url: "" },
     });
-  };
-
-  const updateStatus = (id, newStatus) => {
-    setApplicants(
-      applicants.map((app) =>
-        app.id === id ? { ...app, status: newStatus } : app
-      )
-    );
-    setPopupMessage(`Applicant status updated to "${newStatus}"`);
-    setTimeout(() => setPopupMessage(""), 2000);
   };
 
   return (
@@ -112,7 +152,7 @@ const Applicant = () => {
             <tbody>
               {applicants.map((app) => (
                 <tr key={app.id}>
-                  <td>{app.applicantName}</td>
+                  <td>{app.name}</td>
                   <td>{app.email}</td>
                   <td>{app.mobile}</td>
                   <td>{app.appliedJob}</td>
@@ -135,83 +175,85 @@ const Applicant = () => {
         </div>
       )}
 
-      {showForm && (
+{showForm && (
         <div className="applicant-right-section">
           <h3>Add Applicant</h3>
           <form onSubmit={handleSubmit} className="applicant-form">
             <div className="applicant-form-grid">
-              <div className="applicant-form-group">
-                <label>Applicant's Name:</label>
-                <input type="text" name="applicantName" value={formData.applicantName} onChange={handleChange} placeholder="Enter applicant's name" />
-              </div>
-              <div className="applicant-form-group">
-                <label>Email:</label>
-                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter email" />
-              </div>
-              <div className="applicant-form-group">
-                <label>Mobile:</label>
-                <input type="text" name="mobile" value={formData.mobile} onChange={handleChange} placeholder="Enter mobile" />
-              </div>
+              {[
+                { label: "Name", name: "name", type: "text" },
+                { label: "Email", name: "email", type: "email" },
+                { label: "Mobile", name: "mobile", type: "text" },
+                { label: "Expected Salary", name: "expectedSalary", type: "number" },
+                { label: "Appreciation", name: "appreciation", type: "number" },
+                { label: "Resume URL", name: "resume", type: "text" },
+              ].map((field) => (
+                <div key={field.name} className="applicant-form-group">
+                  <label>{field.label}:</label>
+                  <input
+                    type={field.type}
+                    name={field.name}
+                    value={field.name === "resume" ? formData.resume.url : formData[field.name]}
+                    onChange={handleChange}
+                    placeholder={`Enter ${field.label.toLowerCase()}`}
+                  />
+                </div>
+              ))}
+
+              
               <div className="applicant-form-group">
                 <label>Degree:</label>
                 <select name="degree" value={formData.degree} onChange={handleChange}>
-                  <option value="">Select degree</option>
-                  <option value="bachelors">Bachelors</option>
-                  <option value="masters">Masters</option>
-                  <option value="phd">PhD</option>
+                  <option value="">Select Degree</option>
+                  {degrees.map((degree) => (
+                    <option key={degree} value={degree}>{degree}</option>
+                  ))}
                 </select>
               </div>
+
+              
               <div className="applicant-form-group">
                 <label>Department:</label>
                 <select name="department" value={formData.department} onChange={handleChange}>
-                  <option value="">Select department</option>
-                  <option value="engineering">Engineering</option>
-                  <option value="hr">Human Resources</option>
-                  <option value="marketing">Marketing</option>
-                  <option value="sales">Sales</option>
+                  <option value="">Select Department</option>
+                  {departments.map((dept) => (
+                    <option key={dept} value={dept}>{dept}</option>
+                  ))}
                 </select>
               </div>
+
               <div className="applicant-form-group">
                 <label>Applied Job:</label>
                 <select name="appliedJob" value={formData.appliedJob} onChange={handleChange}>
-                  <option value="">Select job</option>
-                  <option value="softwareTester">Software Tester</option>
-                  <option value="developer">Full Stack Developer</option>
-                  <option value="frontend">Frontend Developer</option>
-                  <option value="backend">Backend Developer</option>
-                  <option value="devops">DevOps Engineer</option>
+                  <option value="">Select Job</option>
+                  {appliedJobs.map((job) => (
+                    <option key={job} value={job}>{job}</option>
+                  ))}
                 </select>
               </div>
-              <div className="applicant-form-group">
-                <label>Expected Salary:</label>
-                <input type="number" name="expectedSalary" value={formData.expectedSalary} onChange={handleChange} placeholder="Enter expected salary" />
-              </div>
-              <div className="applicant-form-group">
-                <label>Appreciation:</label>
-                <input type="number" name="appreciation" value={formData.appreciation} onChange={handleChange} placeholder="Enter appreciation score" />
-              </div>
             </div>
+
             <div className="applicant-form-buttons">
               <button type="submit" className="applicant-btn save-btn">Save</button>
-              <button type="button" className="applicant-btn cancel-btn" onClick={handleCancel}>Cancel</button>
+              <button type="button" className="applicant-btn cancel-btn" onClick={() => setShowForm(false)}>Cancel</button>
             </div>
           </form>
         </div>
       )}
 
-{popupMessage && (
-  <div className="popup-overlay">
-    <div className="popup">
-      <div className="popup-content">
-        <p>{popupMessage}</p>
-        <button className="popup-close-btn" onClick={() => setPopupMessage("")}>
-          OK
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
+    
+      {popupMessage && (
+        <div className="popup-overlay">
+          <div className="popup">
+            <div className="popup-content">
+              <p>{popupMessage}</p>
+              <button className="popup-close-btn" onClick={() => setPopupMessage("")}>
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
