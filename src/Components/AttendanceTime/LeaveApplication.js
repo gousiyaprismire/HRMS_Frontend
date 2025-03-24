@@ -1,52 +1,98 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./leaveApplication.css";
 
-function LeaveApplication() {
-  const [leaveRequests, setLeaveRequests] = useState([
-    { id: 1, name: "Manjunadh", leaveType: "Sick Leave", startDate: "2025-02-05", endDate: "2025-02-06", status: "Pending" },
-    { id: 2, name: "Eknath", leaveType: "Vacation", startDate: "2025-02-10", endDate: "2025-02-15", status: "Approved" }
-  ]);
+const API_URL = "http://localhost:8080/api/leave-applications";
 
+function LeaveApplication() {
+  const [leaveRequests, setLeaveRequests] = useState([]);
   const [formData, setFormData] = useState({
     id: null,
+    empId: "",
     name: "",
     leaveType: "Sick Leave",
     startDate: "",
-    endDate: ""
+    endDate: "",
+    status: "Pending",
   });
-  
+
   const [isEditing, setIsEditing] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleteEntry, setDeleteEntry] = useState(null);
 
+  useEffect(() => {
+    fetchLeaveRequests();
+  }, []);
+
+  const fetchLeaveRequests = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setLeaveRequests(response.data);
+    } catch (error) {
+      console.error("Error fetching leave requests:", error);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isEditing) {
-      setLeaveRequests(leaveRequests.map(req => req.id === formData.id ? { ...formData, status: "Pending" } : req));
-    } else {
-      const newLeaveRequest = { id: leaveRequests.length + 1, ...formData, status: "Pending" };
-      setLeaveRequests([...leaveRequests, newLeaveRequest]);
+
+    if (!formData.empId.trim()) {
+      alert("Employee ID cannot be empty.");
+      return;
     }
-    setShowSuccess(true);
-    setTimeout(() => {
-      setShowSuccess(false);
-      setShowForm(false);
-      setFormData({ id: null, name: "", leaveType: "Sick Leave", startDate: "", endDate: "" });
-      setIsEditing(false);
-    }, 2000);
+
+    try {
+      if (isEditing) {
+        await axios.put(`${API_URL}/${formData.id}`, formData);
+      } else {
+        await axios.post(API_URL, { ...formData, status: "Pending", empId: formData.empId.trim() });
+      }
+
+      fetchLeaveRequests();
+      setShowSuccess(true);
+
+      setTimeout(() => {
+        setShowSuccess(false);
+        setShowForm(false);
+        resetForm();
+        setIsEditing(false);
+      }, 2000);
+    } catch (error) {
+      console.error("Error submitting leave request:", error);
+    }
   };
 
   const handleEdit = (request) => {
-    setFormData(request);
+    setFormData({
+      id: request.id,
+      empId: request.empId || "",
+      name: request.name,
+      leaveType: request.leaveType,
+      startDate: request.startDate,
+      endDate: request.endDate,
+      status: request.status || "Pending",
+    });
     setIsEditing(true);
     setShowForm(true);
+  };
+
+  const resetForm = () => {
+    setFormData({
+      id: null,
+      empId: "",
+      name: "",
+      leaveType: "Sick Leave",
+      startDate: "",
+      endDate: "",
+      status: "Pending",
+    });
   };
 
   const handleDelete = (entry) => {
@@ -54,9 +100,14 @@ function LeaveApplication() {
     setShowDeleteDialog(true);
   };
 
-  const confirmDelete = () => {
-    setLeaveRequests(leaveRequests.filter(req => req.id !== deleteEntry.id));
-    setShowDeleteDialog(false);
+  const confirmDelete = async () => {
+    try {
+      await axios.delete(`${API_URL}/${deleteEntry.id}`);
+      fetchLeaveRequests();
+      setShowDeleteDialog(false);
+    } catch (error) {
+      console.error("Error deleting leave request:", error);
+    }
   };
 
   const cancelDelete = () => {
@@ -67,11 +118,15 @@ function LeaveApplication() {
     <div className="leave-container">
       <button className="add-entry-btn" onClick={() => setShowForm(true)}>Apply for Leave</button>
       <h2>Leave Application</h2>
-      
+
       {showForm && (
         <div className="leave-form show">
           <h3>{isEditing ? "Edit Leave Request" : "New Leave Request"}</h3>
           <form onSubmit={handleSubmit}>
+            <div>
+              <label>Employee ID:</label>
+              <input type="text" name="empId" value={formData.empId} onChange={handleChange} required />
+            </div>
             <div>
               <label>Name:</label>
               <input type="text" name="name" value={formData.name} onChange={handleChange} required />
@@ -107,6 +162,7 @@ function LeaveApplication() {
           <thead>
             <tr>
               <th>ID</th>
+              <th>Emp ID</th>
               <th>Name</th>
               <th>Leave Type</th>
               <th>Start Date</th>
@@ -117,11 +173,12 @@ function LeaveApplication() {
           </thead>
           <tbody>
             {leaveRequests.length === 0 ? (
-              <tr><td colSpan="7">No leave requests available.</td></tr>
+              <tr><td colSpan="8">No leave requests available.</td></tr>
             ) : (
               leaveRequests.map((request) => (
                 <tr key={request.id}>
                   <td>{request.id}</td>
+                  <td>{request.empId}</td>
                   <td>{request.name}</td>
                   <td>{request.leaveType}</td>
                   <td>{request.startDate}</td>
@@ -137,26 +194,6 @@ function LeaveApplication() {
           </tbody>
         </table>
       </div>
-
-      {showDeleteDialog && deleteEntry && (
-        <div className="delete-confirmation-dialog">
-          <div className="dialog-content">
-            <h4>Confirm Deletion</h4>
-            <p>Are you sure you want to delete this leave request?</p>
-            <ul>
-              <li><strong>ID:</strong> {deleteEntry.id}</li>
-              <li><strong>Name:</strong> {deleteEntry.name}</li>
-              <li><strong>Leave Type:</strong> {deleteEntry.leaveType}</li>
-              <li><strong>Start Date:</strong> {deleteEntry.startDate}</li>
-              <li><strong>End Date:</strong> {deleteEntry.endDate}</li>
-            </ul>
-            <div className="dialog-buttons">
-              <button className="confirm-btn" onClick={confirmDelete}>Confirm</button>
-              <button className="cancel-btn" onClick={cancelDelete}>Cancel</button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
