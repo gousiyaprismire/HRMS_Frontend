@@ -1,26 +1,40 @@
-import { useState } from 'react';
-import { TextField, Snackbar, Alert } from '@mui/material';
+import { useState, useEffect } from "react";
+import { TextField, Snackbar, Alert } from "@mui/material";
 import "./Payslips.css";
+
+const API_URL = "http://localhost:8080/api/payslips"; 
 
 const Payslip = () => {
     const [openPopup, setOpenPopup] = useState(false);
     const [deletePopup, setDeletePopup] = useState(false);
-    const [message, setMessage] = useState({ open: false, text: '', type: 'success' });
+    const [message, setMessage] = useState({ open: false, text: "", type: "success" });
     const [editIndex, setEditIndex] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
-    const [monthFilter] = useState("");
-    const [yearFilter] = useState("");
     const [selectedMonth, setSelectedMonth] = useState("");
     const [selectedYear, setSelectedYear] = useState("");
-    const [data, setData] = useState([
-        { EmpId: '101', Name: 'Manjunath', Pan: 'ABCDE1234F', UAN: '100200300400', BankDays: '30', LopDays: '0', Doj: '01-01-2020', Gender: 'Male', TotalEarnings: '50000' }
-    ]);
+    const [data, setData] = useState([]);
+
     const [newEntry, setNewEntry] = useState({
-        EmpId: '', Name: '', Pan: '', UAN: '', BankDays: '', LopDays: '', Doj: '', Gender: '', TotalEarnings: ''
+        empId: "", name: "", pan: "", uan: "", bankDays: "", lopDays: "", doj: "", gender: "", totalEarnings: "", month: "", year: ""
     });
 
+    
+    const fetchPayslips = async () => {
+        try {
+            const response = await fetch(`${API_URL}/all`);
+            const result = await response.json();
+            setData(result);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchPayslips();
+    }, []);
+
     const handleAddNew = () => {
-        setNewEntry({ EmpId: '', Name: '', Pan: '', UAN: '', BankDays: '', LopDays: '', Doj: '', Gender: '', TotalEarnings: '' });
+        setNewEntry({ empId: "", name: "", pan: "", uan: "", bankDays: "", lopDays: "", doj: "", gender: "", totalEarnings: "", month: "", year: "" });
         setEditIndex(null);
         setOpenPopup(true);
     };
@@ -33,32 +47,44 @@ const Payslip = () => {
     const handleChange = (e) => {
         setNewEntry({ ...newEntry, [e.target.name]: e.target.value });
     };
-    const handleMonthChange = (e) => {
-        setSelectedMonth(e.target.value);
-    };
-    
-    const handleYearChange = (e) => {
-        setSelectedYear(e.target.value);
-    };
 
-    const handleSave = () => {
-        if (Object.values(newEntry).some(value => value.trim() === '')) {
-            setMessage({ open: true, text: 'All fields are required!', type: 'error' });
+    const handleSave = async () => {
+        
+        if (Object.values(newEntry).some(value => 
+            value === null || 
+            value === undefined || 
+            (typeof value === "string" && value.trim() === "")
+        )) {
+            setMessage({ open: true, text: "All fields are required!", type: "error" });
             return;
         }
 
-        if (editIndex !== null) {
-            const updatedData = [...data];
-            updatedData[editIndex] = newEntry;
-            setData(updatedData);
-            setMessage({ open: true, text: 'Updated successfully!', type: 'success' });
-        } else {
-            setData([newEntry, ...data]);
-            setMessage({ open: true, text: 'Added successfully!', type: 'success' });
+        try {
+            if (editIndex !== null) {
+                await fetch(`${API_URL}/${data[editIndex].id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(newEntry),
+                });
+                setMessage({ open: true, text: "Updated successfully!", type: "success" });
+            } else {
+                await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(newEntry),
+                });
+                setMessage({ open: true, text: "Added successfully!", type: "success" });
+            }
+            fetchPayslips();
+        } catch (error) {
+            console.error("Error saving data:", error);
+            setMessage({ open: true, text: "Error saving data!", type: "error" });
         }
 
         handleClosePopup();
     };
+   
+    
 
     const handleEdit = (index) => {
         setNewEntry(data[index]);
@@ -70,22 +96,28 @@ const Payslip = () => {
         setDeletePopup(index);
     };
 
-    const confirmDelete = () => {
-        setData(data.filter((_, i) => i !== deletePopup));
+    const confirmDelete = async () => {
+        try {
+            await fetch(`${API_URL}/${data[deletePopup].id}`, { method: "DELETE" });
+            setMessage({ open: true, text: "Deleted successfully!", type: "success" });
+            fetchPayslips();
+        } catch (error) {
+            console.error("Error deleting data:", error);
+            setMessage({ open: true, text: "Error deleting data!", type: "error" });
+        }
         setDeletePopup(false);
-        setMessage({ open: true, text: 'Deleted successfully!', type: 'success' });
     };
 
     const filteredData = data.filter(item => {
-        const matchesSearch = item.Name?.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesMonth = monthFilter ? item.doj.split('-')[1] === monthFilter : true;
-        const matchesYear = yearFilter ? item.doj.split('-')[2] === yearFilter : true;
+        const matchesSearch = item.name?.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesMonth = selectedMonth ? item.month === selectedMonth : true;
+        const matchesYear = selectedYear ? item.year === selectedYear : true;
         return matchesSearch && matchesMonth && matchesYear;
     });
 
     return (
         <div className="payroll-container">
-            <h1>Payslips & Salary Statements</h1> 
+            <h1>Payslips & Salary Statements</h1>
 
             <button className="payroll-add-new-btn" onClick={handleAddNew}>+ Add New</button>
 
@@ -98,33 +130,24 @@ const Payslip = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <select className="payroll-dropdown" value={selectedMonth} onChange={handleMonthChange}>
+                <select className="payroll-dropdown" value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}>
                     <option value="">Month</option>
-                    <option value="January">January</option>
-                    <option value="February">February</option>
-                    <option value="March">March</option>
-                    <option value="April">April</option>
-                    <option value="May">May</option>
-                    <option value="June">June</option>
-                    <option value="July">July</option>
-                    <option value="August">August</option>
-                    <option value="September">September</option>
-                    <option value="October">October</option>
-                    <option value="November">November</option>
-                    <option value="December">December</option>
+                    {["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map(month => (
+                        <option key={month} value={month}>{month}</option>
+                    ))}
                 </select>
-                <select className="payroll-dropdown" value={selectedYear} onChange={handleYearChange}>
+                <select className="payroll-dropdown" value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
                     <option value="">Year</option>
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
-                    <option value="2025">2025</option>
+                    {["2022", "2023", "2024", "2025"].map(year => (
+                        <option key={year} value={year}>{year}</option>
+                    ))}
                 </select>
             </div>
+
             <table className="payroll-table">
                 <thead>
                     <tr>
-                        {['Emp ID', 'Name', 'PAN', 'UAN', 'Bank Days', 'LOP Days', 'DOJ', 'Gender', 'Total Earnings', 'Actions'].map(header => (
+                        {['Emp ID', 'Name', 'PAN', 'UAN', 'Bank Days', 'LOP Days', 'DOJ', 'Gender', 'Total Earnings', 'Month', 'Year', 'Actions'].map(header => (
                             <th key={header}>{header}</th>
                         ))}
                     </tr>
@@ -167,20 +190,13 @@ const Payslip = () => {
                 <div className="payroll-popup-overlay">
                     <div className="payroll-delete-popup">
                         <p>Are you sure you want to delete?</p>
-                        <div className="payroll-popup-buttons">
-                            <button className="payroll-save-btn" onClick={confirmDelete}>Yes</button>
-                            <button className="payroll-cancel-btn" onClick={() => setDeletePopup(false)}>No</button>
-                        </div>
+                        <button className="payroll-save-btn" onClick={confirmDelete}>Yes</button>
+                        <button className="payroll-cancel-btn" onClick={() => setDeletePopup(false)}>No</button>
                     </div>
                 </div>
             )}
 
-            <Snackbar
-                open={message.open}
-                autoHideDuration={3000}
-                onClose={() => setMessage({ ...message, open: false })}
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            >
+            <Snackbar open={message.open} autoHideDuration={3000} onClose={() => setMessage({ ...message, open: false })}>
                 <Alert severity={message.type}>{message.text}</Alert>
             </Snackbar>
         </div>

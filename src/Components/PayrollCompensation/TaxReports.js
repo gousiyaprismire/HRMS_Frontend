@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import axios from "axios";
 import "./TaxReports.css";
 
 const TaxReports = () => {
-  const [taxReports, setTaxReports] = useState([
-    { id: 1, empId: "EMP001", name: "Manjunadh", providentFund: 5000, insurance: 2000, deductions: 1500 },
-    { id: 2, empId: "EMP002", name: "Eknath", providentFund: 5500, insurance: 2200, deductions: 1700 },
-  ]);
-
+  const [taxReports, setTaxReports] = useState([]);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [selectedReport, setSelectedReport] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
@@ -18,7 +15,23 @@ const TaxReports = () => {
     providentFund: "",
     insurance: "",
     deductions: "",
+    month: "",
+    year: "",
   });
+
+  // ✅ Using useCallback to prevent useEffect warnings
+  const fetchData = useCallback(async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/tax_reports/all");
+      setTaxReports(response.data);
+    } catch (error) {
+      showToastMessage("Error fetching data!", true);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   useEffect(() => {
     if (showToast) {
@@ -29,7 +42,7 @@ const TaxReports = () => {
 
   const openPopup = (report = null) => {
     setSelectedReport(report);
-    setNewReport(report || { empId: "", name: "", providentFund: "", insurance: "", deductions: "" });
+    setNewReport(report || { empId: "", name: "", providentFund: "", insurance: "", deductions: "", month: "", year: "" });
     setPopupOpen(true);
   };
 
@@ -43,33 +56,62 @@ const TaxReports = () => {
     setShowToast(true);
   };
 
-  const handleSave = () => {
-    if (selectedReport) {
-      setTaxReports(taxReports.map(report => report.id === selectedReport.id ? { ...newReport, id: selectedReport.id } : report));
-      showToastMessage("Updated Successfully!");
-    } else {
-      const newEntry = { id: taxReports.length + 1, ...newReport };
-      setTaxReports([newEntry, ...taxReports]); // Newly added data appears first
-      showToastMessage("Added Successfully!");
+  // ✅ Save or Update Report
+  const handleSave = async () => {
+    try {
+      if (selectedReport) {
+        await axios.put(`http://localhost:8080/api/tax_reports/${newReport.empId}`, newReport);
+        showToastMessage("Updated Successfully!");
+      } else {
+        await axios.post("http://localhost:8080/api/tax_reports", newReport);
+        showToastMessage("Added Successfully!");
+      }
+      fetchData();
+      closePopup();
+    } catch (error) {
+      showToastMessage(error.response?.data?.message || "Error saving data!", true);
     }
-    closePopup();
   };
 
-  const handleDelete = (id) => {
-    setTaxReports(taxReports.filter(report => report.id !== id));
-    showToastMessage("Deleted Successfully!", true);
+  // ✅ Delete Report
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/tax_reports/${id}`);
+      showToastMessage("Deleted Successfully!", true);
+      fetchData();
+    } catch (error) {
+      showToastMessage(error.response?.data?.message || "Error deleting data!", true);
+    }
     setDeleteConfirm(null);
   };
 
   return (
     <div className="tax-container">
-      <h1>Tax & Deduction Reports</h1> {/* Added heading */}
+      <h1>Tax & Deduction Reports</h1>
       <button className="tax-add-new-btn" onClick={() => openPopup()}>+ Add New</button>
 
       <div className="tax-filters">
         <input type="text" placeholder="Search..." className="tax-search" />
-        <select><option>Month</option></select>
-        <select><option>Year</option></select>
+        <select>
+          <option>Month</option>
+          <option>January</option>
+          <option>February</option>
+          <option>March</option>
+          <option>April</option>
+          <option>May</option>
+          <option>June</option>
+          <option>July</option>
+          <option>August</option>
+          <option>September</option>
+          <option>October</option>
+          <option>November</option>
+          <option>December</option>
+          </select>
+        <select>
+          <option>Year</option>
+          <option>2024</option>
+          <option>2025</option>
+          </select>
       </div>
 
       <table className="tax-table">
@@ -80,6 +122,8 @@ const TaxReports = () => {
             <th>Provident Fund</th>
             <th>Insurance</th>
             <th>Deductions</th>
+            <th>Month</th>
+            <th>Year</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -91,9 +135,11 @@ const TaxReports = () => {
               <td>{report.providentFund}</td>
               <td>{report.insurance}</td>
               <td>{report.deductions}</td>
+              <td>{report.month}</td>
+              <td>{report.year}</td>
               <td>
                 <button className="tax-edit-btn" onClick={() => openPopup(report)}>Edit</button>
-                <button className="tax-delete-btn" onClick={() => setDeleteConfirm(report.id)}>Delete</button>
+                <button className="tax-delete-btn" onClick={() => setDeleteConfirm(report.empId)}>Delete</button>
               </td>
             </tr>
           ))}
@@ -105,26 +151,18 @@ const TaxReports = () => {
           <div className="tax-popup show" onClick={(e) => e.stopPropagation()}>
             <button className="tax-close-btn" onClick={closePopup}>×</button>
             <h2>{selectedReport ? "Edit Tax Report" : "Add New Tax Report"}</h2>
-            <div className="tax-form-group">
-              <label>Emp ID:</label>
-              <input type="text" value={newReport.empId} onChange={(e) => setNewReport({ ...newReport, empId: e.target.value })} />
-            </div>
-            <div className="tax-form-group">
-              <label>Name:</label>
-              <input type="text" value={newReport.name} onChange={(e) => setNewReport({ ...newReport, name: e.target.value })} />
-            </div>
-            <div className="tax-form-group">
-              <label>Provident Fund:</label>
-              <input type="number" value={newReport.providentFund} onChange={(e) => setNewReport({ ...newReport, providentFund: e.target.value })} />
-            </div>
-            <div className="tax-form-group">
-              <label>Insurance:</label>
-              <input type="number" value={newReport.insurance} onChange={(e) => setNewReport({ ...newReport, insurance: e.target.value })} />
-            </div>
-            <div className="tax-form-group">
-              <label>Deductions:</label>
-              <input type="number" value={newReport.deductions} onChange={(e) => setNewReport({ ...newReport, deductions: e.target.value })} />
-            </div>
+
+            {Object.keys(newReport).map((key) => (
+              <div key={key} className="tax-form-group">
+                <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
+                <input
+                  type={["providentFund", "insurance", "deductions"].includes(key) ? "number" : "text"}
+                  value={newReport[key]}
+                  onChange={(e) => setNewReport({ ...newReport, [key]: e.target.value })}
+                />
+              </div>
+            ))}
+
             <div className="tax-popup-buttons">
               <button className="tax-save-btn" onClick={handleSave}>Save</button>
               <button className="tax-cancel-btn" onClick={closePopup}>Cancel</button>
