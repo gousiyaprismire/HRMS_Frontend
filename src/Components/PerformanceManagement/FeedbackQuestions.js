@@ -9,7 +9,6 @@ const FeedbackQuestions = () => {
   const [deleteId, setDeleteId] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  // Fetch all questions when the component mounts
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/feedback-questions")
@@ -30,10 +29,10 @@ const FeedbackQuestions = () => {
     e.preventDefault();
     if (newQuestion.trim()) {
       if (editingId !== null) {
-        // Update existing question
+
         axios
           .put(`http://localhost:8080/api/feedback-questions/${editingId}`, {
-            text: newQuestion,  // Make sure to send 'text', not 'question'
+            text: newQuestion, 
           })
           .then((response) => {
             console.log("Updated Question:", response.data);
@@ -47,10 +46,10 @@ const FeedbackQuestions = () => {
           })
           .catch((error) => console.error("Error updating question:", error));
       } else {
-        // Add new question
+
         axios
           .post("http://localhost:8080/api/feedback-questions", {
-            text: newQuestion,  // Ensure you are sending 'text' and not 'question'
+            text: newQuestion,  
           })
           .then((response) => {
             console.log("Question Added:", response.data);
@@ -58,7 +57,7 @@ const FeedbackQuestions = () => {
               ...prevQuestions,
               response.data,
             ]);
-            setNewQuestion(""); // Clear input after adding
+            setNewQuestion(""); 
           })
           .catch((error) => console.error("Error adding question:", error));
       }
