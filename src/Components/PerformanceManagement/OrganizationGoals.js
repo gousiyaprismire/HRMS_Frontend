@@ -67,7 +67,6 @@ function OrganizationGoals() {
     }
   };
   
-
   const handleEdit = (index) => {
     setNewGoal(goals[index]);
     setEditingIndex(index);
