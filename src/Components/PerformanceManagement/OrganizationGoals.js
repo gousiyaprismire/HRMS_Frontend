@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import "./OrganizationGoals.css";
 
 function OrganizationGoals() {
@@ -9,36 +10,63 @@ function OrganizationGoals() {
     description: "",
     target: "",
     rollupMethod: "",
+    period: "", 
   });
   const [editingIndex, setEditingIndex] = useState(null);
   const [deleteIndex, setDeleteIndex] = useState(null);
 
   useEffect(() => {
-    // Fetch goals from API
-    fetch("/api/goals")
-      .then((res) => res.json())
-      .then((data) => setGoals(data))
-      .catch((err) => console.error("Error fetching goals:", err));
+    fetchGoals();
   }, []);
+
+
+  const fetchGoals = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/organization_goals");
+      setGoals(response.data);
+    } catch (error) {
+      console.error("Error fetching goals:", error);
+    }
+  };
+
 
   const handleAddClick = () => {
     setShowModal(true);
-    setNewGoal({ description: "", target: "", rollupMethod: "" });
+    setNewGoal({ description: "", target: "", rollupMethod: "", period: "" });
     setEditingIndex(null);
   };
 
-  const handleSave = () => {
-    if (newGoal.description.trim() && newGoal.target.trim()) {
+ 
+  const handleSave = async () => {
+    if (!newGoal || !newGoal.description || !newGoal.period) {
+      alert("Goal description and period are required.");
+      return;
+    }
+  
+    const goalData = {
+      goalDescription: newGoal.description.trim(),
+      target: newGoal.target ? newGoal.target.trim() : "",
+      rollupMethod: newGoal.rollupMethod ? newGoal.rollupMethod.trim() : "",
+      period: newGoal.period.trim(),
+    };
+  
+    try {
       if (editingIndex !== null) {
-        const updatedGoals = [...goals];
-        updatedGoals[editingIndex] = newGoal;
-        setGoals(updatedGoals);
+        await axios.put(
+          `http://localhost:8080/api/organization_goals/${goals[editingIndex].id}`,
+          goalData
+        );
       } else {
-        setGoals([...goals, newGoal]);
+        await axios.post("http://localhost:8080/api/organization_goals", goalData);
       }
+      fetchGoals();
       setShowModal(false);
+    } catch (error) {
+      console.error("Error saving goal:", error.response ? error.response.data : error.message);
+      alert("Failed to save goal. Please check your input.");
     }
   };
+  
 
   const handleEdit = (index) => {
     setNewGoal(goals[index]);
@@ -46,12 +74,16 @@ function OrganizationGoals() {
     setShowModal(true);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (deleteIndex !== null) {
-      const updatedGoals = goals.filter((_, i) => i !== deleteIndex);
-      setGoals(updatedGoals);
-      setShowDeleteModal(false);
-      setDeleteIndex(null);
+      try {
+        await axios.delete(`http://localhost:8080/api/organization_goals/${goals[deleteIndex].id}`);
+        fetchGoals();
+        setShowDeleteModal(false);
+        setDeleteIndex(null);
+      } catch (error) {
+        console.error("Error deleting goal:", error);
+      }
     }
   };
 
@@ -64,16 +96,7 @@ function OrganizationGoals() {
         </button>
       </div>
 
-      <p className="organization-goal-para">Define top level goals for performance period</p>
-
-      <div className="mb-3">
-        <label className="organization-goal-para"> Select Period:</label>
-        <select className="form-control organization-goal-select-period">
-          <option>Performance Appraisal for 2024</option>
-          <option>Performance Appraisal for 2023</option>
-          <option>Performance Appraisal for 2022</option>
-        </select>
-      </div>
+      <p className="organization-goal-para">Define top-level goals for the performance period.</p>
 
       <table className="organization-goal-table">
         <thead>
@@ -81,16 +104,18 @@ function OrganizationGoals() {
             <th>Goal Description</th>
             <th>Target</th>
             <th>Rollup Method</th>
+            <th>Period</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {goals.length > 0 ? (
             goals.map((goal, index) => (
-              <tr key={index}>
-                <td>{goal.description}</td>
+              <tr key={goal.id}>
+                <td>{goal.goalDescription}</td>
                 <td>{goal.target}</td>
                 <td>{goal.rollupMethod}</td>
+                <td>{goal.period}</td>
                 <td>
                   <button className="btn organization-goal-btn-primary" onClick={() => handleEdit(index)}>Edit</button>
                   <button
@@ -107,7 +132,7 @@ function OrganizationGoals() {
             ))
           ) : (
             <tr>
-              <td colSpan="4" className="text-center">No records found</td>
+              <td colSpan="5" className="text-center">No records found</td>
             </tr>
           )}
         </tbody>
@@ -134,6 +159,12 @@ function OrganizationGoals() {
               type="text"
               value={newGoal.rollupMethod}
               onChange={(e) => setNewGoal({ ...newGoal, rollupMethod: e.target.value })}
+            />
+            <label>Period *</label>
+            <input
+              type="text"
+              value={newGoal.period}
+              onChange={(e) => setNewGoal({ ...newGoal, period: e.target.value })}
             />
             <div className="modal-actions">
               <button onClick={() => setShowModal(false)}>Close</button>
