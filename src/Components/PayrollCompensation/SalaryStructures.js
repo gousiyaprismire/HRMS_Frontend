@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TextField, Snackbar, Alert, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material"; 
+import axios from "axios";
 import "./SalaryStructures.css";
 
 const SalaryStructure = () => {
+    const API_URL = "http://localhost:8080/salary-structure";
     const [openAddForm, setOpenAddForm] = useState(false);
     const [deletePopup, setDeletePopup] = useState(false); 
     const [openViewPopup, setOpenViewPopup] = useState(false);
@@ -13,9 +15,13 @@ const SalaryStructure = () => {
     const [selectedMonth, setSelectedMonth] = useState("");
     const [selectedYear, setSelectedYear] = useState("");
 
-    const [data, setData] = useState([
-        { empId: "201", name: "Rahul", basicPay: "25000", hra: "10000", pf: "5000", deductions: "3000", travelAllowance: "2000", foodAllowance: "1500", pfEmployee: "500", month: "January", year: "2024" }
-    ]);
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        axios.get(`${API_URL}/all`)
+            .then(response => setData(response.data))
+            .catch(error => console.error("Error fetching data:", error));
+    }, []);
 
     const [newEntry, setNewEntry] = useState({
         empId: "",
@@ -61,18 +67,19 @@ const SalaryStructure = () => {
             setMessage({ open: true, text: "All fields are required!", type: "error" });
             return;
         }
-
-        setData([newEntry, ...data]);
-        setMessage({ open: true, text: "Added successfully!", type: "success" });
-        setOpenAddForm(false);
+        axios.post(`${API_URL}/save`, newEntry)
+            .then(response => {
+                setData([...data, response.data]);
+                setMessage({ open: true, text: "Added successfully!", type: "success" });
+                setOpenAddForm(false);
+            })
+            .catch(error => console.error("Error adding data:", error));
     };
-
     const handleView = (entry) => {
-        setSelectedEntry({ ...entry });
-        setIsEditing(false); 
-        setOpenViewPopup(true);
-    };
-    
+    setSelectedEntry({ ...entry });
+    setIsEditing(false); 
+    setOpenViewPopup(true);
+};
     const handleEdit = (entry) => {
         setSelectedEntry({ ...entry });
         setIsEditing(true);
@@ -87,19 +94,26 @@ const SalaryStructure = () => {
     };
     
     const handleDelete = (entry) => {
-        setData(data.filter(item => item.empId !== entry.empId));
-        setMessage({ open: true, text: "Deleted successfully!", type: "success" });
-        setDeletePopup(false); 
+        axios.delete(`${API_URL}/delete/${entry.empId}`)
+            .then(() => {
+                setData(data.filter(item => item.empId !== entry.empId));
+                setMessage({ open: true, text: "Deleted successfully!", type: "success" });
+                setDeletePopup(false);
+            })
+            .catch(error => console.error("Error deleting data:", error));
     };
-    
     
 
     const handleUpdate = () => {
-        setData(data.map(item => (item.empId === selectedEntry.empId ? selectedEntry : item)));
-        setMessage({ open: true, text: "Updated successfully!", type: "success" });
-        setIsEditing(false);
+        axios.put(`${API_URL}/update/${selectedEntry.empId}`, selectedEntry)
+            .then(response => {
+                setData(data.map(item => item.empId === selectedEntry.empId ? response.data : item));
+                setMessage({ open: true, text: "Updated successfully!", type: "success" });
+                setIsEditing(false);
+                setOpenViewPopup(false);
+            })
+            .catch(error => console.error("Error updating data:", error));
     };
-
 
     const filteredData = data.filter(item =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
@@ -206,25 +220,45 @@ const SalaryStructure = () => {
                 <Button onClick={() => handleDelete(selectedEntry)} color="primary">Delete</Button>  
                 </DialogActions>
             </Dialog>
+            {openViewPopup && selectedEntry && (
+  <div className={isEditing ? "salary-form-overlay show" : "salary-view-popup-container"}>
 
-            
-          {openViewPopup && selectedEntry && (
-    <div className="salary-form-overlay show">
         <div className="salary-popup">
             <button className="salary-close-btn" onClick={() => setOpenViewPopup(false)}>×</button>
             <h2>{isEditing ? "Edit Salary Details" : "View Salary Details"}</h2>
-            {Object.keys(selectedEntry).map((key) => (
-                <div key={key} className="salary-form-group">
-                    <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
-                    <TextField
-                        name={key}
-                        value={selectedEntry[key]}
-                        onChange={(e) => setSelectedEntry({ ...selectedEntry, [e.target.name]: e.target.value })}
-                        fullWidth
-                        disabled={!isEditing}
-                    />
+
+            {isEditing ? (
+                Object.keys(selectedEntry).map((key) => (
+                    <div key={key} className="salary-form-group">
+                        <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
+                        <TextField
+                            name={key}
+                            value={selectedEntry[key]}
+                            onChange={(e) => setSelectedEntry({ ...selectedEntry, [e.target.name]: e.target.value })}
+                            fullWidth
+                        />
+                    </div>
+                ))
+            ) : (
+                <div className="salary-view-content">
+                    {Object.entries(selectedEntry).map(([key, value]) => (
+                        <p key={key}>
+                            <strong>
+                                {key === "empId" ? "Emp ID" :
+                                key === "basicPay" ? "Basic Pay" :
+                                key === "hra" ? "HRA" :
+                                key === "pf" ? "PF" :
+                                key === "deductions" ? "Deductions" :
+                                key === "travelAllowance" ? "Travel Allowance" :
+                                key === "foodAllowance" ? "Food Allowance" :
+                                key === "pfEmployee" ? "PF Employee" :
+                                key.charAt(0).toUpperCase() + key.slice(1)}:
+                            </strong> {value}
+                        </p>
+                    ))}
                 </div>
-            ))}
+            )}
+
             <div className="salary-form-buttons">
                 {isEditing ? (
                     <button className="salary-save-btn" onClick={handleUpdate}>Save</button>
@@ -238,6 +272,11 @@ const SalaryStructure = () => {
 )}
 
 
+    
+            
+          
+
+        
             
 
             <Snackbar

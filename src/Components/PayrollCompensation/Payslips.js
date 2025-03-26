@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { TextField, Snackbar, Alert } from "@mui/material";
 import "./Payslips.css";
-
+import axios from "axios";
 const API_URL = "http://localhost:8080/api/payslips"; 
 
 const Payslip = () => {
@@ -15,10 +15,9 @@ const Payslip = () => {
     const [data, setData] = useState([]);
 
     const [newEntry, setNewEntry] = useState({
-        empId: "", name: "", pan: "", uan: "", bankDays: "", lopDays: "", doj: "", gender: "", totalEarnings: "", month: "", year: ""
+        id: "", empId: "", name: "", pan: "", uan: "", bankDays: "", lopDays: "", doj: "", gender: "", totalEarnings: "", month: "", year: ""
     });
 
-    
     const fetchPayslips = async () => {
         try {
             const response = await fetch(`${API_URL}/all`);
@@ -49,42 +48,32 @@ const Payslip = () => {
     };
 
     const handleSave = async () => {
-        
-        if (Object.values(newEntry).some(value => 
-            value === null || 
-            value === undefined || 
-            (typeof value === "string" && value.trim() === "")
+        if (Object.values(newEntry).some(value =>
+          value === null ||
+          value === undefined ||
+          (typeof value === "string" && value.trim() === "")
         )) {
-            setMessage({ open: true, text: "All fields are required!", type: "error" });
-            return;
+          setMessage({ open: true, text: "All fields are required!", type: "error" });
+          return;
         }
-
+      
         try {
-            if (editIndex !== null) {
-                await fetch(`${API_URL}/${data[editIndex].id}`, {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newEntry),
-                });
-                setMessage({ open: true, text: "Updated successfully!", type: "success" });
-            } else {
-                await fetch(API_URL, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newEntry),
-                });
-                setMessage({ open: true, text: "Added successfully!", type: "success" });
-            }
-            fetchPayslips();
+          if (editIndex !== null) {
+            await axios.put(`${API_URL}/${newEntry.id}`, newEntry);
+            setMessage({ open: true, text: "Updated successfully!", type: "success" });
+          } else {
+            await axios.post(API_URL, newEntry);
+            setMessage({ open: true, text: "Added successfully!", type: "success" });
+          }
+          fetchPayslips();
         } catch (error) {
-            console.error("Error saving data:", error);
-            setMessage({ open: true, text: "Error saving data!", type: "error" });
+          console.error("Error saving data:", error);
+          setMessage({ open: true, text: error.response?.data?.message || "Error saving data!", type: "error" });
         }
-
+      
         handleClosePopup();
-    };
-   
-    
+      };
+      
 
     const handleEdit = (index) => {
         setNewEntry(data[index]);
@@ -147,7 +136,7 @@ const Payslip = () => {
             <table className="payroll-table">
                 <thead>
                     <tr>
-                        {['Emp ID', 'Name', 'PAN', 'UAN', 'Bank Days', 'LOP Days', 'DOJ', 'Gender', 'Total Earnings', 'Month', 'Year', 'Actions'].map(header => (
+                        {['ID', 'Emp ID', 'Name', 'PAN', 'UAN', 'Bank Days', 'LOP Days', 'DOJ', 'Gender', 'Total Earnings', 'Month', 'Year', 'Actions'].map(header => (
                             <th key={header}>{header}</th>
                         ))}
                     </tr>
@@ -155,7 +144,7 @@ const Payslip = () => {
                 <tbody>
                     {filteredData.map((item, index) => (
                         <tr key={index}>
-                            {Object.values(item).map((value, i) => (
+                            {Object.values({ id: item.id, ...item }).map((value, i) => (
                                 <td key={i}>{value}</td>
                             ))}
                             <td>

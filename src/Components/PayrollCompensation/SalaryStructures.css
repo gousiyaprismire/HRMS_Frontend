@@ -164,6 +164,22 @@
   font-size: 16px;
   gap:50px;
 }
+.salary-form-overlay {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 35%;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  transition: right 0.3s ease-in-out;
+  overflow-y: auto;
+}
+
+.salary-form-overlay.show {
+  right: 0;
+}
 
 .salary-save-btn:hover,
 .salary-edit-btn:hover {
@@ -222,6 +238,39 @@
   display: flex;
   justify-content: center;
   gap: 10px;
+}
+.salary-view-popup-container {
+  width: 40%;
+  max-width: 450px;  
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  z-index: 9999;
+}
+
+.salary-view-popup-container h2 {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.salary-view-content p {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.salary-view-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
 }
 
 
