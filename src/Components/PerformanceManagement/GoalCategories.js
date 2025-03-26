@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./GoalCategories.css";
 
 const GoalCategories = () => {
@@ -10,6 +11,21 @@ const GoalCategories = () => {
   const [categories, setCategories] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(null);
+
+  const apiUrl = "http://localhost:8080/api/goal_categories"; 
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(apiUrl);
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
 
   const handleAddClick = () => {
     setShowModal(true);
@@ -24,14 +40,25 @@ const GoalCategories = () => {
     setDescription("");
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (categoryName.trim()) {
+      const newCategory = { name: categoryName, description };
+
       if (editIndex !== null) {
-        const updatedCategories = [...categories];
-        updatedCategories[editIndex] = { name: categoryName, description };
-        setCategories(updatedCategories);
+        const categoryId = categories[editIndex].id;
+        try {
+          await axios.put(`${apiUrl}/${categoryId}`, newCategory);
+          fetchCategories(); 
+        } catch (error) {
+          console.error("Error updating category:", error);
+        }
       } else {
-        setCategories([...categories, { name: categoryName, description }]);
+        try {
+          await axios.post(apiUrl, newCategory);
+          fetchCategories(); 
+        } catch (error) {
+          console.error("Error creating category:", error);
+        }
       }
       handleClose();
     }
@@ -48,8 +75,14 @@ const GoalCategories = () => {
     setConfirmDelete(index);
   };
 
-  const confirmDeleteAction = () => {
-    setCategories(categories.filter((_, i) => i !== confirmDelete));
+  const confirmDeleteAction = async () => {
+    const categoryId = categories[confirmDelete].id;
+    try {
+      await axios.delete(`${apiUrl}/${categoryId}`);
+      fetchCategories(); 
+    } catch (error) {
+      console.error("Error deleting category:", error);
+    }
     setConfirmDelete(null);
   };
 
@@ -60,7 +93,7 @@ const GoalCategories = () => {
       </div>
       <h1 className="goal-categories-heading">Goal Categories</h1>
       <p className="goal-categories-para">Add or edit categories to measure goals and performance</p>
-      
+
       <div className="goal-categories-table-container">
         <table className="goal-categories-table">
           <thead>
@@ -73,7 +106,7 @@ const GoalCategories = () => {
           <tbody>
             {categories.length > 0 ? (
               categories.map((category, index) => (
-                <tr key={index}>
+                <tr key={category.id}>
                   <td>{category.name}</td>
                   <td>{category.description}</td>
                   <td>
@@ -90,9 +123,9 @@ const GoalCategories = () => {
           </tbody>
         </table>
       </div>
-      
+
       <button className="goal-categories-add-btn" onClick={handleAddClick}>➕ Add</button>
-      
+
       {showModal && (
         <div className="goal-categories-modal-overlay">
           <div className="goal-categories-modal">
@@ -115,7 +148,7 @@ const GoalCategories = () => {
           </div>
         </div>
       )}
-      
+
       {confirmDelete !== null && (
         <div className="goal-categories-modal-overlay">
           <div className="goal-categories-modal">
