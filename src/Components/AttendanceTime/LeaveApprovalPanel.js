@@ -87,7 +87,7 @@ function LeaveApprovalPanel() {
                       <span>Processed</span>
                     )}
                   </td>
-                </tr>
+                </tr> 
               ))
             )}
           </tbody>
