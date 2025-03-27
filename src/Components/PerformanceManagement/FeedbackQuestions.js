@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./FeedbackQuestions.css";
 
 const FeedbackQuestions = () => {
-  const [questions, setQuestions] = useState([
-    { id: 1, text: "How well does the employee communicate with colleagues?" },
-    { id: 2, text: "How effectively does the employee handle conflicts?" },
-  ]);
-
+  const [questions, setQuestions] = useState([]);
   const [newQuestion, setNewQuestion] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/feedback-questions")
+      .then((response) => {
+        console.log("Fetched Questions:", response.data);
+        setQuestions(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the data!", error);
+      });
+  }, []);
 
   const handleChange = (e) => {
     setNewQuestion(e.target.value);
@@ -20,16 +29,38 @@ const FeedbackQuestions = () => {
     e.preventDefault();
     if (newQuestion.trim()) {
       if (editingId !== null) {
-        setQuestions(
-          questions.map((q) =>
-            q.id === editingId ? { ...q, text: newQuestion } : q
-          )
-        );
-        setEditingId(null);
+
+        axios
+          .put(`http://localhost:8080/api/feedback-questions/${editingId}`, {
+            text: newQuestion, 
+          })
+          .then((response) => {
+            console.log("Updated Question:", response.data);
+            setQuestions(
+              questions.map((q) =>
+                q.id === editingId ? { ...q, text: newQuestion } : q
+              )
+            );
+            setEditingId(null);
+            setNewQuestion("");
+          })
+          .catch((error) => console.error("Error updating question:", error));
       } else {
-        setQuestions([...questions, { id: questions.length + 1, text: newQuestion }]);
+
+        axios
+          .post("http://localhost:8080/api/feedback-questions", {
+            text: newQuestion,  
+          })
+          .then((response) => {
+            console.log("Question Added:", response.data);
+            setQuestions((prevQuestions) => [
+              ...prevQuestions,
+              response.data,
+            ]);
+            setNewQuestion(""); 
+          })
+          .catch((error) => console.error("Error adding question:", error));
       }
-      setNewQuestion("");
     }
   };
 
@@ -44,9 +75,14 @@ const FeedbackQuestions = () => {
   };
 
   const handleDelete = () => {
-    setQuestions(questions.filter((q) => q.id !== deleteId));
-    setShowDeleteModal(false);
-    setDeleteId(null);
+    axios
+      .delete(`http://localhost:8080/api/feedback-questions/${deleteId}`)
+      .then(() => {
+        setQuestions(questions.filter((q) => q.id !== deleteId));
+        setShowDeleteModal(false);
+        setDeleteId(null);
+      })
+      .catch((error) => console.error("Error deleting question:", error));
   };
 
   return (
@@ -74,28 +110,47 @@ const FeedbackQuestions = () => {
           </tr>
         </thead>
         <tbody>
-          {questions.map((question, index) => (
-            <tr key={question.id}>
-              <td>{index + 1}</td>
-              <td>{question.text}</td>
-              <td>
-                <button className="feedback-questions-edit-btn" onClick={() => handleEdit(question)}>Edit</button>
-                <button className="feedback-questions-delete-btn" onClick={() => confirmDelete(question.id)}>Delete</button>
-              </td>
+          {questions.length > 0 ? (
+            questions.map((question, index) => (
+              <tr key={question.id}>
+                <td>{index + 1}</td>
+                <td>{question.text}</td>
+                <td>
+                  <button
+                    className="feedback-questions-edit-btn"
+                    onClick={() => handleEdit(question)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="feedback-questions-delete-btn"
+                    onClick={() => confirmDelete(question.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="3">No questions available</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
 
-      
       {showDeleteModal && (
         <div className="feedback-questions-modal-overlay">
           <div className="feedback-questions-modal-box">
             <h3>Are you sure?</h3>
             <p>Do you really want to delete this feedback question? This action cannot be undone.</p>
             <div className="feedback-questions-modal-buttons">
-              <button onClick={handleDelete} className="feedback-questions-confirm-delete">Yes, Delete</button>
-              <button onClick={() => setShowDeleteModal(false)} className="feedback-questions-cancel-btn">Cancel</button>
+              <button onClick={handleDelete} className="feedback-questions-confirm-delete">
+                Yes, Delete
+              </button>
+              <button onClick={() => setShowDeleteModal(false)} className="feedback-questions-cancel-btn">
+                Cancel
+              </button>
             </div>
           </div>
         </div>
@@ -105,3 +160,5 @@ const FeedbackQuestions = () => {
 };
 
 export default FeedbackQuestions;
+
+
