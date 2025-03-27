@@ -1,9 +1,11 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./holidayPolicies.css";
 
+const API_URL = "http://localhost:8080/api/leaves"; 
+
 function HolidayPolicies() {
-  const navigate = useNavigate();
+  const [leavePolicies, setLeavePolicies] = useState([]);
 
   const holidays = [
     { date: "2025-01-01", name: "New Year's Day", type: "Public Holiday" },
@@ -13,13 +15,18 @@ function HolidayPolicies() {
     { date: "2025-12-25", name: "Christmas", type: "Public Holiday" },
   ];
 
-  const leavePolicies = [
-    { type: "Casual Leave", days: 12, description: "Can be availed for personal reasons." },
-    { type: "Sick Leave", days: 10, description: "For medical emergencies and health issues." },
-    { type: "Earned Leave", days: 15, description: "Can be carried forward to the next year." },
-    { type: "Maternity Leave", days: 26, description: "For female employees for childbirth." },
-    { type: "Paternity Leave", days: 10, description: "For male employees after childbirth." },
-  ];
+  useEffect(() => {
+    fetchLeavePolicies();
+  }, []);
+
+  const fetchLeavePolicies = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setLeavePolicies(response.data);
+    } catch (error) {
+      console.error("Error fetching leave policies:", error);
+    }
+  };
 
   return (
     <div className="holiday-container">
@@ -48,7 +55,7 @@ function HolidayPolicies() {
         </table>
       </div>
 
-      { /* Leave Policies Section */ }
+      {/* Leave Policies Section */}
       <div className="leave-section-container">
         <h3 className="leave-header">Leave Policies</h3>
         <table className="leave-table-container">
@@ -60,13 +67,19 @@ function HolidayPolicies() {
             </tr>
           </thead>
           <tbody>
-            {leavePolicies.map((policy, index) => (
-              <tr key={index} className="leave-row-container">
-                <td className="leave-type-container">{policy.type}</td>
-                <td className="leave-days-container">{policy.days}</td>
-                <td className="leave-description-container">{policy.description}</td>
+            {leavePolicies.length === 0 ? (
+              <tr>
+                <td colSpan="3">No leave policies available.</td>
               </tr>
-            ))}
+            ) : (
+              leavePolicies.map((policy, index) => (
+                <tr key={index} className="leave-row-container">
+                  <td className="leave-type-container">{policy.type}</td>
+                  <td className="leave-days-container">{policy.days}</td>
+                  <td className="leave-description-container">{policy.description}</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
