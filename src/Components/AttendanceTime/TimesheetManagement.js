@@ -1,13 +1,11 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./timesheetManagement.css";
 
-function TimesheetManagement() {
-  const [timesheets, setTimesheets] = useState([
-    { id: 1, date: "2025-02-05", workHours: 8, overtime: 0, shift: "Morning", comments: "Regular workday" },
-    { id: 2, date: "2025-02-06", workHours: 9, overtime: 1, shift: "Evening", comments: "Overtime due to project" },
-  ]);
+const API_URL = "http://localhost:8080/api/timesheets";
 
+function TimesheetManagement() {
+  const [timesheets, setTimesheets] = useState([]);
   const [formData, setFormData] = useState({
     id: null,
     date: "",
@@ -18,7 +16,21 @@ function TimesheetManagement() {
   const [isEditing, setIsEditing] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-  const [deleteEntry, setDeleteEntry] = useState(null);  // Store the entry to be deleted
+  const [deleteEntry, setDeleteEntry] = useState(null);
+
+  // Fetch all timesheets on component load
+  useEffect(() => {
+    fetchTimesheets();
+  }, []);
+
+  const fetchTimesheets = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setTimesheets(response.data);
+    } catch (error) {
+      console.error("Error fetching timesheets:", error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,28 +40,27 @@ function TimesheetManagement() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const workHours = parseFloat(formData.workHours);
     const overtime = workHours > 9 ? workHours - 9 : 0;
 
-    if (isEditing) {
-      setTimesheets(timesheets.map((entry) => (entry.id === formData.id ? { ...formData, workHours, overtime } : entry)));
-    } else {
-      const newTimesheet = {
-        id: timesheets.length + 1,
-        date: formData.date,
-        workHours,
-        overtime,
-        shift: formData.shift,
-        comments: formData.comments,
-      };
-      setTimesheets([...timesheets, newTimesheet]);
-    }
+    try {
+      if (isEditing) {
+        // Update existing entry
+        await axios.put(`${API_URL}/${formData.id}`, { ...formData, workHours, overtime });
+      } else {
+        // Add new entry
+        await axios.post(API_URL, { ...formData, workHours, overtime });
+      }
 
-    setShowForm(false);
-    setFormData({ id: null, date: "", workHours: "", shift: "Morning", comments: "" });
-    setIsEditing(false);
+      fetchTimesheets();
+      setShowForm(false);
+      resetForm();
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error saving timesheet:", error);
+    }
   };
 
   const handleEdit = (entry) => {
@@ -59,17 +70,34 @@ function TimesheetManagement() {
   };
 
   const handleDelete = (entry) => {
-    setDeleteEntry(entry);  // Store the entry to be deleted
-    setShowDeleteDialog(true);  // Show the delete confirmation dialog
+    setDeleteEntry(entry);
+    setShowDeleteDialog(true);
   };
 
-  const confirmDelete = () => {
-    setTimesheets(timesheets.filter((entry) => entry.id !== deleteEntry.id));
-    setShowDeleteDialog(false);  // Close the dialog after deletion
+  const confirmDelete = async () => {
+    if (!deleteEntry || !deleteEntry.id) return;
+
+    try {
+      await axios.delete(`${API_URL}/${deleteEntry.id}`);
+      fetchTimesheets();
+      setShowDeleteDialog(false);
+    } catch (error) {
+      console.error("Error deleting timesheet:", error);
+    }
   };
 
   const cancelDelete = () => {
-    setShowDeleteDialog(false);  // Close the dialog without deleting
+    setShowDeleteDialog(false);
+  };
+
+  const resetForm = () => {
+    setFormData({
+      id: null,
+      date: "",
+      workHours: "",
+      shift: "Morning",
+      comments: "",
+    });
   };
 
   return (

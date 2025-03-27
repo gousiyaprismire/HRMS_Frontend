@@ -1,21 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./leaveApprovalPanel.css";
 
-function LeaveApprovalPanel() {
-  // Sample leave requests 
-  const [leaveRequests, setLeaveRequests] = useState([
-    { id: 1, name: "Manjunadh", leaveType: "Sick Leave", startDate: "2025-02-05", endDate: "2025-02-06", status: "Pending" },
-    { id: 2, name: "Eknath", leaveType: "Vacation", startDate: "2025-02-10", endDate: "2025-02-15", status: "Pending" },
-    { id: 3, name: "Sowri", leaveType: "Personal", startDate: "2025-02-20", endDate: "2025-02-22", status: "Pending" }
-  ]);
+const API_URL = "http://localhost:8080/api/leave-applications"; 
 
-  // Function to update leave status
-  const handleStatusChange = (id, newStatus) => {
-    setLeaveRequests((prevRequests) =>
-      prevRequests.map((request) =>
-        request.id === id ? { ...request, status: newStatus } : request
-      ) 
-    );
+function LeaveApprovalPanel() {
+  const [leaveRequests, setLeaveRequests] = useState([]);
+
+  useEffect(() => {
+    fetchLeaveRequests();
+  }, []);
+
+  const fetchLeaveRequests = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/pending`);
+      setLeaveRequests(response.data);
+    } catch (error) {
+      console.error("Error fetching leave requests:", error);
+    }
+  };
+
+  const handleStatusChange = async (id, newStatus) => {
+    try {
+      await axios.put(`${API_URL}/updateStatus/${id}`, null, {
+        params: { status: newStatus },
+      });
+
+      // **Update state immediately instead of refetching**
+      setLeaveRequests((prevRequests) =>
+        prevRequests.map((request) =>
+          request.id === id ? { ...request, status: newStatus } : request
+        )
+      );
+    } catch (error) {
+      console.error("Error updating leave status:", error);
+    }
   };
 
   return (
@@ -36,7 +55,9 @@ function LeaveApprovalPanel() {
           </thead>
           <tbody>
             {leaveRequests.length === 0 ? (
-              <tr><td colSpan="7">No pending leave requests.</td></tr>
+              <tr>
+                <td colSpan="7">No pending leave requests.</td>
+              </tr>
             ) : (
               leaveRequests.map((request) => (
                 <tr key={request.id}>
@@ -45,20 +66,28 @@ function LeaveApprovalPanel() {
                   <td>{request.leaveType}</td>
                   <td>{request.startDate}</td>
                   <td>{request.endDate}</td>
-                  <td className={request.status === "Approved" ? "approved" : request.status === "Rejected" ? "rejected" : "pending"}>
-                    {request.status}
-                  </td>
+                  <td className={request.status.toLowerCase()}>{request.status}</td>
                   <td>
                     {request.status === "Pending" ? (
                       <>
-                        <button className="approve-btn" onClick={() => handleStatusChange(request.id, "Approved")}>Approve</button>
-                        <button className="reject-btn" onClick={() => handleStatusChange(request.id, "Rejected")}>Reject</button>
+                        <button
+                          className="approve-btn"
+                          onClick={() => handleStatusChange(request.id, "Approved")}
+                        >
+                          Approve
+                        </button>
+                        <button
+                          className="reject-btn"
+                          onClick={() => handleStatusChange(request.id, "Rejected")}
+                        >
+                          Reject
+                        </button>
                       </>
                     ) : (
                       <span>Processed</span>
                     )}
                   </td>
-                </tr>
+                </tr> 
               ))
             )}
           </tbody>
