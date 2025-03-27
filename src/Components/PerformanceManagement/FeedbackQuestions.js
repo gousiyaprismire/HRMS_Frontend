@@ -13,11 +13,16 @@ const FeedbackQuestions = () => {
     axios
       .get("http://localhost:8080/api/feedback-questions")
       .then((response) => {
-        console.log("Fetched Questions:", response.data);
-        setQuestions(response.data);
+        console.log("✅ Full API Response:", response);
+        if (response.data && Array.isArray(response.data)) {
+          setQuestions(response.data);
+          console.log("📌 Setting Questions:", response.data);
+        } else {
+          console.error("❌ Unexpected API Response Format:", response.data);
+        }
       })
       .catch((error) => {
-        console.error("There was an error fetching the data!", error);
+        console.error("❌ API Fetch Error:", error.response ? error.response.data : error.message);
       });
   }, []);
 
@@ -29,37 +34,41 @@ const FeedbackQuestions = () => {
     e.preventDefault();
     if (newQuestion.trim()) {
       if (editingId !== null) {
-
+      
         axios
           .put(`http://localhost:8080/api/feedback-questions/${editingId}`, {
-            text: newQuestion, 
+            text: newQuestion,
           })
           .then((response) => {
-            console.log("Updated Question:", response.data);
-            setQuestions(
-              questions.map((q) =>
-                q.id === editingId ? { ...q, text: newQuestion } : q
+            console.log("✅ Updated Question:", response.data);
+            setQuestions((prevQuestions) =>
+              prevQuestions.map((q) =>
+                q.id === editingId ? response.data : q
               )
             );
             setEditingId(null);
             setNewQuestion("");
           })
-          .catch((error) => console.error("Error updating question:", error));
+          .catch((error) =>
+            console.error("❌ Error updating question:", error.response?.data || error.message)
+          );
       } else {
-
+   
         axios
           .post("http://localhost:8080/api/feedback-questions", {
-            text: newQuestion,  
+            text: newQuestion,
           })
           .then((response) => {
-            console.log("Question Added:", response.data);
-            setQuestions((prevQuestions) => [
-              ...prevQuestions,
-              response.data,
-            ]);
+            console.log("✅ Question Added:", response.data);
+            setQuestions((prevQuestions) => {
+              console.log("📌 Updated Questions State:", [...prevQuestions, response.data]);
+              return [...prevQuestions, response.data];
+            });
             setNewQuestion(""); 
           })
-          .catch((error) => console.error("Error adding question:", error));
+          .catch((error) =>
+            console.error("❌ Error adding question:", error.response?.data || error.message)
+          );
       }
     }
   };
@@ -78,11 +87,11 @@ const FeedbackQuestions = () => {
     axios
       .delete(`http://localhost:8080/api/feedback-questions/${deleteId}`)
       .then(() => {
-        setQuestions(questions.filter((q) => q.id !== deleteId));
+        setQuestions((prevQuestions) => prevQuestions.filter((q) => q.id !== deleteId));
         setShowDeleteModal(false);
         setDeleteId(null);
       })
-      .catch((error) => console.error("Error deleting question:", error));
+      .catch((error) => console.error("❌ Error deleting question:", error));
   };
 
   return (
@@ -160,5 +169,3 @@ const FeedbackQuestions = () => {
 };
 
 export default FeedbackQuestions;
-
-
