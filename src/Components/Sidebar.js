@@ -127,7 +127,6 @@ const Sidebar = () => {
       {showPerformanceOptions && (
         <div style={dropdownStyles}>
           <div style={dropdownItemStyles} onClick={() => navigate("/goal-categories")}>📌 Goal Categories</div>
-          <div style={dropdownItemStyles} onClick={() => navigate("/performance-periods")}>📅 Performance Periods</div>
           <div style={dropdownItemStyles} onClick={() => navigate("/feedback-questions")}>📝 360° Feedback Questions</div>
           <div style={dropdownItemStyles} onClick={() => navigate("/general-options")}>🔧 General Options</div>
         </div>

@@ -27,7 +27,7 @@ const PerformanceManagement = () => {
         ].map((title) => (
           <div key={title} className="performance-management-card">
             <h2>{title}</h2>
-            <p>-</p>
+            <p>76</p>
           </div>
         ))}
       </div>
@@ -36,9 +36,9 @@ const PerformanceManagement = () => {
         <button className="goal-btn" onClick={() => navigate("/organization-goals")}>
           🎯 Organization Goals
         </button>
-        <button className="appraisal-btn" onClick={() => navigate("/appraisal-forms")}>
+        {/* <button className="appraisal-btn" onClick={() => navigate("/appraisal-forms")}>
           📄 Appraisal Forms
-        </button>
+        </button> */}
       </div>
     </div>
   );
