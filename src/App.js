@@ -36,8 +36,6 @@ import TaxReports from "./Components/PayrollCompensation/TaxReports";
 import EmployeeReports from "./Components/AnalyticsReporting/EmployeeReports";
 import PerformanceAppraisalReports from "./Components/AnalyticsReporting/PerformanceAppraisalReports";
 import OrganizationGoals from "./Components/PerformanceManagement/OrganizationGoals";
-import AppraisalForms from "./Components/PerformanceManagement/AppraisalForms";
-import PerformancePeriod from "./Components/PerformanceManagement/PerformancePeriod";
 import BenefitsEnrollment from './Components/BenefitsCompliance/BenefitsEnrollment';
 import ClaimsReimbursements from './Components/BenefitsCompliance/ClaimsReimbursements';
 import CompanyPolicyCompliance from './Components/BenefitsCompliance/CompanyPolicyCompliance';
@@ -71,8 +69,7 @@ const App = () => {
               <Route path="/performance-management" element={<PerformanceManagement />} />
               <Route path="/goal-categories" element={<GoalCategories />} />
               <Route path="/organization-goals" element={<OrganizationGoals />} />
-              <Route path="/appraisal-forms" element={<AppraisalForms />} />
-              <Route path="/performance-periods" element={<PerformancePeriod />} />
+    
               <Route path="feedback-questions" element={<FeedbackQuestions />} />
               <Route path="general-options" element={<GeneralOptions />} />
               <Route path="/security" element={<SecurityDataPrivacy />} />
