@@ -1,49 +1,22 @@
-import { useState } from "react";
-import { Modal } from "antd";  
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Modal } from "antd";
 import "./Recruitment.css";
 
-const EmployeeOnboarding = () => {
-  const [employees, setEmployees] = useState([
-    {
-      id: "EMP001",
-      name: "J",
-      email: "K.P@example.com",
-      phone: "9876543210",
-      role: "Software Engineer",
-      department: "IT",
-      joiningDate: "2025-03-01",
-      manager: "Keerthi",
-      location: "Remote",
-      status: "Pending",
-      hrContact: "S",
-    },
-    {
-      id: "EMP002",
-      name: "E",
-      email: "e.w@example.com",
-      phone: "9123456789",
-      role: "HR Manager",
-      department: "HR",
-      joiningDate: "2025-03-05",
-      manager: "Priya",
-      location: "On-site",
-      status: "In Progress",
-      hrContact: "D",
-    },
-  ]);
+const API_BASE_URL = "http://localhost:8080/api/employee"; 
 
+const EmployeeOnboarding = () => {
+  const [employees, setEmployees] = useState([]);
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     email: "",
-    phone: "",
-    role: "",
+    phoneNumber: "",
+    jobRole: "",
     department: "",
     joiningDate: "",
-    manager: "",
-    location: "Remote",
-    documents: null,
+    reportingManager: "",
+    workLocation: "Remote",
   });
-
   const [showForm, setShowForm] = useState(false);
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
@@ -53,82 +26,88 @@ const EmployeeOnboarding = () => {
   const managers = ["Keerthi", "Priya", "Purple"];
   const workLocations = ["Remote", "On-site", "Hybrid"];
 
-
-<select>
-  {workLocations.map((location, index) => (
-    <option key={index} value={location}>{location}</option>
-  ))}
-</select>
-
-  const generateEmployeeID = () => {
-    return `EMP${String(employees.length + 1).padStart(3, "0")}`;
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, documents: e.target.files });
-  };
-
+  
+  useEffect(() => {
+    axios
+      .get(API_BASE_URL)
+      .then((response) => setEmployees(response.data))
+      .catch((error) => console.error("Error fetching employees:", error));
+  }, []);
 
   const showPopup = (message) => {
     setPopupMessage(message);
     setPopupVisible(true);
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+  
+  
+    const formattedValue = name === "joiningDate" ? value.split("T")[0] : value;
+  
+    setFormData({ ...formData, [name]: formattedValue });
+  };
+  
+
+
   const handleSubmit = () => {
     if (
-      !formData.name ||
+      !formData.fullName ||
       !formData.email ||
-      !formData.phone ||
-      !formData.role ||
+      !formData.phoneNumber ||
+      !formData.jobRole ||
       !formData.department ||
       !formData.joiningDate ||
-      !formData.manager
+      !formData.reportingManager
     ) {
-      showPopup("Please fill all required fields!"); 
+      showPopup("Please fill all required fields!");
       return;
     }
 
-    const newEmployee = {
-      id: generateEmployeeID(),
-      ...formData,
-      status: "Pending",
-      hrContact: "Unassigned",
-    };
-
-    setEmployees([...employees, newEmployee]);
-    showPopup("Employee added successfully!"); 
-
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      role: "",
-      department: "",
-      joiningDate: "",
-      manager: "",
-      location: "Remote",
-      documents: null,
-    });
-    setShowForm(false);
+    axios
+      .post(API_BASE_URL, formData)
+      .then((response) => {
+        setEmployees([...employees, response.data]);
+        showPopup("Employee added successfully!");
+        setShowForm(false);
+        setFormData({
+          fullName: "",
+          email: "",
+          phoneNumber: "",
+          jobRole: "",
+          department: "",
+          joiningDate: "",
+          reportingManager: "",
+          workLocation: "Remote",
+        });
+      })
+      .catch((error) => console.error("Error adding employee:", error));
   };
+
 
   const updateStatus = (id, newStatus) => {
-    setEmployees(
-      employees.map((emp) =>
-        emp.id === id ? { ...emp, status: newStatus } : emp
-      )
-    );
-    showPopup(`Status updated to "${newStatus}"`); 
+    axios
+      .put(`${API_BASE_URL}/${id}`, { status: newStatus })
+      .then(() => {
+        setEmployees(
+          employees.map((emp) =>
+            emp.id === id ? { ...emp, status: newStatus } : emp
+          )
+        );
+        showPopup(`Status updated to "${newStatus}"`);
+      })
+      .catch((error) => console.error("Error updating status:", error));
   };
 
+  
   const removeEmployee = (id) => {
-    setEmployees(employees.filter((emp) => emp.id !== id));
-    showPopup("Employee removed successfully!"); 
+    axios
+      .delete(`${API_BASE_URL}/${id}`)
+      .then(() => {
+        setEmployees(employees.filter((emp) => emp.id !== id));
+        showPopup("Employee removed successfully!");
+      })
+      .catch((error) => console.error("Error deleting employee:", error));
   };
 
   return (
@@ -150,7 +129,7 @@ const EmployeeOnboarding = () => {
                   <th>Job Role</th>
                   <th>Joining Date</th>
                   <th>Status</th>
-                  <th>HR Contact</th>
+                  <th>Reporting Manager</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -158,19 +137,25 @@ const EmployeeOnboarding = () => {
                 {employees.length > 0 ? (
                   employees.map((emp) => (
                     <tr key={emp.id}>
-                      <td>{emp.name}</td>
-                      <td>{emp.role}</td>
+                      <td>{emp.fullName}</td>
+                      <td>{emp.jobRole}</td>
                       <td>{emp.joiningDate}</td>
                       <td>
-                        <span className={`status-badge status-${emp.status.toLowerCase()}`}>
-                          {emp.status}
+                        <span className={`status-badge status-${(emp.status || "Pending").toLowerCase()}`}>
+                          {emp.status || "Pending"}
                         </span>
                       </td>
-                      <td>{emp.hrContact}</td>
+                      <td>{emp.reportingManager || "Unassigned"}</td>
                       <td>
-                        <button onClick={() => updateStatus(emp.id, "In Progress")} className="action-button action-progress">In Progress</button>
-                        <button onClick={() => updateStatus(emp.id, "Completed")} className="action-button action-complete">Complete</button>
-                        <button onClick={() => removeEmployee(emp.id)} className="action-button action-remove">Remove</button>
+                        <button onClick={() => updateStatus(emp.id, "In Progress")} className="action-button action-progress">
+                          In Progress
+                        </button>
+                        <button onClick={() => updateStatus(emp.id, "Completed")} className="action-button action-complete">
+                          Complete
+                        </button>
+                        <button onClick={() => removeEmployee(emp.id)} className="action-button action-remove">
+                          Remove
+                        </button>
                       </td>
                     </tr>
                   ))
@@ -188,11 +173,11 @@ const EmployeeOnboarding = () => {
           <h3>Add New Employee</h3>
 
           <div className="form-grid">
-            <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Full Name" className="input" required />
+            <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} placeholder="Full Name" className="input" required />
             <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email Address" className="input" required />
-            <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" className="input" required />
+            <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Phone Number" className="input" required />
 
-            <select name="role" value={formData.role} onChange={handleChange} className="select" required>
+            <select name="jobRole" value={formData.jobRole} onChange={handleChange} className="select" required>
               <option value="">Select Job Role</option>
               {jobRoles.map((role, index) => <option key={index} value={role}>{role}</option>)}
             </select>
@@ -202,14 +187,19 @@ const EmployeeOnboarding = () => {
               {departments.map((dept, index) => <option key={index} value={dept}>{dept}</option>)}
             </select>
 
+            <select name="workLocation" value={formData.workLocation} onChange={handleChange} className="select" required>
+              <option value="">Select Work Location</option>
+              {workLocations.map((location, index) => (
+                <option key={index} value={location}>{location}</option>
+              ))}
+            </select>
+
             <input type="date" name="joiningDate" value={formData.joiningDate} onChange={handleChange} className="input" required />
 
-            <select name="manager" value={formData.manager} onChange={handleChange} className="select" required>
+            <select name="reportingManager" value={formData.reportingManager} onChange={handleChange} className="select" required>
               <option value="">Select Reporting Manager</option>
               {managers.map((mgr, index) => <option key={index} value={mgr}>{mgr}</option>)}
             </select>
-
-            <input type="file" multiple onChange={handleFileChange} className="input-file" />
           </div>
 
           <div className="button-container">
@@ -219,8 +209,7 @@ const EmployeeOnboarding = () => {
         </div>
       )}
 
-      {/* Centered Popup */}
-      <Modal visible={popupVisible} onCancel={() => setPopupVisible(false)} footer={null} centered>
+      <Modal open={popupVisible} onCancel={() => setPopupVisible(false)} footer={null} centered>
         <p style={{ textAlign: "center", fontSize: "18px" }}>{popupMessage}</p>
       </Modal>
     </div>

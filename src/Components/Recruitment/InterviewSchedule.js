@@ -1,56 +1,107 @@
-import { useState } from "react";
-import "./Recruitment.css"; 
+import { useState, useEffect } from "react";
+import axios from "axios";
+import "./Recruitment.css";
+
+const API_URL = "http://localhost:8080/api/interviews"; 
 
 const InterviewScheduler = () => {
-  const initialInterviews = [
-    { id: 1, candidate: "J", job: "Software Engineer", dateTime: "2025-02-25T10:00", interviewer: "Keerthi", mode: "Online", status: "scheduled" },
-    { id: 2, candidate: "E", job: "Data Analyst", dateTime: "2025-02-26T14:30", interviewer: "Priya", mode: "In-Person", status: "rescheduled" },
-    { id: 3, candidate: "M", job: "HR Manager", dateTime: "2025-02-27T09:15", interviewer: "Zara", mode: "Online", status: "completed" },
-  ];
-
-  const [interviews, setInterviews] = useState(initialInterviews);
+  const [interviews, setInterviews] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({ candidate: "", job: "", dateTime: "", interviewer: "", mode: "Online" });
+  const [formData, setFormData] = useState({
+    candidateName: "",
+    jobPosition: "",
+    interviewDate: "",
+    interviewer: "",
+    mode: "Online",
+    status: "Scheduled", 
+  });
+
+  const [popup, setPopup] = useState({ show: false, id: null, status: "" });
 
   const jobPositions = ["Software Engineer", "Data Analyst", "HR Manager"];
   const interviewers = ["Keerthi", "Priya", "Zara"];
 
+  useEffect(() => {
+    fetchInterviews();
+  }, []);
+
+  const fetchInterviews = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setInterviews(response.data);
+    } catch (error) {
+      console.error("Error fetching interviews:", error);
+    }
+  };
+
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSchedule = () => {
-    if (!formData.candidate || !formData.job || !formData.dateTime || !formData.interviewer) {
+  
+  const handleDateChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      interviewDate: e.target.value, 
+    }));
+  };
+  
+
+  const handleSchedule = async () => {
+    if (!formData.candidateName || !formData.jobPosition || !formData.interviewDate || !formData.interviewer) {
       alert("Please fill all fields!");
       return;
     }
 
-    const newInterview = { id: interviews.length + 1, ...formData, status: "scheduled" };
-    setInterviews([...interviews, newInterview]);
-    setFormData({ candidate: "", job: "", dateTime: "", interviewer: "", mode: "Online" });
-    setShowForm(false);
+    try {
+      const response = await axios.post(API_URL, formData);
+      setInterviews([...interviews, response.data]);
+      setFormData({
+        candidateName: "",
+        jobPosition: "",
+        interviewDate: "",
+        interviewer: "",
+        mode: "Online",
+        status: "Scheduled",
+      });
+      setShowForm(false);
+    } catch (error) {
+      console.error("Error scheduling interview:", error);
+    }
   };
 
   const updateStatus = (id, newStatus) => {
-    setInterviews(interviews.map((interview) => (interview.id === id ? { ...interview, status: newStatus } : interview)));
+    console.log("Updating popup state:", id, newStatus); 
+  
     setPopup({ show: true, id, status: newStatus });
   };
- 
-  const [popup, setPopup] = useState({ show: false, id: null, status: "" });
- 
+  
 
- 
-  const confirmStatusUpdate = () => {
-    setInterviews(
-      interviews.map((interview) =>
-        interview.id === popup.id ? { ...interview, status: popup.status, actionTaken: true } : interview
-      )
-    );
-    setPopup({ show: false, id: null, status: "" });
+  const confirmStatusUpdate = async () => {
+    if (!popup.id) return;
+  
+    console.log("Attempting to update status for ID:", popup.id, "New Status:", popup.status);
+  
+    try {
+      const response = await axios.put(`${API_URL}/${popup.id}`, { status: popup.status });
+  
+      console.log("Response from server:", response.data); 
+  
+      setInterviews((prevInterviews) =>
+        prevInterviews.map((interview) =>
+          interview.id === popup.id ? { ...interview, status: popup.status } : interview
+        )
+      );
+  
+      setPopup({ show: false, id: null, status: "" }); 
+    } catch (error) {
+      console.error("Error updating interview status:", error.response ? error.response.data : error);
+    }
   };
+  
 
   return (
     <div className="interview-scheduler">
       <h2>Interview Scheduler</h2>
-      
+
       {!showForm && (
         <button className="add-interview-button" onClick={() => setShowForm(true)}>
           Schedule New Interview
@@ -60,25 +111,28 @@ const InterviewScheduler = () => {
       {showForm ? (
         <div className="card">
           <h3>Schedule New Interview</h3>
-          <input type="text" name="candidate" value={formData.candidate} onChange={handleChange} placeholder="Candidate Name" className="input" />
-          <select name="job" value={formData.job} onChange={handleChange} className="select">
+          <input type="text" name="candidateName" value={formData.candidateName} onChange={handleChange} placeholder="Candidate Name" className="input" />
+          <select name="jobPosition" value={formData.jobPosition} onChange={handleChange} className="select">
             <option value="">Select Job Position</option>
             {jobPositions.map((job, index) => (<option key={index} value={job}>{job}</option>))}
           </select>
-          <input type="datetime-local" name="dateTime" value={formData.dateTime} onChange={handleChange} className="input" />
+          
+          
+          <input type="datetime-local" name="interviewDate" onChange={handleDateChange} className="input" required />
+
           <select name="interviewer" value={formData.interviewer} onChange={handleChange} className="select">
             <option value="">Select Interviewer</option>
             {interviewers.map((interviewer, index) => (<option key={index} value={interviewer}>{interviewer}</option>))}
           </select>
+
+          
           <select name="mode" value={formData.mode} onChange={handleChange} className="select">
             <option value="Online">Online</option>
-            <option value="In-Person">In-Person</option>
+            <option value="In_Person">In-Person</option> 
           </select>
-          <button onClick={handleSchedule} className="button">Schedule</button>
-          <div className="back-button-container">
-  <button className="cancel-button" onClick={() => setShowForm(false)}>Back</button>
-</div>
 
+          <button onClick={handleSchedule} className="button">Schedule</button>
+          <button className="cancel-button" onClick={() => setShowForm(false)}>Back</button>
         </div>
       ) : (
         <div className="upcoming-interviews">
@@ -98,15 +152,16 @@ const InterviewScheduler = () => {
               {interviews.length > 0 ? (
                 interviews.map((interview) => (
                   <tr key={interview.id}>
-                    <td>{interview.candidate}</td>
-                    <td>{interview.job}</td>
-                    <td>{interview.dateTime.replace("T", " ")}</td>
+                    <td>{interview.candidateName}</td>
+                    <td>{interview.jobPosition}</td>
+                    <td>{interview.interviewDate.replace("T", " ")}</td>
                     <td>{interview.interviewer}</td>
                     <td><span className={`status-badge status-${interview.status}`}>{interview.status}</span></td>
                     <td>
-                      <button onClick={() => updateStatus(interview.id, "rescheduled")} className="action-button action-reschedule">Reschedule</button>
-                      <button onClick={() => updateStatus(interview.id, "canceled")} className="action-button action-cancel">Cancel</button>
-                      <button onClick={() => updateStatus(interview.id, "completed")} className="action-button action-complete">Mark as Completed</button>
+
+                      <button onClick={() => updateStatus(interview.id, "Scheduled")} className="action-button action-reschedule">Reschedule</button>
+                      <button onClick={() => updateStatus(interview.id, "Cancelled")} className="action-button action-cancel">Cancel</button>
+                      <button onClick={() => updateStatus(interview.id, "Completed")} className="action-button action-complete">Mark as Completed</button>
                     </td>
                   </tr>
                 ))
@@ -119,13 +174,12 @@ const InterviewScheduler = () => {
           </table>
         </div>
       )}
-     
+
       {popup.show && (
         <div className="popup-overlay">
           <div className="popup-box">
             <h3>Confirm Action</h3>
             <p>Are you sure you want to mark this interview as <strong>{popup.status}</strong>?</p>
-            
             <div className="popup-buttons">
               <button className="confirm-btn" onClick={confirmStatusUpdate}>Yes</button>
               <button className="cancel-btn" onClick={() => setPopup({ show: false, id: null, status: "" })}>No</button>
@@ -133,7 +187,6 @@ const InterviewScheduler = () => {
           </div>
         </div>
       )}
-      
     </div>
   );
 };
