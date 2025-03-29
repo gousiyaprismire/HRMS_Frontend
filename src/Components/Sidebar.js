@@ -83,6 +83,43 @@ const Sidebar = () => {
           </div>
         </div>
       )}
+
+<div style={itemStyles} onClick={toggleSelfService}>
+        💻 Self-Service {selfServiceOpen }
+      </div>
+      {selfServiceOpen && (
+        <div style={dropdownStyles}>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/selfservice/profile-update");
+            }}
+          >
+            👤 Profile Update
+          </div>
+
+
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/selfservice/expense-reimbursement");
+            }}
+          >
+            🧾 Expense Reimbursement
+          </div>
+          <div
+            style={dropdownItemStyles}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/selfservice/help-desk");
+            }}  
+          >
+            🆘 Help Desk & Support
+          </div>
+        </div>
+      )}
       <div style={itemStyles} onClick={() => navigate("/employee-management")}>
         👥 Employee Management
       </div>
@@ -180,42 +217,7 @@ const Sidebar = () => {
   </div>
 )
 }
-      <div style={itemStyles} onClick={toggleSelfService}>
-        💻 Self-Service {selfServiceOpen }
-      </div>
-      {selfServiceOpen && (
-        <div style={dropdownStyles}>
-          <div
-            style={dropdownItemStyles}
-            onClick={(event) => {
-              event.stopPropagation();
-              navigate("/selfservice/profile-update");
-            }}
-          >
-            👤 Profile Update
-          </div>
-
-
-          <div
-            style={dropdownItemStyles}
-            onClick={(event) => {
-              event.stopPropagation();
-              navigate("/selfservice/expense-reimbursement");
-            }}
-          >
-            🧾 Expense Reimbursement
-          </div>
-          <div
-            style={dropdownItemStyles}
-            onClick={(event) => {
-              event.stopPropagation();
-              navigate("/selfservice/help-desk");
-            }}  
-          >
-            🆘 Help Desk & Support
-          </div>
-        </div>
-      )}
+     
 
       {/* Analytics & Reporting Dropdown */}
       <div style={itemStyles} onClick={() => setAnalyticsDropdown(!analyticsDropdown)}>

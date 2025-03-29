@@ -998,6 +998,7 @@ button.cancel-btn:hover {
   border: 1px solid white; 
   padding: 10px;
   text-align: center;
+  color:black;
 }
 
 .employee-onboarding .table th {
@@ -1031,6 +1032,7 @@ button.cancel-btn:hover {
 .employee-onboarding .status-pending {
   background: #ffc107;
   color: #212529;
+  font-size: 14px;
 }
 
 .employee-onboarding .status-inprogress {
