@@ -1,33 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./SelfService.css";
 
-const ProfileUpdate = () => {
- 
-  const initialProfiles = [
-    {
-      name: "Priya",
-      email: "Priya.d@example.com",
-      phone: "9874563210",
-      address: " Hyderabad",
-      dob: "1990-05-15",
-      gender: "Male",
-      department: "IT",
-      employeeId: "EMP001",
-    },
-    {
-      name: "dolly",
-      email: "dolly.s@example.com",
-      phone: "9876563210",
-      address: "Bangalore",
-      dob: "1988-09-22",
-      gender: "Female",
-      department: "HR",
-      employeeId: "EMP002",
-    },
-  ];
+const API_BASE_URL = "http://localhost:8080/api/profiles"; 
 
-  const [profiles, setProfiles] = useState(initialProfiles); // Store profiles
-  const [showForm, setShowForm] = useState(false); // Toggle form visibility
+const ProfileUpdate = () => {
+  const [profiles, setProfiles] = useState([]);
+  const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -39,44 +18,87 @@ const ProfileUpdate = () => {
     employeeId: "",
   });
 
+
+  useEffect(() => {
+    axios
+      .get(API_BASE_URL)
+      .then((response) => {
+        const formattedProfiles = response.data.map((profile) => ({
+          ...profile,
+          dob: profile.dob ? profile.dob.split("T")[0] : "", 
+        }));
+        setProfiles(formattedProfiles);
+      })
+      .catch((error) => {
+        console.error("Error fetching profiles:", error);
+      });
+  }, []);
+
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  
+    if (name === "dob") {
+     
+      const formattedDate = new Date(value).toISOString().split("T")[0];
+      setFormData({ ...formData, [name]: formattedDate });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
+  
+
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    console.log(date.toISOString().split("T")[0]);
+    return date.toISOString().split("T")[0]; 
+  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setProfiles([...profiles, formData]); 
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      address: "",
-      dob: "",
-      gender: "",
-      department: "",
-      employeeId: "",
-    });
-    setShowForm(false); 
+    console.log(formData.dob);
+
+    const formattedData = {
+      ...formData,
+      dateOfBirth: formatDate(formData.dob).toString(),
+    };
+
+    axios
+      .post(API_BASE_URL, formattedData)
+      .then((response) => {
+        setProfiles([...profiles, response.data]);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          address: "",
+          dob: "",
+          gender: "",
+          department: "",
+          employeeId: "",
+        });
+        setShowForm(false);
+      })
+      .catch((error) => {
+        console.error("Error adding/storing profile:", error);
+      });
   };
 
   return (
     <div className="selfservice-profile-update-container">
       <h2 className="selfservice-profile-update-title">Profile Management</h2>
-   
-    
-     
+
       {!showForm && (
-  <>
-    <button
-      className="selfservice-add-profile-button"
-      onClick={() => setShowForm(true)}
-    >
-      Add Profile
-    </button>
+        <>
+          <button
+            className="selfservice-add-profile-button"
+            onClick={() => setShowForm(true)}
+          >
+            Add Profile
+          </button>
           <table className="selfservice-profile-table">
             <thead>
               <tr>
@@ -97,7 +119,7 @@ const ProfileUpdate = () => {
                   <td>{profile.email}</td>
                   <td>{profile.phone}</td>
                   <td>{profile.address}</td>
-                  <td>{profile.dob}</td>
+                  <td>{profile.dateOfBirth ? new Date(profile.dateOfBirth).toISOString().split("T")[0] : ""}</td>
                   <td>{profile.gender}</td>
                   <td>{profile.department}</td>
                   <td>{profile.employeeId}</td>
@@ -105,12 +127,9 @@ const ProfileUpdate = () => {
               ))}
             </tbody>
           </table>
-      
-      
         </>
       )}
 
-    
       {showForm && (
         <form onSubmit={handleSubmit} className="selfservice-profile-update-form">
           <div className="selfservice-form-grid">
@@ -126,7 +145,6 @@ const ProfileUpdate = () => {
                 required
               />
             </div>
-
             <div className="selfservice-form-group">
               <label>Email:</label>
               <input
@@ -139,7 +157,6 @@ const ProfileUpdate = () => {
                 required
               />
             </div>
-
             <div className="selfservice-form-group">
               <label>Phone:</label>
               <input
@@ -152,7 +169,6 @@ const ProfileUpdate = () => {
                 required
               />
             </div>
-
             <div className="selfservice-form-group">
               <label>Address:</label>
               <input
@@ -165,19 +181,19 @@ const ProfileUpdate = () => {
                 required
               />
             </div>
-
             <div className="selfservice-form-group">
               <label>Date of Birth:</label>
               <input
-                type="date"
-                name="dob"
-                value={formData.dob}
-                onChange={handleInputChange}
-                className="selfservice-form-input"
-                required
-              />
-            </div>
+              type="date"
+              name="dob"
+              value={formData.dob ? new Date(formData.dob).toISOString().split("T")[0] : ""}
+              onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
+              className="selfservice-form-input"
+              required
+            />
 
+
+            </div>
             <div className="selfservice-form-group">
               <label>Gender:</label>
               <select
@@ -193,19 +209,23 @@ const ProfileUpdate = () => {
                 <option value="Other">Other</option>
               </select>
             </div>
-
             <div className="selfservice-form-group">
-              <label>Department:</label>
-              <input
-                type="text"
-                name="department"
-                value={formData.department}
-                onChange={handleInputChange}
-                placeholder="Enter your department"
-                className="selfservice-form-input"
-                required
-              />
-            </div>
+            <label>Department:</label>
+            <select
+              name="department"
+              value={formData.department}
+              onChange={handleInputChange}
+              className="selfservice-form-input"
+              required
+            >
+              <option value="">Select your department</option>
+              <option value="HR">HR</option>
+              <option value="Finance">Finance</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Sales">Sales</option>
+            </select>
+          </div>
 
             <div className="selfservice-form-group">
               <label>Employee ID:</label>
@@ -220,7 +240,6 @@ const ProfileUpdate = () => {
               />
             </div>
           </div>
-
           <div className="selfservice-form-buttons">
             <button type="submit" className="selfservice-profile-update-button">
               Update Profile
