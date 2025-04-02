@@ -1,64 +1,99 @@
-import React, { useState } from 'react';
-import './SelfService.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./SelfService.css";
 
 const HelpDesk = () => {
   const [showForm, setShowForm] = useState(false);
-  const [tickets, setTickets] = useState([
-    {
-      id: 'TCK001',
-      issueType: 'IT',
-      description: 'Laptop not working',
-      status: 'Pending',
-    },
-    {
-      id: 'TCK002',
-      issueType: 'HR',
-      description: 'Payroll issue',
-      status: 'In Progress',
-    },
-  ]);
-
+  const [tickets, setTickets] = useState([]);
   const [formData, setFormData] = useState({
-    issueType: '',
-    description: '',
+    employeeId: "", 
+    issueType: "",
+    description: "",
   });
+
+  const issueDescriptions = {
+    IT: ["Laptop not working", "Internet issue", "Software installation"],
+    HR: ["Payroll issue", "Leave request", "Employee benefits"],
+  };
+
+  useEffect(() => {
+    fetchTickets();
+  }, []);
+
+  const fetchTickets = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/tickets");
+      setTickets(response.data);
+    } catch (error) {
+      console.error("Error fetching tickets:", error);
+      alert("Failed to fetch tickets.");
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
 
-  const handleSubmit = (e) => {
+    if (name === "issueType") {
+      setFormData({ ...formData, issueType: value, description: "" }); 
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+  const updateStatus = async (id, newStatus) => {
+    try {
+      await axios.put(`http://localhost:8080/api/tickets/${id}/status`, { status: newStatus });
+  
+     
+      setTickets(prevTickets => prevTickets.map(ticket =>
+        ticket.id === id ? { ...ticket, status: newStatus } : ticket
+      ));
+      alert("Ticket status updated!");
+    } catch (error) {
+      console.error("Error updating ticket status:", error);
+      alert("Failed to update ticket status.");
+    }
+  };
+  
+  const removeTicket = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/tickets/${id}`);
+  
+      setTickets(tickets.filter((ticket) => ticket.id !== id));
+      alert("Ticket removed successfully!");
+    } catch (error) {
+      console.error("Error removing ticket:", error);
+      alert("Failed to remove ticket.");
+    }
+  };
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.issueType || !formData.description) {
-      alert('Please fill all fields!');
+
+    if (!formData.employeeId || !formData.issueType || !formData.description) {
+      alert("Please fill all fields!");
       return;
     }
 
     const newTicket = {
-      id: `TCK${String(tickets.length + 1).padStart(3, '0')}`,
-      ...formData,
-      status: 'Pending',
+      employeeId: formData.employeeId, 
+      issueType: formData.issueType,
+      description: formData.description,
+      status: "Open",
     };
 
-    setTickets([...tickets, newTicket]);
-    setFormData({ issueType: '', description: '' });
-    setShowForm(false);
-  };
+    try {
+      const response = await axios.post("http://localhost:8080/api/tickets", newTicket, {
+        headers: { "Content-Type": "application/json" },
+      });
 
-  const updateStatus = (id, newStatus) => {
-    setTickets(
-      tickets.map((ticket) =>
-        ticket.id === id ? { ...ticket, status: newStatus } : ticket
-      )
-    );
-  };
-
-  const removeTicket = (id) => {
-    setTickets(tickets.filter((ticket) => ticket.id !== id));
+      setTickets([...tickets, response.data]);
+      setFormData({ employeeId: "", issueType: "", description: "" });
+      setShowForm(false);
+      alert("Ticket submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting ticket:", error);
+      alert("Failed to submit ticket.");
+    }
   };
 
   return (
@@ -68,7 +103,7 @@ const HelpDesk = () => {
       {!showForm && (
         <>
           <button className="helpdesk-add-button" onClick={() => setShowForm(true)}>
-           New Ticket
+            New Ticket
           </button>
 
           <div className="helpdesk-status">
@@ -76,6 +111,7 @@ const HelpDesk = () => {
             <table className="helpdesk-table">
               <thead>
                 <tr>
+                  <th>Employee ID</th>
                   <th>Issue Type</th>
                   <th>Description</th>
                   <th>Status</th>
@@ -86,22 +122,25 @@ const HelpDesk = () => {
                 {tickets.length > 0 ? (
                   tickets.map((ticket) => (
                     <tr key={ticket.id}>
+                      <td>{ticket.employeeId}</td> 
                       <td>{ticket.issueType}</td>
                       <td>{ticket.description}</td>
                       <td>
-                        <span className={`helpdesk-status-badge helpdesk-status-${ticket.status.toLowerCase()}`}>
+                        <span
+                          className={`helpdesk-status-badge helpdesk-status-${ticket.status.toLowerCase()}`}
+                        >
                           {ticket.status}
                         </span>
                       </td>
                       <td>
                         <button
-                          onClick={() => updateStatus(ticket.id, 'In Progress')}
+                          onClick={() => updateStatus(ticket.id, "In Progress")}
                           className="helpdesk-action-button helpdesk-progress"
                         >
                           In Progress
                         </button>
                         <button
-                          onClick={() => updateStatus(ticket.id, 'Resolved')}
+                          onClick={() => updateStatus(ticket.id, "Resolved")}
                           className="helpdesk-action-button helpdesk-resolved"
                         >
                           Resolve
@@ -117,7 +156,9 @@ const HelpDesk = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="4" className="text-center">No Tickets</td>
+                    <td colSpan="5" className="text-center">
+                      No Tickets
+                    </td>
                   </tr>
                 )}
               </tbody>
@@ -130,6 +171,18 @@ const HelpDesk = () => {
         <div className="helpdesk-card">
           <h3>Submit New Ticket</h3>
           <form onSubmit={handleSubmit} className="helpdesk-form">
+            <div className="helpdesk-form-group">
+              <label>Employee ID:</label>
+              <input
+                type="text"
+                name="employeeId"
+                value={formData.employeeId}
+                onChange={handleInputChange}
+                className="helpdesk-form-input"
+                required
+              />
+            </div>
+
             <div className="helpdesk-form-group">
               <label>Issue Type:</label>
               <select
@@ -145,17 +198,25 @@ const HelpDesk = () => {
               </select>
             </div>
 
-            <div className="helpdesk-form-group">
-              <label>Description:</label>
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                placeholder="Describe the issue"
-                className="helpdesk-form-input"
-                required
-              />
-            </div>
+            {formData.issueType && (
+              <div className="helpdesk-form-group">
+                <label>Description:</label>
+                <select
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  className="helpdesk-form-input"
+                  required
+                >
+                  <option value="">Select issue description</option>
+                  {issueDescriptions[formData.issueType].map((desc, index) => (
+                    <option key={index} value={desc}>
+                      {desc}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             <div className="helpdesk-button-container">
               <button type="submit" className="helpdesk-submit-button">
