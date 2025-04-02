@@ -13,7 +13,6 @@ const ExpenseReimbursement = () => {
 
   const [showForm, setShowForm] = useState(false);
 
- 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
 
@@ -27,13 +26,11 @@ const ExpenseReimbursement = () => {
     };
   };
 
- 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -63,7 +60,6 @@ const ExpenseReimbursement = () => {
     }
   };
 
- 
   const fetchExpenses = async () => {
     try {
       const response = await axios.get("http://localhost:8080/api/expenses");
@@ -73,22 +69,29 @@ const ExpenseReimbursement = () => {
     }
   };
 
- 
   const updateExpenseStatus = async (id, newStatus) => {
+    console.log(`Updating expense with ID: ${id}, New Status: ${newStatus}`);
+
     try {
-      await axios.put(`http://localhost:8080/api/expenses/${id}/status`, { status: newStatus });
+      await axios.put(
+        `http://localhost:8080/api/expenses/${id}/status`,
+        { status: newStatus },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
       setExpenses((prevExpenses) =>
         prevExpenses.map((expense) =>
           expense.id === id ? { ...expense, status: newStatus } : expense
         )
       );
+
+      alert("Expense status updated successfully!");
     } catch (error) {
       console.error("Error updating expense status:", error);
+      alert("Error updating expense status");
     }
   };
 
-  
   useEffect(() => {
     fetchExpenses();
   }, []);
@@ -137,22 +140,21 @@ const ExpenseReimbursement = () => {
                       )}
                     </td>
                     <td>
-                      {expense.status === "Pending" && (
-                        <div className="expense-action-buttons">
-                          <button
-                            className="expense-approve-button"
-                            onClick={() => updateExpenseStatus(expense.id, "Approved")}
-                          >
-                            Approve
-                          </button>
-                          <button
-                            className="expense-reject-button"
-                            onClick={() => updateExpenseStatus(expense.id, "Rejected")}
-                          >
-                            Reject
-                          </button>
-                        </div>
-                      )}
+                      {/* Always show action buttons */}
+                      <div className="expense-action-buttons">
+                        <button
+                          className="expense-approve-button"
+                          onClick={() => updateExpenseStatus(expense.id, "Approved")}
+                        >
+                          Approve
+                        </button>
+                        <button
+                          className="expense-reject-button"
+                          onClick={() => updateExpenseStatus(expense.id, "Rejected")}
+                        >
+                          Reject
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
