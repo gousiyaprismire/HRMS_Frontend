@@ -1,16 +1,15 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios"; 
 import "./Recruitment.css";
 
-function JobListings({ setActivePage }) {
-  const navigate = useNavigate(); // Initialize useNavigate
-  
-  const [jobs, setJobs] = useState([
-    { title: "Software Engineer", applications: 10, status: "Recruitment Done", hired: "0/3" },
-    { title: "Frontend Developer", applications: 7, status: "Recruitment Done", hired: "0/2" },
-    { title: "Backend Developer", applications: 5, status: "Recruitment Done", hired: "0/2" },
-  ]);
 
+const API_URL = "http://localhost:8080/api/jobs";
+
+function JobListings({ setActivePage }) {
+  const navigate = useNavigate();
+  
+  const [jobs, setJobs] = useState([]);
   const [newJob, setNewJob] = useState({ title: "", applications: 0, status: "Pending", hired: "0/1" });
 
   const jobTitles = [
@@ -27,15 +26,32 @@ function JobListings({ setActivePage }) {
     "QA Engineer",
   ];
 
+  
+  useEffect(() => {
+    axios.get(API_URL)
+      .then(response => {
+        setJobs(response.data);  
+      })
+      .catch(error => {
+        console.error("Error fetching job listings:", error);
+      });
+  }, []);
+
   const handleAddJob = () => {
     if (newJob.title) {
-      setJobs([...jobs, newJob]);
-      setNewJob({ title: "", applications: 0, status: "Pending", hired: "0/1" });
+      
+      axios.post(API_URL, newJob)
+        .then(response => {
+          setJobs([...jobs, response.data]);  
+          setNewJob({ title: "", applications: 0, status: "Pending", hired: "0/1" });
+        })
+        .catch(error => {
+          console.error("Error adding new job:", error);
+        });
     } else {
       alert("Please select a job title.");
     }
   };
-
 
   const handleApplicationsClick = (jobTitle) => {
     navigate(`/recruitment/job-listings/applicants?title=${jobTitle}`);
@@ -54,10 +70,10 @@ function JobListings({ setActivePage }) {
                 className="recruitment-job-apply" 
                 onClick={() => handleApplicationsClick(job.title)} 
               >
-                Applications: {job.applications}
+                Applications {job.applications}
               </button>
               <span className="recruitment-job-status">{job.status}</span>
-              <span className="recruitment-job-hired">Hired: {job.hired}</span>
+              {/* <span className="recruitment-job-hired">Hired: {job.hired}</span> */}
             </div>
           </div>
         ))}

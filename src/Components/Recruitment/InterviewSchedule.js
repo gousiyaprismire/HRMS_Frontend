@@ -19,7 +19,7 @@ const InterviewScheduler = () => {
   const [popup, setPopup] = useState({ show: false, id: null, status: "" });
 
   const jobPositions = ["Software Engineer", "Data Analyst", "HR Manager"];
-  const interviewers = ["Keerthi", "Priya", "Zara"];
+  // const interviewers = ["Keerthi", "Priya", "Zara"];
 
   useEffect(() => {
     fetchInterviews();
@@ -120,10 +120,15 @@ const InterviewScheduler = () => {
           
           <input type="datetime-local" name="interviewDate" onChange={handleDateChange} className="input" required />
 
-          <select name="interviewer" value={formData.interviewer} onChange={handleChange} className="select">
-            <option value="">Select Interviewer</option>
-            {interviewers.map((interviewer, index) => (<option key={index} value={interviewer}>{interviewer}</option>))}
-          </select>
+          <input
+  type="text"
+  name="interviewer"
+  value={formData.interviewer}
+  onChange={handleChange}
+  placeholder="Enter Interviewer Name"
+  className="input"
+/>
+
 
           
           <select name="mode" value={formData.mode} onChange={handleChange} className="select">
