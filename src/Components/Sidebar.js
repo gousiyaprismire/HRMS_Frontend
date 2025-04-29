@@ -236,7 +236,9 @@ const Sidebar = () => {
 const sidebarStyles = {
   width: "280px",
   height: "calc(100vh - 60px)", 
- background: "linear-gradient(to left,#D88A29, #2e2929)",
+//  background: "linear-gradient(to left,#D88A29, #2e2929)",
+  // background: "#a37e34",
+  background:"RGB(208,154,64)",
   color: "white",
   paddingTop: "50px",
   paddingLeft: '20px',
