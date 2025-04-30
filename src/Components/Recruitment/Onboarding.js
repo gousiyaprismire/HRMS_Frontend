@@ -23,7 +23,7 @@ const EmployeeOnboarding = () => {
 
   const jobRoles = ["Software Engineer", "Data Analyst", "HR Manager"];
   const departments = ["IT", "HR", "Finance"];
-  const managers = ["Keerthi", "Priya", "Purple"];
+  // const managers = ["Keerthi", "Priya", "Purple"];
   const workLocations = ["Remote", "On-site", "Hybrid"];
 
   
@@ -196,10 +196,20 @@ const EmployeeOnboarding = () => {
 
             <input type="date" name="joiningDate" value={formData.joiningDate} onChange={handleChange} className="input" required />
 
-            <select name="reportingManager" value={formData.reportingManager} onChange={handleChange} className="select" required>
+            {/* <select name="reportingManager" value={formData.reportingManager} onChange={handleChange} className="select" required>
               <option value="">Select Reporting Manager</option>
               {managers.map((mgr, index) => <option key={index} value={mgr}>{mgr}</option>)}
-            </select>
+            </select> */}
+            <input
+  type="text"
+  name="reportingManager"
+  value={formData.reportingManager}
+  onChange={handleChange}
+  placeholder="Enter Reporting Manager Name"
+  className="input"
+  required
+/>
+
           </div>
 
           <div className="button-container">

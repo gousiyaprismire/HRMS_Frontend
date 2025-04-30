@@ -7,24 +7,10 @@ const ExpenseReimbursement = () => {
   const [formData, setFormData] = useState({
     expenseTitle: "",
     amount: "",
-    receipt: "",
     employeeId: "",
   });
 
   const [showForm, setShowForm] = useState(false);
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setFormData({ ...formData, receipt: reader.result });
-    };
-    reader.onerror = (error) => {
-      console.error("Error converting file:", error);
-    };
-  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +28,6 @@ const ExpenseReimbursement = () => {
     const dataToSend = {
       expenseTitle: formData.expenseTitle,
       amount: parseFloat(formData.amount),
-      receiptBase64: formData.receipt,
       employeeId: parseInt(formData.employeeId),
     };
 
@@ -52,7 +37,7 @@ const ExpenseReimbursement = () => {
       });
 
       setExpenses([...expenses, response.data]);
-      setFormData({ expenseTitle: "", amount: "", receipt: "", employeeId: "" });
+      setFormData({ expenseTitle: "", amount: "", employeeId: "" });
       setShowForm(false);
       alert("Expense submitted successfully!");
     } catch (error) {
@@ -70,8 +55,6 @@ const ExpenseReimbursement = () => {
   };
 
   const updateExpenseStatus = async (id, newStatus) => {
-    console.log(`Updating expense with ID: ${id}, New Status: ${newStatus}`);
-
     try {
       await axios.put(
         `http://localhost:8080/api/expenses/${id}/status`,
@@ -114,7 +97,6 @@ const ExpenseReimbursement = () => {
                 <th>Expense Title</th>
                 <th>Amount</th>
                 <th>Status</th>
-                <th>Receipt</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -129,18 +111,6 @@ const ExpenseReimbursement = () => {
                       {expense.status}
                     </td>
                     <td>
-                      {expense.receiptBase64 ? (
-                        <img
-                          src={expense.receiptBase64}
-                          alt="Receipt"
-                          style={{ width: "100px", height: "100px" }}
-                        />
-                      ) : (
-                        "No Receipt"
-                      )}
-                    </td>
-                    <td>
-                      {/* Always show action buttons */}
                       <div className="expense-action-buttons">
                         <button
                           className="expense-approve-button"
@@ -160,7 +130,7 @@ const ExpenseReimbursement = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="text-center">
+                  <td colSpan="5" className="text-center">
                     No Expenses Submitted
                   </td>
                 </tr>
@@ -214,17 +184,6 @@ const ExpenseReimbursement = () => {
               placeholder="Enter amount"
               className="expense-form-input"
               required
-            />
-          </div>
-
-          <div className="expense-form-group">
-            <label>Receipt:</label>
-            <input
-              type="file"
-              name="receipt"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="expense-form-input"
             />
           </div>
 
