@@ -38,6 +38,7 @@ const Dashboard = () => {
   const [attendanceData, setAttendanceData] = useState({ present: 0, absent: 0 });
   const [activeTime, setActiveTime] = useState(0);
   const [blurTime, setBlurTime] = useState(0);
+  const [idleTime, setIdleTime] = useState(0); 
   const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {
@@ -53,8 +54,11 @@ const Dashboard = () => {
       const idle = now - lastActivity > 60000;
 
       setIsActive(!idle);
-      if (idle) {
+
+      if (document.hidden) {
         setBlurTime((prev) => prev + 1);
+      } else if (idle) {
+        setIdleTime((prev) => prev + 1);
       } else {
         setActiveTime((prev) => prev + 1);
       }
@@ -84,6 +88,9 @@ const Dashboard = () => {
         </p>
         <p className="dashboard-activity-time">
           🕶️ Blur Time: {(blurTime / 60).toFixed(1)} minutes
+        </p>
+        <p className="dashboard-activity-time">
+          💤 Idle Time: {(idleTime / 60).toFixed(1)} minutes
         </p>
         <p className="dashboard-activity-status">
           Status: {isActive ? "🟢 Active" : "🔴 Inactive"}
