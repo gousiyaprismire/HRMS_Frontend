@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button } from "antd";
+import jsPDF from "jspdf";
 import "./Recruitment.css";
 
 function OfferLetters() {
@@ -48,7 +49,7 @@ function OfferLetters() {
       alert("Please fill in all required fields.");
       return;
     }
-  
+
     if (editMode) {
       axios.put(`http://localhost:8080/api/offer-letters/${selectedOffer.id}`, newOffer)
         .then(() => {
@@ -63,7 +64,7 @@ function OfferLetters() {
         })
         .catch((error) => console.error("Error adding offer letter:", error));
     }
-  
+
     setNewOffer({
       candidateEmail: "",
       candidateName: "",
@@ -77,7 +78,7 @@ function OfferLetters() {
       hrContactPerson: "",
       status: "Sent",
     });
-  
+
     setShowForm(false);
   };
 
@@ -91,6 +92,21 @@ function OfferLetters() {
     setSelectedOffer(offer);
     setEditMode(true);
     setShowForm(true);
+  };
+
+  const generatePDF = (offer) => {
+    const doc = new jsPDF();
+    doc.setFontSize(16);
+    doc.text("Offer Letter", 20, 20);
+
+    let y = 30;
+    Object.entries(offer).forEach(([key, value]) => {
+      doc.setFontSize(12);
+      doc.text(`${key}: ${value}`, 20, y);
+      y += 10;
+    });
+
+    doc.save(`OfferLetter_${offer.candidateName.replace(/\s+/g, "_")}.pdf`);
   };
 
   return (
@@ -123,6 +139,7 @@ function OfferLetters() {
                   <td>
                     <button onClick={() => showDetailsModal(offer)}>View Details</button>
                     <button onClick={() => handleEditOffer(offer)}>Edit</button>
+                    <button onClick={() => generatePDF(offer)}>Download PDF</button>
                   </td>
                 </tr>
               ))}
@@ -146,16 +163,11 @@ function OfferLetters() {
           </select>
 
           <input type="text" placeholder="Salary Package" value={newOffer.salaryPackage} onChange={(e) => setNewOffer({ ...newOffer, salaryPackage: e.target.value })} required />
-                  
+
           <div className="date-input-container">
-              <input 
-                type="date" 
-                value={newOffer.offerDate} 
-                onChange={(e) => setNewOffer({ ...newOffer, offerDate: e.target.value })} 
-                required 
-              />
-              <span className="date-placeholder">Offer Date</span>
-            </div>
+            <input type="date" value={newOffer.offerDate} onChange={(e) => setNewOffer({ ...newOffer, offerDate: e.target.value })} required />
+            <span className="date-placeholder">Offer Date</span>
+          </div>
 
           <select value={newOffer.employmentType} onChange={(e) => setNewOffer({ ...newOffer, employmentType: e.target.value })}>
             <option value="">Select Employment Type</option>
@@ -171,23 +183,16 @@ function OfferLetters() {
             ))}
           </select>
 
-  
+          <div className="date-input-container">
+            <input type="date" value={newOffer.offerExpiry} onChange={(e) => setNewOffer({ ...newOffer, offerExpiry: e.target.value })} required />
+            <span className="date-placeholder">Offer Expiry Date</span>
+          </div>
 
-            <div className="date-input-container">
-              <input 
-                type="date" 
-                value={newOffer.offerExpiry} 
-                onChange={(e) => setNewOffer({ ...newOffer, offerExpiry: e.target.value })} 
-                required 
-              />
-              <span className="date-placeholder">Offer Expiry Date</span>
-            </div>
           <input type="text" placeholder="HR Contact Person" value={newOffer.hrContactPerson} onChange={(e) => setNewOffer({ ...newOffer, hrContactPerson: e.target.value })} />
 
           <div className="button-container">
             <button type="submit">{editMode ? "Update Offer Letter" : "Create Offer Letter"}</button>
           </div>
-
 
           <button type="button" className="cancel-button" onClick={() => setShowForm(false)}>Back</button>
         </form>
@@ -198,9 +203,8 @@ function OfferLetters() {
         open={detailsModalVisible}
         onCancel={() => setDetailsModalVisible(false)}
         footer={[
-          <Button key="close" onClick={() => setDetailsModalVisible(false)}>
-            Close
-          </Button>,
+          <Button key="close" onClick={() => setDetailsModalVisible(false)}>Close</Button>,
+          <Button key="download" type="primary" onClick={() => generatePDF(selectedOffer)}>Download PDF</Button>,
         ]}
         className="custom-modal"
       >

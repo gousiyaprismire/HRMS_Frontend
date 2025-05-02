@@ -44,12 +44,12 @@ const LoginForm = ({ handleLogin = () => {} }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8105/api/account/login', {
+      const { data } = await axios.post('http://localhost:8105/api/account/login', {
         email: loginEmail,
         password: loginPassword,
       });
 
-      const user = response.data;
+      const user = data;
 
       if (user) {
         localStorage.setItem('currentlogged', JSON.stringify(user));
