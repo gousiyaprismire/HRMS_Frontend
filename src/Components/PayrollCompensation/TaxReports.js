@@ -19,10 +19,10 @@ const TaxReports = () => {
     year: "",
   });
 
-  // ✅ Using useCallback to prevent useEffect warnings
+  
   const fetchData = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/tax_reports/all");
+      const response = await axios.get("http://localhost:8080/api/tax-reports/all");
       setTaxReports(response.data);
     } catch (error) {
       showToastMessage("Error fetching data!", true);
@@ -56,14 +56,14 @@ const TaxReports = () => {
     setShowToast(true);
   };
 
-  // ✅ Save or Update Report
+ 
   const handleSave = async () => {
     try {
       if (selectedReport) {
-        await axios.put(`http://localhost:8080/api/tax_reports/${newReport.empId}`, newReport);
+        await axios.put(`http://localhost:8080/api/tax-reports/${newReport.empId}`, newReport);
         showToastMessage("Updated Successfully!");
       } else {
-        await axios.post("http://localhost:8080/api/tax_reports", newReport);
+        await axios.post("http://localhost:8080/api/tax-reports", newReport);
         showToastMessage("Added Successfully!");
       }
       fetchData();
@@ -73,10 +73,10 @@ const TaxReports = () => {
     }
   };
 
-  // ✅ Delete Report
+
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/api/tax_reports/${id}`);
+      await axios.delete(`http://localhost:8080/api/tax-reports/${id}`);
       showToastMessage("Deleted Successfully!", true);
       fetchData();
     } catch (error) {
