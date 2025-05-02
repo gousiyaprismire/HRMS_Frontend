@@ -162,7 +162,7 @@ const LoginForm = ({ handleLogin = () => {} }) => {
                   onChange={(e) => setLoginPassword(e.target.value)}
                 />
               </div>
-              <button type="submit" className="btn btn-primary">Login</button>
+              <button type="submit" className="btn-login btn-primary-login">Login</button>
             </form>
           )}
 
@@ -218,7 +218,7 @@ const LoginForm = ({ handleLogin = () => {} }) => {
 
               <button
                 type="submit"
-                className="btn btn-success"
+                className="btn-login btn-success-login"
                 onClick={(e) => {
                   if (resetStage === 'email') handleResetSubmit(e);
                   else if (resetStage === 'otp') handleOtpVerificationSubmit(e);
