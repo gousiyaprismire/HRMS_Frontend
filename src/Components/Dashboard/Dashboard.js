@@ -42,6 +42,18 @@ const Dashboard = () => {
   const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {
+    const today = new Date().toDateString();
+    const storedDate = localStorage.getItem("activeTimeDate");
+    const storedTime = localStorage.getItem("activeTime");
+
+    if (storedDate !== today) {
+      localStorage.setItem("activeTime", "0");
+      localStorage.setItem("activeTimeDate", today);
+      setActiveTime(0);
+    } else if (storedTime) {
+      setActiveTime(Number(storedTime));
+    }
+
     let lastActivity = Date.now();
 
     const handleActivity = () => {
@@ -50,17 +62,22 @@ const Dashboard = () => {
     };
 
     const interval = setInterval(() => {
-      const now = Date.now();
-      const idle = now - lastActivity > 60000;
+      const now = new Date();
+      const currentHour = now.getHours();
 
-      setIsActive(!idle);
-
-      if (document.hidden) {
-        setBlurTime((prev) => prev + 1);
-      } else if (idle) {
-        setIdleTime((prev) => prev + 1);
+      // Only track active time between 9 AM and 6 PM
+      if (currentHour >= 9 && currentHour < 18) {
+        if (Date.now() - lastActivity > 60000) {
+          setIsActive(false);
+        } else {
+          setActiveTime((prev) => {
+            const updated = prev + 1;
+            localStorage.setItem("activeTime", updated.toString());
+            return updated;
+          });
+        }
       } else {
-        setActiveTime((prev) => prev + 1);
+        setIsActive(false); // Outside work hours, consider user inactive
       }
     }, 1000);
 
@@ -98,11 +115,10 @@ const Dashboard = () => {
       </div>
 
       <div className="dashboard-employee-overview">
-        {[
-          { label: "👥 Total Employees", value: stats.employees, color: "dashboard-bg-blue" },
-          { label: "✅ Active Employees", value: stats.active, color: "dashboard-bg-green" },
-          { label: "🌴 On Leave", value: stats.onLeave, color: "dashboard-bg-yellow" },
-          { label: "💵 Payroll Processed", value: stats.payroll.processed, color: "dashboard-bg-purple" },
+        {[{ label: "👥 Total Employees", value: stats.employees, color: "dashboard-bg-blue" },
+        { label: "✅ Active Employees", value: stats.active, color: "dashboard-bg-green" },
+        { label: "🌴 On Leave", value: stats.onLeave, color: "dashboard-bg-yellow" },
+        { label: "💵 Payroll Processed", value: stats.payroll.processed, color: "dashboard-bg-purple" }
         ].map((item, index) => (
           <div key={index} className={`dashboard-stat-card ${item.color}`}>
             <p className="dashboard-stat-label">{item.label}</p>
@@ -149,10 +165,9 @@ const Dashboard = () => {
         <div className="dashboard-chart-card">
           <h2 className="dashboard-chart-title">📈 Recruitment Status</h2>
           <div className="dashboard-recruitment-tracker">
-            {[
-              { label: "🛠️ Open Jobs", value: stats.recruitment.openJobs, max: 10, color: "blue" },
-              { label: "📋 Applicants", value: stats.recruitment.applicants, max: 50, color: "green" },
-              { label: "🎤 Interviews", value: stats.recruitment.interviews, max: 20, color: "purple" },
+            {[{ label: "🛠️ Open Jobs", value: stats.recruitment.openJobs, max: 10, color: "blue" },
+            { label: "📋 Applicants", value: stats.recruitment.applicants, max: 50, color: "green" },
+            { label: "🎤 Interviews", value: stats.recruitment.interviews, max: 20, color: "purple" }
             ].map((stage, index) => (
               <div key={index} className="dashboard-recruitment-stage">
                 <p className="dashboard-recruitment-label">{stage.label}: {stage.value}</p>
