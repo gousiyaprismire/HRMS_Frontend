@@ -99,7 +99,7 @@ body {
     outline: none;
   }
    
-  .btn {
+  .btn-login {
     width: 100%;
     padding: 12px;
     font-size: 16px;
@@ -109,21 +109,21 @@ body {
     cursor: pointer;
   }
    
-  .btn-primary {
+  .btn-primary-login {
     background-color: #a37e34;
     color: white;
   }
    
-  .btn-primary:hover {
+  .btn-primary-login:hover {
     background-color: #a37e34;
   }
    
-  .btn-success {
+  .btn-success-login {
     background-color: #a37e34;
     color: white;
   }
    
-  .btn-success:hover {
+  .btn-success-login:hover {
     background-color: #218838;
   }
    
