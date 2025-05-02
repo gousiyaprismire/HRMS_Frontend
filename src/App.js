@@ -1,5 +1,4 @@
-import React from "react";     
-import { Navigate } from "react-router-dom";
+import React from "react";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import Sidebar from "./Components/Sidebar";
 import TopBar from "./Components/Topbar";
@@ -42,63 +41,85 @@ import CompanyPolicyCompliance from './Components/BenefitsCompliance/CompanyPoli
 import AuditReports from './Components/BenefitsCompliance/AuditComplianceReports';
 import FeedbackQuestions from './Components/PerformanceManagement/FeedbackQuestions';
 import GeneralOptions from './Components/PerformanceManagement/GeneralOptions';
+import LoginForm from "./Components/LoginForm/LoginForm";
+
+const ProtectedRoute = ({ children }) => {
+  const user = localStorage.getItem("currentlogged");
+  return user ? children : <LoginForm />;
+};
+
+const DashboardLayout = ({ children }) => (
+  <div style={{ display: "flex", minHeight: "100vh", flexDirection: "column" }}>
+    <TopBar />
+    <div style={{ display: "flex", marginTop: "60px" }}>
+      <Sidebar />
+      <div style={{ marginLeft: "260px", padding: "20px", width: "100%" }}>
+        {children}
+      </div>
+    </div>
+  </div>
+);
 
 const App = () => {
   return (
     <Router>
-      <div style={{ display: "flex", minHeight: "100vh", flexDirection: "column" }}>
-        <TopBar />
-        <div style={{ display: "flex", marginTop: "60px" }}>
-          <Sidebar />
-          <div style={{ marginLeft: "260px", padding: "20px", width: "100%" }}>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/analytics-reporting" element={<AnalyticsReporting />} />
-              <Route path="/attendance" element={<AttendanceTime />} />
-              <Route path="/attendance-tracking" element={<EmployeeAttendanceTracking />} />
-              <Route path="/leave-application" element={<LeaveApplication />} />
-              <Route path="/leave-approval" element={<LeaveApprovalPanel />} />
-              <Route path="/employee-reports" element={<EmployeeReports />} />
-              <Route path="/performance-appraisal-reports" element={<PerformanceAppraisalReports />} />
-              <Route path="/holiday" element={<HolidayPolicies />} />
-              <Route path="/timesheet" element={<TimesheetManagement />} />
-              <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
-              <Route path="/employee-management" element={<EmployeeManagement />} />
-              <Route path="/payroll" element={<PayrollCompensation />} />
-              <Route path="/performance-management" element={<PerformanceManagement />} />
-              <Route path="/goal-categories" element={<GoalCategories />} />
-              <Route path="/organization-goals" element={<OrganizationGoals />} />
-    
-              <Route path="feedback-questions" element={<FeedbackQuestions />} />
-              <Route path="general-options" element={<GeneralOptions />} />
-              <Route path="/security" element={<SecurityDataPrivacy />} />
+      <Routes>
+        {/* Public Route */}
+        <Route path="/login" element={<LoginForm />} />
 
-              <Route path="/benefits/benefits-enrollment" element={<BenefitsEnrollment />} />
-              <Route path="/benefits/claims-reimbursements" element={<ClaimsReimbursements />} />
-              <Route path="/benefits/company-policy-compliance" element={<CompanyPolicyCompliance />} />
-              <Route path="/benefits/audit-reports" element={<AuditReports />} />
-
-              <Route path="/recruitment/job-listings" element={<JobListings />} />
-              <Route path="/recruitment/job-listings/applicants" element={<Applicant />} />
-              <Route path="/recruitment/applicant-management" element={<InterviewSchedule />} />
-              <Route path="/recruitment/offer-letters" element={<OfferLetters />} />
-              <Route path="/recruitment/onboarding" element={<Onboarding />} />
-              <Route path="/selfservice" element={<SelfService />} />
-              <Route path="/selfservice/profile-update" element={<ProfileUpdate />} />
-              <Route path="/selfservice/leave-attendance-history" element={<LeaveAttendance />} />
-              <Route path="/selfservice/payroll-tax-documents" element={<PayrollTax />} />
-              <Route path="/selfservice/expense-reimbursement" element={<ExpenseReimbursement />} />
-              <Route path="/selfservice/help-desk" element={<HelpDesk />} />
-              <Route path="/salary-structure" element={<SalaryStructure />} />
-              <Route path="/payslips" element={<Payslips />} />
-              <Route path="/bonuses" element={<Bonuses />} />
-              <Route path="/payroll-processing" element={<PayrollProcessing />} />
-              <Route path="/tax-reports" element={<TaxReports />} />
-            </Routes>
-          </div>
-        </div>
-      </div>
+        {/* Protected Routes */}
+        <Route
+          path="*"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/analytics-reporting" element={<AnalyticsReporting />} />
+                  <Route path="/attendance" element={<AttendanceTime />} />
+                  <Route path="/attendance-tracking" element={<EmployeeAttendanceTracking />} />
+                  <Route path="/leave-application" element={<LeaveApplication />} />
+                  <Route path="/leave-approval" element={<LeaveApprovalPanel />} />
+                  <Route path="/employee-reports" element={<EmployeeReports />} />
+                  <Route path="/performance-appraisal-reports" element={<PerformanceAppraisalReports />} />
+                  <Route path="/holiday" element={<HolidayPolicies />} />
+                  <Route path="/timesheet" element={<TimesheetManagement />} />
+                  <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
+                  <Route path="/employee-management" element={<EmployeeManagement />} />
+                  <Route path="/payroll" element={<PayrollCompensation />} />
+                  <Route path="/performance-management" element={<PerformanceManagement />} />
+                  <Route path="/goal-categories" element={<GoalCategories />} />
+                  <Route path="/organization-goals" element={<OrganizationGoals />} />
+                  <Route path="/feedback-questions" element={<FeedbackQuestions />} />
+                  <Route path="/general-options" element={<GeneralOptions />} />
+                  <Route path="/security" element={<SecurityDataPrivacy />} />
+                  <Route path="/benefits/benefits-enrollment" element={<BenefitsEnrollment />} />
+                  <Route path="/benefits/claims-reimbursements" element={<ClaimsReimbursements />} />
+                  <Route path="/benefits/company-policy-compliance" element={<CompanyPolicyCompliance />} />
+                  <Route path="/benefits/audit-reports" element={<AuditReports />} />
+                  <Route path="/recruitment/job-listings" element={<JobListings />} />
+                  <Route path="/recruitment/job-listings/applicants" element={<Applicant />} />
+                  <Route path="/recruitment/applicant-management" element={<InterviewSchedule />} />
+                  <Route path="/recruitment/offer-letters" element={<OfferLetters />} />
+                  <Route path="/recruitment/onboarding" element={<Onboarding />} />
+                  <Route path="/selfservice" element={<SelfService />} />
+                  <Route path="/selfservice/profile-update" element={<ProfileUpdate />} />
+                  <Route path="/selfservice/leave-attendance-history" element={<LeaveAttendance />} />
+                  <Route path="/selfservice/payroll-tax-documents" element={<PayrollTax />} />
+                  <Route path="/selfservice/expense-reimbursement" element={<ExpenseReimbursement />} />
+                  <Route path="/selfservice/help-desk" element={<HelpDesk />} />
+                  <Route path="/salary-structure" element={<SalaryStructure />} />
+                  <Route path="/payslips" element={<Payslips />} />
+                  <Route path="/bonuses" element={<Bonuses />} />
+                  <Route path="/payroll-processing" element={<PayrollProcessing />} />
+                  <Route path="/tax-reports" element={<TaxReports />} />
+                </Routes>
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
     </Router>
   );
 };

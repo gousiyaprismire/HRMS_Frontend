@@ -1,196 +1,152 @@
 import React, { useState } from 'react';
-import { useHistory  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './Login.css';
-import { Home } from '@material-ui/icons';
-import Navbar from '../Components/Navbar';
- 
-const LoginForm = ({ handleLogin }) => {
-  const history = useHistory();
+import './LoginForm.css';
+
+const LoginForm = ({ handleLogin = () => {} }) => {
+  const navigate = useNavigate();
   const [activeForm, setActiveForm] = useState('login');
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
-  const [signupEmail, setSignupEmail] = useState('');
-  const [signupPassword, setSignupPassword] = useState('');
-  const [signupPasswordConfirm, setSignupPasswordConfirm] = useState('');
   const [resetEmail, setResetEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
-  const [resetStage, setResetStage] = useState('email'); // 'email', 'otp', 'password'
+  const [resetStage, setResetStage] = useState('email');
   const [verificationResponse, setVerificationResponse] = useState(null);
- 
+
   const handleSwitchForm = (form) => {
     setActiveForm(form);
-    setResetStage('email'); // Reset the reset stage when switching forms
+    setResetStage('email');
   };
- 
- 
+
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-   
-   
+
+    const localEmail = 'prismire@gmail.com';
+    const localPassword = 'prismire';
+
+    if (loginEmail === localEmail && loginPassword === localPassword) {
+      const mockUser = {
+        name: 'Deepak',
+        email: loginEmail,
+        role: 'admin',
+      };
+
+      localStorage.setItem('currentlogged', JSON.stringify(mockUser));
+      handleLogin(mockUser);
+      navigate('/dashboard');
+      setPopupMessage('Login successful!');
+      setShowPopup(true);
+      return;
+    }
+
     try {
       const response = await axios.post('http://localhost:8105/api/account/login', {
         email: loginEmail,
         password: loginPassword,
       });
- 
-      const token = response.data.token;
-      // Store the token in local storage or context
-      // localStorage.setItem('token', token); // Uncomment if you want to store the token
+
       const user = response.data;
-      // Redirect to another page on successful login
-      if(user != null && user != "") {
-        localStorage.setItem("currentlogged", JSON.stringify(user));
- 
+
+      if (user) {
+        localStorage.setItem('currentlogged', JSON.stringify(user));
         handleLogin(user);
-        if (user.type === 'student'){
-          history.push('/UserDash');
-          axios.get('http://localhost:8105/api/account/login')
-        }
- 
-        else if (user.type === 'teacher'){
-          history.push('/Teacherdash');
-        }
-        else if (user.type === 'management'){
-          history.push('/UserDash');
-        } else {
-          history.push('/AdminDash'); // Assuming you have a route for another page
- 
-        }
-       
+        navigate('/dashboard');
         setPopupMessage('Login successful!');
         setShowPopup(true);
-        console.log('Login successful. Token:', token);
       } else {
-        setPopupMessage('Invalid email or password. Please try again.');
+        setPopupMessage('Invalid email or password.');
         setShowPopup(true);
-        console.log('Invalid email or password. Please try again.');
       }
-   
     } catch (error) {
-      if (error.response && error.response.status === 400) {
-        setPopupMessage('Invalid email or password. Please try again.');
-      } else {
-        setPopupMessage('An error occurred during login. Please try again later.');
-      }
+      setPopupMessage('Login failed. Please check credentials.');
       setShowPopup(true);
-      console.error('Error during login:', error);
     }
   };
- 
+
   const handleResetSubmit = async (e) => {
     e.preventDefault();
- 
-    // Regular expression to match the email format with domain @gmail.com
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
- 
-    // Check if the entered email matches the required format
-    if (!emailRegex.test(resetEmail)) {
-      setPopupMessage('Please enter a valid Gmail address.');
+    try {
+      await axios.post('http://localhost:8105/api/email/sendOtp', {
+        toEmail: resetEmail,
+      });
+      setResetStage('otp');
+      setPopupMessage('OTP sent to your email.');
       setShowPopup(true);
-      return; // Exit the function if email is not valid
+    } catch (error) {
+      setPopupMessage('Failed to send OTP.');
+      setShowPopup(true);
     }
- 
-   
-  try {
-    // Implement your server-side logic for sending OTP and handling forgot password flow
-    // You may need additional API endpoints for sending OTP, verifying OTP, and updating the password
-    const response = await axios.post('http://localhost:8105/api/email/sendOtp', {
-      toEmail: resetEmail,
-    });
- 
-    setPopupMessage('OTP sent to your email. Check your inbox.');
-    setShowPopup(true);
-    // Assuming you have an OTP flow, switch to OTP verification form
-    setResetStage('otp');
-   
-  } catch (error) {
-    setPopupMessage('An error occurred. Please try again later.');
-    setShowPopup(true);
-    console.error('Error during forgot password:', error);
-  }
-};
- 
-const handleOtpVerificationSubmit = async (e) => {
-  e.preventDefault();
- 
-  try {
-    // Implement your server-side logic for verifying OTP
-    const response = await axios.post('http://localhost:8105/api/email/verify-otp', {
-      email: resetEmail,
-      otp,
-    });
- // Store the verification response in the local variable
- setVerificationResponse(response);
-    setPopupMessage('OTP verified. Enter your new password.');
-    setShowPopup(true);
-    // Assuming OTP is verified, switch to password reset form
-    setResetStage('password');
-  } catch (error) {
-    setPopupMessage('Invalid OTP. Please try again.');
-    setShowPopup(true);
-    console.error('Error during OTP verification:', error);
-  }
-};
- 
-const handlePasswordResetSubmit = async (e) => {
-  e.preventDefault();
- 
-  try {
-    // Implement your server-side logic for updating the password
-    const userOb = {
-      ...verificationResponse.data, // Include the original response data
-      password: newPassword, // Update password with newPassword
-      confirmPassword: confirmNewPassword, // Update confirmPassword with confirmNewPassword
-   
-    }
-     console.log(userOb);
-    const response = await axios.post('http://localhost:8105/api/account/create', userOb  );
- 
-    setPopupMessage('Password reset successful. You can now login with your new password.');
-    setShowPopup(true);
-    // Assuming password is reset, switch back to login form
-    setActiveForm('login');
-  } catch (error) {
-    setPopupMessage('An error occurred during password reset. Please try again later.');
-    setShowPopup(true);
-    console.error('Error during password reset:', error);
-  }
-};
- 
- 
-  const closePopup = () => {
-    setShowPopup(false);
   };
- 
+
+  const handleOtpVerificationSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8105/api/email/verify-otp', {
+        email: resetEmail,
+        otp,
+      });
+      setVerificationResponse(response);
+      setResetStage('password');
+      setPopupMessage('OTP verified. Enter new password.');
+      setShowPopup(true);
+    } catch (error) {
+      setPopupMessage('Invalid OTP.');
+      setShowPopup(true);
+    }
+  };
+
+  const handlePasswordResetSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const userOb = {
+        ...verificationResponse.data,
+        password: newPassword,
+        confirmPassword: confirmNewPassword,
+      };
+      await axios.post('http://localhost:8105/api/account/create', userOb);
+      setPopupMessage('Password reset successful.');
+      setShowPopup(true);
+      setActiveForm('login');
+    } catch (error) {
+      setPopupMessage('Password reset failed.');
+      setShowPopup(true);
+    }
+  };
+
+  const closePopup = () => setShowPopup(false);
+
   return (
-    <>
-    <Navbar/>
-<div class="container-fluid">
-  <div className='row'>
-    <div className='col-12 col-md-4 order-md-1' >
-      <img src='https://img.freepik.com/premium-vector/young-man-sitting-armchair-working-laptop-modern-coworking-space_776652-4706.jpg?w=740' className='side-image'/>
- 
-    </div>
-    <div className="col-12 col-md-7 order-md-2">
-      <h1 className="section-title">Login Form</h1>
-      <div className="forms">
-        <div className={`form-wrapper ${activeForm === 'login' ? 'is-active' : ''}`}>
-          <button type="button" className="switcher switcher-login" onClick={() => handleSwitchForm('login')}>
-            Login
-            <span className="underline"></span>
-          </button>
-          <form className="form form-login" onSubmit={handleLoginSubmit}>
-            <fieldset>
-              <legend>Please, enter your email and password for login.</legend>
+    <div className="container-fluid">
+      <div className="row">
+        {/* Image Column */}
+        <div className="col-image">
+          <img src="/Logo.png" alt="HRMS Logo" className="side-image" />
+        </div>
+
+        {/* Form Column */}
+        <div className="col-form">
+          <h1 className="section-title">Welcome Back</h1>
+
+          {/* Switcher Buttons */}
+          <div className="switcher-group">
+            <button className="switcher" onClick={() => handleSwitchForm('login')}>
+              Login <span className="underline" />
+            </button>
+            <button className="switcher" onClick={() => handleSwitchForm('forgot')}>
+              Forgot Password <span className="underline" />
+            </button>
+          </div>
+
+          {/* Login Form */}
+          {activeForm === 'login' && (
+            <form className="form" onSubmit={handleLoginSubmit}>
               <div className="input-block">
-                <label htmlFor="login-email">E-mail</label>
+                <label>Email</label>
                 <input
-                  id="login-email"
                   type="email"
                   required
                   value={loginEmail}
@@ -198,111 +154,99 @@ const handlePasswordResetSubmit = async (e) => {
                 />
               </div>
               <div className="input-block">
-                <label htmlFor="login-password">Password</label>
+                <label>Password</label>
                 <input
-                  id="login-password"
                   type="password"
                   required
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
                 />
               </div>
-            </fieldset>
-            <button type="submit" className="btn btn-primary">
-              Login
-            </button>
-          </form>
-        </div>
-        <div className={`form-wrapper ${activeForm === 'forgot' ? 'is-active' : ''}`}>
-        <button type="button" className="switcher switcher-forgot" onClick={() => handleSwitchForm('forgot')}>
-          Forgot Password
-          <span className="underline"></span>
-        </button>
-        <form className="form form-signup" >
-          {resetStage === 'email' && (
-            <fieldset>
-              <legend>Enter your email to reset the password.</legend>
-              <div className="input-block">
-                <label htmlFor="reset-email">E-mail</label>
-                <input
-                  id="reset-email"
-                  type="email"
-                  required
-                  value={resetEmail}
-                  onChange={(e) => setResetEmail(e.target.value)}
-                />
-              </div>
-            </fieldset>
+              <button type="submit" className="btn btn-primary">Login</button>
+            </form>
           )}
-          {resetStage === 'otp' && (
-            <fieldset>
-              <legend>Enter the OTP sent to your email.</legend>
-              <div className="input-block">
-                <label htmlFor="otp">OTP</label>
-                <input
-                  id="otp"
-                  type="text"
-                  required
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                />
-              </div>
-            </fieldset>
+
+          {/* Forgot Password Flow */}
+          {activeForm === 'forgot' && (
+            <form className="form">
+              {resetStage === 'email' && (
+                <div className="input-block">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    required
+                    value={resetEmail}
+                    onChange={(e) => setResetEmail(e.target.value)}
+                  />
+                </div>
+              )}
+
+              {resetStage === 'otp' && (
+                <div className="input-block">
+                  <label>OTP</label>
+                  <input
+                    type="text"
+                    required
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                  />
+                </div>
+              )}
+
+              {resetStage === 'password' && (
+                <>
+                  <div className="input-block">
+                    <label>New Password</label>
+                    <input
+                      type="password"
+                      required
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                  </div>
+                  <div className="input-block">
+                    <label>Confirm Password</label>
+                    <input
+                      type="password"
+                      required
+                      value={confirmNewPassword}
+                      onChange={(e) => setConfirmNewPassword(e.target.value)}
+                    />
+                  </div>
+                </>
+              )}
+
+              <button
+                type="submit"
+                className="btn btn-success"
+                onClick={(e) => {
+                  if (resetStage === 'email') handleResetSubmit(e);
+                  else if (resetStage === 'otp') handleOtpVerificationSubmit(e);
+                  else handlePasswordResetSubmit(e);
+                }}
+              >
+                {resetStage === 'email'
+                  ? 'Send OTP'
+                  : resetStage === 'otp'
+                  ? 'Verify OTP'
+                  : 'Reset Password'}
+              </button>
+            </form>
           )}
-          {resetStage === 'password' && (
-            <fieldset>
-              <legend>Enter your new password.</legend>
-              <div className="input-block">
-                <label htmlFor="new-password">New Password</label>
-                <input
-                  id="new-password"
-                  type="password"
-                  required
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                />
+
+          {/* Popup */}
+          {showPopup && (
+            <div className="popup-container">
+              <div className="popup-content">
+                <p>{popupMessage}</p>
+                <button onClick={closePopup}>OK</button>
               </div>
-              <div className="input-block">
-                <label htmlFor="confirm-new-password">Confirm New Password</label>
-                <input
-                  id="confirm-new-password"
-                  type="password"
-                  required
-                  value={confirmNewPassword}
-                  onChange={(e) => setConfirmNewPassword(e.target.value)}
-                />
-              </div>
-            </fieldset>
+            </div>
           )}
-          <button type="submit" className="btn btn-success"
-              onClick={(e)=> {
-                if (resetStage === 'otp') {
-                  handleOtpVerificationSubmit(e);
-                } else if (resetStage === 'password') {
-                  handlePasswordResetSubmit(e);
-                } else {
-                  handleResetSubmit(e);
-                }
-              }}>
-            {resetStage === 'email' ? 'Send OTP' : resetStage === 'otp' ? 'Verify OTP' : 'Reset Password'}
-          </button>
-        </form>
-        </div>
-      </div>
-      {showPopup && (
-      <div className="popup-container">
-        <div className="popup-content">
-          <p>{popupMessage}</p>
-          <button onClick={closePopup}>OK</button>
         </div>
       </div>
-      )}
-      </div>
-      </div>
-      </div>
-      </>
- 
+    </div>
   );
 };
- 
+
 export default LoginForm;
