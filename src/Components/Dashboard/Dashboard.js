@@ -37,8 +37,8 @@ const Dashboard = () => {
 
   const [attendanceData, setAttendanceData] = useState({ present: 0, absent: 0 });
   const [activeTime, setActiveTime] = useState(0);
-  const [blurTime, setBlurTime] = useState(0);
-  const [idleTime, setIdleTime] = useState(0); 
+  const [blurTime, ] = useState(0);
+  const [idleTime,] = useState(0); 
   const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {
