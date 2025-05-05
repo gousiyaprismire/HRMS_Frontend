@@ -94,20 +94,21 @@ function OfferLetters() {
     setShowForm(true);
   };
 
-  const generatePDF = (offer) => {
+  const generatePDFLink = (offer) => {
     const doc = new jsPDF();
     doc.setFontSize(16);
     doc.text("Offer Letter", 20, 20);
-
+  
     let y = 30;
     Object.entries(offer).forEach(([key, value]) => {
       doc.setFontSize(12);
       doc.text(`${key}: ${value}`, 20, y);
       y += 10;
     });
-
-    doc.save(`OfferLetter_${offer.candidateName.replace(/\s+/g, "_")}.pdf`);
+  
+    return doc.output("bloburl");
   };
+  
 
   return (
     <div className="offer-container">
@@ -139,7 +140,10 @@ function OfferLetters() {
                   <td>
                     <button onClick={() => showDetailsModal(offer)}>View Details</button>
                     <button onClick={() => handleEditOffer(offer)}>Edit</button>
-                    <button onClick={() => generatePDF(offer)}>Download PDF</button>
+                    <a href={generatePDFLink(offer)} target="_blank" rel="noopener noreferrer">
+  View PDF
+</a>
+
                   </td>
                 </tr>
               ))}
@@ -204,7 +208,14 @@ function OfferLetters() {
         onCancel={() => setDetailsModalVisible(false)}
         footer={[
           <Button key="close" onClick={() => setDetailsModalVisible(false)}>Close</Button>,
-          <Button key="download" type="primary" onClick={() => generatePDF(selectedOffer)}>Download PDF</Button>,
+          <Button
+          key="download"
+          type="primary"
+          onClick={() => window.open(generatePDFLink(selectedOffer), "_blank")}
+        >
+          View PDF
+        </Button>
+        
         ]}
         className="custom-modal"
       >
