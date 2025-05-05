@@ -140,9 +140,7 @@ function OfferLetters() {
                   <td>
                     <button onClick={() => showDetailsModal(offer)}>View Details</button>
                     <button onClick={() => handleEditOffer(offer)}>Edit</button>
-                    <a href={generatePDFLink(offer)} target="_blank" rel="noopener noreferrer">
-  View PDF
-</a>
+                    <a href="/offerletter.pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
 
                   </td>
                 </tr>
