@@ -1,165 +1,254 @@
-body {
+.lp-box * {
+    box-sizing: border-box;
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f4f6f8;
+    padding: 0;
   }
    
-  .container-fluid {
+  .lp-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
     height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-   
-  .row {
-    width: 90%;
-    max-width: 1100px;
-    display: flex;
-    border-radius: 12px;
-    background: #fff;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     overflow: hidden;
   }
    
-  .col-image {
+  /* Login Container */
+  .lp-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+   
+  /* Left Side - Fixed Image */
+  .lp-left {
     flex: 1;
-    /* background: #e6f0ff; */
+    background-color: #f9f9f9;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-  }
-   
-  .side-image {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-   
-  .col-form {
-    flex: 1;
     padding: 40px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
   }
    
-  .section-title {
-    font-size: 30px;
-    font-weight: 600;
-    color: #a37e34;
-    text-align: center;
-    margin-bottom: 25px;
+  .lp-logo {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
   }
    
-  .switcher-group {
+  /* Right Side - Scrollable Form */
+  .lp-right {
+    flex: 1;
+    overflow-y: auto;
+    height: 100vh;
+    background-color: #f9f9f9;
+  }
+   
+  .lp-scroll {
+    padding: 80px 40px;
     display: flex;
     justify-content: center;
-    gap: 30px;
-    margin-bottom: 20px;
+    align-items: flex-start;
+    min-height: 100%;
   }
    
-  .switcher {
-    background: none;
-    border: none;
-    font-size: 18px;
-    font-weight: 500;
-    color: #a37e34;
-    cursor: pointer;
-    position: relative;
-  }
-   
-  .underline {
-    height: 2px;
+  /* Shared Form Styling */
+  .lp-form {
     width: 100%;
-    background-color: #a37e34;
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-  }
-   
-  .input-block {
-    margin-bottom: 18px;
-  }
-   
-  .input-block label {
-    font-size: 14px;
-    color: #444;
-  }
-   
-  .input-block input {
-    width: 100%;
-    padding: 10px 14px;
-    font-size: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    max-width: 500px;
+    padding: 30px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     background: #f9f9f9;
   }
    
-  .input-block input:focus {
-    border-color: #a37e34;
-    outline: none;
+  .lp-form h2 {
+    margin-bottom: 10px;
+    color: #222;
+    font-weight: 600;
   }
    
-  .btn-login {
+  .lp-form p {
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 14px;
+  }
+   
+  .lp-form label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #444;
+    font-weight: 500;
+  }
+   
+  .lp-form input,
+  .lp-form select {
     width: 100%;
     padding: 12px;
-    font-size: 16px;
-    border-radius: 25px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+   
+  .lp-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #a37e34;
+    color: white;
+    font-weight: bold;
     border: none;
-    margin-top: 10px;
+    border-radius: 6px;
     cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
   }
    
-  .btn-primary-login {
-    background-color: #a37e34;
-    color: white;
+  .lp-form button:hover {
+    background-color: #916f2d;
   }
    
-  .btn-primary-login:hover {
-    background-color: #a37e34;
+  /* Links */
+  .lp-forgot,
+  .lp-signup span {
+    color: #a37e34;
+    margin-top: 15px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 14px;
+    display: block;
   }
    
-  .btn-success-login {
-    background-color: #a37e34;
-    color: white;
+  .lp-signup {
+    text-align: center;
+    font-size: 14px;
   }
    
-  .btn-success-login:hover {
-    background-color: #218838;
+  /* Message styles */
+  .lp-success,
+  .lp-error {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
   }
    
-  /* Popup Styling */
-  .popup-container {
+  .lp-success {
+    color: green;
+  }
+   
+  .lp-error {
+    color: red;
+  }
+   
+  /* Modal */
+  .lp-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
-    align-items: center;
     justify-content: center;
-    z-index: 10;
+    align-items: center;
+    z-index: 1000;
   }
    
-  .popup-content {
-    background: white;
+  .lp-modal {
+    background: #fff;
     padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
   }
    
-  .popup-content p {
-    font-size: 16px;
-    margin-bottom: 20px;
+  .lp-modal h3 {
+    margin-bottom: 10px;
+    color: #222;
   }
    
-  .popup-content button {
-    padding: 8px 20px;
+  .lp-modal p {
+    margin-bottom: 15px;
     font-size: 14px;
-    border: none;
-    border-radius: 6px;
+    color: #555;
+  }
+   
+  .lp-modal input,
+  .lp-modal select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+   
+  .lp-modal button {
+    width: 100%;
+    padding: 12px;
     background-color: #a37e34;
     color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+   
+  .lp-modal button:hover {
+    background-color: #916f2d;
+  }
+   
+  .lp-cancel-btn {
+    background: #aaa;
+    margin-top: 10px;
+  }
+   
+  .lp-cancel-btn:hover {
+    background-color: #888;
+  }
+   
+  /* Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+   
+  /* Responsive */
+  @media screen and (max-width: 768px) {
+    .lp-container {
+      flex-direction: column;
+    }
+   
+    .lp-left,
+    .lp-right {
+      flex: none;
+      width: 100%;
+      padding: 20px;
+    }
+   
+    .lp-left {
+      order: 2;
+      height: auto;
+      position: relative;
+    }
+   
+    .lp-right {
+      order: 1;
+    }
+   
+    .lp-scroll {
+      padding: 20px;
+    }
   }
