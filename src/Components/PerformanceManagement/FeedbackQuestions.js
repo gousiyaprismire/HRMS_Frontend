@@ -34,13 +34,11 @@ const FeedbackQuestions = () => {
     e.preventDefault();
     if (newQuestion.trim()) {
       if (editingId !== null) {
-      
         axios
           .put(`http://localhost:8080/api/feedback-questions/${editingId}`, {
             text: newQuestion,
           })
           .then((response) => {
-            console.log("✅ Updated Question:", response.data);
             setQuestions((prevQuestions) =>
               prevQuestions.map((q) =>
                 q.id === editingId ? response.data : q
@@ -53,18 +51,13 @@ const FeedbackQuestions = () => {
             console.error("❌ Error updating question:", error.response?.data || error.message)
           );
       } else {
-   
         axios
           .post("http://localhost:8080/api/feedback-questions", {
             text: newQuestion,
           })
           .then((response) => {
-            console.log("✅ Question Added:", response.data);
-            setQuestions((prevQuestions) => {
-              console.log("📌 Updated Questions State:", [...prevQuestions, response.data]);
-              return [...prevQuestions, response.data];
-            });
-            setNewQuestion(""); 
+            setQuestions((prevQuestions) => [...prevQuestions, response.data]);
+            setNewQuestion("");
           })
           .catch((error) =>
             console.error("❌ Error adding question:", error.response?.data || error.message)
@@ -75,7 +68,7 @@ const FeedbackQuestions = () => {
 
   const handleEdit = (question) => {
     setEditingId(question.id);
-    setNewQuestion(question.text);
+    setNewQuestion(question.text || question.question || "");
   };
 
   const confirmDelete = (id) => {
@@ -87,11 +80,15 @@ const FeedbackQuestions = () => {
     axios
       .delete(`http://localhost:8080/api/feedback-questions/${deleteId}`)
       .then(() => {
-        setQuestions((prevQuestions) => prevQuestions.filter((q) => q.id !== deleteId));
+        setQuestions((prevQuestions) =>
+          prevQuestions.filter((q) => q.id !== deleteId)
+        );
         setShowDeleteModal(false);
         setDeleteId(null);
       })
-      .catch((error) => console.error("❌ Error deleting question:", error));
+      .catch((error) =>
+        console.error("❌ Error deleting question:", error.response?.data || error.message)
+      );
   };
 
   return (
@@ -123,7 +120,7 @@ const FeedbackQuestions = () => {
             questions.map((question, index) => (
               <tr key={question.id}>
                 <td>{index + 1}</td>
-                <td>{question.text}</td>
+                <td>{question.text || question.question}</td>
                 <td>
                   <button
                     className="feedback-questions-edit-btn"
@@ -157,7 +154,10 @@ const FeedbackQuestions = () => {
               <button onClick={handleDelete} className="feedback-questions-confirm-delete">
                 Yes, Delete
               </button>
-              <button onClick={() => setShowDeleteModal(false)} className="feedback-questions-cancel-btn">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="feedback-questions-cancel-btn"
+              >
                 Cancel
               </button>
             </div>
