@@ -1,0 +1,65 @@
+.compensation-container {
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+    width: 90%;
+    margin: 30px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .compensation-title {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .compensation-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+  
+  .compensation-input {
+    padding: 10px;
+    font-size: 16px;
+    width: 180px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .compensation-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .compensation-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .compensation-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  .compensation-table th,
+  .compensation-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .compensation-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
