@@ -18,12 +18,8 @@ function LoginPage() {
  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showForgotModal, setShowForgotModal] = useState(false);
-  const [resetEmail, setResetEmail] = useState('');
   const [emailError, setEmailError] = useState('');
-  const [resetEmailError, setResetEmailError] = useState('');
   const [loginStatusMessage, setLoginStatusMessage] = useState('');
-  const [otpStatusMessage, setOtpStatusMessage] = useState('');
   const [showSignUp, setShowSignUp] = useState(false);
  
   const [signUpData, setSignUpData] = useState({
@@ -74,35 +70,15 @@ function LoginPage() {
       localStorage.setItem('loggedInUser', JSON.stringify({ email }));
  
       if (isHR) {
-        navigate('/hr-dashboard');
+        navigate('/dashboard');
       } else {
-        navigate('/employee-dashboard');
+        navigate('/dashboard');
       }
     } catch (error) {
       setLoginStatusMessage('Login failed ❌');
     }
  
     autoClearStatus(setLoginStatusMessage);
-  };
- 
-  const handleSendOtp = async () => {
-    if (!isValidEmail(resetEmail)) {
-      setResetEmailError('Please enter a valid Email');
-      setOtpStatusMessage('Failed to send OTP ❌');
-      autoClearStatus(setOtpStatusMessage);
-      return;
-    }
- 
-    setResetEmailError('');
-    try {
-      const response = await axios.post('http://localhost:8080/api/auth/send-otp', {
-        email: resetEmail,
-      });
-      setOtpStatusMessage(response.data);
-    } catch (error) {
-      setOtpStatusMessage('Failed to send OTP ❌');
-    }
-    autoClearStatus(setOtpStatusMessage);
   };
  
   const handleSignUpChange = (e) => {
@@ -150,7 +126,7 @@ function LoginPage() {
       });
  
       setShowSignUp(false);
-      navigate('/employee-dashboard');
+      navigate('/dashboard');
     } catch (error) {
       alert('Registration failed ❌');
     }
@@ -203,9 +179,6 @@ function LoginPage() {
                 </p>
               )}
  
-              <p className="lp-forgot" onClick={() => setShowForgotModal(true)}>
-                Forgot Password?
-              </p>
               <p className="lp-signup">
                 Don’t have an account? <span onClick={() => setShowSignUp(true)}>Sign Up</span>
               </p>
@@ -260,31 +233,6 @@ function LoginPage() {
           )}
         </div>
       </div>
- 
-      {showForgotModal && (
-          <div className="lp-forgot-modal">
-            <div className="lp-modal-content">
-              <h2>Forgot Password</h2>
-              <p>Please enter your email to receive a password reset OTP.</p>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={resetEmail}
-                onChange={(e) => setResetEmail(e.target.value)}
-              />
-              {resetEmailError && <p className="lp-error">{resetEmailError}</p>}
-              <button onClick={handleSendOtp}>Send OTP</button>
-              {otpStatusMessage && (
-                <p className={otpStatusMessage.includes('success') ? 'lp-success' : 'lp-error'}>
-                  {otpStatusMessage}
-                </p>
-              )}
-              <button className="lp-close-btn" onClick={() => setShowForgotModal(false)}>
-                Close
-              </button>
-            </div>
-          </div>
-        )}
     </div>
   );
 }

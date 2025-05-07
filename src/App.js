@@ -7,7 +7,7 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import AnalyticsReporting from "./Components/AnalyticsReporting/AnalyticsReporting";
 import AttendanceTime from "./Components/AttendanceTime/AttendanceTime";
 import BenefitsCompliance from "./Components/BenefitsCompliance/BenefitsCompliance";
-import EmployeeManagement from "./Components/EmployeeManagement/EmployeeManagement";
+
 import PayrollCompensation from "./Components/PayrollCompensation/PayrollCompensation";
 import SecurityDataPrivacy from "./Components/SecurityDataPrivacy/SecurityDataPrivacy";
 import PerformanceManagement from "./Components/PerformanceManagement/PerformanceManagement";
@@ -43,6 +43,10 @@ import AuditReports from './Components/BenefitsCompliance/AuditComplianceReports
 import FeedbackQuestions from './Components/PerformanceManagement/FeedbackQuestions';
 import GeneralOptions from './Components/PerformanceManagement/GeneralOptions';
 import LoginForm from "./Components/LoginForm/LoginForm";
+import Compensation from "./Components/PayrollCompensation/Compensation";
+import AddEmployee from "./Components/EmployeeManagement/AddEmployee"
+
+
 
 const ProtectedRoute = ({ children }) => {
   const user = localStorage.getItem("currentlogged");
@@ -87,7 +91,8 @@ const App = () => {
                   <Route path="/holiday" element={<HolidayPolicies />} />
                   <Route path="/timesheet" element={<TimesheetManagement />} />
                   <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
-                  <Route path="/employee-management" element={<EmployeeManagement />} />
+                  <Route path="/employee-management" element={<AddEmployee /> } />
+
                   <Route path="/payroll" element={<PayrollCompensation />} />
                   <Route path="/performance-management" element={<PerformanceManagement />} />
                   <Route path="/goal-categories" element={<GoalCategories />} />
@@ -100,6 +105,7 @@ const App = () => {
                   <Route path="/benefits/company-policy-compliance" element={<CompanyPolicyCompliance />} />
                   <Route path="/benefits/audit-reports" element={<AuditReports />} />
                   <Route path="/recruitment/job-listings" element={<JobListings />} />
+                  <Route path="/compensation" element={<Compensation />} />
                   <Route path="/recruitment/job-listings/applicants" element={<Applicant />} />
                   <Route path="/recruitment/applicant-management" element={<InterviewSchedule />} />
                   <Route path="/recruitment/offer-letters" element={<OfferLetters />} />

@@ -140,6 +140,9 @@ const Sidebar = () => {
                     <div style={dropdownItemStyles} onClick={() => navigate("/payroll-processing")}>
                         🧾 Payroll Processing
                     </div>
+                    <div style={dropdownItemStyles} onClick={() => navigate("/compensation")}>
+                        🧾 Compenstaion
+                    </div>
                     <div style={dropdownItemStyles} onClick={() => navigate("/tax-reports")}>
                         🧮 Tax & Deduction Reports
                     </div>
