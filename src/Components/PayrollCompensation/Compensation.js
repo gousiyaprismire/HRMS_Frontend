@@ -1,44 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Compensation.css";
 
-const Compensation = () => {
+function Compensation() {
   const [compensations, setCompensations] = useState([]);
-  const [newComp, setNewComp] = useState({ employeeId: "", ctc: "" });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [employeeId, setEmployeeId] = useState("");
+  const [ctc, setCtc] = useState("");
+  const [editingComp, setEditingComp] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/compensations")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch data");
-        return res.json();
-      })
-      .then((data) => setCompensations(data))
-      .catch((err) => {
-        console.error("Fetch error:", err);
-        setError("Unable to fetch compensations.");
-      });
+    fetchCompensations();
   }, []);
 
-  const handleChange = (e) => {
-    setNewComp({ ...newComp, [e.target.name]: e.target.value });
+  const fetchCompensations = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/compensations");
+      const data = await response.json();
+      setCompensations(data);
+    } catch (error) {
+      console.error("Error fetching compensations:", error);
+    }
   };
 
-  const calculateBreakup = (ctc) => {
-    const annualCTC = parseFloat(ctc);
-    const basicPay = Math.round(annualCTC * 0.5);
-    const hra = Math.round(basicPay * 0.4);
-    const conveyanceAllowance = 19200;
-    const medicalAllowance = 15000;
-    const employerPf = Math.round(basicPay * 0.12);
+  const calculateBreakup = (ctcValue) => {
+    const basicPay = ctcValue * 0.4;
+    const hra = basicPay * 0.5;
+    const conveyanceAllowance = 1600;
+    const medicalAllowance = 1250;
     const specialAllowance =
-      annualCTC -
-      (basicPay + hra + conveyanceAllowance + medicalAllowance + employerPf);
-    const employeePf = employerPf;
-    const professionalTax = 2400;
-    const variablePay = 15840;
-    const totalDeductions = employeePf + professionalTax + variablePay;
-    const netTakeHome = annualCTC - totalDeductions;
+      ctcValue - (basicPay + hra + conveyanceAllowance + medicalAllowance);
+    const employerPf = basicPay * 0.12;
+    const employeePf = basicPay * 0.12;
+    const professionalTax = 200;
+    const variablePay = ctcValue * 0.1;
+    const totalDeductions = employeePf + professionalTax;
+    const netTakeHome = ctcValue - totalDeductions;
 
     return {
       basicPay,
@@ -57,18 +53,12 @@ const Compensation = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    const { employeeId, ctc } = newComp;
-
-    if (!employeeId || !ctc) {
-      setError("Employee ID and CTC are required.");
-      setLoading(false);
-      return;
-    }
-
-    const breakdown = calculateBreakup(ctc);
+    const breakdown = calculateBreakup(parseFloat(ctc));
+    const compensationData = {
+      employeeId,
+      ctc: parseFloat(ctc),
+      ...breakdown,
+    };
 
     try {
       const response = await fetch("http://localhost:8080/api/compensations", {
@@ -76,77 +66,102 @@ const Compensation = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ employeeId, ctc, ...breakdown }),
+        body: JSON.stringify(compensationData),
       });
 
-      if (!response.ok) {
-        const errMsg = await response.text();
-        throw new Error(errMsg || "Failed to add compensation.");
-      }
-
-      const added = await response.json();
-      setCompensations([...compensations, added]);
-      setNewComp({ employeeId: "", ctc: "" });
-    } catch (err) {
-      console.error("Add error:", err);
-      setError(err.message);
-    } finally {
-      setLoading(false);
+      const data = await response.json();
+      setCompensations([...compensations, data]);
+      setEmployeeId("");
+      setCtc("");
+    } catch (error) {
+      console.error("Error saving compensation:", error);
     }
+  };
+
+  const handleUpdate = async () => {
+    const breakdown = calculateBreakup(parseFloat(editingComp.ctc));
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/compensations/${editingComp.employeeId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...editingComp, ...breakdown }),
+        }
+      );
+
+      if (!response.ok) throw new Error("Update failed");
+
+      const updated = await response.json();
+
+      setCompensations((prev) =>
+        prev.map((c) =>
+          c.employeeId === updated.employeeId ? updated : c
+        )
+      );
+
+      setIsModalOpen(false);
+      setEditingComp(null);
+    } catch (error) {
+      console.error("Update Error:", error);
+      alert("Failed to update compensation.");
+    }
+  };
+
+  const handleFieldChange = (field, value) => {
+    setEditingComp((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
   };
 
   return (
     <div className="compensation-container">
-      <h2 className="compensation-title">Compensation Management</h2>
-
-      <form className="compensation-form" onSubmit={handleSubmit}>
+      <h2 className="compensation-title">Employee Compensation</h2>
+      <form onSubmit={handleSubmit} className="compensation-form">
         <input
           type="text"
-          name="employeeId"
           placeholder="Employee ID"
-          value={newComp.employeeId}
-          onChange={handleChange}
+          value={employeeId}
+          onChange={(e) => setEmployeeId(e.target.value)}
           className="compensation-input"
-          required
         />
         <input
           type="number"
-          name="ctc"
-          placeholder="CTC (₹)"
-          value={newComp.ctc}
-          onChange={handleChange}
+          placeholder="CTC"
+          value={ctc}
+          onChange={(e) => setCtc(e.target.value)}
           className="compensation-input"
-          required
         />
-        <button type="submit" className="compensation-button" disabled={loading}>
-          {loading ? "Adding..." : "Add Compensation"}
-        </button>
+        <button type="submit" className="compensation-button">Save</button>
       </form>
-
-      {error && <p className="error-message">{error}</p>}
 
       <table className="compensation-table">
         <thead>
-          <tr>
+          <tr className="compensation-header-row">
             <th>Employee ID</th>
             <th>CTC</th>
             <th>Basic Pay</th>
             <th>HRA</th>
-            <th>Conveyance</th>
-            <th>Medical</th>
-            <th>Special</th>
+            <th>Conveyance Allowance</th>
+            <th>Medical Allowance</th>
+            <th>Special Allowance</th>
             <th>Employer PF</th>
             <th>Employee PF</th>
-            <th>Tax</th>
+            <th>Professional Tax</th>
             <th>Variable Pay</th>
-            <th>Deductions</th>
+            <th>Total Deductions</th>
             <th>Net Take Home</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {Array.isArray(compensations) &&
             compensations.map((comp) => (
-              <tr key={comp.id || comp.employeeId}>
+              <tr key={comp.employeeId} className="compensation-row">
                 <td>{comp.employeeId}</td>
                 <td>{comp.ctc}</td>
                 <td>{comp.basicPay}</td>
@@ -160,12 +175,76 @@ const Compensation = () => {
                 <td>{comp.variablePay}</td>
                 <td>{comp.totalDeductions}</td>
                 <td>{comp.netTakeHome}</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      setEditingComp(comp);
+                      setIsModalOpen(true);
+                    }}
+                    className="compensation-edit-button"
+                  >
+                    Edit
+                  </button>
+                </td>
               </tr>
             ))}
         </tbody>
       </table>
+
+      {isModalOpen && editingComp && (
+  <div className="compensation-modal-overlay">
+    <div className="compensation-modal">
+      <h3 className="compensation-modal-title">Edit Compensation</h3>
+
+      <div className="compensation-modal-grid">
+        {[
+          ["Employee ID", "employeeId"],
+          ["CTC", "ctc"],
+          ["Basic Pay", "basicPay"],
+          ["HRA", "hra"],
+          ["Conveyance Allowance", "conveyanceAllowance"],
+          ["Medical Allowance", "medicalAllowance"],
+          ["Special Allowance", "specialAllowance"],
+          ["Employer PF", "employerPf"],
+          ["Employee PF", "employeePf"],
+          ["Professional Tax", "professionalTax"],
+          ["Variable Pay", "variablePay"],
+          ["Total Deductions", "totalDeductions"],
+          ["Net Take Home", "netTakeHome"],
+        ].map(([label, field]) => (
+          <div className="compensation-modal-field" key={field}>
+            <label>{label}</label>
+            <input
+              type={field === "employeeId" ? "text" : "number"}
+              readOnly={field === "employeeId"}
+              value={editingComp[field]}
+              onChange={(e) => handleFieldChange(field, e.target.value)}
+              className="compensation-modal-input"
+            />
+          </div>
+        ))}
+      </div>
+
+      <div className="compensation-modal-buttons">
+        <button
+          onClick={handleUpdate}
+          className="compensation-modal-button"
+        >
+          Save
+        </button>
+        <button
+          onClick={() => setIsModalOpen(false)}
+          className="compensation-modal-button cancel"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
-};
+}
 
 export default Compensation;
