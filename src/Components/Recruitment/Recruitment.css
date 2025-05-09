@@ -673,6 +673,32 @@ button.cancel-btn:hover {
   color: white;
 }
 
+.interview-filter-section {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.interview-filter-section label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.interview-select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  width: 180px;
+}
+
+.interview-select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
 /* Offers Section  */
 
 .offer-container {
