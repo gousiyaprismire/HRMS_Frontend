@@ -3,8 +3,14 @@ import "./Compensation.css";
 
 function Compensation() {
   const [compensations, setCompensations] = useState([]);
-  const [employeeId, setEmployeeId] = useState("");
-  const [ctc, setCtc] = useState("");
+  const [newComp, setNewComp] = useState({
+    employeeId: "",
+    employeeName: "",
+    ctc: "",
+    variablePay: ""
+  });
+  const [calculatedData, setCalculatedData] = useState(null);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingComp, setEditingComp] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -22,17 +28,16 @@ function Compensation() {
     }
   };
 
-  const calculateBreakup = (ctcValue) => {
-    const basicPay = ctcValue * 0.4;
-    const hra = basicPay * 0.5;
-    const conveyanceAllowance = 1600;
-    const medicalAllowance = 1250;
-    const specialAllowance =
-      ctcValue - (basicPay + hra + conveyanceAllowance + medicalAllowance);
-    const employerPf = basicPay * 0.12;
-    const employeePf = basicPay * 0.12;
-    const professionalTax = 200;
-    const variablePay = ctcValue * 0.1;
+  const calculateBreakup = (ctcValue, variablePayValue) => {
+    const basicPay = ctcValue * 0.50;
+    const hra = ctcValue * 0.20;
+    const conveyanceAllowance = ctcValue * 0.048;
+    const medicalAllowance = ctcValue * 0.045;
+    const employerPf = basicPay * 0.06;
+    const specialAllowance = ctcValue - (basicPay + hra + conveyanceAllowance + medicalAllowance + employerPf);
+    
+    const employeePf = employerPf;
+    const professionalTax = 2400.0;
     const totalDeductions = employeePf + professionalTax;
     const netTakeHome = ctcValue - totalDeductions;
 
@@ -45,50 +50,56 @@ function Compensation() {
       employerPf,
       employeePf,
       professionalTax,
-      variablePay,
+      variablePay: variablePayValue,
       totalDeductions,
       netTakeHome,
     };
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const breakdown = calculateBreakup(parseFloat(ctc));
-    const compensationData = {
-      employeeId,
-      ctc: parseFloat(ctc),
-      ...breakdown,
+  const handleAddNew = () => {
+    setIsAddModalOpen(true);
+    setNewComp({ employeeId: "", ctc: "", variablePay: "" });
+    setCalculatedData(null);
+  };
+
+  const handleCalculate = () => {
+    const { ctc, variablePay } = newComp;
+    const breakdown = calculateBreakup(parseFloat(ctc), parseFloat(variablePay));
+    setCalculatedData(breakdown);
+  };
+
+  const handleSaveNew = async () => {
+    const payload = {
+      ...newComp,
+      ctc: parseFloat(newComp.ctc),
+      variablePay: parseFloat(newComp.variablePay),
+      ...calculatedData,
     };
 
     try {
       const response = await fetch("http://localhost:8080/api/compensations", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(compensationData),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
       setCompensations([...compensations, data]);
-      setEmployeeId("");
-      setCtc("");
+      setIsAddModalOpen(false);
     } catch (error) {
       console.error("Error saving compensation:", error);
     }
   };
 
   const handleUpdate = async () => {
-    const breakdown = calculateBreakup(parseFloat(editingComp.ctc));
+    const breakdown = calculateBreakup(parseFloat(editingComp.ctc), parseFloat(editingComp.variablePay));
 
     try {
       const response = await fetch(
         `http://localhost:8080/api/compensations/${editingComp.employeeId}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ ...editingComp, ...breakdown }),
         }
       );
@@ -98,16 +109,12 @@ function Compensation() {
       const updated = await response.json();
 
       setCompensations((prev) =>
-        prev.map((c) =>
-          c.employeeId === updated.employeeId ? updated : c
-        )
+        prev.map((c) => (c.employeeId === updated.employeeId ? updated : c))
       );
-
       setIsModalOpen(false);
       setEditingComp(null);
     } catch (error) {
       console.error("Update Error:", error);
-      alert("Failed to update compensation.");
     }
   };
 
@@ -121,28 +128,16 @@ function Compensation() {
   return (
     <div className="compensation-container">
       <h2 className="compensation-title">Employee Compensation</h2>
-      <form onSubmit={handleSubmit} className="compensation-form">
-        <input
-          type="text"
-          placeholder="Employee ID"
-          value={employeeId}
-          onChange={(e) => setEmployeeId(e.target.value)}
-          className="compensation-input"
-        />
-        <input
-          type="number"
-          placeholder="CTC"
-          value={ctc}
-          onChange={(e) => setCtc(e.target.value)}
-          className="compensation-input"
-        />
-        <button type="submit" className="compensation-button">Save</button>
-      </form>
+
+      <button onClick={handleAddNew} className="compensation-button">
+        Add New Compensation
+      </button>
 
       <table className="compensation-table">
         <thead>
-          <tr className="compensation-header-row">
+          <tr>
             <th>Employee ID</th>
+            <th>Employee Name</th>
             <th>CTC</th>
             <th>Basic Pay</th>
             <th>HRA</th>
@@ -161,8 +156,10 @@ function Compensation() {
         <tbody>
           {Array.isArray(compensations) &&
             compensations.map((comp) => (
-              <tr key={comp.employeeId} className="compensation-row">
+              <tr key={comp.employeeId}>
+
                 <td>{comp.employeeId}</td>
+                <td>{comp.employeeName}</td>
                 <td>{comp.ctc}</td>
                 <td>{comp.basicPay}</td>
                 <td>{comp.hra}</td>
@@ -191,58 +188,86 @@ function Compensation() {
         </tbody>
       </table>
 
-      {isModalOpen && editingComp && (
-  <div className="compensation-modal-overlay">
-    <div className="compensation-modal">
-      <h3 className="compensation-modal-title">Edit Compensation</h3>
 
-      <div className="compensation-modal-grid">
-        {[
-          ["Employee ID", "employeeId"],
-          ["CTC", "ctc"],
-          ["Basic Pay", "basicPay"],
-          ["HRA", "hra"],
-          ["Conveyance Allowance", "conveyanceAllowance"],
-          ["Medical Allowance", "medicalAllowance"],
-          ["Special Allowance", "specialAllowance"],
-          ["Employer PF", "employerPf"],
-          ["Employee PF", "employeePf"],
-          ["Professional Tax", "professionalTax"],
-          ["Variable Pay", "variablePay"],
-          ["Total Deductions", "totalDeductions"],
-          ["Net Take Home", "netTakeHome"],
-        ].map(([label, field]) => (
-          <div className="compensation-modal-field" key={field}>
-            <label>{label}</label>
+      {isAddModalOpen && (
+        <div className="compensation-modal-overlay">
+          <div className="compensation-modal">
+            <h3 className="compensation-modal-title">Add New Compensation</h3>
+            <div className="compensation-modal-grid">
             <input
-              type={field === "employeeId" ? "text" : "number"}
-              readOnly={field === "employeeId"}
-              value={editingComp[field]}
-              onChange={(e) => handleFieldChange(field, e.target.value)}
-              className="compensation-modal-input"
-            />
+                type="text"
+                placeholder="Employee Name"
+                value={newComp.employeeName}
+                onChange={(e) => setNewComp({ ...newComp, employeeName: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder="Employee ID"
+                value={newComp.employeeId}
+                onChange={(e) => setNewComp({ ...newComp, employeeId: e.target.value })}
+              />
+              <input
+                type="number"
+                placeholder="CTC"
+                value={newComp.ctc}
+                onChange={(e) => setNewComp({ ...newComp, ctc: e.target.value })}
+              />
+              <input
+                type="number"
+                placeholder="Variable Pay"
+                value={newComp.variablePay}
+                onChange={(e) => setNewComp({ ...newComp, variablePay: e.target.value })}
+              />
+              <button onClick={handleCalculate}>Calculate</button>
+            </div>
+
+            {calculatedData && (
+              <div className="compensation-modal-grid">
+                {Object.entries(calculatedData).map(([key, value]) => (
+                  <div key={key}>
+                    <label>{key.replace(/([A-Z])/g, " $1")}</label>
+                    <input value={value} readOnly />
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="compensation-modal-buttons">
+              <button onClick={handleSaveNew}>Save</button>
+              <button onClick={() => setIsAddModalOpen(false)} className="cancel">Cancel</button>
+            </div>
           </div>
-        ))}
-      </div>
+        </div>
+      )}
 
-      <div className="compensation-modal-buttons">
-        <button
-          onClick={handleUpdate}
-          className="compensation-modal-button"
-        >
-          Save
-        </button>
-        <button
-          onClick={() => setIsModalOpen(false)}
-          className="compensation-modal-button cancel"
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
+      {isModalOpen && editingComp && (
+        <div className="compensation-modal-overlay">
+          <div className="compensation-modal">
+            <h3>Edit Compensation</h3>
+            <div className="compensation-modal-grid">
+              {[
+                "employeeId", "employeeName", "ctc", "basicPay", "hra", "conveyanceAllowance", "medicalAllowance",
+                "specialAllowance", "employerPf", "employeePf", "professionalTax",
+                "variablePay", "totalDeductions", "netTakeHome"
+              ].map((field) => (
+                <div key={field}>
+                  <label>{field.replace(/([A-Z])/g, " $1")}</label>
+                  <input
+                    type={field === "employeeId" ? "text" : "number"}
+                    value={editingComp[field]}
+                    readOnly={field === "employeeId"}
+                    onChange={(e) => handleFieldChange(field, e.target.value)}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="compensation-modal-buttons">
+              <button onClick={handleUpdate}>Save</button>
+              <button onClick={() => setIsModalOpen(false)} className="cancel">Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

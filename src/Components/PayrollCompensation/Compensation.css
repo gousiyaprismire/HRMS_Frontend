@@ -1,139 +1,145 @@
- .compensation-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .compensation-title {
-    margin-bottom: 20px;
-  }
-  
-  .compensation-form {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .compensation-input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .compensation-button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .compensation-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .compensation-table th,
-  .compensation-table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: center;
-  }
-  
-  .compensation-edit-button {
-    background-color: #ffc107;
-    color: #000;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .compensation-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .compensation-modal {
-    background: white;
-    padding: 30px;
-    border-radius: 8px;
-    width: 900px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  .compensation-modal-title {
-    margin-bottom: 20px;
-  }
-  
-  .compensation-modal-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .compensation-modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-  }
-  
-  .compensation-modal-button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .compensation-modal-button.cancel {
-    background-color: #dc3545;
-  }
- 
-  .compensation-modal-label {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 4px;
-  }
-  
-  .compensation-modal-button.cancel {
-    background-color: #dc3545;
-    color: #fff;
-  }
-   
+.compensation-container {
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-  .compensation-modal-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-top: 20px;
-  }
-  
-  .compensation-modal-field {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .compensation-modal-field label {
-    margin-bottom: 4px;
-    font-weight: 600;
-    font-size: 14px;
-  }
-  
-  /* .compensation-modal-input {
-    padding: 6px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-   */
+.compensation-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.compensation-button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.compensation-button:hover {
+  background-color: #0056b3;
+}
+
+.compensation-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.compensation-table th,
+.compensation-table td {
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.compensation-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.compensation-edit-button {
+  background-color: #28a745;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.compensation-edit-button:hover {
+  background-color: #218838;
+}
+
+/* Modal overlay */
+.compensation-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal box */
+.compensation-modal {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.compensation-modal-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #333;
+}
+
+/* Form layout */
+.compensation-modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.compensation-modal-grid label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.compensation-modal-grid input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.compensation-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.compensation-modal-buttons button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.compensation-modal-buttons button:first-child {
+  background-color: #007bff;
+  color: white;
+}
+
+.compensation-modal-buttons button:first-child:hover {
+  background-color: #0056b3;
+}
+
+.compensation-modal-buttons .cancel {
+  background-color: #dc3545;
+  color: white;
+}
+
+.compensation-modal-buttons .cancel:hover {
+  background-color: #c82333;
+}
