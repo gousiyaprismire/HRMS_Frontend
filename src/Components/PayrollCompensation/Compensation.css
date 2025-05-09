@@ -11,7 +11,7 @@
 }
 
 .compensation-button {
-  background-color: #007bff;
+  background-color: #a37e34;
   color: white;
   padding: 0.6rem 1.2rem;
   border: none;
@@ -22,7 +22,7 @@
 }
 
 .compensation-button:hover {
-  background-color: #0056b3;
+  background-color: #a37e34;
 }
 
 .compensation-table {
@@ -57,7 +57,6 @@
   background-color: #218838;
 }
 
-/* Modal overlay */
 .compensation-modal-overlay {
   position: fixed;
   top: 0;
@@ -71,7 +70,7 @@
   z-index: 1000;
 }
 
-/* Modal box */
+
 .compensation-modal {
   background-color: #fff;
   padding: 2rem;
@@ -90,7 +89,7 @@
   color: #333;
 }
 
-/* Form layout */
+
 .compensation-modal-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -127,12 +126,12 @@
 }
 
 .compensation-modal-buttons button:first-child {
-  background-color: #007bff;
+  background-color: #28a745;
   color: white;
 }
 
 .compensation-modal-buttons button:first-child:hover {
-  background-color: #0056b3;
+  background-color: #28a745;
 }
 
 .compensation-modal-buttons .cancel {
