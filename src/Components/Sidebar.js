@@ -39,6 +39,9 @@ const Sidebar = () => {
       <div style={itemStyles} onClick={() => navigate("/dashboard")}>
         📊 Dashboard
       </div>
+      <div style={itemStyles} onClick={() => navigate("/employee-dashboard")}>
+        📊 Employee Dashboard
+      </div>
       <div style={itemStyles} onClick={toggleRecruitment}>
         📝 Recruitment {recruitmentOpen }
       </div>
@@ -176,7 +179,7 @@ const Sidebar = () => {
 
 
 <div style={itemStyles} onClick={toggleBenefits}>
-  🏢 Benefits & Compliance {benefitsOpen ? "▲" : "▼"}
+  🏢 Benefits & Compliance 
 </div>
 {benefitsOpen && (
   <div style={dropdownStyles}>
@@ -196,7 +199,7 @@ const Sidebar = () => {
         navigate("/benefits/claims-reimbursements");
       }}
     >
-      💰 Claims & Reimbursements
+      💰 Claim Reimbursement
     </div>
     <div
       style={dropdownItemStyles}
@@ -223,7 +226,7 @@ const Sidebar = () => {
 
       {/* Analytics & Reporting Dropdown */}
       <div style={itemStyles} onClick={() => setAnalyticsDropdown(!analyticsDropdown)}>
-        📈 Analytics & Reporting {analyticsDropdown ? "▼" : "▶"}
+        📈 Analytics & Reporting 
       </div>
       {analyticsDropdown && (
         <div style={dropdownStyles}>

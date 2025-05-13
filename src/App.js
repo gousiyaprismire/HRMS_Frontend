@@ -45,6 +45,7 @@ import GeneralOptions from './Components/PerformanceManagement/GeneralOptions';
 import LoginForm from "./Components/LoginForm/LoginForm";
 import Compensation from "./Components/PayrollCompensation/Compensation";
 import AddEmployee from "./Components/EmployeeManagement/AddEmployee"
+import EmployeeDashboard from "./Components/EmployeeDashboard/EmployeeDashboard";
 
 
 
@@ -92,7 +93,7 @@ const App = () => {
                   <Route path="/timesheet" element={<TimesheetManagement />} />
                   <Route path="/benefits-compliance" element={<BenefitsCompliance />} />
                   <Route path="/employee-management" element={<AddEmployee /> } />
-
+                  <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
                   <Route path="/payroll" element={<PayrollCompensation />} />
                   <Route path="/performance-management" element={<PerformanceManagement />} />
                   <Route path="/goal-categories" element={<GoalCategories />} />
