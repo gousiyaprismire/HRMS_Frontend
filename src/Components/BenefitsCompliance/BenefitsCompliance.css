@@ -501,4 +501,161 @@ button:hover {
       padding: 8px 12px;
     }
   }
-  
+  .claim-app {
+    font-family: 'Segoe UI', sans-serif;
+    padding: 20px;
+  }
+   
+  .claim-title {
+    color: #333;
+  }
+   
+  .claim-add-btn {
+    background-color: #a37e34;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+   
+  .claim-add-btn:hover {
+    background-color: #875f29;
+  }
+   
+  .claim-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+   
+  .claim-modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+  }
+   
+  .claim-modal-content h2 {
+    margin-bottom: 20px;
+  }
+   
+  .claim-modal-content label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+   
+  .claim-modal-content input,
+  .claim-modal-content select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+   
+  .claim-modal-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+   
+  .claim-modal-buttons button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+   
+  .claim-modal-buttons button[type="submit"],
+  .claim-modal-buttons button:first-of-type {
+    background-color: #28a745;
+    color: white;
+  }
+   
+  .claim-modal-buttons button[type="button"],
+  .claim-modal-buttons button:last-of-type {
+    background-color: #dc3545;
+    color: white;
+  }
+   
+  .claim-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+   
+  .claim-table th,
+  .claim-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+  }
+   
+  .claim-table th {
+    background-color: #a37e34;
+    color: white;
+  }
+   
+  .claim-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+   
+  .claim-table button {
+    padding: 6px 12px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+   
+  .claim-table button:hover {
+    background-color: #0056b3;
+  }
+   
+  .claim-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 12px;
+  }
+   
+  .claim-pagination button {
+    padding: 8px 16px;
+    background-color: #a37e34;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+   
+  .claim-pagination button:hover:not(:disabled) {
+    background-color: #875f29;
+  }
+   
+  .claim-pagination button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+   
+  .claim-pagination span {
+    font-weight: 500;
+    color: #333;
+  }
+   
+   
