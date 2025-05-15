@@ -35,7 +35,7 @@ const EmployeeOnboarding = () => {
     });
   };
 
-  // Load employee data from localStorage
+ 
   useEffect(() => {
     const savedEmployees = JSON.parse(localStorage.getItem("employees"));
     if (savedEmployees) {
@@ -48,7 +48,7 @@ const EmployeeOnboarding = () => {
     }
   }, []);
 
-  // Save employee data to localStorage
+
   const saveEmployeesToLocalStorage = (employeesData) => {
     localStorage.setItem("employees", JSON.stringify(employeesData));
   };
@@ -83,7 +83,7 @@ const EmployeeOnboarding = () => {
       .then((response) => {
         const updatedEmployees = [...employees, response.data];
         setEmployees(updatedEmployees);
-        saveEmployeesToLocalStorage(updatedEmployees);  // Save updated employees to localStorage
+        saveEmployeesToLocalStorage(updatedEmployees);  
         showPopup("Employee added successfully!");
         setShowForm(false);
         setFormData({
@@ -105,7 +105,7 @@ const EmployeeOnboarding = () => {
       emp.id === id ? { ...emp, status: newStatus } : emp
     );
     setEmployees(updatedEmployees);
-    saveEmployeesToLocalStorage(updatedEmployees);  // Save updated employees to localStorage
+    saveEmployeesToLocalStorage(updatedEmployees);  
 
     axios
       .put(`${API_BASE_URL}/${id}`, { status: newStatus })
@@ -118,8 +118,7 @@ const EmployeeOnboarding = () => {
   const removeEmployee = (id) => {
     const updatedEmployees = employees.filter((emp) => emp.id !== id);
     setEmployees(updatedEmployees);
-    saveEmployeesToLocalStorage(updatedEmployees);  // Save updated employees to localStorage
-
+    saveEmployeesToLocalStorage(updatedEmployees);  
     axios
       .delete(`${API_BASE_URL}/${id}`)
       .then(() => {

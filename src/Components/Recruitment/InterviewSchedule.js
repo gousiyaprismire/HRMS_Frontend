@@ -320,7 +320,7 @@ const InterviewScheduler = () => {
                         onClick={() => updateStatus(interview.id, "Completed")}
                         className="action-button action-complete"
                       >
-                        Mark as Completed
+                        Completed
                       </button>
                       <button
                         onClick={() => sendEmail(interview.id)}
