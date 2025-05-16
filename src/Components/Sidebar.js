@@ -126,6 +126,9 @@ const Sidebar = () => {
       <div style={itemStyles} onClick={() => navigate("/employee-management")}>
         👥 Employee Management
       </div>
+       <div style={itemStyles} onClick={() => navigate("/relieving-letter")}>
+        👥 Relieving Letter
+      </div>
       <div style={itemStyles} onClick={togglePayroll}>
                 💰 Payroll & Compensation {payrollOpen}
             </div>

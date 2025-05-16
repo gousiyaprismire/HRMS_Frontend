@@ -44,6 +44,8 @@ import GeneralOptions from "./Components/PerformanceManagement/GeneralOptions";
 import Compensation from "./Components/PayrollCompensation/Compensation";
 import AddEmployee from "./Components/EmployeeManagement/AddEmployee";
 import EmployeeDashboard from "./Components/EmployeeDashboard/EmployeeDashboard";
+import { LogOut } from "lucide-react";
+import RelievingLetter from "./Components/RelievingLetter/RelievingLetter";
  
 const ProtectedRoute = ({ children }) => {
 
@@ -75,6 +77,7 @@ const App = () => {
                         {/* Public Routes */}
                 <Route path="/" element={<LoginForm />} />
                 <Route path="/login" element={<LoginForm />} />
+                <Route path="/logout" element={<LogOut />} />
                 {/* Protected Routes with Layout */}
                 <Route path="/dashboard" element={
                 <ProtectedRoute>
@@ -118,6 +121,11 @@ const App = () => {
                 </ProtectedRoute>
 
                         } />
+                <Route path="/relieving-letter" element={
+                        <ProtectedRoute>
+                                <DashboardLayout><RelievingLetter /></DashboardLayout>
+                        </ProtectedRoute>
+                }/>
                 <Route path="/performance-appraisal-reports" element={
                 <ProtectedRoute>
                 <DashboardLayout><PerformanceAppraisalReports /></DashboardLayout>
