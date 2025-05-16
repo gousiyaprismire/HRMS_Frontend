@@ -1,6 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const TopBar = () => {
+  const navigate = useNavigate();
+
+  const handleLogoutClick = () => {
+    const confirmLogout = window.confirm("Are you sure you want to log out?");
+    if (confirmLogout) {
+      // Clear user session or token here if needed
+      navigate("/logout");
+    }
+  };
+
   return (
     <div style={topBarStyles}>
       <div style={logoContainer}>
@@ -9,7 +20,7 @@ const TopBar = () => {
       </div>
       <div style={buttonContainer}>
         <button style={profileButtonStyles}>👤</button>
-        <button style={lockButtonStyles}>🔒</button>
+        <button style={lockButtonStyles} onClick={handleLogoutClick}>🔒</button>
       </div>
     </div>
   );
@@ -17,7 +28,6 @@ const TopBar = () => {
 
 const topBarStyles = {
   height: "70px",
-  // background: "linear-gradient(to right,#D88A29, #2e2929)",
   background: "RGB(208,154,64)",
   color: "white",
   display: "flex",
@@ -43,7 +53,7 @@ const logoStyles = {
   height: "50px",
   width: "50px",
   marginRight: "10px",
-  borderRadius: "50%", 
+  borderRadius: "50%",
 };
 
 const profileButtonStyles = {
@@ -54,34 +64,19 @@ const profileButtonStyles = {
   fontSize: "18px",
   fontWeight: "bold",
   background: "#f0f0f0",
-  borderRadius: "50%", 
+  borderRadius: "50%",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  width: "40px", 
-  height: "40px", 
+  width: "40px",
+  height: "40px",
   transition: "background 0.3s",
   marginTop: "10px",
 };
 
 const lockButtonStyles = {
-  color: "black",
-  border: "none",
-  padding: "12px",
-  cursor: "pointer",
-  fontSize: "18px",
-  fontWeight: "bold",
-  background: "#f0f0f0",
-  borderRadius: "50%", 
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  width: "40px", 
-  height: "40px", 
-  transition: "background 0.3s",
-  marginTop: "10px",
+  ...profileButtonStyles, // reuses same styles
 };
-
 
 const heading = {
   fontSize: "25px",

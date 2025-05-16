@@ -1,0 +1,53 @@
+.relieving-form-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    margin: 40px auto;
+    max-width: 600px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .relieving-form-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  .relieving-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .relieving-label {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 5px;
+  }
+  
+  .relieving-input {
+    padding: 10px 12px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .relieving-generate-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #0066ff;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background 0.3s ease;
+  }
+  
+  .relieving-generate-button:hover {
+    background-color: #004fc2;
+  }
+  
