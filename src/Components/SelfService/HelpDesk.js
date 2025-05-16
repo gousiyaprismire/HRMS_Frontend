@@ -16,14 +16,22 @@ const HelpDesk = () => {
     HR: ["Payroll issue", "Leave request", "Employee benefits"],
   };
 
+ 
   useEffect(() => {
-    fetchTickets();
+    const storedTickets = localStorage.getItem("tickets");
+    if (storedTickets) {
+      setTickets(JSON.parse(storedTickets));
+    } else {
+      fetchTickets();
+    }
   }, []);
+
 
   const fetchTickets = async () => {
     try {
       const response = await axios.get("http://localhost:8080/api/tickets");
       setTickets(response.data);
+      localStorage.setItem("tickets", JSON.stringify(response.data)); 
     } catch (error) {
       console.error("Error fetching tickets:", error);
       alert("Failed to fetch tickets.");
@@ -39,33 +47,43 @@ const HelpDesk = () => {
       setFormData({ ...formData, [name]: value });
     }
   };
+
+  
   const updateStatus = async (id, newStatus) => {
     try {
       await axios.put(`http://localhost:8080/api/tickets/${id}/status`, { status: newStatus });
   
-     
-      setTickets(prevTickets => prevTickets.map(ticket =>
-        ticket.id === id ? { ...ticket, status: newStatus } : ticket
-      ));
+      setTickets(prevTickets => {
+        const updatedTickets = prevTickets.map(ticket =>
+          ticket.id === id ? { ...ticket, status: newStatus } : ticket
+        );
+        localStorage.setItem("tickets", JSON.stringify(updatedTickets)); 
+        return updatedTickets;
+      });
       alert("Ticket status updated!");
     } catch (error) {
       console.error("Error updating ticket status:", error);
       alert("Failed to update ticket status.");
     }
   };
-  
+
+ 
   const removeTicket = async (id) => {
     try {
       await axios.delete(`http://localhost:8080/api/tickets/${id}`);
   
-      setTickets(tickets.filter((ticket) => ticket.id !== id));
+      setTickets(tickets => {
+        const updatedTickets = tickets.filter(ticket => ticket.id !== id);
+        localStorage.setItem("tickets", JSON.stringify(updatedTickets)); 
+        return updatedTickets;
+      });
       alert("Ticket removed successfully!");
     } catch (error) {
       console.error("Error removing ticket:", error);
       alert("Failed to remove ticket.");
     }
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -86,7 +104,11 @@ const HelpDesk = () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      setTickets([...tickets, response.data]);
+      setTickets(prevTickets => {
+        const updatedTickets = [...prevTickets, response.data];
+        localStorage.setItem("tickets", JSON.stringify(updatedTickets)); 
+        return updatedTickets;
+      });
       setFormData({ employeeId: "", issueType: "", description: "" });
       setShowForm(false);
       alert("Ticket submitted successfully!");

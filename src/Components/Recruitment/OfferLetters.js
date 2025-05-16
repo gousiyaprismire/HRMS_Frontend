@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Modal, Button } from "antd";
+import { Modal, Button, Spin } from "antd";
 import jsPDF from "jspdf";
 import "./Recruitment.css";
 
@@ -10,6 +10,7 @@ function OfferLetters() {
   const [selectedOffer, setSelectedOffer] = useState(null);
   const [detailsModalVisible, setDetailsModalVisible] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const [loadingEmail, setLoadingEmail] = useState(false);
 
   const jobPositions = ["Software Engineer", "Product Manager", "UX Designer", "Data Scientist", "QA Engineer"];
   const employmentTypes = ["Full-Time", "Part-Time", "Contract"];
@@ -108,7 +109,21 @@ function OfferLetters() {
   
     return doc.output("bloburl");
   };
-  
+
+ 
+  const handleSendEmail = (offerId) => {
+    setLoadingEmail(true); 
+    axios.post(`http://localhost:8080/api/offer-letters/${offerId}/send-email`)
+      .then(() => {
+        alert("Email sent successfully!");
+        setLoadingEmail(false); 
+      })
+      .catch((error) => {
+        console.error("Error sending email:", error);
+        alert("Failed to send email.");
+        setLoadingEmail(false); 
+      });
+  };
 
   return (
     <div className="offer-container">
@@ -141,6 +156,14 @@ function OfferLetters() {
                     <button onClick={() => showDetailsModal(offer)}>View Details</button>
                     <button onClick={() => handleEditOffer(offer)}>Edit</button>
                     <a href="/offerletter.pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
+                    {/* Email button */}
+                                        <button 
+                      onClick={() => handleSendEmail(offer.id)} 
+                      disabled={loadingEmail}
+                      style={{ marginLeft: "10px" }} 
+                    >
+                      {loadingEmail ? <Spin /> : "Email"}
+                    </button>
 
                   </td>
                 </tr>
@@ -207,13 +230,12 @@ function OfferLetters() {
         footer={[
           <Button key="close" onClick={() => setDetailsModalVisible(false)}>Close</Button>,
           <Button
-          key="download"
-          type="primary"
-          onClick={() => window.open(generatePDFLink(selectedOffer), "_blank")}
-        >
-          View PDF
-        </Button>
-        
+            key="download"
+            type="primary"
+            onClick={() => window.open(generatePDFLink(selectedOffer), "_blank")}
+          >
+            View PDF
+          </Button>
         ]}
         className="custom-modal"
       >

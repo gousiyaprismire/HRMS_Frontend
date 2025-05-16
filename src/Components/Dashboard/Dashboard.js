@@ -12,33 +12,46 @@ const Dashboard = () => {
     recruitment: { openJobs: 5, applicants: 30, interviews: 8 },
   };
 
-  const notifications = [
-    { id: 1, title: "📝 New leave request from A" },
-    { id: 2, title: "💰 Payroll processing due in 2 days" },
-    { id: 3, title: "📅 Interview scheduled with B" },
-  ];
-
   const announcements = [
     { id: 1, title: "📜 New Leave Policy Update: Effective from March 1st" },
     { id: 2, title: "🎊 Annual Company Meetup on March 15th!" },
     { id: 3, title: "💡 HR Reminder: Performance Reviews Due by Feb 28" },
   ];
 
-  const birthdays = [
-    { id: 1, name: "A", date: "Feb 20" },
-    { id: 2, name: "B", date: "Feb 25" },
+const deskTimeData = [
+  {
+    id: 1,
+    employeeName: "A",
+    checkIn: "9:00 AM",
+    checkOut: "5:00 PM",
+    totalHours: 8,
+  },
+  {
+    id: 2,
+    employeeName: "B",
+    checkIn: "9:30 AM",
+    checkOut: "6:00 PM",
+    totalHours: 8.5,
+  },
+];
+
+
+  const projectDeadlines = [
+    { id: 1, project: "Website Redesign", deadline: "May 22" },
+    { id: 2, project: "Mobile App Launch", deadline: "June 5" },
+    { id: 3, project: "Q2 Marketing Campaign", deadline: "June 15" },
   ];
 
-  const deskTime = {
-    avgHours: 6.5,
-    maxHours: 9,
-    minHours: 4,
-  };
+  const teamHighlights = [
+    { id: 1, highlight: "Engineering team completed sprint ahead of schedule." },
+    { id: 2, highlight: "HR successfully onboarded 10 new employees." },
+    { id: 3, highlight: "Sales exceeded monthly targets by 15%." },
+  ];
 
   const [attendanceData, setAttendanceData] = useState({ present: 0, absent: 0 });
   const [activeTime, setActiveTime] = useState(0);
-  const [blurTime, ] = useState(0);
-  const [idleTime,] = useState(0); 
+  const [blurTime] = useState(0);
+  const [idleTime] = useState(0);
   const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {
@@ -64,8 +77,6 @@ const Dashboard = () => {
     const interval = setInterval(() => {
       const now = new Date();
       const currentHour = now.getHours();
-
-      // Only track active time between 9 AM and 6 PM
       if (currentHour >= 9 && currentHour < 18) {
         if (Date.now() - lastActivity > 60000) {
           setIsActive(false);
@@ -77,7 +88,7 @@ const Dashboard = () => {
           });
         }
       } else {
-        setIsActive(false); // Outside work hours, consider user inactive
+        setIsActive(false);
       }
     }, 1000);
 
@@ -93,22 +104,20 @@ const Dashboard = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setAttendanceData({ present: stats.attendance.present, absent: stats.attendance.absent });
+      setAttendanceData({
+        present: stats.attendance.present,
+        absent: stats.attendance.absent,
+      });
     }, 500);
   }, [stats.attendance.present, stats.attendance.absent]);
 
   return (
     <div className="dashboard-container">
+
       <div className="dashboard-activity-summary">
-        <p className="dashboard-activity-time">
-          💻 Active Time: {(activeTime / 60).toFixed(1)} minutes
-        </p>
-        <p className="dashboard-activity-time">
-          🕶️ Blur Time: {(blurTime / 60).toFixed(1)} minutes
-        </p>
-        <p className="dashboard-activity-time">
-          💤 Idle Time: {(idleTime / 60).toFixed(1)} minutes
-        </p>
+        <p className="dashboard-activity-time">💻 Active Time: {(activeTime / 60).toFixed(1)} minutes</p>
+        <p className="dashboard-activity-time">🕶️ Blur Time: {(blurTime / 60).toFixed(1)} minutes</p>
+        <p className="dashboard-activity-time">💤 Idle Time: {(idleTime / 60).toFixed(1)} minutes</p>
         <p className="dashboard-activity-status">
           Status: {isActive ? "🟢 Active" : "🔴 Inactive"}
         </p>
@@ -127,7 +136,9 @@ const Dashboard = () => {
         ))}
       </div>
 
+    
       <div className="dashboard-charts-section">
+       
         <div className="dashboard-chart-card">
           <h2 className="dashboard-chart-title">📊 Attendance Summary</h2>
           <div className="dashboard-attendance-donut">
@@ -162,47 +173,72 @@ const Dashboard = () => {
           </div>
         </div>
 
+       
         <div className="dashboard-chart-card">
-          <h2 className="dashboard-chart-title">📈 Recruitment Status</h2>
-          <div className="dashboard-recruitment-tracker">
-            {[{ label: "🛠️ Open Jobs", value: stats.recruitment.openJobs, max: 10, color: "blue" },
-            { label: "📋 Applicants", value: stats.recruitment.applicants, max: 50, color: "green" },
-            { label: "🎤 Interviews", value: stats.recruitment.interviews, max: 20, color: "purple" }
-            ].map((stage, index) => (
-              <div key={index} className="dashboard-recruitment-stage">
-                <p className="dashboard-recruitment-label">{stage.label}: {stage.value}</p>
-                <div className="dashboard-recruitment-bar">
+          <h2 className="dashboard-chart-title">📊 Team Performance Summary</h2>
+          <div className="dashboard-performance-summary">
+            {[
+              { name: "Engineering", score: 87, color: "#4caf50" },
+              { name: "HR", score: 78, color: "#2196f3" },
+              { name: "Marketing", score: 65, color: "#ff9800" },
+              { name: "Sales", score: 72, color: "#9c27b0" },
+            ].map((team, idx) => (
+              <div key={idx} className="dashboard-performance-item">
+                <p className="dashboard-performance-label">{team.name} Team</p>
+                <div className="dashboard-performance-bar-container">
                   <div
-                    className={`dashboard-recruitment-fill ${stage.color}`}
-                    style={{ width: `${(stage.value / stage.max) * 100}%` }}
+                    className="dashboard-performance-bar"
+                    style={{ width: `${team.score}%`, backgroundColor: team.color }}
                   />
                 </div>
+                <p className="dashboard-performance-score">{team.score}%</p>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="dashboard-flex-section">
-        <div className="dashboard-birthday-section">
-          <h2 className="dashboard-section-title">🎉 🎂 Upcoming Birthdays</h2>
-          <ul className="dashboard-birthday-list">
-            {birthdays.map((person) => (
-              <li key={person.id} className="dashboard-birthday-item">
-                🎈 {person.name} - {person.date}
-              </li>
-            ))}
-          </ul>
-        </div>
+  
+    <div className="dashboard-flex-section">
+  <div className="dashboard-desktime-section">
+    <h2 className="dashboard-section-title">🖥️ Desk Time</h2>
+    <table className="dashboard-desktime-table">
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Check In</th>
+          <th>Check Out</th>
+          <th>Total Hours</th>
+        </tr>
+      </thead>
+      <tbody>
+        {deskTimeData.map((entry) => (
+          <tr key={entry.id}>
+            <td>{entry.employeeName}</td>
+            <td>{entry.checkIn}</td>
+            <td>{entry.checkOut}</td>
+            <td>{entry.totalHours}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 
-        <div className="dashboard-desk-time">
-          <h2 className="dashboard-section-title">⌛ Desk Time Summary</h2>
-          <p>🕒 Avg Desk Time: {deskTime.avgHours} hrs</p>
-          <p>🔝 Max Desk Time: {deskTime.maxHours} hrs</p>
-          <p>🔻 Min Desk Time: {deskTime.minHours} hrs</p>
-        </div>
-      </div>
+  <div className="dashboard-project-deadlines">
+    <h2 className="dashboard-section-title">📅 Upcoming Project Deadlines</h2>
+    <ul className="dashboard-project-list">
+      {projectDeadlines.map((item) => (
+        <li key={item.id} className="dashboard-project-item">
+          🚩 {item.project} - Due by {item.deadline}
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
 
+
+
+     
       <div className="dashboard-quick-actions">
         <h2 className="dashboard-section-title">⚡ Quick Actions</h2>
         <div className="dashboard-actions-grid">
@@ -227,13 +263,14 @@ const Dashboard = () => {
         </div>
       </div>
 
+      
       <div className="dashboard-flex-row">
         <div className="dashboard-section-container">
-          <h2 className="dashboard-section-title">🔔 Recent Notifications</h2>
+          <h2 className="dashboard-section-title">🏆 Team Highlights</h2>
           <ul className="dashboard-list">
-            {notifications.map((note) => (
-              <li key={note.id} className="dashboard-list-item">
-                {note.title}
+            {teamHighlights.map((highlight) => (
+              <li key={highlight.id} className="dashboard-list-item">
+                🌟 {highlight.highlight}
               </li>
             ))}
           </ul>

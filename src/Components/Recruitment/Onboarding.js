@@ -3,7 +3,7 @@ import axios from "axios";
 import { Modal } from "antd";
 import "./Recruitment.css";
 
-const API_BASE_URL = "http://localhost:8080/api/employee"; 
+const API_BASE_URL = "http://localhost:8080/api/employee";
 
 const EmployeeOnboarding = () => {
   const [employees, setEmployees] = useState([]);
@@ -23,16 +23,35 @@ const EmployeeOnboarding = () => {
 
   const jobRoles = ["Software Engineer", "Data Analyst", "HR Manager"];
   const departments = ["IT", "HR", "Finance"];
-  // const managers = ["Keerthi", "Priya", "Purple"];
   const workLocations = ["Remote", "On-site", "Hybrid"];
 
-  
+  const formatDate = (timestamp) => {
+    const date = new Date(Number(timestamp));
+    if (isNaN(date.getTime())) return "Invalid Date";
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
+
+ 
   useEffect(() => {
-    axios
-      .get(API_BASE_URL)
-      .then((response) => setEmployees(response.data))
-      .catch((error) => console.error("Error fetching employees:", error));
+    const savedEmployees = JSON.parse(localStorage.getItem("employees"));
+    if (savedEmployees) {
+      setEmployees(savedEmployees);
+    } else {
+      axios
+        .get(API_BASE_URL)
+        .then((response) => setEmployees(response.data))
+        .catch((error) => console.error("Error fetching employees:", error));
+    }
   }, []);
+
+
+  const saveEmployeesToLocalStorage = (employeesData) => {
+    localStorage.setItem("employees", JSON.stringify(employeesData));
+  };
 
   const showPopup = (message) => {
     setPopupMessage(message);
@@ -41,14 +60,9 @@ const EmployeeOnboarding = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
-  
     const formattedValue = name === "joiningDate" ? value.split("T")[0] : value;
-  
     setFormData({ ...formData, [name]: formattedValue });
   };
-  
-
 
   const handleSubmit = () => {
     if (
@@ -67,7 +81,9 @@ const EmployeeOnboarding = () => {
     axios
       .post(API_BASE_URL, formData)
       .then((response) => {
-        setEmployees([...employees, response.data]);
+        const updatedEmployees = [...employees, response.data];
+        setEmployees(updatedEmployees);
+        saveEmployeesToLocalStorage(updatedEmployees);  
         showPopup("Employee added successfully!");
         setShowForm(false);
         setFormData({
@@ -84,27 +100,28 @@ const EmployeeOnboarding = () => {
       .catch((error) => console.error("Error adding employee:", error));
   };
 
-
   const updateStatus = (id, newStatus) => {
+    const updatedEmployees = employees.map((emp) =>
+      emp.id === id ? { ...emp, status: newStatus } : emp
+    );
+    setEmployees(updatedEmployees);
+    saveEmployeesToLocalStorage(updatedEmployees);  
+
     axios
       .put(`${API_BASE_URL}/${id}`, { status: newStatus })
       .then(() => {
-        setEmployees(
-          employees.map((emp) =>
-            emp.id === id ? { ...emp, status: newStatus } : emp
-          )
-        );
         showPopup(`Status updated to "${newStatus}"`);
       })
       .catch((error) => console.error("Error updating status:", error));
   };
 
-  
   const removeEmployee = (id) => {
+    const updatedEmployees = employees.filter((emp) => emp.id !== id);
+    setEmployees(updatedEmployees);
+    saveEmployeesToLocalStorage(updatedEmployees);  
     axios
       .delete(`${API_BASE_URL}/${id}`)
       .then(() => {
-        setEmployees(employees.filter((emp) => emp.id !== id));
         showPopup("Employee removed successfully!");
       })
       .catch((error) => console.error("Error deleting employee:", error));
@@ -139,7 +156,7 @@ const EmployeeOnboarding = () => {
                     <tr key={emp.id}>
                       <td>{emp.fullName}</td>
                       <td>{emp.jobRole}</td>
-                      <td>{emp.joiningDate}</td>
+                      <td>{formatDate(emp.joiningDate)}</td>
                       <td>
                         <span className={`status-badge status-${(emp.status || "Pending").toLowerCase()}`}>
                           {emp.status || "Pending"}
@@ -196,20 +213,15 @@ const EmployeeOnboarding = () => {
 
             <input type="date" name="joiningDate" value={formData.joiningDate} onChange={handleChange} className="input" required />
 
-            {/* <select name="reportingManager" value={formData.reportingManager} onChange={handleChange} className="select" required>
-              <option value="">Select Reporting Manager</option>
-              {managers.map((mgr, index) => <option key={index} value={mgr}>{mgr}</option>)}
-            </select> */}
             <input
-  type="text"
-  name="reportingManager"
-  value={formData.reportingManager}
-  onChange={handleChange}
-  placeholder="Enter Reporting Manager Name"
-  className="input"
-  required
-/>
-
+              type="text"
+              name="reportingManager"
+              value={formData.reportingManager}
+              onChange={handleChange}
+              placeholder="Enter Reporting Manager Name"
+              className="input"
+              required
+            />
           </div>
 
           <div className="button-container">
