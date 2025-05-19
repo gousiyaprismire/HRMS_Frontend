@@ -50,10 +50,48 @@ const deskTimeData = [
 
   const [attendanceData, setAttendanceData] = useState({ present: 0, absent: 0 });
   const [activeTime, setActiveTime] = useState(0);
-  const [blurTime] = useState(0);
-  const [idleTime] = useState(0);
+ const [blurTime, setBlurTime] = useState(0);
+   const [idleTime, setIdleTime] = useState(0);
   const [isActive, setIsActive] = useState(true);
-
+useEffect(() => {
+    let lastActivity = Date.now();
+ 
+    const handleActivity = () => {
+      lastActivity = Date.now();
+      setIsActive(true);
+    };
+ 
+    const interval = setInterval(() => {
+      const now = Date.now();
+      const idle = now - lastActivity > 60000;
+ 
+      setIsActive(!idle);
+ 
+      if (document.hidden) {
+        setBlurTime((prev) => prev + 1);
+      } else if (idle) {
+        setIdleTime((prev) => prev + 1);
+      } else {
+        setActiveTime((prev) => prev + 1);
+      }
+    }, 1000);
+ 
+    window.addEventListener("mousemove", handleActivity);
+    window.addEventListener("keydown", handleActivity);
+ 
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("mousemove", handleActivity);
+      window.removeEventListener("keydown", handleActivity);
+    };
+  }, []);
+ 
+  useEffect(() => {
+    setTimeout(() => {
+      setAttendanceData({ present: stats.attendance.present, absent: stats.attendance.absent });
+    }, 500);
+  }, [stats.attendance.present, stats.attendance.absent]);
+ 
   useEffect(() => {
     const today = new Date().toDateString();
     const storedDate = localStorage.getItem("activeTimeDate");
