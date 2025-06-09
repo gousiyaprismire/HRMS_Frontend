@@ -46,6 +46,7 @@ import AddEmployee from "./Components/EmployeeManagement/AddEmployee";
 import EmployeeDashboard from "./Components/EmployeeDashboard/EmployeeDashboard";
 import { LogOut } from "lucide-react";
 import RelievingLetter from "./Components/RelievingLetter/RelievingLetter";
+import PayslipForm from "./Components/PayrollCompensation/PayslipForm";
  
 const ProtectedRoute = ({ children }) => {
 
@@ -121,6 +122,14 @@ const App = () => {
                 </ProtectedRoute>
 
                         } />
+
+                <Route path="/payslip-form" element={
+                        <ProtectedRoute>
+                                <DashboardLayout><PayslipForm /></DashboardLayout>
+                        </ProtectedRoute>
+                } />
+
+                
                 <Route path="/relieving-letter" element={
                         <ProtectedRoute>
                                 <DashboardLayout><RelievingLetter /></DashboardLayout>

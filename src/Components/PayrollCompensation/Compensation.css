@@ -1,144 +1,144 @@
-.compensation-container {
-  padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+  .compensation-container {
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-.compensation-title {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-  color: #333;
-}
+  .compensation-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
 
-.compensation-button {
-  background-color: #a37e34;
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-bottom: 1.5rem;
-  font-size: 1rem;
-}
+  .compensation-button {
+    background-color: #a37e34;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
 
-.compensation-button:hover {
-  background-color: #a37e34;
-}
+  .compensation-button:hover {
+    background-color: #a37e34;
+  }
 
-.compensation-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 2rem;
-}
+  .compensation-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+  }
 
-.compensation-table th,
-.compensation-table td {
-  border: 1px solid #ccc;
-  padding: 0.75rem;
-  text-align: center;
-}
+  .compensation-table th,
+  .compensation-table td {
+    border: 1px solid #ccc;
+    padding: 0.75rem;
+    text-align: center;
+  }
 
-.compensation-table th {
-  background-color: #f4f4f4;
-  font-weight: bold;
-}
+  .compensation-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
 
-.compensation-edit-button {
-  background-color: #28a745;
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
+  .compensation-edit-button {
+    background-color: #28a745;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
 
-.compensation-edit-button:hover {
-  background-color: #218838;
-}
+  .compensation-edit-button:hover {
+    background-color: #218838;
+  }
 
-.compensation-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-
-.compensation-modal {
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 700px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-}
-
-.compensation-modal-title {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  text-align: center;
-  color: #333;
-}
+  .compensation-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
 
 
-.compensation-modal-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
+  .compensation-modal {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  }
 
-.compensation-modal-grid label {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-weight: 600;
-}
+  .compensation-modal-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #333;
+  }
 
-.compensation-modal-grid input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-}
 
-.compensation-modal-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-}
+  .compensation-modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
 
-.compensation-modal-buttons button {
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-}
+  .compensation-modal-grid label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+  }
 
-.compensation-modal-buttons button:first-child {
-  background-color: #28a745;
-  color: white;
-}
+  .compensation-modal-grid input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
 
-.compensation-modal-buttons button:first-child:hover {
-  background-color: #28a745;
-}
+  .compensation-modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
 
-.compensation-modal-buttons .cancel {
-  background-color: #dc3545;
-  color: white;
-}
+  .compensation-modal-buttons button {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
 
-.compensation-modal-buttons .cancel:hover {
-  background-color: #c82333;
-}
+  .compensation-modal-buttons button:first-child {
+    background-color: #28a745;
+    color: white;
+  }
+
+  .compensation-modal-buttons button:first-child:hover {
+    background-color: #28a745;
+  }
+
+  .compensation-modal-buttons .cancel {
+    background-color: #dc3545;
+    color: white;
+  }
+
+  .compensation-modal-buttons .cancel:hover {
+    background-color: #c82333;
+  }
