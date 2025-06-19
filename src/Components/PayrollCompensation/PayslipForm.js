@@ -4,25 +4,25 @@ import "./PayslipForm.css";
 
 function PayslipForm() {
   const [formData, setFormData] = useState({
-    EmpNo: "",
-    Name: "",
-    Designation: "",
-    Contact: "",
-    BankAccNo: "",
-    IfscCode: "",
-    DateOfJoining: "",
-    Location: "",
-    Pan: "",
-    StandardDays: "",
-    DaysWorked: "",
-    BankName: "",
-    BasicPay: "",
-    HRA: "",
-    SpecialAllowance: "",
-    Conveyance: "",
-    Medical: "",
-    PF: "",
-    ProfessionalTax: "",
+    empNo: "",
+  name: "",
+  designation: "",
+  contact: "",
+  bankAccNo: "",
+  ifscCode: "",
+  dateOfJoining: "",
+  location: "",
+  pan: "",
+  standardDays: "",
+  daysWorked: "",
+  bankName: "",
+  basicPay: "",
+  hra: "",
+  specialAllowance: "",
+  conveyance: "",
+  medical: "",
+  pf: "",
+  professionalTax: "",
   });
 
   const handleChange = (e) => {
@@ -31,9 +31,9 @@ function PayslipForm() {
 
   const generatePayslip = async () => {
     try {
-      const response = await axios.post("http://localhost:8080/api/payslips/generate", formData, {
-        responseType: "blob",
-      });
+      const response =await axios.post("http://localhost:8080/api/payslips/generate", formData, {
+  responseType: "blob"
+});
 
       const blob = new Blob([response.data], { type: "application/pdf" });
       const url = window.URL.createObjectURL(blob);

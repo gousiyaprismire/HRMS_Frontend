@@ -1,85 +1,240 @@
+/* ========== EMPLOYEE DASHBOARD ========== */
+
 .employee-dashboard-container {
   padding: 20px;
-  font-family: Arial, sans-serif;
-  /* background-color: #f5f6fa; */
+  font-family: 'Segoe UI', sans-serif;
+  background: #f8f8f8;
+  min-height: 100vh;
 }
 
 .employee-dashboard-header {
-  background-color: #f5f6fa;
-  color: black;
   display: flex;
   justify-content: space-between;
+  background: #fff;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 10px;
   margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   align-items: center;
 }
 
 .employee-dashboard-profile {
   display: flex;
   align-items: center;
-  
+  gap: 20px;
 }
 
 .employee-dashboard-profile-pic {
-  width: 80px;
-  height: 80px;
-  background-color: #0094f0;
-  color: white;
-  font-weight: bold;
+  width: 60px;
+  height: 60px;
+  background: #a37e34;
   border-radius: 50%;
+  color: white;
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-right: 15px;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .employee-dashboard-profile-info h3 {
   margin: 0;
-  padding-left: 30px;
 }
+
 .employee-dashboard-profile-info-text {
-  padding-left: 40px;
+  font-size: 14px;
+  color: #555;
+}
+
+.employee-dashboard-title {
+  text-align: right;
+}
+
+.employee-dashboard-title h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.employee-dashboard-create-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.employee-dashboard-create-button:hover {
+  background-color: #a37e34;
 }
 
 .employee-dashboard-cards {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
+  /* text-align: center; */
   margin-bottom: 30px;
 }
 
 .employee-dashboard-card {
-  flex: 1 1 22%;
-  background-color: white;
-  padding: 15px;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  background: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.04);
 }
 
 .employee-dashboard-card h4 {
-  color: #007bff;
+  color: #a37e34;
   margin-bottom: 10px;
 }
 
+.employee-dashboard-card p {
+  margin: 4px 0;
+  color: #333;
+  font-size: 14px;
+}
+
 .employee-dashboard-charts {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
 
 .employee-dashboard-chart-card {
-  flex: 1 1 30%;
-  background-color: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  background: white;
+  padding: 15px 20px;
+  border-radius: 10px;
   text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.04);
 }
 
 .employee-dashboard-chart-card img {
-  max-width: 100%;
-  height: auto;
-  margin-top: 10px;
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+}
+
+
+.create-profile-container {
+  background-color: #ffffff;
+  padding: 25px 30px;
+  border-radius: 10px;
+  margin: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  max-width: 1200px;
+  width: calc(100% - 60px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.create-profile-title {
+  margin-bottom: 25px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+}
+
+.create-profile-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.create-profile-form div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.create-profile-form label {
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.create-profile-form input,
+.create-profile-form select {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.create-profile-form input:focus,
+.create-profile-form select:focus {
+  border-color: #a37e34;
+  outline: none;
+}
+
+.create-profile-button-container {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.create-profile-save-button {
+  background-color: #a37e34;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 200px;
+}
+
+.create-profile-save-button:hover {
+  background-color: #a37e34;
+}
+
+.create-profile-back-button {
+  background-color: #444;
+  color: #fff;
+  font-size: 14px;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s;
+}
+
+.create-profile-back-button:hover {
+  background-color: #222;
+}
+.employee-dashboard-profile-pic {
+  width: 60px;
+  height: 60px;
+  background: #f7931e;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.employee-dashboard-profile-pic:hover {
+  opacity: 0.85;
+}
+
+.employee-profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
